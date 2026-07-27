@@ -1,0 +1,80 @@
+{
+  "unit": "R5",
+  "title": "学术论文写作 IMRaD · 间隔重复 (FSRS-6, SM-2 backup)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "IMRaD 四部分结构与读者四问 (Introduction=为什么做/Methods=怎么做/Results=发现什么/Discussion=意味什么)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "IMRaD 各部分回答读者哪个核心问题？",
+      "back": "I:你为什么做？/M:你怎么做的？/R:你发现了什么？/D:这意味着什么？IMRaD 是科学交流效率的最优解而非任意格式。",
+      "tags": ["structure", "IMRaD"]
+    },
+    {
+      "id": "C2",
+      "concept": "Introduction 漏斗结构 (领域背景 -> 具体问题 -> 研究空白 -> 本文贡献 -> 论文结构)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Introduction 的倒三角五段是什么？",
+      "back": "领域背景(2-3段,引行业报告) -> 具体问题(1-2段) -> 研究空白(1段,文献综述) -> 本文贡献(1-3 bullets) -> 论文结构。",
+      "tags": ["funnel", "Introduction"]
+    },
+    {
+      "id": "C3",
+      "concept": "APA 第7版统计报告格式: t(df)=X.XX, p=.XXX, d=X.XX, 95% CI [LL,UL]; p≥.001 精确报告, p<.001 才写 <",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "APA 第7版 t 检验完整报告格式？p=.005 怎么写？",
+      "back": "t(df) = X.XX, p = .XXX, d = X.XX, 95% CI [LL, UL]。p=.005 必须精确写 .005，不可写 p<.01 (除非 p<.001)。效应量解读: d=0.2小/0.5中/0.8大 (Cohen, 1988)。",
+      "tags": ["APA", "stats", "Results"]
+    },
+    {
+      "id": "C4",
+      "concept": "Methods 可复现性四要素: 研究设计 -> 数据来源(样本量/收集/脱敏) -> 分析方法(统计模型/工具) -> 评估指标(为何选/如何算)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Methods 可复现性的四要素？",
+      "back": "研究设计(DSR/行动研究/混合) -> 数据来源(样本量/收集方式/脱敏) -> 分析方法(统计模型/工具如 statsmodels) -> 评估指标(为何选/如何算)。",
+      "tags": ["Methods", "reproducibility"]
+    },
+    {
+      "id": "C5",
+      "concept": "Discussion 六要素: 发现解读/理论贡献/实践启示/局限性/未来方向/伦理声明 (局限性诚实=学术成熟标志)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Discussion 的六要素？为何局限性不是弱点？",
+      "back": "发现解读 -> 理论贡献 -> 实践启示 -> 局限性 -> 未来方向 -> 伦理声明。诚实面对局限是学术成熟的标志, 不是弱点。",
+      "tags": ["Discussion", "honesty"]
+    },
+    {
+      "id": "C6",
+      "concept": "LLM-as-a-judge (Zheng et al., NeurIPS 2023, arXiv 2306.05685) 三类偏差: 位置偏差/冗长偏差/自我偏好偏差; 是 L1 关联不是 L2 干预",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "LLM-as-a-judge 的三类偏差？对应因果阶梯哪层？",
+      "back": "位置偏差(position)/冗长偏差(verbosity)/自我偏好偏差(self-enhancement)。对应因果阶梯 L1(文本关联), 不能替代真实同行评审(L2干预: 修改后重投)。定位投稿前自检工具。",
+      "tags": ["LLM-judge", "bias", "peer-review"]
+    },
+    {
+      "id": "C7",
+      "concept": "天道推演设计论证路径: 因果链追踪(假设->证据->结论有向图) -> 沙盘模拟(3条路径 x 3层推演) -> 最优路径推荐(说服力/严谨性/新颖性)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "天道推演如何设计论文论证路径？",
+      "back": "因果链追踪(假设->证据->结论有向图, 识别薄弱节点) -> 沙盘模拟(并行3条路径如先理论后实证/先实证后理论/交替, 每条推演3层: 审稿人质疑->回应->再质疑) -> 最优路径推荐(权衡说服力/严谨性/新颖性, 识别高杠杆点)。",
+      "tags": ["tian-dao", "argument"]
+    },
+    {
+      "id": "C8",
+      "concept": "预注册 (Preregistration) + OSF + 可复现研究: 在数据收集前公开假设与分析计划, 对抗 p-hacking 与 HARKing, 提升结果可信度",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Preregistration + OSF 解决什么问题？",
+      "back": "在数据收集前于 OSF (Open Science Framework) 公开假设+分析计划+代码, 对抗 p-hacking(反复试到显著) 与 HARKing(事后编假设)。提研究可信度, 是可复现研究的核心实践。NSW 类 RCT 论文常预注册。",
+      "tags": ["preregistration", "OSF", "reproducibility"]
+    }
+  ]
+}

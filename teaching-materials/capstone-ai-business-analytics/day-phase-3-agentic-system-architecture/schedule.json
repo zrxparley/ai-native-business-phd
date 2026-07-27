@@ -1,0 +1,43 @@
+{
+  "unit": "U-capstone-phase-3-agentic-system-architecture",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LangGraph StateGraph 三要素 (StateGraph/Node/Edge) + add_conditional_edges 条件边 + interrupt_before HITL 中断 + MemorySaver Checkpointing 持久化: 装配 researcher->strategist->writer->review->publish 多Agent营销系统",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "LangGraph 装配多Agent图需要哪三要素? 条件边怎么注册? HITL 怎么暂停-恢复? Checkpointing 解决什么?",
+      "back": "三要素=StateGraph(状态图)/Node(节点函数)/Edge(边含条件边). 条件边用 add_conditional_edges(node, router_fn, {ret_val:next_node}). HITL 用 compile(interrupt_before=['review_node'], checkpointer=MemorySaver()). Checkpointing 把 State 持久化, 支持 invoke->update_state->resume 三步恢复. 退出条件 revision_count>=3 防死循环.",
+      "tags": ["LangGraph", "StateGraph", "HITL", "Checkpointing", "Capstone三层架构"]
+    },
+    {
+      "id": "C2",
+      "concept": "MCP (Model Context Protocol, Anthropic) 工具接入 + A2A (Agent-to-Agent, Google) Agent协作: MCP接工具(researcher_agent读Phase2知识图谱), A2A接Agent(跨进程Agent通信); Capstone中多Agent通过State共享是同进程A2A",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "MCP和A2A各解决什么? 两者关系? Capstone多Agent通过State共享属于哪种?",
+      "back": "MCP=Model Context Protocol(Anthropic), LLM接工具的标准协议, researcher_agent通过MCP读Phase2知识图谱. A2A=Agent-to-Agent(Google), Agent间通信协议, 解决跨进程/跨框架Agent协作. 互补关系: MCP接工具, A2A接Agent. Capstone多Agent通过LangGraph State共享=同进程内A2A协作.",
+      "tags": ["MCP", "A2A", "researcher_agent", "knowledge_context"]
+    },
+    {
+      "id": "C3",
+      "concept": "Plan-Execute模式 (strategist=Plan阶段制定策略, writer=Execute阶段生成文案+循环修改) + 天道推演×多Agent仿真映射 (条件边=决策路径沙盘, Checkpointing=记录假设, 反馈学习节点=更新因果模型)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Plan-Execute如何分工? 天道推演如何映射到LangGraph多Agent?",
+      "back": "Plan-Execute: strategist=Plan(制定营销策略), writer=Execute(生成/修改文案, 带审核反馈循环). 优势: 比一次性完成更可控/可调试/可独立评估. 天道推演映射: 多路径沙盘=多Agent状态图, 决策路径=条件边, 记录假设=Checkpointing, 更新因果模型=反馈学习节点. 把天道推演从个人认知升级为可计算多Agent沙盘.",
+      "tags": ["Plan-Execute", "天道推演", "strategist_agent", "writer_agent"]
+    },
+    {
+      "id": "C4",
+      "concept": "Capstone三层架构 (用户交互层=HITL审批+final_output, Agent编排层=researcher->strategist->writer->review->publish, 数据与知识层=Phase2知识图谱的knowledge_context字段) + 人机协作治理 (战略决策人类主导/创意生成混合/安全审查Agent执行人类政策)",
+      "due": [1, 3, 8, 21, 60],
+      "ef0": 2.5,
+      "front": "三层架构各对应什么? knowledge_context字段是哪层到哪层的桥? 人机分工矩阵?",
+      "back": "用户交互层=Brief输入+HITL审批+final_output. Agent编排层=LangGraph多Agent工作流. 数据与知识层=Phase2知识图谱. knowledge_context是Phase2->Phase3数据桥梁(数据知识层->Agent编排层). 人机分工: 战略决策=人类主导Agent提供数据; 创意生成=Agent变体人类选(混合); 安全审查=人类政策Agent执行. review_node+interrupt_before是这治理的工程实现.",
+      "tags": ["Capstone三层架构", "knowledge_context", "HITL", "治理框架"]
+    }
+  ]
+}

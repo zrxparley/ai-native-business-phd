@@ -1,0 +1,38 @@
+{
+  "unit": "U-capstone-phase-1",
+  "unit_topic": "Capstone阶段1: 问题定义+文献综述 (DSR框架 + PRISMA + arxiv/pydantic/pandas/matplotlib + 天道推演路径选择)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "DSR六步框架 (Hevner 2004 / Peffers 2007) Step 1-2: 问题识别与目标定义，把模糊研究想法转化为可验证artifact定义",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "PRISMA四步流程: Identification(检索) -> Screening(去重+筛选) -> Quality Assessment(质量评估) -> Synthesis(综合+gap)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "arxiv包查询arXiv API + pydantic Schema构建 + pandas DataFrame文献计量 + matplotlib画PRISMA流程图(真实数字)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演沙盘推演: 3条研究路径 × 3层(immediate Phase2-3 / near Phase4-5 / far Phase6+发表) + 贝叶斯后验更新路径概率",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "DeepSeek/RAGAS LLM辅助文献综述: 摘要提取(DeepSeek-V3/R1) + 相关性判断(语义匹配) + 证据合成(RAGAS评估LLM综述质量)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

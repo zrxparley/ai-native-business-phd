@@ -1,0 +1,57 @@
+{
+  "unit": "skill-0-business-analytics/day-4-regression-probability",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_21": [0.4, 0.6, 1.2, 2.4, 5.8, 9.6, 14.8, 19.2, 19.6, 18.0, 15.2, 11.6, 8.4, 5.8, 3.6, 2.0, 1.0, 0.5, 0.3, 0.2, 0.1],
+  "sm2_backup": {
+    "ef0": 2.5,
+    "interval_formula": "I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+    "ef_update": "EF' = EF + (0.1 - (5-q)*(0.08 + (5-q)*0.02)), clamped [1.3, 2.5]"
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "statsmodels OLS 多元回归 + VIF 多重共线性 (causaldata NSW treat coef=1621, R²=0.037, VIF>10 警戒)",
+      "front": "给定 NSW re78 ~ age + educ + re75 + treat 的 OLS 输出, 如何解读 treat 系数? R²=0.037 低说明了什么? VIF 如何算?",
+      "back": "treat=1621 表示干预组平均多1621单位; p<0.05 显著; R² 低因真实RCT数据变异大, 重点是系数显著性与因果解释; VIF = 1/(1-R²_j), 对每个 X 单独回归算",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["OLS", "VIF", "statsmodels", "NSW"]
+    },
+    {
+      "id": "C2",
+      "concept": "statsmodels Logit 逻辑回归 + 倾向性评分 propensity score (P(treat=1|X), 连接技能3因果推断的桥梁)",
+      "front": "为何二值因变量不能用 OLS? 如何用 sm.Logit 拟合并算 propensity score? 倾向性评分与处理效应区别?",
+      "back": "OLS 会出 [0,1] 外预测; sm.Logit(y,X).fit() 后用 1/(1+np.exp(-fittedvalues)) 得 propensity; propensity 是被分到干预组的概率, 不是效应, 用于匹配/加权",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Logit", "propensity", "statsmodels"]
+    },
+    {
+      "id": "C3",
+      "concept": "scipy.stats 三种概率分布 + LTV 概率区间 (norm 订单金额/binom 转化/poisson 来电次数; NSW LTV uplift 39.4%)",
+      "front": "客服来电/转化0-1/订单金额各选哪种 scipy.stats 分布? 如何用回归+分布算 LTV 概率区间而非点估计?",
+      "back": "poisson(mu=lambda)/binom(n,p)/norm(mu,sigma, 金额取对数后); LTV = E[re78|treat=1]-E[re78|treat=0], 用 norm 拟合后做差取 95% 分位区间",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["scipy.stats", "LTV", "norm", "binom", "poisson"]
+    },
+    {
+      "id": "C4",
+      "concept": "statsmodels.QuantReg 分位数回归 + 异质性效应 (NSW 75分位 treat coef=2502 p=0.004 vs 25分位 290 p=0.520)",
+      "front": "为何 OLS 均值回归看不到 NSW treat 在不同分位的差异? QuantReg 如何调用? 75分位 vs 25分位系数差异说明什么?",
+      "back": "OLS 只拟合条件均值, 看不到分布尾部; sm.QuantReg(y,X).fit(q=0.75); 75分位 2502 显著 vs 25分位 290 不显著 -> 干预对高收入分位有效, 低收入无效, 这是均值回归的盲点",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["QuantReg", "分位数回归", "异质性", "statsmodels"]
+    }
+  ],
+  "review_policy": {
+    "grade_scale": [1, 2, 3, 4, 5],
+    "grade_1_2": "重置 interval=1, EF'=max(1.3, EF-0.2)",
+    "grade_3": "interval 不变, 重做本次",
+    "grade_4": "interval = next due, EF 不变",
+    "grade_5": "interval = next due, EF'+=0.1 (上限 2.5)",
+    "leech_threshold": "同卡连续 4 次 grade<=3 -> 转入弱项循环, 回退 practice.md D1/D2/D3"
+  }
+}

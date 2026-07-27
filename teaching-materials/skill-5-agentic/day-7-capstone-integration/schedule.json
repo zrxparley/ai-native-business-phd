@@ -1,0 +1,48 @@
+{
+  "unit": "U5D7",
+  "title": "Capstone整合: 端到端Agentic AI项目 (DSR + causaldata->DoWhy->LangGraph->deepeval->IMRaD)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "DSR六步框架 (Hevner et al. 2004 MISQ; Peffers et al. 2007): 问题识别->目标定义->设计开发->演示->评估->传播. AI原生Agent系统本身是artifact, 架构/评估/安全实践都是可发表的DSR知识贡献.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "DSR六步顺序与每步的Capstone落点?",
+      "back": "Step1问题识别(营销效果因果未知) -> Step2目标定义(效率/质量/安全/可评估) -> Step3设计开发(LangGraph架构+Agent+安全+评估) -> Step4演示(NSW真实场景跑通) -> Step5评估(deepeval定量+访谈+红队) -> Step6传播(IMRaD+开源+ICIS/DSS/HICSS投稿)"
+    },
+    {
+      "id": "C2",
+      "concept": "端到端Capstone流水线五层: 数据层(causaldata NSW真实RCT, treat=营销干预/re78=转化率/re75=基线) -> 因果层(DoWhy估计ATE+反事实) -> Agent层(LangGraph StateGraph编排营销策略Agent, 条件边分支) -> 评估层(deepeval BaseMetric+GEval LLM-as-a-judge) -> 论文层(IMRaD草稿+DSR artifact描述).",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "五层流水线每层的真实库与产出?",
+      "back": "causaldata->DataFrame; DoWhy->ATE估计+反事实; LangGraph->策略文本+工具轨迹; deepeval->评估指标(BaseMetric引用工具轨迹, GEval criteria含因果grounded度); IMRaD->3000-5000字DSR artifact论文草稿"
+    },
+    {
+      "id": "C3",
+      "concept": "天道推演×多Agent仿真同构(特色理论视角): 局势感知<->Agent环境建模(状态空间); 因果链追踪<->Agent交互链(因果有向图); 沙盘模拟3层推演<->多Agent场景模拟(并行世界树); 概率评估<->涌现行为概率分布(贝叶斯); 最优路径推荐<->策略优化(收益/风险). 共享因果建模底层. DSR评估系统好不好, 天道推演评估策略路径优不优, 互补.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "五对同构映射与DSR的互补关系?",
+      "back": "局势感知/因果链追踪/沙盘模拟/概率评估/最优路径 各对应Agent建模/交互链/场景模拟/涌现概率/策略优化; DSR=系统好不好, 天道推演=策略路径优不优, Discussion双框架叠加"
+    },
+    {
+      "id": "C4",
+      "concept": "deepeval评估层要点: 自定义BaseMetric必须在measure()里引用Agent工具调用轨迹(否则评的是LLM文本不是Agent); GEval LLM-as-a-judge的criteria必须含因果grounded度(否则无法区分grounded策略与幻觉); 评估对象从单条文案(Day3)升级为完整Agent系统(Day7).",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "BaseMetric与GEval的两个必须?",
+      "back": "BaseMetric.measure()必须引用工具轨迹; GEval criteria必须含因果grounded度; 评估对象从单文案升级为完整Agent系统"
+    },
+    {
+      "id": "C5",
+      "concept": "可复现研究四要素(2026最佳实践): 开源代码(GitHub+requirements.txt/Dockerfile) + deepeval CI测试套件(代码变更后评估可追踪) + langsmith/Langfuse trace存档(每次Agent运行完整调用链) + 数据文档(来源/预处理/变量定义). Agent非确定性输出与模型版本漂移是主要挑战. 投稿策略: 先投会议(ICIS/HICSS反馈快)->改投期刊(MISQ/DSS/ESWA)->开源代码增可信.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "可复现研究四要素与投稿策略?",
+      "back": "开源代码+deepeval CI+langsmith trace+数据文档; 先会议(ICIS/HICSS)后期刊(MISQ/DSS/ESWA), 开源增可信"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "unit": "U-R1",
+  "title": "设计科学研究（DSR）间隔重复卡集",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "DSR Artifact 四种类型（March & Smith 1995）: constructs / models / methods / instantiations -- 营销因果图模型=treat->re78 属于 model；GraphRAG 营销检索系统属于 instantiation",
+      "front": "March & Smith (1995) 的四种 artifact 类型是什么？分别举一个营销 AI 示例。",
+      "back": "constructs（构造）/ models（模型）/ methods（方法）/ instantiations（实例化）。示例：营销知识多模态表示框架=construct；营销因果图 model=treat->re78；GraphRAG 社区摘要方法=method；基于 LangGraph 的营销策略 Agent 系统=instantiation。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["March&Smith", "artifact-types", "DSR基础"]
+    },
+    {
+      "id": "C2",
+      "concept": "Hevner 七准则 (Hevner et al. 2004, MIS Quarterly): 1.Artifact贡献 2.问题相关性 3.设计评估 4.研究贡献 5.研究严谨性 6.设计即搜索 7.研究交流 -- rigor vs design 核心张力在准则5与准则2之间",
+      "front": "Hevner 七准则列出并说明 rigor vs design 的核心张力在哪两条准则之间。",
+      "back": "1.Artifact作为研究贡献 2.问题相关性 3.设计评估 4.研究贡献 5.研究严谨性 6.设计即搜索 7.研究交流。张力在准则5（rigor，理论依据，如 Imbens & Rubin 2015 潜在结果框架）与准则2（design，实际问题相关性）之间。好的 DSR 两者兼顾。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Hevner", "七准则", "rigor-design"]
+    },
+    {
+      "id": "C3",
+      "concept": "Peffers 六步流程 (Peffers et al. 2007, JMIS): 1.问题识别 2.目标定义 3.设计开发 4.演示 5.评估 6.传播 -- Step 5 评估必须与 Step 2 目标对应，否则 Hevner 准则3失败",
+      "front": "Peffers 六步流程列出，并说明 Step 2 与 Step 5 的对应关系为何关键。",
+      "back": "1.Problem Identification 2.Objectives 3.Design & Development 4.Demonstration 5.Evaluation 6.Communication。Step 5 评估必须直接验证 Step 2 目标；若不对应，则 Hevner 准则3（设计评估）失败，artifact 有效性无法成立。营销 Agent 实例：Step2 目标=Agent基于因果证据生成策略 -> Step5 评估=NSW ATE=1794.34 + 策略质量评分 0.80。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Peffers", "六步", "DSR流程"]
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演与 DSR 同构映射: 局势感知<->Step1问题识别 / 因果链追踪<->Step3设计开发 / 沙盘模拟<->Step4演示 / 概率评估<->Step5评估 / 最优路径推荐<->Step2目标+Step6传播",
+      "front": "天道推演的五项能力如何与 DSR 六步同构？给出至少 3 个映射。",
+      "back": "1.局势感知<->Step1问题识别（共享状态空间定义）2.因果链追踪<->Step3设计的因果建模（共享因果有向图）3.沙盘模拟3层推演<->Step4多场景演示（共享并行世界树）4.概率评估<->Step5评估的概率分布（共享贝叶斯推断）5.最优路径推荐<->Step2目标+Step6传播（收益/风险权衡）。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["天道推演", "同构", "设计推演工具"]
+    },
+    {
+      "id": "C5",
+      "concept": "DSR Step 6 传播的学术贡献本质: artifact 本身不是贡献，从设计+评估中抽取的可复用设计原则才是 -- '做了一个系统' vs '产出设计原则'的认知跃迁",
+      "front": "为什么 DSR 的学术贡献不在于 artifact 本身？这一认知跃迁如何区分工程实践者与知识创造者？",
+      "back": "DSR 的贡献是可复用的设计原则（principle + rationale + generalizability 三件套），而非 artifact。工程实践者交付系统；知识创造者从系统中抽象出可被其他团队复用的原则。例如从营销 Agent 抽出'因果证据优先'原则，可迁移至采购 ClawBot。这正是 DSR Step 6 Communication 的本质。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["设计原则", "学术贡献", "知识创造"]
+    }
+  ],
+  "review_log": {
+    "note": "本卡集遵循 FSRS-6 算法（SM-2 backup），request_retention=0.9。due 数组单位为天，建议在 Anki 或 py-fsrs 中导入。每个 card 的 concept 锚定本单元 notes.md 的真实概念（March&Smith 四型/Hevner 七准则/Peffers 六步/天道推演同构/设计原则抽取）。",
+    "backup_sm2": "若 FSRS-6 不可用，回退到 SM-2：ef0=2.5，每次答对 ef += 0.1（上限 2.8），答错 ef -= 0.2，interval = ef * prev_interval。"
+  }
+}

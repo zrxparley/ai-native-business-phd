@@ -1,0 +1,69 @@
+{
+  "unit": "Skill1-Day1",
+  "topic": "表示学习理论 (Representation Learning Theory)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_note": "FSRS-6: 21 weights, request_retention=0.9; SM-2 backup: EF0=2.5, I(1)=1, I(2)=6, EF update on review quality q in {0,1,2,3,4,5}",
+  "request_retention": 0.9,
+  "weights_21": [
+    0.4076, 0.5813, 1.2123, 2.8066, 5.5017, 1.0235, 0.5208, 0.3213,
+    1.2345, 0.8123, 1.5432, 0.5431, 0.2109, 0.1098, 1.0, 0.5,
+    0.3, 0.2, 0.4, 0.6, 0.5
+  ],
+  "sm2_backup": {
+    "ef0": 2.5,
+    "i1": 1,
+    "i2": 6,
+    "ef_update_rule": "EF' = EF + (0.1 - (5-q)*(0.08+(5-q)*0.02)), EF >= 1.3"
+  },
+  "review_quality_scale": "0=again, 1=hard, 2=hard, 3=good, 4=easy, 5=perfect",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "范式转移 f(x)=wᵀφ(x) → f(x)=wᵀφ_θ(x): 表示函数 φ 从人工设计(固定)变为数据驱动学习(θ 可训练, 反向传播更新), 营销含义=从手工特征到自动发现行为模式",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["theory", "CMU10741", "paradigm-shift"],
+      "drill_link": "D1"
+    },
+    {
+      "id": "C2",
+      "concept": "Neural Collapse (Papyan et al. 2020, arXiv 2008.08186): 分类网络训练后期最后一层特征呈现特殊几何--类别内方差→0, 类别间距离最大, 特征与分类器对齐; 实践含义: 倒数第二层特征天然适合客户分群",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["theory", "geometry", "frontier"],
+      "drill_link": "D2"
+    },
+    {
+      "id": "C3",
+      "concept": "sentence-transformers all-MiniLM-L6-v2: 384 维 embedding, batch encode 输入 list, model.get_sentence_embedding_dimension() 查维度, 余弦相似度=语义相似度 (cos=1-余弦距离), 已用对比学习 fine-tune",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["code", "library", "sentence-transformers"],
+      "drill_link": "D1"
+    },
+    {
+      "id": "C4",
+      "concept": "四种表示学习方法: Autoencoder L=‖x-x'‖² (压缩-重建瓶颈) / VAE L=E[‖x-x'‖²]+KL(q‖p) (概率+正则) / GAN min_G max_D (对抗) / Normalizing Flow log p(x)=log p(z₀)+Σ log|det J| (可逆精确密度)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["theory", "methods"],
+      "drill_link": "D3"
+    },
+    {
+      "id": "C5",
+      "concept": "Representation Engineering (RepE, Zou et al. 2023, arXiv 2310.01405): 自上而下读取/操控神经网络群体级表示, 监测模型认知状态 (诚实性/有害性/权力寻求); 对营销 AI=开发期透明性工具, 监测 Agent 是否在'想'虚构信息",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["frontier", "RepE", "transparency"],
+      "drill_link": "D3"
+    },
+    {
+      "id": "C6",
+      "concept": "DSR 六步框架 (Peffers et al. 2007, Hevner 2004): 1.问题识别 2.定义目标 3.设计开发 4.演示 5.评估 6.传播; 把工程实践转化为学术贡献, 评估用多指标 (Recall@K/Silhouette/分类准确率)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["research", "DSR", "methodology"],
+      "drill_link": "progressive_project"
+    }
+  ]
+}

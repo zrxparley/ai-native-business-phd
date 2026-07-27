@@ -1,0 +1,40 @@
+{
+  "unit": "skill-0-business-analytics/day-1-python-fundamentals",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_note": "FSRS-6 with 21 weights, request_retention=0.9; if FSRS-6 unavailable fall back to SM-2 (EF0=2.5, I(1)=1, I(2)=6, I(n)=I(n-1)*EF).",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "pandas DataFrame 加载与 dtype 治理 - customer_id 前导零丢失 (str vs int64), dtypes/info/head/describe(include='all') 探索性分析, read_csv(dtype={'customer_id':str})",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pandas", "dtype", "数据治理"],
+      "source": "notes.md 关键回顾 3 + practice.md D1"
+    },
+    {
+      "id": "C2",
+      "concept": "RFM 客户分类 + apply 向量化 - R(recency 30天)/F(frequency 3次)/M(monetary 500元) 阈值, df.apply(rfm_classify, axis=1) 比 for 循环快 10-100x, np.select 向量化替代",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pandas", "apply", "向量化", "RFM"],
+      "source": "notes.md 关键回顾 4 + practice.md D2"
+    },
+    {
+      "id": "C3",
+      "concept": "pandas 2.x Apache Arrow 后端 vs Polars LazyFrame - dtype_backend='pyarrow' 零拷贝交换, Arrow 列式存储省 30-50% 内存, Polars Rust+Rayon 多线程 5-30x 性能, LazyFrame 查询优化器避免中间物化",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Apache Arrow", "Polars", "pandas 2.x", "前沿"],
+      "source": "notes.md 2026 前沿补充 + reading.md"
+    },
+    {
+      "id": "C4",
+      "concept": "营销指标计算与可复现 IO - ROI=(收入-成本)/成本(除零用 np.divide where=cost>0), AOV=总营收/订单数, 转化率=购买客户数/访客数, 复购率=购>=2次客户数/总客户数, to_csv(index=False)+read_json, random_state=42 可复现研究",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["numpy", "营销指标", "IO", "可复现"],
+      "source": "notes.md 上机任务 + practice.md D3"
+    }
+  ]
+}

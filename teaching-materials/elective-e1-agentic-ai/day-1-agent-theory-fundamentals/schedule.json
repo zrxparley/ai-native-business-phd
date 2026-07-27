@@ -1,0 +1,64 @@
+{
+  "unit": "elective-e1-agentic-ai/day-1-agent-theory-fundamentals",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "notes": "Day 1 Agent理论基础 间隔重复卡集。所有 concept 取自 notes.md 真实概念:自主性谱系L0-L4 / BDI / ReAct / Agent形式化<S,A,T,O,π> / Plan-Execute / 工具使用三层 / MemorySaver checkpointer。due 间隔按 FSRS-6 默认 [1,3,8,21,60,180] 天,SM-2 作为 fallback 时按 ef0=2.5 递推。",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "自主性谱系 L0-L4 (Anthropic Building Effective Agents): L0单次调用 / L1链式 / L2条件路由 / L3受控循环ReAct / L4自主规划Agent;Workflow vs Agent 本质差异=LLM是否自主决策",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "L0-L4 五级名称 + 每级营销示例(翻译文案/调研链/按用户选策略/ReAct搜索/自主策划发布会)",
+      "anti_pattern": "误把 L2 条件路由当 Agent(它仍是 Workflow,LLM 不自主决策路径)"
+    },
+    {
+      "id": "C2",
+      "concept": "BDI 模型 (Bratman 1987 / Rao & Georgeff 1995): Belief信念=System Prompt+Context+检索信息;Desire愿望=用户任务;Intention意图=承诺执行计划;Intention的坚持性使Agent不因微小变化放弃计划",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "营销映射: Belief=产品知识+市场认知, Desire=生成10000+阅读文章, Intention=Step1分析热门->Step2大纲->Step3撰写",
+      "anti_pattern": "把 Intention 当成 Desire(Desire 是目标,Intention 是承诺的计划步骤,有序)"
+    },
+    {
+      "id": "C3",
+      "concept": "ReAct 范式 (Yao et al. 2022, arXiv 2210.03629): Thought->Action->Observation 闭环;解决纯推理不能用工具+纯行动不显式推理两缺陷;每步 Action 改变 Belief 影响下一 Thought",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "三段式因果依赖: Observation 依赖 Action, Thought 依赖 Observation(新 Belief), Action 依赖 Thought",
+      "anti_pattern": "漏掉 Observation 环节,直接 Thought->Action->Thought(失去环境反馈闭环)"
+    },
+    {
+      "id": "C4",
+      "concept": "Agent 形式化元组 <S, A, T, O, π>: S状态空间 / A动作空间 / T转移函数 / O观测函数 / π策略;LLM Agent 特殊性=策略π由 LLM 推理动态生成,非固定函数",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "ReAct 中: S=Belief+历史轨迹, A=工具调用, T=工具执行结果更新S, O=工具返回文本, π=LLM推理",
+      "anti_pattern": "把 π 当固定 if/else 规则(LLM Agent 的 π 是动态生成的)"
+    },
+    {
+      "id": "C5",
+      "concept": "Plan-Execute vs ReAct 适用边界: Plan-Execute 一次性规划后顺序执行(可控但适应性差,信息充分时优); ReAct 逐步探索(灵活但成本不可预测,信息不足时优); Plan 错误传播到所有 Execute 步骤",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "营销决策: 结构化任务(已知步骤)->Plan-Execute; 探索性任务(需调研)->ReAct",
+      "anti_pattern": "信息不足时强行用 Plan-Execute(Plan 基于错误前提,全部 Execute 失效)"
+    },
+    {
+      "id": "C6",
+      "concept": "工具使用三层 (Tool Use): 1.Function Calling(LLM输出结构化JSON调用) 2.工具选择(从多工具选最合适,工具描述优化) 3.工具组合(多工具串联理解依赖);LangChain @tool 装饰器的名称+docstring+参数类型=LLM看到的接口契约",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "本Day三工具: search_product_info(产品检索) / analyze_competitor(竞品分析) / write_strategy(策略写入,不可逆)",
+      "anti_pattern": "docstring 缺参数说明(LLM 无法正确选工具,接口契约不完整)"
+    },
+    {
+      "id": "C7",
+      "concept": "MemorySaver checkpointer: LangGraph 短期记忆机制,支持多轮对话;保存 Agent 状态(Belief+Intention+历史轨迹)到 checkpoint,下一轮对话从 checkpoint 恢复;对应 Agent 形式化的状态空间 S 持久化",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "TODO5 实现: config={'configurable':{'thread_id':...}} + MemorySaver() 传入 create_react_agent",
+      "anti_pattern": "每次对话新建 thread_id(失去多轮上下文,等于无记忆)"
+    }
+  ]
+}

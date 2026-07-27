@@ -1,0 +1,2667 @@
+{
+ "papers": [
+  {
+   "title": "Faith in AI can narrow the futures individuals consider",
+   "summary": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo",
+   "published": "2026-03-30",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2603.28944v2",
+   "authors": [
+    "Aoi Naito",
+    "Hirokazu Shirado"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Foundations of GenIR",
+   "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two ",
+   "published": "2025-01-06",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2501.02842v1",
+   "authors": [
+    "Qingyao Ai",
+    "Jingtao Zhan",
+    "Yiqun Liu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+   "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating",
+   "published": "2026-01-23",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2601.16513v1",
+   "authors": [
+    "Melissa Wilfley",
+    "Mengting Ai",
+    "Madelyn Rose Sanfilippo"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "How marketing vocabulary was evolving from 2005 to 2014? An illustrative application of statistical methods on text mining",
+   "summary": "Here a collection of 1169 abstracts, which corresponds to articles that the Journal of Marketing Research has published from 2005 to 2014, are analysed under a novel approach. We apply several statistical methods, such as Principal Components Analysis and Correspondence Analysis to identify the way Marketing vocabulary is evolving. Similarly those articles that introduce new vocabulary are identif",
+   "published": "2016-02-05",
+   "primary_category": "cs.DL",
+   "entry_id": "http://arxiv.org/abs/1606.03963v1",
+   "authors": [
+    "Igor Barahona",
+    "Daria Micaela Hernandez",
+    "Hector Hugo Perez-Villarreal"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Exploring Sectoral Profitability in the Indian Stock Market Using Deep Learning",
+   "summary": "This paper explores using a deep learning Long Short-Term Memory (LSTM) model for accurate stock price prediction and its implications for portfolio design. Despite the efficient market hypothesis suggesting that predicting stock prices is impossible, recent research has shown the potential of advanced algorithms and predictive models. The study builds upon existing literature on stock price predi",
+   "published": "2024-05-28",
+   "primary_category": "q-fin.CP",
+   "entry_id": "http://arxiv.org/abs/2407.01572v1",
+   "authors": [
+    "Jaydip Sen",
+    "Hetvi Waghela",
+    "Sneha Rakshit"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "The relationship between content marketing and the traditional marketing communication tools",
+   "summary": "Digitalization is making a significant impact on marketing. New marketing approaches and tools are emerging which are not always clearly categorised. This article seeks to investigate the relationship between one of the novel marketing tools, content marketing, and the five elements of the traditional marketing communication mix. Based on an extensive literature review, this paper analyses the mai",
+   "published": "2022-12-26",
+   "primary_category": "econ.GN",
+   "entry_id": "http://arxiv.org/abs/2301.01279v1",
+   "authors": [
+    "Szabolcs Nagy",
+    "Gergo Hajdu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+   "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successful",
+   "published": "2023-07-08",
+   "primary_category": "cs.OH",
+   "entry_id": "http://arxiv.org/abs/2308.12400v1",
+   "authors": [
+    "Gerardo Adesso"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Meaningful human control: actionable properties for AI system development",
+   "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsi",
+   "published": "2021-11-25",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2112.01298v2",
+   "authors": [
+    "Luciano Cavalcante Siebert",
+    "Maria Luce Lupetti",
+    "Evgeni Aizenberg"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+   "summary": "Classic models cast information seeking as iterative foraging: formulate a keyword query, scan results, reformulate, gather across sources, synthesize. We ask what happens when a conversational assistant is inserted into that episode. Linking real conversations with major assistants to the same users' searches and browsing in an opt-in cross-surface panel, and reconstructing the full episode rathe",
+   "published": "2026-07-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2607.04282v1",
+   "authors": [
+    "Michael Iannelli",
+    "Alan Ai"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Need of AI in Modern Education: in the Eyes of Explainable AI (xAI)",
+   "summary": "Modern Education is not \\textit{Modern} without AI. However, AI's complex nature makes understanding and fixing problems challenging. Research worldwide shows that a parent's income greatly influences a child's education. This led us to explore how AI, especially complex models, makes important decisions using Explainable AI tools. Our research uncovered many complexities linked to parental income",
+   "published": "2024-07-31",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2408.00025v3",
+   "authors": [
+    "Supriya Manna",
+    "Niladri Sett"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Beyond principlism: Practical strategies for ethical AI use in research practices",
+   "summary": "The rapid adoption of generative artificial intelligence (AI) in scientific research, particularly large language models (LLMs), has outpaced the development of ethical guidelines, leading to a \"Triple-Too\" problem: too many high-level ethical initiatives, too abstract principles lacking contextual and practical relevance, and too much focus on restrictions and risks over benefits and utilities. E",
+   "published": "2024-01-27",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2401.15284v6",
+   "authors": [
+    "Zhicheng Lin"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+   "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interact",
+   "published": "2025-04-23",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.16770v1",
+   "authors": [
+    "Chaeyeon Lim"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Expansive Participatory AI: Supporting Dreaming within Inequitable Institutions",
+   "summary": "Participatory Artificial Intelligence (PAI) has recently gained interest by researchers as means to inform the design of technology through collective's lived experience. PAI has a greater promise than that of providing useful input to developers, it can contribute to the process of democratizing the design of technology, setting the focus on what should be designed. However, in the process of PAI",
+   "published": "2022-11-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2211.12434v1",
+   "authors": [
+    "Michael Alan Chang",
+    "Shiran Dudy"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "AI and the EU Digital Markets Act: Addressing the Risks of Bigness in Generative AI",
+   "summary": "As AI technology advances rapidly, concerns over the risks of bigness in digital markets are also growing. The EU's Digital Markets Act (DMA) aims to address these risks. Still, the current framework may not adequately cover generative AI systems that could become gateways for AI-based services. This paper argues for integrating certain AI software as core platform services and classifying certain",
+   "published": "2023-07-07",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2308.02033v1",
+   "authors": [
+    "Ayse Gizem Yasar",
+    "Andrew Chong",
+    "Evan Dong"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Exploring utilization of generative AI for research and education in data-driven materials science",
+   "summary": "Generative AI has recently had a profound impact on various fields, including daily life, research, and education. To explore its efficient utilization in data-driven materials science, we organized a hackathon -- AIMHack2024 -- in July 2024. In this hackathon, researchers from fields such as materials science, information science, bioinformatics, and condensed matter physics worked together to ex",
+   "published": "2025-04-09",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2504.08817v2",
+   "authors": [
+    "Takahiro Misawa",
+    "Ai Koizumi",
+    "Ryo Tamura"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "White-Box AI Model: Next Frontier of Wireless Communications",
+   "summary": "White-box AI (WAI), or explainable AI (XAI) model, a novel tool to achieve the reasoning behind decisions and predictions made by the AI algorithms, makes it more understandable and transparent. It offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models. In this paper, WAI-aided wireless communication systems are proposed and ",
+   "published": "2025-04-12",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2504.09138v1",
+   "authors": [
+    "Jiayao Yang",
+    "Jiayi Zhang",
+    "Bokai Xu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "BERT4beam: Large AI Model Enabled Generalized Beamforming Optimization",
+   "summary": "Artificial intelligence (AI) is anticipated to emerge as a pivotal enabler for the forthcoming sixth-generation (6G) wireless communication systems. However, current research efforts regarding large AI models for wireless communications primarily focus on fine-tuning pre-trained large language models (LLMs) for specific tasks. This paper investigates the large-scale AI model designed for beamformi",
+   "published": "2025-09-14",
+   "primary_category": "eess.SY",
+   "entry_id": "http://arxiv.org/abs/2509.11056v2",
+   "authors": [
+    "Yuhang Li",
+    "Yang Lu",
+    "Wei Chen"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Quantum batteries in coherent Ising machine",
+   "summary": "With intensive studies of quantum thermodynamics, quantum batteries (QBs) have been proposed to store and transfer energy via quantum effects. Despite many theoretical models, decoherence remains a severe challenge and practical platforms are still rare. Here, we propose a QB based on the coherent Ising machine, in which the signal field acts as the core energy-storage unit. To clarify the role of",
+   "published": "2025-12-17",
+   "primary_category": "quant-ph",
+   "entry_id": "http://arxiv.org/abs/2512.15072v2",
+   "authors": [
+    "Jin-Tian Zhang",
+    "Shuang-Quan Ma",
+    "Jing-Yi-Ran Jin"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective",
+   "summary": "The advent of Generative AI has marked a significant milestone in artificial intelligence, demonstrating remarkable capabilities in generating realistic images, texts, and data patterns. However, these advancements come with heightened concerns over data privacy and copyright infringement, primarily due to the reliance on vast datasets for model training. Traditional approaches like differential p",
+   "published": "2023-11-30",
+   "primary_category": "cs.SE",
+   "entry_id": "http://arxiv.org/abs/2311.18252v3",
+   "authors": [
+    "Dawen Zhang",
+    "Boming Xia",
+    "Yue Liu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Expert-Guided LLM Reasoning for Battery Discovery: From AI-Driven Hypothesis to Synthesis and Characterization",
+   "summary": "Large language models (LLMs) leverage chain-of-thought (CoT) techniques to tackle complex problems, representing a transformative breakthrough in artificial intelligence (AI). However, their reasoning capabilities have primarily been demonstrated in solving math and coding problems, leaving their potential for domain-specific applications-such as battery discovery-largely unexplored. Inspired by t",
+   "published": "2025-07-21",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2507.16110v1",
+   "authors": [
+    "Shengchao Liu",
+    "Hannan Xu",
+    "Yan Ai"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "GenAI vs. Human Creators: Procurement Mechanism Design in Two-/Three-Layer Markets",
+   "summary": "With the rapid advancement of generative AI (GenAI), mechanism design adapted to its unique characteristics poses new theoretical and practical challenges. Unlike traditional goods, content from one domain can enhance the training and performance of GenAI models in other domains. For example, OpenAI's video generation model Sora (Liu et al., 2024b) relies heavily on image data to improve video gen",
+   "published": "2025-11-09",
+   "primary_category": "cs.GT",
+   "entry_id": "http://arxiv.org/abs/2511.06559v2",
+   "authors": [
+    "Rui Ai",
+    "David Simchi-Levi",
+    "Haifeng Xu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+   "summary": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critica",
+   "published": "2025-04-20",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.14689v1",
+   "authors": [
+    "Katelyn Xiaoying Mei",
+    "Nic Weber"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Lattica: A Decentralized Cross-NAT Communication Framework for Scalable AI Inference and Training",
+   "summary": "The rapid expansion of distributed Artificial Intelligence (AI) workloads beyond centralized data centers creates a demand for new communication substrates. These substrates must operate reliably in heterogeneous and permissionless environments, where Network Address Translators (NATs) and firewalls impose significant constraints. Existing solutions, however, are either designed for controlled dat",
+   "published": "2025-09-30",
+   "primary_category": "cs.DC",
+   "entry_id": "http://arxiv.org/abs/2510.00183v2",
+   "authors": [
+    "Ween Yang",
+    "Jason Liu",
+    "Suli Wang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "How do Humans Process AI-generated Hallucination Contents: a Neuroimaging Study",
+   "summary": "While AI-generated hallucinations pose considerable risks, the underlying cognitive mechanisms by which humans can successfully recognize or be misled by these hallucinations remain unclear. To address this problem, this paper explores humans' neural dynamics to characterize how the brain processes hallucinated content. We record EEG signals from 27 participants while they are performing a verific",
+   "published": "2026-05-16",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.16953v2",
+   "authors": [
+    "Shuqi Zhu",
+    "Yi Zhong",
+    "Ziyi Ye"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Overview of AI and Communication for 6G Network: Fundamentals, Challenges, and Future Research Opportunities",
+   "summary": "With the growing demand for seamless connectivity and intelligent communication, the integration of artificial intelligence (AI) and sixth-generation (6G) communication networks has emerged as a transformative paradigm. By embedding AI capabilities across various network layers, this integration enables optimized resource allocation, improved efficiency, and enhanced system robust performance, par",
+   "published": "2024-12-19",
+   "primary_category": "cs.NI",
+   "entry_id": "http://arxiv.org/abs/2412.14538v4",
+   "authors": [
+    "Qimei Cui",
+    "Xiaohu You",
+    "Ni Wei"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "A discount strategy in word-of-mouth marketing and its assessment",
+   "summary": "This paper addresses the discount pricing in word-of-mouth (WOM) marketing. A new discount strategy known as the Infection-Based Discount (IBD) strategy is proposed. The basic idea of the IBD strategy lies in that each customer enjoys a discount that is linearly proportional to his/her influence in the WOM network. To evaluate the performance of the IBD strategy, the WOM spreading process is model",
+   "published": "2017-04-23",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/1704.06910v1",
+   "authors": [
+    "Tianrui Zhang",
+    "Xiaofan Yang",
+    "Lu-Xing Yang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Supporting Data-Frame Dynamics in AI-assisted Decision Making",
+   "summary": "High stakes decision-making often requires a continuous interplay between evolving evidence and shifting hypotheses, a dynamic that is not well supported by current AI decision support systems. In this paper, we introduce a mixed-initiative framework for AI assisted decision making that is grounded in the data-frame theory of sensemaking and the evaluative AI paradigm. Our approach enables both hu",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.15894v1",
+   "authors": [
+    "Chengbo Zheng",
+    "Tim Miller",
+    "Alina Bialkowski"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "AI-Driven Mobility Management for High-Speed Railway Communications: Compressed Measurements and Proactive Handover",
+   "summary": "High-speed railway (HSR) communications are pivotal for ensuring rail safety, operations, maintenance, and delivering passenger information services. The high speed of trains creates rapidly time-varying wireless channels, increases the signaling overhead, and reduces the system throughput, making it difficult to meet the growing and stringent needs of HSR applications. In this article, we explore",
+   "published": "2024-07-05",
+   "primary_category": "eess.SP",
+   "entry_id": "http://arxiv.org/abs/2407.04336v3",
+   "authors": [
+    "Wen Li",
+    "Wei Chen",
+    "Shiyue Wang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Embodied AI-Enhanced IoMT Edge Computing: UAV Trajectory Optimization and Task Offloading with Mobility Prediction",
+   "summary": "Due to their inherent flexibility and autonomous operation, unmanned aerial vehicles (UAVs) have been widely used in Internet of Medical Things (IoMT) to provide real-time biomedical edge computing service for wireless body area network (WBAN) users. In this paper, considering the time-varying task criticality characteristics of diverse WBAN users and the dual mobility between WBAN users and UAV, ",
+   "published": "2025-12-24",
+   "primary_category": "cs.NI",
+   "entry_id": "http://arxiv.org/abs/2512.20902v1",
+   "authors": [
+    "Siqi Mu",
+    "Shuo Wen",
+    "Yang Lu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "How Do AI Companies \"Fine-Tune\" Policy? Examining Regulatory Capture in AI Governance",
+   "summary": "Industry actors in the United States have gained extensive influence in conversations about the regulation of general-purpose artificial intelligence (AI) systems. Although industry participation is an important part of the policy process, it can also cause regulatory capture, whereby industry co-opts regulatory regimes to prioritize private over public welfare. Capture of AI policy by AI develope",
+   "published": "2024-10-16",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2410.13042v1",
+   "authors": [
+    "Kevin Wei",
+    "Carson Ezell",
+    "Nick Gabrieli"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "When AI Agents Compete for Jobs: Strategic Capabilities and Economic Dynamics of AI Labour Markets",
+   "summary": "Emerging agentic marketplaces provide the economic infrastructure for matching and coordinating the large amounts of AI agents used in agentic swarms. Unlike human workers, AI agents can operate on multiple jobs simultaneously, acquire skills rapidly, and labor without wage floors. These differences introduce a new segment of $\\textbf{AI labor markets}$, where AI agents interact with each other at",
+   "published": "2025-12-04",
+   "primary_category": "cs.MA",
+   "entry_id": "http://arxiv.org/abs/2512.04988v2",
+   "authors": [
+    "Christopher Chiu",
+    "Simpson Zhang",
+    "Mihaela van der Schaar"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks",
+   "summary": "The ability to inspect, interpret, and communicate complex data is crucial for virtually any scientific endeavor, but often requires significant expertise outside the core domain ranging from data management and analysis to visualization design and implementation. We present an end-to-end agentic harness that, based on only the data and a high level description of the tasks, independently designs ",
+   "published": "2026-05-20",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.21825v1",
+   "authors": [
+    "Haichao Miao",
+    "Zhimin Li",
+    "Kuangshi Ai"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+   "summary": "Agentic AI systems -- Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions -- can execute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This survey provides a focused examination of trustworthy agentic AI through two core dimensions that are critical for high-risk deployment",
+   "published": "2026-05-17",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.23989v1",
+   "authors": [
+    "Jinhu Qi",
+    "Muzhi Li",
+    "Jiahong Liu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Street Marketing: How Proximity and Context drive Coupon Redemption",
+   "summary": "Purpose: In 2009, US coupons set a new record of 367 billion coupons distributed. Yet, while coupon distribution is on the rise, redemption rates remain below 1 percent. This paper aims to show how recognizing context variables, such as proximity, weather, part of town and financial incentives interplay to determine a coupon campaigns success. Design/methodology/approach. The paper reports an empi",
+   "published": "2020-05-14",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2005.06839v1",
+   "authors": [
+    "Sarah Spiekermann",
+    "Matthias Rothensee",
+    "Michael Klafft"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Explainable AI for Blind and Low-Vision Users: Navigating Trust, Modality, and Interpretability in the Agentic Era",
+   "summary": "Explainable Artificial Intelligence (XAI) is critical for ensuring trust and accountability, yet its development remains predominantly visual. For blind and low-vision (BLV) users, the lack of accessible explanations creates a fundamental barrier to the independent use of AI-driven assistive technologies. This problem intensifies as AI systems shift from single-query tools into autonomous agents t",
+   "published": "2026-03-31",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2604.00187v2",
+   "authors": [
+    "Abu Noman Md Sakib",
+    "Protik Dey",
+    "Zijie Zhang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "GOD model: Privacy Preserved AI School for Personal Assistant",
+   "summary": "Personal AI assistants (e.g., Apple Intelligence, Meta AI) offer proactive recommendations that simplify everyday tasks, but their reliance on sensitive user data raises concerns about privacy and trust. To address these challenges, we introduce the Guardian of Data (GOD), a secure, privacy-preserving framework for training and evaluating AI assistants directly on-device. Unlike traditional benchm",
+   "published": "2025-02-24",
+   "primary_category": "cs.CR",
+   "entry_id": "http://arxiv.org/abs/2502.18527v2",
+   "authors": [
+    " PIN AI Team",
+    "Bill Sun",
+    "Gavin Guo"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Integrators at War: Mediating in AI-assisted Resort-to-Force Decisions",
+   "summary": "The integration of AI systems into the military domain is changing the way war-related decisions are made. It binds together three disparate groups of actors - developers, integrators, users - and creates a relationship between these groups and the machine, embedded in the (pre-)existing organisational and system structures. In this article, we focus on the important, but often neglected, group of",
+   "published": "2025-01-12",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2501.06861v1",
+   "authors": [
+    "Dennis Müller",
+    "Maurice Chiodo",
+    "Mitja Sienknecht"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Rate-Splitting for Cell-Free Massive MIMO: Performance Analysis and Generative AI Approach",
+   "summary": "Cell-free (CF) massive multiple-input multipleoutput (MIMO) provides a ubiquitous coverage to user equipments (UEs) but it is also susceptible to interference. Ratesplitting (RS) effectively extracts data by decoding interference, yet its effectiveness is limited by the weakest UE. In this paper, we investigate an RS-based CF massive MIMO system, which combines strengths and mitigates weaknesses o",
+   "published": "2024-09-23",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2409.14702v2",
+   "authors": [
+    "Jiakang Zheng",
+    "Jiayi Zhang",
+    "Hongyang Du"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "AI-Empowered RIS-Assisted Networks: CV-Enabled RIS Selection and DNN-Enabled Transmission",
+   "summary": "This paper investigates artificial intelligence (AI) empowered schemes for reconfigurable intelligent surface (RIS) assisted networks from the perspective of fast implementation. We formulate a weighted sum-rate maximization problem for a multi-RIS-assisted network. To avoid huge channel estimation overhead due to activate all RISs, we propose a computer vision (CV) enabled RIS selection scheme ba",
+   "published": "2024-04-18",
+   "primary_category": "eess.SP",
+   "entry_id": "http://arxiv.org/abs/2404.11836v1",
+   "authors": [
+    "Conggang Hu",
+    "Yang Lu",
+    "Hongyang Du"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Dynamic Pricing for On-Demand DNN Inference in the Edge-AI Market",
+   "summary": "The convergence of edge computing and Artificial Intelligence (AI) gives rise to Edge-AI, which enables the deployment of real-time AI applications at the network edge. A key research challenge in Edge-AI is edge inference acceleration, which aims to realize low-latency high-accuracy Deep Neural Network (DNN) inference by offloading partitioned inference tasks from end devices to edge servers. How",
+   "published": "2025-03-06",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2503.04521v2",
+   "authors": [
+    "Songyuan Li",
+    "Jia Hu",
+    "Geyong Min"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Distributed Cognition for AI-supported Remote Operations: Challenges and Research Directions",
+   "summary": "This paper investigates the impact of artificial intelligence integration on remote operations, emphasising its influence on both distributed and team cognition. As remote operations increasingly rely on digital interfaces, sensors, and networked communication, AI-driven systems transform decision-making processes across domains such as air traffic control, industrial automation, and intelligent p",
+   "published": "2025-04-21",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.14996v1",
+   "authors": [
+    "Rune Møberg Jacobsen",
+    "Joel Wester",
+    "Helena Bøjer Djernæs"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Promoting Real-Time Reflection in Synchronous Communication with Generative AI",
+   "summary": "Real-time reflection plays a vital role in synchronous communication. It enables users to adjust their communication strategies dynamically, thereby improving the effectiveness of their communication. Generative AI holds significant potential to enhance real-time reflection due to its ability to comprehensively understand the current context and generate personalized and nuanced content. However, ",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.15647v2",
+   "authors": [
+    "Yi Wen",
+    "Meng Xia"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Balancing Power and Ethics: A Framework for Addressing Human Rights Concerns in Military AI",
+   "summary": "AI has made significant strides recently, leading to various applications in both civilian and military sectors. The military sees AI as a solution for developing more effective and faster technologies. While AI offers benefits like improved operational efficiency and precision targeting, it also raises serious ethical and legal concerns, particularly regarding human rights violations. Autonomous ",
+   "published": "2024-11-10",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2411.06336v1",
+   "authors": [
+    "Mst Rafia Islam",
+    "Azmine Toushik Wasi"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Analysing Environmental Efficiency in AI for X-Ray Diagnosis",
+   "summary": "The integration of AI tools into medical applications has aimed to improve the efficiency of diagnosis. The emergence of large language models (LLMs), such as ChatGPT and Claude, has expanded this integration even further despite a concern for their environmental impact. Because of LLM versatility and ease of use through APIs, these larger models are often utilised even though smaller, custom mode",
+   "published": "2025-10-31",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2511.07436v2",
+   "authors": [
+    "Liam Kearns"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+   "summary": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.16021v1",
+   "authors": [
+    "Dinithi Dissanayake",
+    "Suranga Nanayakkara"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "PeopleSearchBench: A Multi-Dimensional Benchmark for Evaluating AI-Powered People Search Platforms",
+   "summary": "AI-powered people search platforms are increasingly used in recruiting, sales prospecting, and professional networking, yet no widely accepted benchmark exists for evaluating their performance. We introduce PeopleSearchBench, an open-source benchmark that compares four people search platforms on 119 real-world queries across four use cases: corporate recruiting, B2B sales prospecting, expert searc",
+   "published": "2026-03-29",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2603.27476v1",
+   "authors": [
+    "Wei Wang",
+    "Tianyu Shi",
+    "Shuai Zhang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Recognising the importance of preference change: A call for a coordinated multidisciplinary research effort in the age of AI",
+   "summary": "As artificial intelligence becomes more powerful and a ubiquitous presence in daily life, it is imperative to understand and manage the impact of AI systems on our lives and decisions. Modern ML systems often change user behavior (e.g. personalized recommender systems learn user preferences to deliver recommendations that change online behavior). An externality of behavior change is preference cha",
+   "published": "2022-03-20",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2203.10525v2",
+   "authors": [
+    "Matija Franklin",
+    "Hal Ashton",
+    "Rebecca Gorman"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "MLS-Bench: A Holistic and Rigorous Assessment of AI Systems on Building Better AI",
+   "summary": "Modern AI progress has been driven by ML methods that are generalizable across settings and scalable to larger regimes. As large language models demonstrate advanced capabilities in reasoning, coding, and engineering tasks, it is increasingly important to understand whether they can discover such methods rather than only apply existing ones. We introduce MLS-Bench, a benchmark for evaluating wheth",
+   "published": "2026-05-09",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2605.08678v3",
+   "authors": [
+    "Bohan Lyu",
+    "Yucheng Yang",
+    "Siqiao Huang"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Cognitive Dissonance Artificial Intelligence (CD-AI): The Mind at War with Itself. Harnessing Discomfort to Sharpen Critical Thinking",
+   "summary": "AI-augmented systems are traditionally designed to streamline human decision-making by minimizing cognitive load, clarifying arguments, and optimizing efficiency. However, in a world where algorithmic certainty risks becoming an Orwellian tool of epistemic control, true intellectual growth demands not passive acceptance but active struggle. Drawing on the dystopian visions of George Orwell and Phi",
+   "published": "2025-04-23",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2507.08804v1",
+   "authors": [
+    "Delia Deliu"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "Transformation of marketing in the e-commerce",
+   "summary": "The article is about transformation of the theory and practice of marketing in the conditions of e-commerce and network economy. The author considers Internet-marketing as an independent kind of marketing in the virtual communicative environment. The basic thesis of the article: the virtual environment defines marketing transformation, changing methods, priorities and structure at practice and the",
+   "published": "2015-05-13",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/1505.03305v1",
+   "authors": [
+    "Mikhail Kaluzhsky"
+   ],
+   "query": "AI marketing"
+  },
+  {
+   "title": "How marketing vocabulary was evolving from 2005 to 2014? An illustrative application of statistical methods on text mining",
+   "summary": "Here a collection of 1169 abstracts, which corresponds to articles that the Journal of Marketing Research has published from 2005 to 2014, are analysed under a novel approach. We apply several statistical methods, such as Principal Components Analysis and Correspondence Analysis to identify the way Marketing vocabulary is evolving. Similarly those articles that introduce new vocabulary are identif",
+   "published": "2016-02-05",
+   "primary_category": "cs.DL",
+   "entry_id": "http://arxiv.org/abs/1606.03963v1",
+   "authors": [
+    "Igor Barahona",
+    "Daria Micaela Hernandez",
+    "Hector Hugo Perez-Villarreal"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "YouZhi: Towards High-Concurrency Financial LLMs via Adaptive GQA-to-MLA Transition",
+   "summary": "Large language models (LLMs) drive significant financial innovations, yet their high-concurrency deployment is severely bottlenecked by KV cache memory overhead, which inflates infrastructure costs and throttles scalability. To address this, we propose YouZhi-LLM, a highly efficient financial LLM empowered by a comprehensive structural transition and training pipeline natively built on the Huawei ",
+   "published": "2026-06-04",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2606.05868v1",
+   "authors": [
+    " PSBC LLM Team",
+    " Huawei LLM Team",
+    "Ruihan Long"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Exploring Sectoral Profitability in the Indian Stock Market Using Deep Learning",
+   "summary": "This paper explores using a deep learning Long Short-Term Memory (LSTM) model for accurate stock price prediction and its implications for portfolio design. Despite the efficient market hypothesis suggesting that predicting stock prices is impossible, recent research has shown the potential of advanced algorithms and predictive models. The study builds upon existing literature on stock price predi",
+   "published": "2024-05-28",
+   "primary_category": "q-fin.CP",
+   "entry_id": "http://arxiv.org/abs/2407.01572v1",
+   "authors": [
+    "Jaydip Sen",
+    "Hetvi Waghela",
+    "Sneha Rakshit"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "The relationship between content marketing and the traditional marketing communication tools",
+   "summary": "Digitalization is making a significant impact on marketing. New marketing approaches and tools are emerging which are not always clearly categorised. This article seeks to investigate the relationship between one of the novel marketing tools, content marketing, and the five elements of the traditional marketing communication mix. Based on an extensive literature review, this paper analyses the mai",
+   "published": "2022-12-26",
+   "primary_category": "econ.GN",
+   "entry_id": "http://arxiv.org/abs/2301.01279v1",
+   "authors": [
+    "Szabolcs Nagy",
+    "Gergo Hajdu"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "A discount strategy in word-of-mouth marketing and its assessment",
+   "summary": "This paper addresses the discount pricing in word-of-mouth (WOM) marketing. A new discount strategy known as the Infection-Based Discount (IBD) strategy is proposed. The basic idea of the IBD strategy lies in that each customer enjoys a discount that is linearly proportional to his/her influence in the WOM network. To evaluate the performance of the IBD strategy, the WOM spreading process is model",
+   "published": "2017-04-23",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/1704.06910v1",
+   "authors": [
+    "Tianrui Zhang",
+    "Xiaofan Yang",
+    "Lu-Xing Yang"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Street Marketing: How Proximity and Context drive Coupon Redemption",
+   "summary": "Purpose: In 2009, US coupons set a new record of 367 billion coupons distributed. Yet, while coupon distribution is on the rise, redemption rates remain below 1 percent. This paper aims to show how recognizing context variables, such as proximity, weather, part of town and financial incentives interplay to determine a coupon campaigns success. Design/methodology/approach. The paper reports an empi",
+   "published": "2020-05-14",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2005.06839v1",
+   "authors": [
+    "Sarah Spiekermann",
+    "Matthias Rothensee",
+    "Michael Klafft"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Making Large Language Models Better Knowledge Miners for Online Marketing with Progressive Prompting Augmentation",
+   "summary": "Nowadays, the rapid development of mobile economy has promoted the flourishing of online marketing campaigns, whose success greatly hinges on the efficient matching between user preferences and desired marketing campaigns where a well-established Marketing-oriented Knowledge Graph (dubbed as MoKG) could serve as the critical \"bridge\" for preference propagation. In this paper, we seek to carefully ",
+   "published": "2023-12-08",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2312.05276v2",
+   "authors": [
+    "Chunjing Gan",
+    "Dan Yang",
+    "Binbin Hu"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Transformation of marketing in the e-commerce",
+   "summary": "The article is about transformation of the theory and practice of marketing in the conditions of e-commerce and network economy. The author considers Internet-marketing as an independent kind of marketing in the virtual communicative environment. The basic thesis of the article: the virtual environment defines marketing transformation, changing methods, priorities and structure at practice and the",
+   "published": "2015-05-13",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/1505.03305v1",
+   "authors": [
+    "Mikhail Kaluzhsky"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Answering Should Self-Publishing Video Game Developers Market Their Game on Twitter",
+   "summary": "In the marketing of video games made by self-publishing, independent developers, there is common advice to market a game using the social media platform Twitter. However, the advice that stems from industry sources is somewhat contradictory, and many self-publishing independent developers elect not to use Twitter at all. This presents an opportunity for researchers to investigate this tension and ",
+   "published": "2022-03-25",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/2203.13619v1",
+   "authors": [
+    "Nathaniel Francis Golding"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Can information be spread as a virus? Viral Marketing as epidemiological model",
+   "summary": "In epidemiology, an epidemic is defined as the spread of an infectious disease to a large number of people in a given population within a short period of time. In the marketing context, a message is viral when it is broadly sent and received by the target market through person-to-person transmission. This specific marketing communication strategy is commonly referred as viral marketing. Due to thi",
+   "published": "2016-11-08",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/1611.04529v1",
+   "authors": [
+    "Helena Sofia Rodrigues",
+    "Manuel José Fonseca"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Network Internet-communications as an instrument of marketing",
+   "summary": "The article is about the features of application of network Internet-communications for advancement of the goods. Wide development of Internet technologies has transformed social communications into the independent tool of marketing. Authors classify and analyze possibilities of use of network Internet-communications in the marketing environment.",
+   "published": "2015-05-13",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/1505.03308v1",
+   "authors": [
+    "Mikhail Kaluzhsky",
+    "Valery Karpov"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Marketing features of dropshipping in system of e-commerce",
+   "summary": "Today dropshipping wins the Internet promptly and transformed to one of the basic tools of marketing in e-commerce. Marketing features, mechanisms and value dropshipping in the conditions of network economy of the XXI century reveal in article. The author carries out the comparative analysis of institutional development dropshipping in the USA, China and Russia.",
+   "published": "2015-05-10",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/1505.02767v1",
+   "authors": [
+    "Mikhail Kaluzhsky"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "RETA-LLM: A Retrieval-Augmented Large Language Model Toolkit",
+   "summary": "Although Large Language Models (LLMs) have demonstrated extraordinary capabilities in many domains, they still have a tendency to hallucinate and generate fictitious responses to user requests. This problem can be alleviated by augmenting LLMs with information retrieval (IR) systems (also known as retrieval-augmented LLMs). Applying this strategy, LLMs can generate more factual texts in response t",
+   "published": "2023-06-08",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2306.05212v1",
+   "authors": [
+    "Jiongnan Liu",
+    "Jiajie Jin",
+    "Zihan Wang"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "FBI-LLM: Scaling Up Fully Binarized LLMs from Scratch via Autoregressive Distillation",
+   "summary": "This work presents a Fully BInarized Large Language Model (FBI-LLM), demonstrating for the first time how to train a large-scale binary language model from scratch (not the partial binary or ternary LLM like BitNet b1.58) to match the performance of its full-precision counterparts (e.g., FP16 or BF16) in transformer-based LLMs. It achieves this by employing an autoregressive distillation (AD) loss",
+   "published": "2024-07-09",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2407.07093v1",
+   "authors": [
+    "Liqun Ma",
+    "Mingjie Sun",
+    "Zhiqiang Shen"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Toward A Normative Theory of Normative Marketing Theory",
+   "summary": "We show how different approaches to developing marketing strategies depending on the type of environment a firm faces, where environments are distinguished in terms of their systems properties not their context. Particular emphasis is given to turbulent environments in which outcomes are not a priori predictable and are not traceable to individual firm actions and we show that, in these conditions",
+   "published": "2012-03-06",
+   "primary_category": "q-fin.GN",
+   "entry_id": "http://arxiv.org/abs/1205.5821v1",
+   "authors": [
+    "Ian Wilkinson",
+    "Louise Young"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks: Explainable Metrics and Diverse Prompt Templates",
+   "summary": "LLM-as-a-Judge has been widely applied to evaluate and compare different LLM alignmnet approaches (e.g., RLHF and DPO). However, concerns regarding its reliability have emerged, due to LLM judges' biases and inconsistent decision-making. Previous research has developed evaluation frameworks to assess reliability of LLM judges and their alignment with human preferences. However, the employed evalua",
+   "published": "2024-08-23",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2408.13006v2",
+   "authors": [
+    "Hui Wei",
+    "Shenghua He",
+    "Tian Xia"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Enhancing Jailbreak Attacks on LLMs via Persona Prompts",
+   "summary": "Jailbreak attacks aim to exploit large language models (LLMs) by inducing them to generate harmful content, thereby revealing their vulnerabilities. Understanding and addressing these attacks is crucial for advancing the field of LLM safety. Previous jailbreak approaches have mainly focused on direct manipulations of harmful intent, with limited attention to the impact of persona prompts. In this ",
+   "published": "2025-07-28",
+   "primary_category": "cs.CR",
+   "entry_id": "http://arxiv.org/abs/2507.22171v3",
+   "authors": [
+    "Zheng Zhang",
+    "Peilin Zhao",
+    "Deheng Ye"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "LLM-42: Enabling Determinism in LLM Inference with Verified Speculation",
+   "summary": "In LLM inference, the same prompt may yield different outputs across different runs. At the system level, this non-determinism arises from floating-point non-associativity combined with dynamic batching and GPU kernels whose reduction orders vary with batch size. A straightforward way to eliminate non-determinism is to disable dynamic batching during inference, but doing so severely degrades throu",
+   "published": "2026-01-25",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2601.17768v2",
+   "authors": [
+    "Raja Gond",
+    "Aditya K Kamath",
+    "Ramachandran Ramjee"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Demystifying AI Platform Design for Distributed Inference of Next-Generation LLM models",
+   "summary": "Large language models (LLMs) have shown remarkable performance across a wide range of applications, often outperforming human experts. However, deploying these gigantic models efficiently for diverse inference use cases requires carefully designed hardware platforms with ample computing, memory, and network resources. With constant innovation in LLM serving optimizations and model architecture evo",
+   "published": "2024-06-03",
+   "primary_category": "cs.AR",
+   "entry_id": "http://arxiv.org/abs/2406.01698v3",
+   "authors": [
+    "Abhimanyu Bambhaniya",
+    "Ritik Raj",
+    "Geonhwa Jeong"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Can LLMs Lie? Investigation beyond Hallucination",
+   "summary": "Large language models (LLMs) have demonstrated impressive capabilities across a variety of tasks, but their increasing autonomy in real-world applications raises concerns about their trustworthiness. While hallucinations-unintentional falsehoods-have been widely studied, the phenomenon of lying, where an LLM knowingly generates falsehoods to achieve an ulterior objective, remains underexplored. In",
+   "published": "2025-09-03",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2509.03518v1",
+   "authors": [
+    "Haoran Huan",
+    "Mihir Prabhudesai",
+    "Mengning Wu"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Grounding LLM Reasoning under Incomplete Graph Evidence",
+   "summary": "Knowledge graphs can guide large language models (LLMs) reasoning, but the graph seen by a system is usually a retrieved, linked, temporally scoped, and incomplete evidence state rather than a complete account of truth. We develop a theoretical perspective on grounding observable LLM trajectories under such incomplete graph evidence.The evidence state induces entity anchors, typed relation residua",
+   "published": "2026-06-29",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2606.30247v1",
+   "authors": [
+    "Jiaqi Li",
+    "Fanghui Song"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Small LLMs Are Weak Tool Learners: A Multi-LLM Agent",
+   "summary": "Large Language Model (LLM) agents significantly extend the capabilities of standalone LLMs, empowering them to interact with external tools (e.g., APIs, functions) and complete various tasks in a self-directed fashion. The challenge of tool use demands that LLMs not only understand user queries and generate answers accurately but also excel in task planning, tool invocation, and result summarizati",
+   "published": "2024-01-14",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2401.07324v3",
+   "authors": [
+    "Weizhou Shen",
+    "Chenliang Li",
+    "Hongzhan Chen"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "A Survey of LLM $\\times$ DATA",
+   "summary": "The integration of large language model (LLM) and data management (DATA) is rapidly redefining both domains. In this survey, we comprehensively review the bidirectional relationships. On the one hand, DATA4LLM, spanning large-scale data processing, storage, and serving, feeds LLMs with high quality, diversity, and timeliness of data required for stages like pre-training, post-training, retrieval-a",
+   "published": "2025-05-24",
+   "primary_category": "cs.DB",
+   "entry_id": "http://arxiv.org/abs/2505.18458v3",
+   "authors": [
+    "Xuanhe Zhou",
+    "Junxuan He",
+    "Wei Zhou"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Any-Precision LLM: Low-Cost Deployment of Multiple, Different-Sized LLMs",
+   "summary": "Recently, considerable efforts have been directed towards compressing Large Language Models (LLMs), which showcase groundbreaking capabilities across diverse applications but entail significant deployment costs due to their large sizes. Meanwhile, much less attention has been given to mitigating the costs associated with deploying multiple LLMs of varying sizes despite its practical significance. ",
+   "published": "2024-02-16",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2402.10517v4",
+   "authors": [
+    "Yeonhong Park",
+    "Jake Hyun",
+    "SangLyul Cho"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Open-LLM-Leaderboard: From Multi-choice to Open-style Questions for LLMs Evaluation, Benchmark, and Arena",
+   "summary": "Multiple-choice questions (MCQ) are frequently used to assess large language models (LLMs). Typically, an LLM is given a question and selects the answer deemed most probable after adjustments for factors like length. Unfortunately, LLMs may inherently favor certain answer choice IDs, such as A/B/C/D, due to inherent biases of priori unbalanced probabilities, influencing the prediction of answers b",
+   "published": "2024-06-11",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2406.07545v1",
+   "authors": [
+    "Aidar Myrzakhan",
+    "Sondos Mahmoud Bsharat",
+    "Zhiqiang Shen"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "FINRS: A Risk-Sensitive Trading Framework for Real Financial Markets",
+   "summary": "Large language models (LLMs) have shown strong reasoning capabilities and are increasingly explored for financial trading. Existing LLM-based trading agents, however, largely focus on single-step prediction and lack integrated mechanisms for risk management, which reduces their effectiveness in volatile markets. We introduce FinRS, a risk-sensitive trading framework that combines hierarchical mark",
+   "published": "2025-11-16",
+   "primary_category": "cs.MA",
+   "entry_id": "http://arxiv.org/abs/2511.12599v1",
+   "authors": [
+    "Bijia Liu",
+    "Ronghao Dang"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "A Survey on LLM-as-a-Judge",
+   "summary": "Accurate and consistent evaluation is crucial for decision-making across numerous fields, yet it remains a challenging task due to inherent subjectivity, variability, and scale. Large Language Models (LLMs) have achieved remarkable success across diverse domains, leading to the emergence of \"LLM-as-a-Judge,\" where LLMs are employed as evaluators for complex tasks. With their ability to process div",
+   "published": "2024-11-23",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2411.15594v6",
+   "authors": [
+    "Jiawei Gu",
+    "Xuhui Jiang",
+    "Zhichao Shi"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "RoleRAG: Enhancing LLM Role-Playing via Graph Guided Retrieval",
+   "summary": "Large Language Models (LLMs) have shown promise in character imitation, enabling immersive and engaging conversations. However, they often generate content that is irrelevant or inconsistent with a character's background. We attribute these failures to: (1) the inability to accurately recall character-specific knowledge due to entity ambiguity, and (2) a lack of awareness of the character's cognit",
+   "published": "2025-05-24",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2505.18541v1",
+   "authors": [
+    "Yongjie Wang",
+    "Jonathan Leung",
+    "Zhiqi Shen"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "LLM-as-a-Verifier: A General-Purpose Verification Framework",
+   "summary": "Scaling pre-training, post-training, and test-time compute have become the central paradigms for improving the capabilities of LLMs. In this work, we identify verification, the ability to determine the correctness of a solution, as a new scaling axis. To unlock this and demonstrate its effectiveness, we introduce LLM-as-a-Verifier, a general-purpose verification framework that provides fine-graine",
+   "published": "2026-07-06",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2607.05391v2",
+   "authors": [
+    "Jacky Kwok",
+    "Shulu Li",
+    "Pranav Atreya"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Strategist: Self-improvement of LLM Decision Making via Bi-Level Tree Search",
+   "summary": "Traditional reinforcement learning and planning typically requires vast amounts of data and training to develop effective policies. In contrast, large language models (LLMs) exhibit strong generalization and zero-shot capabilities, but struggle with tasks that require detailed planning and decision-making in complex action spaces. We introduce STRATEGIST, a novel approach that integrates the stren",
+   "published": "2024-08-20",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2408.10635v3",
+   "authors": [
+    "Jonathan Light",
+    "Min Cai",
+    "Weiqin Chen"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Harnessing Multiple Large Language Models: A Survey on LLM Ensemble",
+   "summary": "LLM Ensemble -- which involves the comprehensive use of multiple large language models (LLMs), each aimed at handling user queries during downstream inference, to benefit from their individual strengths -- has gained substantial attention recently. The widespread availability of LLMs, coupled with their varying strengths and out-of-the-box usability, has profoundly advanced the field of LLM Ensemb",
+   "published": "2025-02-25",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2502.18036v6",
+   "authors": [
+    "Zhijun Chen",
+    "Xiaodong Lu",
+    "Jingzheng Li"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "LLMs for Customized Marketing Content Generation and Evaluation at Scale",
+   "summary": "Offsite marketing is essential in e-commerce, enabling businesses to reach customers through external platforms and drive traffic to retail websites. However, most current offsite marketing content is overly generic, template-based, and poorly aligned with landing pages, limiting its effectiveness. To address these limitations, we propose MarketingFM, a retrieval-augmented system that integrates m",
+   "published": "2025-06-22",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2506.17863v1",
+   "authors": [
+    "Haoran Liu",
+    "Amir Tahmasbi",
+    "Ehtesham Sam Haque"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "The LLM Bottleneck: Why Open-Source Vision LLMs Struggle with Hierarchical Visual Recognition",
+   "summary": "This paper reveals that many open-source large language models (LLMs) lack hierarchical knowledge about our visual world, unaware of even well-established biology taxonomies. This shortcoming makes LLMs a bottleneck for vision LLMs' hierarchical visual recognition (e.g., recognizing Anemone Fish but not Vertebrate). We arrive at these findings using about one million four-choice visual question an",
+   "published": "2025-05-30",
+   "primary_category": "cs.CV",
+   "entry_id": "http://arxiv.org/abs/2505.24840v2",
+   "authors": [
+    "Yuwen Tan",
+    "Yuan Qing",
+    "Boqing Gong"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "ODA: Observation-Driven Agent for integrating LLMs and Knowledge Graphs",
+   "summary": "The integration of Large Language Models (LLMs) and knowledge graphs (KGs) has achieved remarkable success in various natural language processing tasks. However, existing methodologies that integrate LLMs and KGs often navigate the task-solving process solely based on the LLM's analysis of the question, overlooking the rich cognitive potential inherent in the vast knowledge encapsulated in KGs. To",
+   "published": "2024-04-11",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2404.07677v2",
+   "authors": [
+    "Lei Sun",
+    "Zhengwei Tao",
+    "Youdi Li"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "LLM Assisted Verification Assertion Generation: Challenges and Future Directions",
+   "summary": "Assertion-based Verification (ABV) plays a critical role in the Design Verification (DV) process. However, ABV requires substantial manual effort in generating assertion from specification by verification engineers, making it a time-consuming stage in the chip design flow. With the recent development of Large Language Models (LLMs), researchers have started exploring their use as an assistance in ",
+   "published": "2026-07-08",
+   "primary_category": "cs.ET",
+   "entry_id": "http://arxiv.org/abs/2607.07444v1",
+   "authors": [
+    "Bhabesh Mali",
+    "Chandan Karfa"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Interactive Learning for LLM Reasoning",
+   "summary": "Existing multi-agent learning approaches have developed interactive training environments to explicitly promote collaboration among multiple Large Language Models (LLMs), thereby constructing stronger multi-agent systems (MAS). However, during inference, they require re-executing the MAS to obtain final solutions, which diverges from human cognition that individuals can enhance their reasoning cap",
+   "published": "2025-09-30",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2509.26306v5",
+   "authors": [
+    "Hehai Lin",
+    "Shilei Cao",
+    "Sudong Wang"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "FinPos: A Position-Aware Trading Agent System for Real Financial Markets",
+   "summary": "The exceptional potential of large language models (LLMs) in handling text information has garnered significant attention in the field of financial trading. However, most existing trading agents operate under intraday, independent unit-based trading tasks, where decisions are made as isolated directional actions, and thus lack awareness of continuous position management. Therefore, we propose a po",
+   "published": "2025-10-31",
+   "primary_category": "cs.MA",
+   "entry_id": "http://arxiv.org/abs/2510.27251v2",
+   "authors": [
+    "Bijia Liu",
+    "Ronghao Dang"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "ELIS: Efficient LLM Iterative Scheduling System with Response Length Predictor",
+   "summary": "We propose ELIS, a serving system for Large Language Models (LLMs) featuring an Iterative Shortest Remaining Time First (ISRTF) scheduler designed to efficiently manage inference tasks with the shortest remaining tokens. Current LLM serving systems often employ a first-come-first-served scheduling strategy, which can lead to the \"head-of-line blocking\" problem. To overcome this limitation, it is n",
+   "published": "2025-05-14",
+   "primary_category": "cs.DC",
+   "entry_id": "http://arxiv.org/abs/2505.09142v1",
+   "authors": [
+    "Seungbeom Choi",
+    "Jeonghoe Goo",
+    "Eunjoo Jeon"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "C2HLSC: Can LLMs Bridge the Software-to-Hardware Design Gap?",
+   "summary": "High Level Synthesis (HLS) tools offer rapid hardware design from C code, but their compatibility is limited by code constructs. This paper investigates Large Language Models (LLMs) for refactoring C code into HLS-compatible formats. We present several case studies by using an LLM to rewrite C code for NIST 800-22 randomness tests, a QuickSort algorithm and AES-128 into HLS-synthesizable c. The LL",
+   "published": "2024-06-13",
+   "primary_category": "cs.AR",
+   "entry_id": "http://arxiv.org/abs/2406.09233v1",
+   "authors": [
+    "Luca Collini",
+    "Siddharth Garg",
+    "Ramesh Karri"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "VerilogReader: LLM-Aided Hardware Test Generation",
+   "summary": "Test generation has been a critical and labor-intensive process in hardware design verification. Recently, the emergence of Large Language Model (LLM) with their advanced understanding and inference capabilities, has introduced a novel approach. In this work, we investigate the integration of LLM into the Coverage Directed Test Generation (CDG) process, where the LLM functions as a Verilog Reader.",
+   "published": "2024-06-03",
+   "primary_category": "cs.SE",
+   "entry_id": "http://arxiv.org/abs/2406.04373v1",
+   "authors": [
+    "Ruiyang Ma",
+    "Yuxin Yang",
+    "Ziqian Liu"
+   ],
+   "query": "LLM marketing"
+  },
+  {
+   "title": "Foundations of GenIR",
+   "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two ",
+   "published": "2025-01-06",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2501.02842v1",
+   "authors": [
+    "Qingyao Ai",
+    "Jingtao Zhan",
+    "Yiqun Liu"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Faith in AI can narrow the futures individuals consider",
+   "summary": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo",
+   "published": "2026-03-30",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2603.28944v2",
+   "authors": [
+    "Aoi Naito",
+    "Hirokazu Shirado"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+   "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating",
+   "published": "2026-01-23",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2601.16513v1",
+   "authors": [
+    "Melissa Wilfley",
+    "Mengting Ai",
+    "Madelyn Rose Sanfilippo"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "AI and the EU Digital Markets Act: Addressing the Risks of Bigness in Generative AI",
+   "summary": "As AI technology advances rapidly, concerns over the risks of bigness in digital markets are also growing. The EU's Digital Markets Act (DMA) aims to address these risks. Still, the current framework may not adequately cover generative AI systems that could become gateways for AI-based services. This paper argues for integrating certain AI software as core platform services and classifying certain",
+   "published": "2023-07-07",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2308.02033v1",
+   "authors": [
+    "Ayse Gizem Yasar",
+    "Andrew Chong",
+    "Evan Dong"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Case Study of GAI for Generating Novel Images for Real-World Embroidery",
+   "summary": "In this paper, we present a case study exploring the potential use of Generative Artificial Intelligence (GAI) to address the real-world need of making the design of embroiderable art patterns more accessible. Through an auto-ethnographic case study by a disabled-led team, we examine the application of GAI as an assistive technology in generating embroidery patterns, addressing the complexity invo",
+   "published": "2025-10-17",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2510.16223v1",
+   "authors": [
+    "Kate Glazko",
+    "Anika Arugunta",
+    "Janelle Chan"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Exploring utilization of generative AI for research and education in data-driven materials science",
+   "summary": "Generative AI has recently had a profound impact on various fields, including daily life, research, and education. To explore its efficient utilization in data-driven materials science, we organized a hackathon -- AIMHack2024 -- in July 2024. In this hackathon, researchers from fields such as materials science, information science, bioinformatics, and condensed matter physics worked together to ex",
+   "published": "2025-04-09",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2504.08817v2",
+   "authors": [
+    "Takahiro Misawa",
+    "Ai Koizumi",
+    "Ryo Tamura"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Business (mis)Use Cases of Generative AI",
+   "summary": "Generative AI is a class of machine learning technology that learns to generate new data from training data. While deep fakes and media-and art-related generative AI breakthroughs have recently caught people's attention and imagination, the overall area is in its infancy for business use. Further, little is known about generative AI's potential for malicious misuse at large scale. Using co-creatio",
+   "published": "2020-03-02",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2003.07679v1",
+   "authors": [
+    "Stephanie Houde",
+    "Vera Liao",
+    "Jacquelyn Martino"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective",
+   "summary": "The advent of Generative AI has marked a significant milestone in artificial intelligence, demonstrating remarkable capabilities in generating realistic images, texts, and data patterns. However, these advancements come with heightened concerns over data privacy and copyright infringement, primarily due to the reliance on vast datasets for model training. Traditional approaches like differential p",
+   "published": "2023-11-30",
+   "primary_category": "cs.SE",
+   "entry_id": "http://arxiv.org/abs/2311.18252v3",
+   "authors": [
+    "Dawen Zhang",
+    "Boming Xia",
+    "Yue Liu"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "A Profit-Maximizing Strategy for Advertising on the e-Commerce Platforms",
+   "summary": "The online advertising management platform has become increasingly popular among e-commerce vendors/advertisers, offering a streamlined approach to reach target customers. Despite its advantages, configuring advertising strategies correctly remains a challenge for online vendors, particularly those with limited resources. Ineffective strategies often result in a surge of unproductive ``just lookin",
+   "published": "2022-10-31",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2211.01160v2",
+   "authors": [
+    "Lianghai Xiao",
+    "Yixing Zhao",
+    "Jiwei Chen"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+   "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successful",
+   "published": "2023-07-08",
+   "primary_category": "cs.OH",
+   "entry_id": "http://arxiv.org/abs/2308.12400v1",
+   "authors": [
+    "Gerardo Adesso"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "BERT4beam: Large AI Model Enabled Generalized Beamforming Optimization",
+   "summary": "Artificial intelligence (AI) is anticipated to emerge as a pivotal enabler for the forthcoming sixth-generation (6G) wireless communication systems. However, current research efforts regarding large AI models for wireless communications primarily focus on fine-tuning pre-trained large language models (LLMs) for specific tasks. This paper investigates the large-scale AI model designed for beamformi",
+   "published": "2025-09-14",
+   "primary_category": "eess.SY",
+   "entry_id": "http://arxiv.org/abs/2509.11056v2",
+   "authors": [
+    "Yuhang Li",
+    "Yang Lu",
+    "Wei Chen"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+   "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interact",
+   "published": "2025-04-23",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.16770v1",
+   "authors": [
+    "Chaeyeon Lim"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Beyond principlism: Practical strategies for ethical AI use in research practices",
+   "summary": "The rapid adoption of generative artificial intelligence (AI) in scientific research, particularly large language models (LLMs), has outpaced the development of ethical guidelines, leading to a \"Triple-Too\" problem: too many high-level ethical initiatives, too abstract principles lacking contextual and practical relevance, and too much focus on restrictions and risks over benefits and utilities. E",
+   "published": "2024-01-27",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2401.15284v6",
+   "authors": [
+    "Zhicheng Lin"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Meaningful human control: actionable properties for AI system development",
+   "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsi",
+   "published": "2021-11-25",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2112.01298v2",
+   "authors": [
+    "Luciano Cavalcante Siebert",
+    "Maria Luce Lupetti",
+    "Evgeni Aizenberg"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Making AI-Enhanced Videos: Analyzing Generative AI Use Cases in YouTube Content Creation",
+   "summary": "Generative AI (GenAI) tools enhance social media video creation by streamlining tasks such as scriptwriting, visual and audio generation, and editing. These tools enable the creation of new content, including text, images, audio, and video, with platforms like ChatGPT and MidJourney becoming increasingly popular among YouTube creators. Despite their growing adoption, knowledge of their specific us",
+   "published": "2025-03-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2503.03134v1",
+   "authors": [
+    "Torin Anderson",
+    "Shuo Niu"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+   "summary": "Classic models cast information seeking as iterative foraging: formulate a keyword query, scan results, reformulate, gather across sources, synthesize. We ask what happens when a conversational assistant is inserted into that episode. Linking real conversations with major assistants to the same users' searches and browsing in an opt-in cross-surface panel, and reconstructing the full episode rathe",
+   "published": "2026-07-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2607.04282v1",
+   "authors": [
+    "Michael Iannelli",
+    "Alan Ai"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Need of AI in Modern Education: in the Eyes of Explainable AI (xAI)",
+   "summary": "Modern Education is not \\textit{Modern} without AI. However, AI's complex nature makes understanding and fixing problems challenging. Research worldwide shows that a parent's income greatly influences a child's education. This led us to explore how AI, especially complex models, makes important decisions using Explainable AI tools. Our research uncovered many complexities linked to parental income",
+   "published": "2024-07-31",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2408.00025v3",
+   "authors": [
+    "Supriya Manna",
+    "Niladri Sett"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "How do Humans Process AI-generated Hallucination Contents: a Neuroimaging Study",
+   "summary": "While AI-generated hallucinations pose considerable risks, the underlying cognitive mechanisms by which humans can successfully recognize or be misled by these hallucinations remain unclear. To address this problem, this paper explores humans' neural dynamics to characterize how the brain processes hallucinated content. We record EEG signals from 27 participants while they are performing a verific",
+   "published": "2026-05-16",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.16953v2",
+   "authors": [
+    "Shuqi Zhu",
+    "Yi Zhong",
+    "Ziyi Ye"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Exploring Antitrust and Platform Power in Generative AI",
+   "summary": "The concentration of power in a few digital technology companies has become a subject of increasing interest in both academic and non-academic discussions. One of the most noteworthy contributions to the debate is Lina Khan's Amazon's Antitrust Paradox. In this work, Khan contends that Amazon has systematically exerted its dominance in online retail to eliminate competitors and subsequently charge",
+   "published": "2023-06-20",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2306.11342v3",
+   "authors": [
+    "Konrad Kollnig",
+    "Qian Li"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Toward General Design Principles for Generative AI Applications",
+   "summary": "Generative AI technologies are growing in power, utility, and use. As generative technologies are being incorporated into mainstream applications, there is a need for guidance on how to design those applications to foster productive and safe use. Based on recent research on human-AI co-creation within the HCI and AI communities, we present a set of seven principles for the design of generative AI ",
+   "published": "2023-01-13",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2301.05578v1",
+   "authors": [
+    "Justin D. Weisz",
+    "Michael Muller",
+    "Jessica He"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Promoting Real-Time Reflection in Synchronous Communication with Generative AI",
+   "summary": "Real-time reflection plays a vital role in synchronous communication. It enables users to adjust their communication strategies dynamically, thereby improving the effectiveness of their communication. Generative AI holds significant potential to enhance real-time reflection due to its ability to comprehensively understand the current context and generate personalized and nuanced content. However, ",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.15647v2",
+   "authors": [
+    "Yi Wen",
+    "Meng Xia"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Guardrails for avoiding harmful medical product recommendations and off-label promotion in generative AI models",
+   "summary": "Generative AI (GenAI) models have demonstrated remarkable capabilities in a wide variety of medical tasks. However, as these models are trained using generalist datasets with very limited human oversight, they can learn uses of medical products that have not been adequately evaluated for safety and efficacy, nor approved by regulatory agencies. Given the scale at which GenAI may reach users, unvet",
+   "published": "2024-06-24",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2406.16455v1",
+   "authors": [
+    "Daniel Lopez-Martinez"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Envisioning the Applications and Implications of Generative AI for News Media",
+   "summary": "This article considers the increasing use of algorithmic decision-support systems and synthetic media in the newsroom, and explores how generative models can help reporters and editors across a range of tasks from the conception of a news story to its distribution. Specifically, we draw from a taxonomy of tasks associated with news production, and discuss where generative models could appropriatel",
+   "published": "2024-02-29",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2402.18835v1",
+   "authors": [
+    "Sachita Nishal",
+    "Nicholas Diakopoulos"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Dynamic Pricing and Advertising with Demand Learning",
+   "summary": "We consider a novel pricing and advertising framework, where a seller not only sets product price but also designs flexible 'advertising schemes' to influence customers' valuation of the product. We impose no structural restriction on the seller's feasible advertising strategies and allow her to advertise the product by disclosing or concealing any information. Following the literature in informat",
+   "published": "2023-04-27",
+   "primary_category": "cs.GT",
+   "entry_id": "http://arxiv.org/abs/2304.14385v3",
+   "authors": [
+    "Shipra Agrawal",
+    "Yiding Feng",
+    "Wei Tang"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Expansive Participatory AI: Supporting Dreaming within Inequitable Institutions",
+   "summary": "Participatory Artificial Intelligence (PAI) has recently gained interest by researchers as means to inform the design of technology through collective's lived experience. PAI has a greater promise than that of providing useful input to developers, it can contribute to the process of democratizing the design of technology, setting the focus on what should be designed. However, in the process of PAI",
+   "published": "2022-11-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2211.12434v1",
+   "authors": [
+    "Michael Alan Chang",
+    "Shiran Dudy"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+   "summary": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critica",
+   "published": "2025-04-20",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.14689v1",
+   "authors": [
+    "Katelyn Xiaoying Mei",
+    "Nic Weber"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Addressing Image Authenticity When Cameras Use Generative AI",
+   "summary": "The ability of generative AI (GenAI) methods to photorealistically alter camera images has raised awareness about the authenticity of images shared online. Interestingly, images captured directly by our cameras are considered authentic and faithful. However, with the increasing integration of deep-learning modules into cameras' capture-time hardware -- namely, the image signal processor (ISP) -- t",
+   "published": "2026-04-23",
+   "primary_category": "cs.CV",
+   "entry_id": "http://arxiv.org/abs/2604.21879v1",
+   "authors": [
+    "Umar Masud",
+    "Abhijith Punnappurath",
+    "Luxi Zhao"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Rate-Splitting for Cell-Free Massive MIMO: Performance Analysis and Generative AI Approach",
+   "summary": "Cell-free (CF) massive multiple-input multipleoutput (MIMO) provides a ubiquitous coverage to user equipments (UEs) but it is also susceptible to interference. Ratesplitting (RS) effectively extracts data by decoding interference, yet its effectiveness is limited by the weakest UE. In this paper, we investigate an RS-based CF massive MIMO system, which combines strengths and mitigates weaknesses o",
+   "published": "2024-09-23",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2409.14702v2",
+   "authors": [
+    "Jiakang Zheng",
+    "Jiayi Zhang",
+    "Hongyang Du"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Provocation: Who benefits from \"inclusion\" in Generative AI?",
+   "summary": "The demands for accurate and representative generative AI systems means there is an increased demand on participatory evaluation structures. While these participatory structures are paramount to to ensure non-dominant values, knowledge and material culture are also reflected in AI models and the media they generate, we argue that dominant structures of community participation in AI development and",
+   "published": "2024-11-14",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2411.09102v2",
+   "authors": [
+    "Samantha Dalal",
+    "Siobhan Mackenzie Hall",
+    "Nari Johnson"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "White-Box AI Model: Next Frontier of Wireless Communications",
+   "summary": "White-box AI (WAI), or explainable AI (XAI) model, a novel tool to achieve the reasoning behind decisions and predictions made by the AI algorithms, makes it more understandable and transparent. It offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models. In this paper, WAI-aided wireless communication systems are proposed and ",
+   "published": "2025-04-12",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2504.09138v1",
+   "authors": [
+    "Jiayao Yang",
+    "Jiayi Zhang",
+    "Bokai Xu"
+   ],
+   "query": "generative AI advertising"
+  },
+  {
+   "title": "Tabletop Roleplaying Games as Procedural Content Generators",
+   "summary": "Tabletop roleplaying games (TTRPGs) and procedural content generators can both be understood as systems of rules for producing content. In this paper, we argue that TTRPG design can usefully be viewed as procedural content generator design. We present several case studies linking key concepts from PCG research -- including possibility spaces, expressive range analysis, and generative pipelines -- ",
+   "published": "2020-07-12",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2007.06108v2",
+   "authors": [
+    "Matthew Guzdial",
+    "Devi Acharya",
+    "Max Kreminski"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Foundations of GenIR",
+   "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two ",
+   "published": "2025-01-06",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2501.02842v1",
+   "authors": [
+    "Qingyao Ai",
+    "Jingtao Zhan",
+    "Yiqun Liu"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Toward Co-creative Dungeon Generation via Transfer Learning",
+   "summary": "Co-creative Procedural Content Generation via Machine Learning (PCGML) refers to systems where a PCGML agent and a human work together to produce output content. One of the limitations of co-creative PCGML is that it requires co-creative training data for a PCGML agent to learn to interact with humans. However, acquiring this data is a difficult and time-consuming process. In this work, we propose",
+   "published": "2021-07-27",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2107.12533v1",
+   "authors": [
+    "Zisen Zhou",
+    "Matthew Guzdial"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Faith in AI can narrow the futures individuals consider",
+   "summary": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo",
+   "published": "2026-03-30",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2603.28944v2",
+   "authors": [
+    "Aoi Naito",
+    "Hirokazu Shirado"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+   "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating",
+   "published": "2026-01-23",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2601.16513v1",
+   "authors": [
+    "Melissa Wilfley",
+    "Mengting Ai",
+    "Madelyn Rose Sanfilippo"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Ensemble Learning For Mega Man Level Generation",
+   "summary": "Procedural content generation via machine learning (PCGML) is the process of procedurally generating game content using models trained on existing game content. PCGML methods can struggle to capture the true variance present in underlying data with a single model. In this paper, we investigated the use of ensembles of Markov chains for procedurally generating \\emph{Mega Man} levels. We conduct an ",
+   "published": "2021-07-27",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2107.12524v1",
+   "authors": [
+    "Bowei Li",
+    "Ruohan Chen",
+    "Yuqing Xue"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Generating Lode Runner Levels by Learning Player Paths with LSTMs",
+   "summary": "Machine learning has been a popular tool in many different fields, including procedural content generation. However, procedural content generation via machine learning (PCGML) approaches can struggle with controllability and coherence. In this paper, we attempt to address these problems by learning to generate human-like paths, and then generating levels based on these paths. We extract player pat",
+   "published": "2021-07-27",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2107.12532v1",
+   "authors": [
+    "Kynan Sorochan",
+    "Jerry Chen",
+    "Yakun Yu"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "How do Humans Process AI-generated Hallucination Contents: a Neuroimaging Study",
+   "summary": "While AI-generated hallucinations pose considerable risks, the underlying cognitive mechanisms by which humans can successfully recognize or be misled by these hallucinations remain unclear. To address this problem, this paper explores humans' neural dynamics to characterize how the brain processes hallucinated content. We record EEG signals from 27 participants while they are performing a verific",
+   "published": "2026-05-16",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.16953v2",
+   "authors": [
+    "Shuqi Zhu",
+    "Yi Zhong",
+    "Ziyi Ye"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "TaikoNation: Patterning-focused Chart Generation for Rhythm Action Games",
+   "summary": "Generating rhythm game charts from songs via machine learning has been a problem of increasing interest in recent years. However, all existing systems struggle to replicate human-like patterning: the placement of game objects in relation to each other to form congruent patterns based on events in the song. Patterning is a key identifier of high quality rhythm game content, seen as a necessary comp",
+   "published": "2021-07-26",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2107.12506v1",
+   "authors": [
+    "Emily Halina",
+    "Matthew Guzdial"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Making AI-Enhanced Videos: Analyzing Generative AI Use Cases in YouTube Content Creation",
+   "summary": "Generative AI (GenAI) tools enhance social media video creation by streamlining tasks such as scriptwriting, visual and audio generation, and editing. These tools enable the creation of new content, including text, images, audio, and video, with platforms like ChatGPT and MidJourney becoming increasingly popular among YouTube creators. Despite their growing adoption, knowledge of their specific us",
+   "published": "2025-03-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2503.03134v1",
+   "authors": [
+    "Torin Anderson",
+    "Shuo Niu"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Exploring Collaborative Distributed Diffusion-Based AI-Generated Content (AIGC) in Wireless Networks",
+   "summary": "Driven by advances in generative artificial intelligence (AI) techniques and algorithms, the widespread adoption of AI-generated content (AIGC) has emerged, allowing for the generation of diverse and high-quality content. Especially, the diffusion model-based AIGC technique has been widely used to generate content in a variety of modalities. However, the real-world implementation of AIGC models, p",
+   "published": "2023-04-07",
+   "primary_category": "cs.DC",
+   "entry_id": "http://arxiv.org/abs/2304.03446v2",
+   "authors": [
+    "Hongyang Du",
+    "Ruichen Zhang",
+    "Dusit Niyato"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+   "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successful",
+   "published": "2023-07-08",
+   "primary_category": "cs.OH",
+   "entry_id": "http://arxiv.org/abs/2308.12400v1",
+   "authors": [
+    "Gerardo Adesso"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Exploring utilization of generative AI for research and education in data-driven materials science",
+   "summary": "Generative AI has recently had a profound impact on various fields, including daily life, research, and education. To explore its efficient utilization in data-driven materials science, we organized a hackathon -- AIMHack2024 -- in July 2024. In this hackathon, researchers from fields such as materials science, information science, bioinformatics, and condensed matter physics worked together to ex",
+   "published": "2025-04-09",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2504.08817v2",
+   "authors": [
+    "Takahiro Misawa",
+    "Ai Koizumi",
+    "Ryo Tamura"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Content ARCs: Decentralized Content Rights in the Age of Generative AI",
+   "summary": "The rise of Generative AI (GenAI) has sparked significant debate over balancing the interests of creative rightsholders and AI developers. As GenAI models are trained on vast datasets that often include copyrighted material, questions around fair compensation and proper attribution have become increasingly urgent. To address these challenges, this paper proposes a framework called Content ARCs (Au",
+   "published": "2025-03-14",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2503.14519v3",
+   "authors": [
+    "Kar Balan",
+    "Andrew Gilbert",
+    "John Collomosse"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+   "summary": "Classic models cast information seeking as iterative foraging: formulate a keyword query, scan results, reformulate, gather across sources, synthesize. We ask what happens when a conversational assistant is inserted into that episode. Linking real conversations with major assistants to the same users' searches and browsing in an opt-in cross-surface panel, and reconstructing the full episode rathe",
+   "published": "2026-07-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2607.04282v1",
+   "authors": [
+    "Michael Iannelli",
+    "Alan Ai"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective",
+   "summary": "The advent of Generative AI has marked a significant milestone in artificial intelligence, demonstrating remarkable capabilities in generating realistic images, texts, and data patterns. However, these advancements come with heightened concerns over data privacy and copyright infringement, primarily due to the reliance on vast datasets for model training. Traditional approaches like differential p",
+   "published": "2023-11-30",
+   "primary_category": "cs.SE",
+   "entry_id": "http://arxiv.org/abs/2311.18252v3",
+   "authors": [
+    "Dawen Zhang",
+    "Boming Xia",
+    "Yue Liu"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "BERT4beam: Large AI Model Enabled Generalized Beamforming Optimization",
+   "summary": "Artificial intelligence (AI) is anticipated to emerge as a pivotal enabler for the forthcoming sixth-generation (6G) wireless communication systems. However, current research efforts regarding large AI models for wireless communications primarily focus on fine-tuning pre-trained large language models (LLMs) for specific tasks. This paper investigates the large-scale AI model designed for beamformi",
+   "published": "2025-09-14",
+   "primary_category": "eess.SY",
+   "entry_id": "http://arxiv.org/abs/2509.11056v2",
+   "authors": [
+    "Yuhang Li",
+    "Yang Lu",
+    "Wei Chen"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Meaningful human control: actionable properties for AI system development",
+   "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsi",
+   "published": "2021-11-25",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2112.01298v2",
+   "authors": [
+    "Luciano Cavalcante Siebert",
+    "Maria Luce Lupetti",
+    "Evgeni Aizenberg"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Beyond principlism: Practical strategies for ethical AI use in research practices",
+   "summary": "The rapid adoption of generative artificial intelligence (AI) in scientific research, particularly large language models (LLMs), has outpaced the development of ethical guidelines, leading to a \"Triple-Too\" problem: too many high-level ethical initiatives, too abstract principles lacking contextual and practical relevance, and too much focus on restrictions and risks over benefits and utilities. E",
+   "published": "2024-01-27",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2401.15284v6",
+   "authors": [
+    "Zhicheng Lin"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+   "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interact",
+   "published": "2025-04-23",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.16770v1",
+   "authors": [
+    "Chaeyeon Lim"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Need of AI in Modern Education: in the Eyes of Explainable AI (xAI)",
+   "summary": "Modern Education is not \\textit{Modern} without AI. However, AI's complex nature makes understanding and fixing problems challenging. Research worldwide shows that a parent's income greatly influences a child's education. This led us to explore how AI, especially complex models, makes important decisions using Explainable AI tools. Our research uncovered many complexities linked to parental income",
+   "published": "2024-07-31",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2408.00025v3",
+   "authors": [
+    "Supriya Manna",
+    "Niladri Sett"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "A Practical Synthesis of Detecting AI-Generated Textual, Visual, and Audio Content",
+   "summary": "Advances in AI-generated content have led to wide adoption of large language models, diffusion-based visual generators, and synthetic audio tools. However, these developments raise critical concerns about misinformation, copyright infringement, security threats, and the erosion of public trust. In this paper, we explore an extensive range of methods designed to detect and mitigate AI-generated tex",
+   "published": "2025-04-02",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2504.02898v2",
+   "authors": [
+    "Lele Cao"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Promoting Real-Time Reflection in Synchronous Communication with Generative AI",
+   "summary": "Real-time reflection plays a vital role in synchronous communication. It enables users to adjust their communication strategies dynamically, thereby improving the effectiveness of their communication. Generative AI holds significant potential to enhance real-time reflection due to its ability to comprehensively understand the current context and generate personalized and nuanced content. However, ",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.15647v2",
+   "authors": [
+    "Yi Wen",
+    "Meng Xia"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Expansive Participatory AI: Supporting Dreaming within Inequitable Institutions",
+   "summary": "Participatory Artificial Intelligence (PAI) has recently gained interest by researchers as means to inform the design of technology through collective's lived experience. PAI has a greater promise than that of providing useful input to developers, it can contribute to the process of democratizing the design of technology, setting the focus on what should be designed. However, in the process of PAI",
+   "published": "2022-11-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2211.12434v1",
+   "authors": [
+    "Michael Alan Chang",
+    "Shiran Dudy"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Generative AI for Film Creation: A Survey of Recent Advances",
+   "summary": "Generative AI (GenAI) is transforming filmmaking, equipping artists with tools like text-to-image and image-to-video diffusion, neural radiance fields, avatar generation, and 3D synthesis. This paper examines the adoption of these technologies in filmmaking, analyzing workflows from recent AI-driven films to understand how GenAI contributes to character creation, aesthetic styling, and narration. ",
+   "published": "2025-04-11",
+   "primary_category": "cs.CV",
+   "entry_id": "http://arxiv.org/abs/2504.08296v1",
+   "authors": [
+    "Ruihan Zhang",
+    "Borou Yu",
+    "Jiajian Min"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Lattica: A Decentralized Cross-NAT Communication Framework for Scalable AI Inference and Training",
+   "summary": "The rapid expansion of distributed Artificial Intelligence (AI) workloads beyond centralized data centers creates a demand for new communication substrates. These substrates must operate reliably in heterogeneous and permissionless environments, where Network Address Translators (NATs) and firewalls impose significant constraints. Existing solutions, however, are either designed for controlled dat",
+   "published": "2025-09-30",
+   "primary_category": "cs.DC",
+   "entry_id": "http://arxiv.org/abs/2510.00183v2",
+   "authors": [
+    "Ween Yang",
+    "Jason Liu",
+    "Suli Wang"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "White-Box AI Model: Next Frontier of Wireless Communications",
+   "summary": "White-box AI (WAI), or explainable AI (XAI) model, a novel tool to achieve the reasoning behind decisions and predictions made by the AI algorithms, makes it more understandable and transparent. It offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models. In this paper, WAI-aided wireless communication systems are proposed and ",
+   "published": "2025-04-12",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2504.09138v1",
+   "authors": [
+    "Jiayao Yang",
+    "Jiayi Zhang",
+    "Bokai Xu"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+   "summary": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critica",
+   "published": "2025-04-20",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.14689v1",
+   "authors": [
+    "Katelyn Xiaoying Mei",
+    "Nic Weber"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Quantum batteries in coherent Ising machine",
+   "summary": "With intensive studies of quantum thermodynamics, quantum batteries (QBs) have been proposed to store and transfer energy via quantum effects. Despite many theoretical models, decoherence remains a severe challenge and practical platforms are still rare. Here, we propose a QB based on the coherent Ising machine, in which the signal field acts as the core energy-storage unit. To clarify the role of",
+   "published": "2025-12-17",
+   "primary_category": "quant-ph",
+   "entry_id": "http://arxiv.org/abs/2512.15072v2",
+   "authors": [
+    "Jin-Tian Zhang",
+    "Shuang-Quan Ma",
+    "Jing-Yi-Ran Jin"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Expert-Guided LLM Reasoning for Battery Discovery: From AI-Driven Hypothesis to Synthesis and Characterization",
+   "summary": "Large language models (LLMs) leverage chain-of-thought (CoT) techniques to tackle complex problems, representing a transformative breakthrough in artificial intelligence (AI). However, their reasoning capabilities have primarily been demonstrated in solving math and coding problems, leaving their potential for domain-specific applications-such as battery discovery-largely unexplored. Inspired by t",
+   "published": "2025-07-21",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2507.16110v1",
+   "authors": [
+    "Shengchao Liu",
+    "Hannan Xu",
+    "Yan Ai"
+   ],
+   "query": "AI content generation"
+  },
+  {
+   "title": "Multidimensional Social Network in the Social Recommender System",
+   "summary": "All online sharing systems gather data that reflects users' collective behaviour and their shared activities. This data can be used to extract different kinds of relationships, which can be grouped into layers, and which are basic components of the multidimensional social network proposed in the paper. The layers are created on the basis of two types of relations between humans, i.e. direct and ob",
+   "published": "2013-03-01",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/1303.0093v1",
+   "authors": [
+    "Przemyslaw Kazienko",
+    "Katarzyna Musial",
+    "Tomasz Kajdanowicz"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Towards Automated Model Design on Recommender Systems",
+   "summary": "The increasing popularity of deep learning models has created new opportunities for developing AI-based recommender systems. Designing recommender systems using deep neural networks requires careful architecture design, and further optimization demands extensive co-design efforts on jointly optimizing model architecture and hardware. Design automation, such as Automated Machine Learning (AutoML), ",
+   "published": "2024-11-12",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2411.07569v1",
+   "authors": [
+    "Tunhou Zhang",
+    "Dehua Cheng",
+    "Yuchen He"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Dynamic Adaptation of User Preferences and Results in a Destination Recommender System",
+   "summary": "Studying human factors has gained a lot of interest in recommender systems research recently. User experience plays a vital role in tourism recommender systems since user satisfaction is the main factor that guarantees the success of such recommender systems. In this work, we have designed and implemented a destination recommender system in which the recommendations adapt instantly based on the us",
+   "published": "2023-02-20",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2302.09803v1",
+   "authors": [
+    "Asal Nesar Noubari",
+    "Wolfgang Wörndl"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "How marketing vocabulary was evolving from 2005 to 2014? An illustrative application of statistical methods on text mining",
+   "summary": "Here a collection of 1169 abstracts, which corresponds to articles that the Journal of Marketing Research has published from 2005 to 2014, are analysed under a novel approach. We apply several statistical methods, such as Principal Components Analysis and Correspondence Analysis to identify the way Marketing vocabulary is evolving. Similarly those articles that introduce new vocabulary are identif",
+   "published": "2016-02-05",
+   "primary_category": "cs.DL",
+   "entry_id": "http://arxiv.org/abs/1606.03963v1",
+   "authors": [
+    "Igor Barahona",
+    "Daria Micaela Hernandez",
+    "Hector Hugo Perez-Villarreal"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Tuning Word2vec for Large Scale Recommendation Systems",
+   "summary": "Word2vec is a powerful machine learning tool that emerged from Natural Lan-guage Processing (NLP) and is now applied in multiple domains, including recom-mender systems, forecasting, and network analysis. As Word2vec is often used offthe shelf, we address the question of whether the default hyperparameters are suit-able for recommender systems. The answer is emphatically no. In this paper, wefirst",
+   "published": "2020-09-24",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2009.12192v1",
+   "authors": [
+    "Benjamin P. Chamberlain",
+    "Emanuele Rossi",
+    "Dan Shiebler"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Attentive Neural Architecture Incorporating Song Features For Music Recommendation",
+   "summary": "Recommender Systems are an integral part of music sharing platforms. Often the aim of these systems is to increase the time, the user spends on the platform and hence having a high commercial value. The systems which aim at increasing the average time a user spends on the platform often need to recommend songs which the user might want to listen to next at each point in time. This is different fro",
+   "published": "2018-11-20",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/1811.08203v1",
+   "authors": [
+    "Noveen Sachdeva",
+    "Kartik Gupta",
+    "Vikram Pudi"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Outfit Generation and Recommendation -- An Experimental Study",
+   "summary": "Over the past years, fashion-related challenges have gained a lot of attention in the research community. Outfit generation and recommendation, i.e., the composition of a set of items of different types (e.g., tops, bottom, shoes, accessories) that go well together, are among the most challenging ones. That is because items have to be both compatible amongst each other and also personalized to mat",
+   "published": "2022-11-29",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2211.16353v1",
+   "authors": [
+    "Marjan Celikik",
+    "Matthias Kirmse",
+    "Timo Denk"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Reusable Self-Attention-based Recommender System for Fashion",
+   "summary": "A large number of empirical studies on applying self-attention models in the domain of recommender systems are based on offline evaluation and metrics computed on standardized datasets, without insights on how these models perform in real life scenarios. Moreover, many of them do not consider information such as item and customer metadata, although deep-learning recommenders live up to their full ",
+   "published": "2022-11-29",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2211.16366v1",
+   "authors": [
+    "Marjan Celikik",
+    "Jacek Wasilewski",
+    "Sahar Mbarek"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Exploring Sectoral Profitability in the Indian Stock Market Using Deep Learning",
+   "summary": "This paper explores using a deep learning Long Short-Term Memory (LSTM) model for accurate stock price prediction and its implications for portfolio design. Despite the efficient market hypothesis suggesting that predicting stock prices is impossible, recent research has shown the potential of advanced algorithms and predictive models. The study builds upon existing literature on stock price predi",
+   "published": "2024-05-28",
+   "primary_category": "q-fin.CP",
+   "entry_id": "http://arxiv.org/abs/2407.01572v1",
+   "authors": [
+    "Jaydip Sen",
+    "Hetvi Waghela",
+    "Sneha Rakshit"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Improving and Evaluating the Detection of Fragmentation in News Recommendations with the Clustering of News Story Chains",
+   "summary": "News recommender systems play an increasingly influential role in shaping information access within democratic societies. However, tailoring recommendations to users' specific interests can result in the divergence of information streams. Fragmented access to information poses challenges to the integrity of the public sphere, thereby influencing democracy and public discourse. The Fragmentation me",
+   "published": "2023-09-12",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2309.06192v2",
+   "authors": [
+    "Alessandra Polimeno",
+    "Myrthe Reuver",
+    "Sanne Vrijenhoek"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "A Neutrosophic Recommender System for Medical Diagnosis Based on Algebraic Neutrosophic Measures",
+   "summary": "Neutrosophic set has the ability to handle uncertain, incomplete, inconsistent, indeterminate information in a more accurate way. In this paper, we proposed a neutrosophic recommender system to predict the diseases based on neutrosophic set which includes single-criterion neutrosophic recommender system (SC-NRS) and multi-criterion neutrosophic recommender system (MC-NRS). Further, we investigated",
+   "published": "2016-02-25",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/1602.08447v1",
+   "authors": [
+    "Mumtaz Ali",
+    "Nguyen Van Minh",
+    "Le Hoang Son"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Measuring Recommender System Effects with Simulated Users",
+   "summary": "Imagine a food recommender system -- how would we check if it is \\emph{causing} and fostering unhealthy eating habits or merely reflecting users' interests? How much of a user's experience over time with a recommender is caused by the recommender system's choices and biases, and how much is based on the user's preferences and biases? Popularity bias and filter bubbles are two of the most well-stud",
+   "published": "2021-01-12",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2101.04526v1",
+   "authors": [
+    "Sirui Yao",
+    "Yoni Halpern",
+    "Nithum Thain"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Learning Heterogeneous Knowledge Base Embeddings for Explainable Recommendation",
+   "summary": "Providing model-generated explanations in recommender systems is important to user experience. State-of-the-art recommendation algorithms - especially collaborative filtering (CF)-based approaches with shallow or deep models - usually work with various unstructured information sources for recommendation, such as textual reviews, visual images, and various implicit or explicit feedbacks. Though str",
+   "published": "2018-05-09",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/1805.03352v2",
+   "authors": [
+    "Qingyao Ai",
+    "Vahid Azizi",
+    "Xu Chen"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "The relationship between content marketing and the traditional marketing communication tools",
+   "summary": "Digitalization is making a significant impact on marketing. New marketing approaches and tools are emerging which are not always clearly categorised. This article seeks to investigate the relationship between one of the novel marketing tools, content marketing, and the five elements of the traditional marketing communication mix. Based on an extensive literature review, this paper analyses the mai",
+   "published": "2022-12-26",
+   "primary_category": "econ.GN",
+   "entry_id": "http://arxiv.org/abs/2301.01279v1",
+   "authors": [
+    "Szabolcs Nagy",
+    "Gergo Hajdu"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Collaborative Competitive filtering II: Optimal Recommendation and Collaborative Games",
+   "summary": "Recommender systems have emerged as a new weapon to help online firms to realize many of their strategic goals (e.g., to improve sales, revenue, customer experience etc.). However, many existing techniques commonly approach these goals by seeking to recover preference (e.g., estimating ratings) in a matrix completion framework. This paper aims to bridge this significant gap between the clearly-def",
+   "published": "2012-12-10",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/1212.2150v1",
+   "authors": [
+    "Shuang-Hong Yang"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Generating Usage-related Questions for Preference Elicitation in Conversational Recommender Systems",
+   "summary": "A key distinguishing feature of conversational recommender systems over traditional recommender systems is their ability to elicit user preferences using natural language. Currently, the predominant approach to preference elicitation is to ask questions directly about items or item attributes. Users searching for recommendations may not have deep knowledge of the available options in a given domai",
+   "published": "2021-11-26",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2111.13463v2",
+   "authors": [
+    "Ivica Kostric",
+    "Krisztian Balog",
+    "Filip Radlinski"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "SynerGen: Contextualized Generative Recommender for Unified Search and Recommendation",
+   "summary": "The dominant retrieve-then-rank pipeline in large-scale recommender systems suffers from mis-calibration and engineering overhead due to its architectural split and differing optimization objectives. While recent generative sequence models have shown promise in unifying retrieval and ranking by auto-regressively generating ranked items, existing solutions typically address either personalized sear",
+   "published": "2025-09-26",
+   "primary_category": "cs.CL",
+   "entry_id": "http://arxiv.org/abs/2509.21777v1",
+   "authors": [
+    "Vianne R. Gao",
+    "Chen Xue",
+    "Marc Versage"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Improving One-class Recommendation with Multi-tasking on Various Preference Intensities",
+   "summary": "In the one-class recommendation problem, it's required to make recommendations basing on users' implicit feedback, which is inferred from their action and inaction. Existing works obtain representations of users and items by encoding positive and negative interactions observed from training data. However, these efforts assume that all positive signals from implicit feedback reflect a fixed prefere",
+   "published": "2024-01-18",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2401.10316v1",
+   "authors": [
+    "Chu-Jen Shao",
+    "Hao-Ming Fu",
+    "Pu-Jen Cheng"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Measuring Commonality in Recommendation of Cultural Content: Recommender Systems to Enhance Cultural Citizenship",
+   "summary": "Recommender systems have become the dominant means of curating cultural content, significantly influencing the nature of individual cultural experience. While the majority of research on recommender systems optimizes for personalized user experience, this paradigm does not capture the ways that recommender systems impact cultural experience in the aggregate, across populations of users. Although e",
+   "published": "2022-08-02",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2208.01696v1",
+   "authors": [
+    "Andres Ferraro",
+    "Gustavo Ferreira",
+    "Fernando Diaz"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Distributionally-Informed Recommender System Evaluation",
+   "summary": "Current practice for evaluating recommender systems typically focuses on point estimates of user-oriented effectiveness metrics or business metrics, sometimes combined with additional metrics for considerations such as diversity and novelty. In this paper, we argue for the need for researchers and practitioners to attend more closely to various distributions that arise from a recommender system (o",
+   "published": "2023-09-12",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2309.05892v1",
+   "authors": [
+    "Michael D. Ekstrand",
+    "Ben Carterette",
+    "Fernando Diaz"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Recommending With, Not For: Co-Designing Recommender Systems for Social Good",
+   "summary": "Recommender systems are usually designed by engineers, researchers, designers, and other members of development teams. These systems are then evaluated based on goals set by the aforementioned teams and other business units of the platforms operating the recommender systems. This design approach emphasizes the designers' vision for how the system can best serve the interests of users, providers, b",
+   "published": "2025-08-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2508.03792v1",
+   "authors": [
+    "Michael D. Ekstrand",
+    "Afsaneh Razi",
+    "Aleksandra Sarcevic"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "A Survey on Trustworthy Recommender Systems",
+   "summary": "Recommender systems (RS), serving at the forefront of Human-centered AI, are widely deployed in almost every corner of the web and facilitate the human decision-making process. However, despite their enormous capabilities and potential, RS may also lead to undesired effects on users, items, producers, platforms, or even the society at large, such as compromised user trust due to non-transparency, ",
+   "published": "2022-07-25",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2207.12515v2",
+   "authors": [
+    "Yingqiang Ge",
+    "Shuchang Liu",
+    "Zuohui Fu"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "A Connection-Centric Survey of Recommender Systems Research",
+   "summary": "  Recommender systems attempt to reduce information overload and retain customers by selecting a subset of items from a universal set based on user preferences. While research in recommender systems grew out of information retrieval and filtering, the topic has steadily advanced into a legitimate and challenging research area of its own. Recommender systems have traditionally been studied from a c",
+   "published": "2002-05-22",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/cs/0205059v2",
+   "authors": [
+    "Saverio Perugini",
+    "Marcos Andre Goncalves",
+    "Edward A. Fox"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "De-centering the (Traditional) User: Multistakeholder Evaluation of Recommender Systems",
+   "summary": "Multistakeholder recommender systems are those that account for the impacts and preferences of multiple groups of individuals, not just the end users receiving recommendations. Due to their complexity, these systems cannot be evaluated strictly by the overall utility of a single stakeholder, as is often the case of more mainstream recommender system applications. In this article, we focus our disc",
+   "published": "2025-01-09",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2501.05170v2",
+   "authors": [
+    "Robin Burke",
+    "Gediminas Adomavicius",
+    "Toine Bogers"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "A Survey of Graph Neural Networks for Recommender Systems: Challenges, Methods, and Directions",
+   "summary": "Recommender system is one of the most important information services on today's Internet. Recently, graph neural networks have become the new state-of-the-art approach to recommender systems. In this survey, we conduct a comprehensive review of the literature on graph neural network-based recommender systems. We first introduce the background and the history of the development of both recommender ",
+   "published": "2021-09-27",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2109.12843v3",
+   "authors": [
+    "Chen Gao",
+    "Yu Zheng",
+    "Nian Li"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Sequeval: A Framework to Assess and Benchmark Sequence-based Recommender Systems",
+   "summary": "In this paper, we present sequeval, a software tool capable of performing the offline evaluation of a recommender system designed to suggest a sequence of items. A sequence-based recommender is trained considering the sequences already available in the system and its purpose is to generate a personalized sequence starting from an initial seed. This tool automatically evaluates the sequence-based r",
+   "published": "2018-10-11",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/1810.04956v2",
+   "authors": [
+    "Diego Monti",
+    "Enrico Palumbo",
+    "Giuseppe Rizzo"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Auditing YouTube's Recommendation Algorithm for Misinformation Filter Bubbles",
+   "summary": "In this paper, we present results of an auditing study performed over YouTube aimed at investigating how fast a user can get into a misinformation filter bubble, but also what it takes to \"burst the bubble\", i.e., revert the bubble enclosure. We employ a sock puppet audit methodology, in which pre-programmed agents (acting as YouTube users) delve into misinformation filter bubbles by watching misi",
+   "published": "2022-10-18",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2210.10085v1",
+   "authors": [
+    "Ivan Srba",
+    "Robert Moro",
+    "Matus Tomlein"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Social Recommendations within the Multimedia Sharing Systems",
+   "summary": "The social recommender system that supports the creation of new relations between users in the multimedia sharing system is presented in the paper. To generate suggestions the new concept of the multirelational social network was introduced. It covers both direct as well as object-based relationships that reflect social and semantic links between users. The main goal of the new method is to create",
+   "published": "2013-03-01",
+   "primary_category": "cs.SI",
+   "entry_id": "http://arxiv.org/abs/1303.0284v1",
+   "authors": [
+    "Katarzyna Musial",
+    "Przemyslaw Kazienkol",
+    "Tomasz Kajdanowicz"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "M2TRec: Metadata-aware Multi-task Transformer for Large-scale and Cold-start free Session-based Recommendations",
+   "summary": "Session-based recommender systems (SBRSs) have shown superior performance over conventional methods. However, they show limited scalability on large-scale industrial datasets since most models learn one embedding per item. This leads to a large memory requirement (of storing one vector per item) and poor performance on sparse sessions with cold-start or unpopular items. Using one public and one la",
+   "published": "2022-09-23",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2209.11824v1",
+   "authors": [
+    "Walid Shalaby",
+    "Sejoon Oh",
+    "Amir Afsharinejad"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Explainability in Music Recommender Systems",
+   "summary": "The most common way to listen to recorded music nowadays is via streaming platforms which provide access to tens of millions of tracks. To assist users in effectively browsing these large catalogs, the integration of Music Recommender Systems (MRSs) has become essential. Current real-world MRSs are often quite complex and optimized for recommendation accuracy. They combine several building blocks ",
+   "published": "2022-01-25",
+   "primary_category": "cs.LG",
+   "entry_id": "http://arxiv.org/abs/2201.10528v1",
+   "authors": [
+    "Darius Afchar",
+    "Alessandro B. Melchiorre",
+    "Markus Schedl"
+   ],
+   "query": "recommender system marketing"
+  },
+  {
+   "title": "Faith in AI can narrow the futures individuals consider",
+   "summary": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo",
+   "published": "2026-03-30",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2603.28944v2",
+   "authors": [
+    "Aoi Naito",
+    "Hirokazu Shirado"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Foundations of GenIR",
+   "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two ",
+   "published": "2025-01-06",
+   "primary_category": "cs.IR",
+   "entry_id": "http://arxiv.org/abs/2501.02842v1",
+   "authors": [
+    "Qingyao Ai",
+    "Jingtao Zhan",
+    "Yiqun Liu"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Recognising the importance of preference change: A call for a coordinated multidisciplinary research effort in the age of AI",
+   "summary": "As artificial intelligence becomes more powerful and a ubiquitous presence in daily life, it is imperative to understand and manage the impact of AI systems on our lives and decisions. Modern ML systems often change user behavior (e.g. personalized recommender systems learn user preferences to deliver recommendations that change online behavior). An externality of behavior change is preference cha",
+   "published": "2022-03-20",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2203.10525v2",
+   "authors": [
+    "Matija Franklin",
+    "Hal Ashton",
+    "Rebecca Gorman"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+   "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating",
+   "published": "2026-01-23",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2601.16513v1",
+   "authors": [
+    "Melissa Wilfley",
+    "Mengting Ai",
+    "Madelyn Rose Sanfilippo"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Mixed-Reality Robotic Games: Design Guidelines for Effective Entertainment with Consumer Robots",
+   "summary": "In recent years, there has been an increasing interest in the use of robotic technology at home. A number of service robots appeared on the market, supporting customers in the execution of everyday tasks. Roughly at the same time, consumer level robots started to be used also as toys or gaming companions. However, gaming possibilities provided by current off-the-shelf robotic products are generall",
+   "published": "2020-07-30",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2007.15538v1",
+   "authors": [
+    "F. Gabriele Pratticò",
+    "Fabrizio Lamberti"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "GNN-enhanced Traffic Anomaly Detection for Next-Generation SDN-Enabled Consumer Electronics",
+   "summary": "Consumer electronics (CE) connected to the Internet of Things are susceptible to various attacks, including DDoS and web-based threats, which can compromise their functionality and facilitate remote hijacking. These vulnerabilities allow attackers to exploit CE for broader system attacks while enabling the propagation of malicious code across the CE network, resulting in device failures. Existing ",
+   "published": "2025-10-08",
+   "primary_category": "cs.CR",
+   "entry_id": "http://arxiv.org/abs/2510.07109v1",
+   "authors": [
+    "Guan-Yan Yang",
+    "Farn Wang",
+    "Kuo-Hui Yeh"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+   "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successful",
+   "published": "2023-07-08",
+   "primary_category": "cs.OH",
+   "entry_id": "http://arxiv.org/abs/2308.12400v1",
+   "authors": [
+    "Gerardo Adesso"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Meaningful human control: actionable properties for AI system development",
+   "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsi",
+   "published": "2021-11-25",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2112.01298v2",
+   "authors": [
+    "Luciano Cavalcante Siebert",
+    "Maria Luce Lupetti",
+    "Evgeni Aizenberg"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+   "summary": "Classic models cast information seeking as iterative foraging: formulate a keyword query, scan results, reformulate, gather across sources, synthesize. We ask what happens when a conversational assistant is inserted into that episode. Linking real conversations with major assistants to the same users' searches and browsing in an opt-in cross-surface panel, and reconstructing the full episode rathe",
+   "published": "2026-07-05",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2607.04282v1",
+   "authors": [
+    "Michael Iannelli",
+    "Alan Ai"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Need of AI in Modern Education: in the Eyes of Explainable AI (xAI)",
+   "summary": "Modern Education is not \\textit{Modern} without AI. However, AI's complex nature makes understanding and fixing problems challenging. Research worldwide shows that a parent's income greatly influences a child's education. This led us to explore how AI, especially complex models, makes important decisions using Explainable AI tools. Our research uncovered many complexities linked to parental income",
+   "published": "2024-07-31",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2408.00025v3",
+   "authors": [
+    "Supriya Manna",
+    "Niladri Sett"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Beyond principlism: Practical strategies for ethical AI use in research practices",
+   "summary": "The rapid adoption of generative artificial intelligence (AI) in scientific research, particularly large language models (LLMs), has outpaced the development of ethical guidelines, leading to a \"Triple-Too\" problem: too many high-level ethical initiatives, too abstract principles lacking contextual and practical relevance, and too much focus on restrictions and risks over benefits and utilities. E",
+   "published": "2024-01-27",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2401.15284v6",
+   "authors": [
+    "Zhicheng Lin"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+   "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interact",
+   "published": "2025-04-23",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.16770v1",
+   "authors": [
+    "Chaeyeon Lim"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Expansive Participatory AI: Supporting Dreaming within Inequitable Institutions",
+   "summary": "Participatory Artificial Intelligence (PAI) has recently gained interest by researchers as means to inform the design of technology through collective's lived experience. PAI has a greater promise than that of providing useful input to developers, it can contribute to the process of democratizing the design of technology, setting the focus on what should be designed. However, in the process of PAI",
+   "published": "2022-11-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2211.12434v1",
+   "authors": [
+    "Michael Alan Chang",
+    "Shiran Dudy"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Exploring utilization of generative AI for research and education in data-driven materials science",
+   "summary": "Generative AI has recently had a profound impact on various fields, including daily life, research, and education. To explore its efficient utilization in data-driven materials science, we organized a hackathon -- AIMHack2024 -- in July 2024. In this hackathon, researchers from fields such as materials science, information science, bioinformatics, and condensed matter physics worked together to ex",
+   "published": "2025-04-09",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2504.08817v2",
+   "authors": [
+    "Takahiro Misawa",
+    "Ai Koizumi",
+    "Ryo Tamura"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "White-Box AI Model: Next Frontier of Wireless Communications",
+   "summary": "White-box AI (WAI), or explainable AI (XAI) model, a novel tool to achieve the reasoning behind decisions and predictions made by the AI algorithms, makes it more understandable and transparent. It offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models. In this paper, WAI-aided wireless communication systems are proposed and ",
+   "published": "2025-04-12",
+   "primary_category": "cs.IT",
+   "entry_id": "http://arxiv.org/abs/2504.09138v1",
+   "authors": [
+    "Jiayao Yang",
+    "Jiayi Zhang",
+    "Bokai Xu"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "BERT4beam: Large AI Model Enabled Generalized Beamforming Optimization",
+   "summary": "Artificial intelligence (AI) is anticipated to emerge as a pivotal enabler for the forthcoming sixth-generation (6G) wireless communication systems. However, current research efforts regarding large AI models for wireless communications primarily focus on fine-tuning pre-trained large language models (LLMs) for specific tasks. This paper investigates the large-scale AI model designed for beamformi",
+   "published": "2025-09-14",
+   "primary_category": "eess.SY",
+   "entry_id": "http://arxiv.org/abs/2509.11056v2",
+   "authors": [
+    "Yuhang Li",
+    "Yang Lu",
+    "Wei Chen"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Quantum batteries in coherent Ising machine",
+   "summary": "With intensive studies of quantum thermodynamics, quantum batteries (QBs) have been proposed to store and transfer energy via quantum effects. Despite many theoretical models, decoherence remains a severe challenge and practical platforms are still rare. Here, we propose a QB based on the coherent Ising machine, in which the signal field acts as the core energy-storage unit. To clarify the role of",
+   "published": "2025-12-17",
+   "primary_category": "quant-ph",
+   "entry_id": "http://arxiv.org/abs/2512.15072v2",
+   "authors": [
+    "Jin-Tian Zhang",
+    "Shuang-Quan Ma",
+    "Jing-Yi-Ran Jin"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective",
+   "summary": "The advent of Generative AI has marked a significant milestone in artificial intelligence, demonstrating remarkable capabilities in generating realistic images, texts, and data patterns. However, these advancements come with heightened concerns over data privacy and copyright infringement, primarily due to the reliance on vast datasets for model training. Traditional approaches like differential p",
+   "published": "2023-11-30",
+   "primary_category": "cs.SE",
+   "entry_id": "http://arxiv.org/abs/2311.18252v3",
+   "authors": [
+    "Dawen Zhang",
+    "Boming Xia",
+    "Yue Liu"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Expert-Guided LLM Reasoning for Battery Discovery: From AI-Driven Hypothesis to Synthesis and Characterization",
+   "summary": "Large language models (LLMs) leverage chain-of-thought (CoT) techniques to tackle complex problems, representing a transformative breakthrough in artificial intelligence (AI). However, their reasoning capabilities have primarily been demonstrated in solving math and coding problems, leaving their potential for domain-specific applications-such as battery discovery-largely unexplored. Inspired by t",
+   "published": "2025-07-21",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2507.16110v1",
+   "authors": [
+    "Shengchao Liu",
+    "Hannan Xu",
+    "Yan Ai"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "BEHAVIOR Vision Suite: Customizable Dataset Generation via Simulation",
+   "summary": "The systematic evaluation and understanding of computer vision models under varying conditions require large amounts of data with comprehensive and customized labels, which real-world vision datasets rarely satisfy. While current synthetic data generators offer a promising alternative, particularly for embodied AI tasks, they often fall short for computer vision tasks due to low asset and renderin",
+   "published": "2024-05-15",
+   "primary_category": "cs.CV",
+   "entry_id": "http://arxiv.org/abs/2405.09546v1",
+   "authors": [
+    "Yunhao Ge",
+    "Yihe Tang",
+    "Jiashu Xu"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+   "summary": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critica",
+   "published": "2025-04-20",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.14689v1",
+   "authors": [
+    "Katelyn Xiaoying Mei",
+    "Nic Weber"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Consumer Privacy and Serial Monopoly",
+   "summary": "We examine the implications of consumer privacy when preferences today depend upon past consumption choices, and consumers shop from different sellers in each period. Although consumers are ex ante identical, their initial consumption choices cannot be deterministic. Thus ex post heterogeneity in preferences arises endogenously. Consumer privacy improves social welfare, consumer surplus and the pr",
+   "published": "2019-04-16",
+   "primary_category": "econ.TH",
+   "entry_id": "http://arxiv.org/abs/1904.07644v1",
+   "authors": [
+    "V. Bhaskar",
+    "Nikita Roketskiy"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "How do Humans Process AI-generated Hallucination Contents: a Neuroimaging Study",
+   "summary": "While AI-generated hallucinations pose considerable risks, the underlying cognitive mechanisms by which humans can successfully recognize or be misled by these hallucinations remain unclear. To address this problem, this paper explores humans' neural dynamics to characterize how the brain processes hallucinated content. We record EEG signals from 27 participants while they are performing a verific",
+   "published": "2026-05-16",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.16953v2",
+   "authors": [
+    "Shuqi Zhu",
+    "Yi Zhong",
+    "Ziyi Ye"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Overview of AI and Communication for 6G Network: Fundamentals, Challenges, and Future Research Opportunities",
+   "summary": "With the growing demand for seamless connectivity and intelligent communication, the integration of artificial intelligence (AI) and sixth-generation (6G) communication networks has emerged as a transformative paradigm. By embedding AI capabilities across various network layers, this integration enables optimized resource allocation, improved efficiency, and enhanced system robust performance, par",
+   "published": "2024-12-19",
+   "primary_category": "cs.NI",
+   "entry_id": "http://arxiv.org/abs/2412.14538v4",
+   "authors": [
+    "Qimei Cui",
+    "Xiaohu You",
+    "Ni Wei"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Lattica: A Decentralized Cross-NAT Communication Framework for Scalable AI Inference and Training",
+   "summary": "The rapid expansion of distributed Artificial Intelligence (AI) workloads beyond centralized data centers creates a demand for new communication substrates. These substrates must operate reliably in heterogeneous and permissionless environments, where Network Address Translators (NATs) and firewalls impose significant constraints. Existing solutions, however, are either designed for controlled dat",
+   "published": "2025-09-30",
+   "primary_category": "cs.DC",
+   "entry_id": "http://arxiv.org/abs/2510.00183v2",
+   "authors": [
+    "Ween Yang",
+    "Jason Liu",
+    "Suli Wang"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks",
+   "summary": "The ability to inspect, interpret, and communicate complex data is crucial for virtually any scientific endeavor, but often requires significant expertise outside the core domain ranging from data management and analysis to visualization design and implementation. We present an end-to-end agentic harness that, based on only the data and a high level description of the tasks, independently designs ",
+   "published": "2026-05-20",
+   "primary_category": "cs.AI",
+   "entry_id": "http://arxiv.org/abs/2605.21825v1",
+   "authors": [
+    "Haichao Miao",
+    "Zhimin Li",
+    "Kuangshi Ai"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Supporting Data-Frame Dynamics in AI-assisted Decision Making",
+   "summary": "High stakes decision-making often requires a continuous interplay between evolving evidence and shifting hypotheses, a dynamic that is not well supported by current AI decision support systems. In this paper, we introduce a mixed-initiative framework for AI assisted decision making that is grounded in the data-frame theory of sensemaking and the evaluative AI paradigm. Our approach enables both hu",
+   "published": "2025-04-22",
+   "primary_category": "cs.HC",
+   "entry_id": "http://arxiv.org/abs/2504.15894v1",
+   "authors": [
+    "Chengbo Zheng",
+    "Tim Miller",
+    "Alina Bialkowski"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "AI-Driven Mobility Management for High-Speed Railway Communications: Compressed Measurements and Proactive Handover",
+   "summary": "High-speed railway (HSR) communications are pivotal for ensuring rail safety, operations, maintenance, and delivering passenger information services. The high speed of trains creates rapidly time-varying wireless channels, increases the signaling overhead, and reduces the system throughput, making it difficult to meet the growing and stringent needs of HSR applications. In this article, we explore",
+   "published": "2024-07-05",
+   "primary_category": "eess.SP",
+   "entry_id": "http://arxiv.org/abs/2407.04336v3",
+   "authors": [
+    "Wen Li",
+    "Wei Chen",
+    "Shiyue Wang"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "Embodied AI-Enhanced IoMT Edge Computing: UAV Trajectory Optimization and Task Offloading with Mobility Prediction",
+   "summary": "Due to their inherent flexibility and autonomous operation, unmanned aerial vehicles (UAVs) have been widely used in Internet of Medical Things (IoMT) to provide real-time biomedical edge computing service for wireless body area network (WBAN) users. In this paper, considering the time-varying task criticality characteristics of diverse WBAN users and the dual mobility between WBAN users and UAV, ",
+   "published": "2025-12-24",
+   "primary_category": "cs.NI",
+   "entry_id": "http://arxiv.org/abs/2512.20902v1",
+   "authors": [
+    "Siqi Mu",
+    "Shuo Wen",
+    "Yang Lu"
+   ],
+   "query": "AI consumer behavior"
+  },
+  {
+   "title": "How Do AI Companies \"Fine-Tune\" Policy? Examining Regulatory Capture in AI Governance",
+   "summary": "Industry actors in the United States have gained extensive influence in conversations about the regulation of general-purpose artificial intelligence (AI) systems. Although industry participation is an important part of the policy process, it can also cause regulatory capture, whereby industry co-opts regulatory regimes to prioritize private over public welfare. Capture of AI policy by AI develope",
+   "published": "2024-10-16",
+   "primary_category": "cs.CY",
+   "entry_id": "http://arxiv.org/abs/2410.13042v1",
+   "authors": [
+    "Kevin Wei",
+    "Carson Ezell",
+    "Nick Gabrieli"
+   ],
+   "query": "AI consumer behavior"
+  }
+ ],
+ "n_identified": 210,
+ "n_after_dedup": 135,
+ "n_screened": 40,
+ "n_included": 23,
+ "year_dist": {
+  "2022": 10,
+  "2023": 8,
+  "2024": 14,
+  "2025": 30,
+  "2026": 8
+ },
+ "query_dist": {
+  "AI marketing": 29,
+  "LLM marketing": 16,
+  "recommender system marketing": 12,
+  "generative AI advertising": 8,
+  "AI content generation": 4,
+  "AI consumer behavior": 1
+ }
+}

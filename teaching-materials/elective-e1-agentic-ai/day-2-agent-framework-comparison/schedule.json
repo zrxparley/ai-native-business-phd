@@ -1,0 +1,50 @@
+{
+  "unit": "U-E1-D2",
+  "title": "Agent框架对比 (LangGraph/CrewAI/AutoGen/MetaGPT)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LangGraph StateGraph: Agent即图 - 开发者用 add_node(节点函数)/add_edge/add_conditional_edges 显式定义有状态有向图, 控制流完全由开发者掌控, 适合精确控制执行流程的场景",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "LangGraph create_react_agent vs StateGraph Plan-Execute: ReAct 边推理边调工具(Thought->Action->Obs 循环, 适合信息不足探索); Plan-Execute 一次性规划后顺序执行(plan_node 不可逆, 适合结构化任务)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "CrewAI Agent即角色: Agent(role,goal,backstory,tools,llm) + Task(description,expected_output,agent,context) + Crew(agents,tasks,process); 控制流由 Task 的 context 依赖与 process 字段自动编排, 非开发者显式定义",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "AutoGen Agent即对话者: ConversableAgent(name,system_message) + GroupChat(agents,messages,max_round) + GroupChatManager; 多Agent在共享对话中讨论协商, max_round 耗尽未共识是关键不可逆点",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "MetaGPT Agent即流程执行者: Role+Protocol+Environment, 预定义SOP(产品经理->架构师->工程师->QA), 结构化程度高但灵活性有限, 不适合动态规划场景",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "2026前沿: A2A(Google, Agent间互操作)与MCP(Anthropic, Agent与工具连接)互补; LangGraph生态三件套(StateGraph+create_react_agent+MemorySaver)+LangSmith可观测+LangGraph Platform部署; Plan-Execute因Plan-and-Solve论文复兴",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C7",
+      "concept": "天道推演因果链选型: 同一营销任务(透肌精华竞品分析)在4框架上模拟 - LangGraph显式控制因果节点, CrewAI角色分工隐式编排, AutoGen因果链在对话涌现; 识别不可逆点(plan_node/角色定义/max_round耗尽)是选型关键",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

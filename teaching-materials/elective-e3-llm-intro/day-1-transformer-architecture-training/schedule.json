@@ -1,0 +1,91 @@
+{
+  "unit": "U-elective-e3-llm-intro-day1",
+  "topic": "Transformer架构与训练 (Self-Attention, Multi-Head, Pre-training/SFT/RLHF-DPO, MoE, Tokenization)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Self-Attention 公式 Attention(Q,K,V)=softmax(QK^T/√d_k)V, 缩放因子 √d_k 防止 d_k=64 时 softmax 饱和",
+      "front": "写出 Self-Attention 公式, 解释 √d_k 的作用",
+      "back": "Attention(Q,K,V)=softmax(QK^T/√d_k)V。√d_k 控制 softmax 输入方差, GPT-2 small d_k=64 不缩放时方差 ~64 -> softmax 饱和 -> 梯度消失。Q=查询(用户搜索词), K=键(产品标题), V=值(产品详情)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Self-Attention", "QKV", "softmax", "GPT-2"]
+    },
+    {
+      "id": "C2",
+      "concept": "Multi-Head Attention 中 head 数与 n_embd 关系: GPT-2 small 12 heads × 64 = 768, 不同 head 学语法/语义/位置",
+      "front": "GPT-2 small 的 Multi-Head 配置是什么? 不同 head 学什么?",
+      "back": "12 heads, 每个 head d=64, concat 后 12×64=768=n_embd。不同 head 学不同关联: 语法(主谓一致)、语义(同义词)、位置(相邻词)。Concat 后过 W_O 投影回 768。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Multi-Head", "GPT-2", "n_head=12"]
+    },
+    {
+      "id": "C3",
+      "concept": "训练三阶段 Pre-training(预测下一token,万亿互联网文本,Base Model 有知识不会对话) / SFT(指令-回答对,数万-数十万条,Chat Model 能遵循指令) / Alignment(RLHF/DPO 偏好排序,Aligned Model 安全+有用)",
+      "front": "LLM 训练三阶段各自的数据、目标、产出?",
+      "back": "Pre-training: 数据=万亿 token 互联网文本, 目标=预测下一 token, 产出=Base Model(有知识不会对话)。SFT: 数据=数万-数十万指令-回答对, 目标=遵循指令, 产出=Chat Model。Alignment: 数据=人类偏好排序, 目标=安全+有用, 方法=RLHF 或 DPO(2023, 跳过 Reward Model 直接从偏好对优化, Llama3/Zephyr 采用)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Pre-training", "SFT", "RLHF", "DPO"]
+    },
+    {
+      "id": "C4",
+      "concept": "Tokenization 中英文成本差异: 中文 1 汉字 ≈ 1-2 token, 英文 ~1 token ≈ 0.75 单词, 同义中文比英文贵 1.5-2 倍",
+      "front": "为什么同一意思中文比英文消耗更多 token? 对推理成本有何影响?",
+      "back": "BPE 词表(如 GPT-2 50257)英文优先, 中文走 byte fallback 被切成更多 token。'限时特惠买一送一' tiktoken ~10 token, 'Limited time offer BOGO' ~8 token。按 GPT-4o $5/M input, 日均万次请求中文场景比英文贵 ~1.5 倍。RoPE 位置编码外推性影响长 context 成本。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Tokenization", "tiktoken", "BPE", "成本"]
+    },
+    {
+      "id": "C5",
+      "concept": "DeepSeek-MoE 671B total / 37B active, 激活比 5.5%, 单次推理成本 ~ Dense 37B 而非 671B, 节省 ~18 倍",
+      "front": "DeepSeek-V3 MoE 的总参/激活参? 对营销 Agent 推理成本的意义?",
+      "back": "671B total / 37B active (arXiv 2401.04088 细粒度专家分工)。每次推理只激活 ~5.5% 参数, 成本接近 Dense 37B 而非 671B。营销 Agent 日均万次请求可降本 3-5 倍。MoE 替换的是 FFN (4×d 扩展, 占 GPT-2 ~23% 参数), Attention 仍 Dense。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["MoE", "DeepSeek-V3", "推理成本", "FFN"]
+    },
+    {
+      "id": "C6",
+      "concept": "DPO vs RLHF: DPO 绕过 Reward Model 训练和 RL 优化, 直接从偏好对优化 LLM, 更简单更稳定, Llama3/Zephyr 采用",
+      "front": "DPO 相比 RLHF 简化了什么? 谁在用?",
+      "back": "RLHF 流程: 训 Reward Model -> PPO/KL 优化 LLM(两步, 不稳定)。DPO (Direct Preference Optimization, 2023) 直接用偏好对 (chosen, rejected) 算 loss, 跳过 RM 与 RL, 更稳定。Llama 3 / Zephyr / 多数 2024+ 开源模型采用 DPO 路线。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["DPO", "RLHF", "Alignment", "Llama3"]
+    },
+    {
+      "id": "C7",
+      "concept": "GPT-2 small 参数推算: Embedding 50257×768=38.6M + 12 layer × 7.1M (QKV+FFN+LN) = 85.2M + final LN 0.4M ≈ 124M",
+      "front": "推算 GPT-2 small 总参数量 (~124M)",
+      "back": "Embedding: 50257×768=38.6M (31%)。Per-layer: QKV 3×768² + FFN 2×768×3072 + 2×LN ≈ 7.1M; ×12 layer = 85.2M。Final LN ~0.4M。Total ≈ 124M。FFN 4× 扩展 = 2.36M/layer 占比最大, 是 MoE 替换的目标。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["GPT-2", "参数量", "Scale-Law", "FFN"]
+    },
+    {
+      "id": "C8",
+      "concept": "投机解码 Speculative Decoding: 小模型 draft 生成候选 token, 大模型并行验证, 猜对接受多 token, 延迟降 2-3 倍质量不变 (arXiv 2211.17192)",
+      "front": "投机解码如何降低推理延迟? 质量会变吗?",
+      "back": "小模型(draft)快速生成 k 个候选 token, 大模型一次前向并行验证。猜对的 token 直接接受, 猜错的从错位重生成。延迟降 2-3 倍(arXiv 2211.17192), 输出质量与大模型独走完全一致(大模型验证=最终质量)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Speculative-Decoding", "推理优化", "延迟"]
+    }
+  ],
+  "review_log_schema": {
+    "card_id": "string",
+    "review_date": "ISO8601",
+    "rating": "1=again 2=hard 3=good 4=easy",
+    "elapsed_days": "int",
+    "next_due": "ISO8601",
+    "stability": "float (FSRS-6)",
+    "difficulty": "float (FSRS-6)",
+    "retrievability": "float (FSRS-6)"
+  },
+  "notes": "本卡组锚定 notes.md 的 5 条学习目标 + 2026 前沿补充。FSRS-6 默认 request_retention=0.9, SM-2 fallback 用 ef0=2.5 起步。每卡首次复习 due[0]=1 天后, 通过 4 次后 due 拉长到 180 天。检索练习(retrieval practice)优于重读, 建议卡面只看 front 默背 back, 不先翻 back。"
+}

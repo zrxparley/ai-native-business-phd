@@ -1,0 +1,56 @@
+{
+  "unit": "U5-D3",
+  "unit_title": "Agent评估 (AgentBench, trajectory metrics, LLM-as-a-judge, task success rates, cost/latency)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "轨迹评估 vs 端到端评估：端到端只看最终输出对错(粗粒度,成本低),轨迹评估看 Thought1->Action1->Obs1->Thought2->...每一步(细粒度,成本高,需LLM-as-judge或人工标注)。营销Agent两层都要:端到端做基础门禁(GEval打分),轨迹做深度诊断(BaseMetric找哪步错)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "轨迹评估与端到端评估的4个差异维度+营销场景实践建议?",
+      "back": "评估对象/粒度/成本/发现问题不同。营销:端到端查Brief符合度,轨迹查工具选对/参数/推理链。实践:两层都要,端到端门禁+轨迹诊断。"
+    },
+    {
+      "id": "C2",
+      "concept": "deepeval核心组件:LLMTestCase(input/actual_output/expected_output/retrieval_context/trajectory)定义用例;GEval(criteria,LLM-as-judge自动打分+给理由)评估语义维度(品牌调性/CTA/平台适配);FaithfulnessMetric(threshold=0.7)检测幻觉对比retrieval_context;BaseMetric继承实现measure()做自定义轨迹评估;assert_test单用例断言,evaluate批量运行,deepeval test run进CI。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "deepeval的5个核心组件(LLMTestCase/GEval/FaithfulnessMetric/BaseMetric/evaluate)各自的导入与用途?",
+      "back": "见concept。关键:GEval=LLM-as-judge语义打分,FaithfulnessMetric=幻觉检测,BaseMetric=自定义轨迹指标,assert_test=pytest断言,evaluate=批量。"
+    },
+    {
+      "id": "C3",
+      "concept": "AgentBench(arXiv 2308.03688,清华)综合Agent能力评估8场景(OS/DB/知识图谱/卡牌/横向思维/家务/网页购物/网页浏览),横向比较LLM作Agent backbone。SWE-bench(2310.06770)修GitHub issue;WebArena(2307.13854)网页交互;GAIA(2311.12983)通用AI助手。这些是学术benchmark横向比模型能力,营销Agent评估需自建测试集(50-100真实Brief)用deepeval跑。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "AgentBench覆盖哪8个场景?与SWE-bench/WebArena/GAIA的区别?为什么不能直接用AgentBench评估营销Agent?",
+      "back": "8场景见concept。SWE-bench=软件工程,WebArena=网页,GAIA=通用助手。AgentBench是学术横向比模型,营销需自建Brief测试集+deepeval。"
+    },
+    {
+      "id": "C4",
+      "concept": "营销Agent六大评估指标:任务完成率(>=85%)/工具调用准确率(>=90%,正确选择+正确参数+无冗余)/幻觉率(<=5%,虚构成分违反广告法)/延迟P50<30s P95<60s/成本<$0.5/次/用户满意度>=7/10。前三个用deepeval离线测,后三个用LangSmith/Langfuse在线可观测性(trace/eval/score)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "营销Agent六大评估指标及其目标值?哪三个离线测,哪三个在线测?",
+      "back": "完成率85%/工具90%/幻觉5%/P50<30s P95<60s/$0.5/满意度7。前三deepeval离线,后三LangSmith/Langfuse在线。"
+    },
+    {
+      "id": "C5",
+      "concept": "LLM-as-a-judge(NeurIPS 2023, arXiv 2306.05685)三大偏差:偏好长答案(length bias)/位置偏差(position bias,偏好A或B位置)/自我偏好(self-preference,偏好自己风格)。对应因果阶梯L1关联分析,不能替代L2干预(A/B测试)。定位开发期自检工具,生产期仍需A/B+用户满意度反馈。deepeval GEval是LLM-as-judge的可运行工程实现。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "LLM-as-a-judge三大偏差+因果阶梯定位+生产期为什么不能只用它?",
+      "back": "长度/位置/自我偏好偏差。L1关联非L2干预。生产期需A/B测试+用户反馈,LLM-as-judge只是开发期自检。"
+    },
+    {
+      "id": "C6",
+      "concept": "Agent评估四大挑战:非确定性(同输入不同输出,温度/上下文/模型版本->断言失效)/多步推理(过程错但碰巧答对->结果对≠过程对)/工具调用(选对工具+参数正确+无冗余,新增评估维度)/长尾效应(95%OK但5%完全失控,需对抗性测试)。这是轨迹评估存在的根本原因--不能只看答案对不对,必须评估过程好不好。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Agent评估四大挑战+为什么传统断言式测试在Agent上失效?",
+      "back": "非确定/多步/工具/长尾。断言假设输入A必然输出B,Agent违反此假设->需轨迹评估+LLM-as-judge+对抗性测试。"
+    }
+  ]
+}

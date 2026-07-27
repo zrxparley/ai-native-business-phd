@@ -1,0 +1,66 @@
+{
+  "unit": "U-skill2-day1-process-intelligence-ai-governance",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_count": 21,
+  "sm2_backup": {
+    "ef0": 2.5,
+    "intervals": [1, 6, 15, 35, 80, 180]
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "NIST AI RMF 四步循环 (Govern/Map/Measure/Manage) + 18个真实控制项编号",
+      "front": "NIST AI RMF 的四个核心功能是什么？Govern 与其他三个功能是串行还是贯穿关系？列出至少 6 个真实控制项编号。",
+      "back": "Govern / Map / Measure / Manage。Govern 贯穿全过程（非串行）。真实控制项：GOVERN-1~5 / MAP-1~5 / MEASURE-1~4 / MANAGE-1~4 共 18 项。Govern 是组织治理基础，Map 是风险识别，Measure 是评估，Manage 是应对。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["nist", "ai-rmf", "governance"]
+    },
+    {
+      "id": "C2",
+      "concept": "EU AI Act 四级风险分级 (Article 5 / Annex III / Article 50 / 最小风险) + 瀑布式判定顺序",
+      "front": "EU AI Act 的四个风险等级分别对应哪个条款？判定时必须按什么顺序？营销AI动态定价在什么情况下升为高风险？",
+      "back": "禁止 (Article 5) -> 高风险 (Annex III) -> 有限风险 (Article 50 透明度义务) -> 最小风险。从严到宽瀑布式判定，先判禁止再判高风险。动态定价若涉及保险/信贷则升为高风险 (Annex III)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["eu-ai-act", "regulation", "risk-classification"]
+    },
+    {
+      "id": "C3",
+      "concept": "天道推演沙盘模拟预判 AI 系统风险路径 (3层推演树 immediate->near->far + 高杠杆干预点)",
+      "front": "天道推演的沙盘模拟如何预判 AI 系统风险路径？要求至少几层推演？以营销AI动态定价为例给出路径A无治理与路径B有NIST治理的对比。",
+      "back": "天道推演要求至少 3 层推演 (immediate -> near -> far)，每分支计算成功概率/风险/资源消耗/连锁反应。路径A: AI发现差异->个性化定价->价格歧视曝光->品牌危机->监管介入。路径B: NIST Measure公平性检测触发->自动暂停->人工审核。高杠杆点：Measure维度部署公平性检测。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tian-dao", "sandbox-simulation", "risk-prediction"]
+    },
+    {
+      "id": "C4",
+      "concept": "pydantic schema 建模 NIST 控制项 + ComplianceStatus 枚举 (COMPLIANT/PARTIAL/NON_COMPLIANT/NOT_APPLICABLE)",
+      "front": "用 pydantic 定义 NIST AI RMF 控制项 schema 需要哪些字段？ComplianceStatus 枚举至少包含哪 4 个状态？PARTIAL 与 NOT_APPLICABLE 的区别？",
+      "back": "ControlItem 模型字段: id (str, 如 GOVERN-1) / function (Literal['Govern','Map','Measure','Manage']) / description (str) / status (ComplianceStatus)。ComplianceStatus 枚举: COMPLIANT / PARTIAL / NON_COMPLIANT / NOT_APPLICABLE。PARTIAL=部分满足（需改进），NOT_APPLICABLE=该控制项对此用例不适用（如内嵌控制对外部用例）。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pydantic", "schema", "validation"]
+    },
+    {
+      "id": "C5",
+      "concept": "MCP (Model Context Protocol) 实现治理即代码 - 合规检查Agent + 审计日志MCP Server + NIST GOVERN-2 问责结构代码化",
+      "front": "MCP 如何将 NIST AI RMF 的 GOVERN-2 (问责结构) 从'文档化'升级为'代码化'？营销Agent通过MCP在发布内容前自动检查哪些合规规则？",
+      "back": "MCP 让 Agent 通过标准化接口接入合规规则库，实现事前自动拦截而非事后人工审计。营销Agent发布前通过MCP检查: (1) EU AI Act Article 50 透明度义务（是否标注AI生成）(2) 品牌安全规则 (3) 广告法合规 (4) NIST MANAGE-4 风险响应。GOVERN-2 问责结构从文档变为可执行的代码规则。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["mcp", "governance-as-code", "agent"]
+    },
+    {
+      "id": "C6",
+      "concept": "computer use (计算机使用) 带来的新型治理风险 - 权限边界模糊/可逆性/审计粒度/UI级紧急停止",
+      "front": "computer use 相比传统 API 调用在 AI 治理上带来哪 4 个新维度风险？NIST AI RMF 的 MANAGE-4 (风险响应) 必须如何升级？",
+      "back": "4 维度新风险: (1)权限边界模糊 (AI可操作整个软件系统) (2)可逆性 (UI操作可能不可逆如删文件/发邮件) (3)审计粒度 (UI点击/输入/滚动难以结构化日志) (4)隔离性 (Agent可绕过API rate limit直接操作UI)。MANAGE-4 必须新增 UI 级'紧急停止'机制 (屏幕监控+异常操作拦截) + GOVERN-5 新增'Agent操作权限矩阵'。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["computer-use", "risk", "manage-4"]
+    }
+  ]
+}

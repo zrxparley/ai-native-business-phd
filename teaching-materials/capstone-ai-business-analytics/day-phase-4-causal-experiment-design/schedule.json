@@ -1,0 +1,82 @@
+{
+  "unit": "U-capstone-phase-4",
+  "title": "因果实验设计与验证 - 间隔重复卡片",
+  "version": "v6.0",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "maximum_interval": 365,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "DoWhy 四步因果分析：建模(声明DAG+处理+结果+混杂) -> 识别(后门准则) -> 估计(后门调整/PSM/DML) -> 反驳(安慰剂/随机混杂/子集检验)。在 NSW RCT 上估计 treat 对 re78 的 ATE。",
+      "front": "DoWhy 因果分析四步是什么？每步在 NSW 数据上具体调用哪个 API？",
+      "back": "1) CausalModel(data, treatment, outcome, common_causes) 2) model.identify_effect() 3) model.estimate_effect(method_name='backdoor.linear_regression') 4) model.refute_estimate(method_name='placebo_treatment_refuter')",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["dowhy", "causal-identification", "nsw"]
+    },
+    {
+      "id": "C2",
+      "concept": "CUPED 方差缩减：Y_adj = Y - theta*(X_pre - mean(X_pre))，theta = Cov(Y, X_pre)/Var(X_pre)。方差降低约 rho^2（Y 与 X_pre 相关系数平方）。NSW 用 re75 调整 re78。",
+      "front": "CUPED 的公式是什么？方差降低多少？NSW 中用哪个变量调整哪个？",
+      "back": "Y_adj = Y - theta*(X_pre - X_pre.mean()); theta = Cov(Y,X_pre)/Var(X_pre); 方差降低 rho^2; NSW: 用 re75 (前实验协变量) 调整 re78 (结果)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["cuped", "variance-reduction", "ab-testing"]
+    },
+    {
+      "id": "C3",
+      "concept": "DML 双重机器学习 (Chernozhukov 2018)：用 ML 估计 nuisance functions E[Y|X] 和 E[T|X]，残差化后估计因果效应，提供 double/debiased 无偏估计，高维非线性下优于线性回归。econml.dml.LinearDML。",
+      "front": "DML 相对线性回归后门调整的优势？econml 哪个类？为什么叫 double/debiased？",
+      "back": "高维非线性 nuisance 下无偏；econml.dml.LinearDML(model_y=RF, model_t=RF, discrete_treatment=True); double=同时残差化Y和T，debiased=正交化消除正则化偏差",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["dml", "econml", "cate"]
+    },
+    {
+      "id": "C4",
+      "concept": "因果森林 (Wager & Athey 2018)：用随机森林结构估计异质因果效应 CATE，自动发现子群体效应。相比 DML 线性 CATE，能捕捉协变量交互效应。",
+      "front": "因果森林估计什么？相比 DML 的 CATE 有何优势？",
+      "back": "估计 CATE (异质因果效应)；优势：能捕捉协变量交互效应（DML 线性 CATE 假设线性可加，森林无此假设）",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["causal-forest", "cate", "heterogeneity"]
+    },
+    {
+      "id": "C5",
+      "concept": "朴素 ATE 有偏原因：ATE_naive = mean(Y_treated) - mean(Y_control) = ATE + Bias，偏差来自混杂因素在处理组与对照组分布不均。NSW 处理组是 RCT 随机，但对照组含 observational 补充样本，混杂来自此处。",
+      "front": "朴素 ATE 为什么有偏？NSW 数据中偏差具体来自哪里？",
+      "back": "混杂因素在两组分布不均；NSW 处理组真随机但对照组含 observational 补充样本（Dehejia-Wahba 1999），故需后门调整/PSM/DML 消除偏差",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["ate", "bias", "confounding"]
+    },
+    {
+      "id": "C6",
+      "concept": "Uplift 增量建模：估计每用户'被干预 vs 不被干预'的增量效应，按 uplift 排序优先干预'可被说服'用户。DML/因果森林的 CATE 直接用于 Uplift 排序。MAB 用于多干预自适应选择。",
+      "front": "Uplift 建模目标是什么？与 CATE 什么关系？MAB 用在哪？",
+      "back": "目标：估计每用户增量效应并排序优先干预'可被说服'者；CATE = uplift 估计量；MAB 用于多干预方案自适应选择最优",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["uplift", "marketing", "mab"]
+    },
+    {
+      "id": "C7",
+      "concept": "反驳检验三件套：placebo_treatment_refuter（安慰剂处理，估计应趋近 0）、random_common_cause（加随机混杂，估计应不变）、data_subset_refuter（子集，估计应稳定）。任一偏离 > 30% 判不稳健。",
+      "front": "DoWhy 三种反驳检验是什么？各自检验什么？稳健判据？",
+      "back": "placebo(安慰剂处理应趋0) + random_common_cause(加随机混杂应不变) + data_subset(子集应稳定); 任一偏离>30%判不稳健",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["refutation", "robustness", "dowhy"]
+    },
+    {
+      "id": "C8",
+      "concept": "deepeval 自定义 BaseMetric 评估 Agent 因果证据使用质量：检测 Agent 输出是否引用 ATE 数值、是否提置信区间、是否提及反驳检验。返回 0-1 分数 + reason 字段（具体改进建议）。",
+      "front": "用 deepeval 评估 Agent 因果证据使用，BaseMetric 检测哪三件事？返回什么？",
+      "back": "检测: 1)是否引用ATE数值 2)是否提置信区间 3)是否提及反驳检验; 返回 0-1 分数 + reason 字段(具体改进建议)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["deepeval", "agent-evaluation", "base-metric"]
+    }
+  ]
+}

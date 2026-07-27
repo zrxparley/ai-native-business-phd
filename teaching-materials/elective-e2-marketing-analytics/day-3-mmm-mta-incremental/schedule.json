@@ -1,0 +1,56 @@
+{
+  "unit": "elective-e2-marketing-analytics/day-3-mmm-mta-incremental",
+  "topic": "MMM/MTA增量测量 (Marketing Mix Modeling + Multi-Touch Attribution + Incremental, Bayesian, DoWhy)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "MMM Adstock 变换公式 Adstock_t = Spend_t + λ × Adstock_{t-1};渠道衰减率经验值: Search 0.1-0.3 / Social 0.3-0.5 / Display 0.5-0.7 / Email 0.1-0.2 / TV 0.7-0.9;Ridge 替代 OLS 因渠道共线 (VIF>10)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "MMM Adstock 变换公式?Search/Social/TV 的 λ 经验值?为何用 Ridge?",
+      "back": "Adstock_t = Spend_t + λ × Adstock_{t-1};Search 0.1-0.3 (即时需求), Social 0.3-0.5 (中周期), TV 0.7-0.9 (长期品牌);Ridge 因渠道投入高度共线 (搜索+社交同步投放),OLS 系数不稳定,L2 正则化让系数可解释。"
+    },
+    {
+      "id": "C2",
+      "concept": "MTA 马尔可夫链移除法 (Removal Effect) 5 步算法: 1)收集用户触点路径 2)构建一阶转移矩阵 P(i->j) 3)计算基线转化率 P(Start->Conversion) 4)对每渠道 c 移除后重算转化率 5)归一化移除效应为功劳分配",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "MTA 马尔可夫移除法 5 步算法?",
+      "back": "1)收集用户路径 [Search,Social,Email,Convert];2)构建一阶转移矩阵 P(状态 i -> 状态 j);3)计算基线转化率 = P(Start->Conversion) 吸收概率;4)对每渠道 c,移除 c (出转移重定向到 Null),重算转化率;5)Removal Effect = (基线 - 移除后)/基线,归一化为功劳分配。"
+    },
+    {
+      "id": "C3",
+      "concept": "增量测量四法对比: RCT 朴素均值差(金标准,无偏) vs 合成控制(加权对照拟合反事实,需 pre-period 匹配) vs DML(双重去偏+交叉拟合) vs Geo 实验(地理配对随机化);增量率 2%=收割 vs 30%=创造",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "增量测量四法?何时用哪法?增量率 2% vs 30% 含义?",
+      "back": "RCT 朴素均值差(金标准无偏,但伦理/成本高);合成控制(RCT 不可行时,用加权对照构造反事实,需 pre-period 匹配);DML(高维混杂,用 ML 拟合 m(x)=E[T|X], g(x)=E[Y|X],残差化后 OLS);Geo 实验(隐私合规,地理配对随机化)。增量率 2%=广告在收割已会购买用户,30%=广告在创造新需求。"
+    },
+    {
+      "id": "C4",
+      "concept": "DML 双重机器学习 (Chernozhukov 2018) 算法: 1)交叉拟合(cross-fitting)训练 m(x)=E[T|X] 与 g(x)=E[Y|X] 2)计算残差 T_tilde=T-m_hat(X), Y_tilde=Y-g_hat(X) 3)OLS 回归 Y_tilde ~ T_tilde,系数即处理效应 θ;双重去偏消除 OLS 高维混杂偏差",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "DML 双重机器学习算法步骤?为何稳健?",
+      "back": "1)交叉拟合(cross-fitting)训练 m(x)=E[T|X] 和 g(x)=E[Y|X] 两个 ML 模型(如 RandomForest);2)计算残差 T_tilde = T - m_hat(X), Y_tilde = Y - g_hat(X);3)OLS 回归 Y_tilde ~ T_tilde,系数即处理效应 θ。稳健因:ML 捕获非线性混杂,交叉拟合避免过拟合偏差,双重去偏消除 OLS 在高维混杂下的偏差。"
+    },
+    {
+      "id": "C5",
+      "concept": "贝叶斯 MMM 优势 (Meta Robyn / Google Meridian / PyMC Marketing, 2026 开源趋势): 1)融入先验(渠道衰减率范围作先验,避免极端估计) 2)不确定性量化(贡献分解给概率区间非点估计) 3)小样本稳健(渠道多周数少时频率学派不稳定,贝叶斯先验提供正则化)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "贝叶斯 MMM 三大优势?2026 开源工具?",
+      "back": "1)融入先验:把渠道衰减率范围(Search 0.1-0.3)作为先验,避免极端估计;2)不确定性量化:贡献分解给出概率区间而非点估计;3)小样本稳健:渠道多周数少时频率学派 OLS/Ridge 不稳定,贝叶斯先验提供正则化。开源工具: Meta Robyn, Google Meridian, PyMC Marketing。"
+    },
+    {
+      "id": "C6",
+      "concept": "预算优化: scipy.optimize.minimize SLSQP 在约束 Σx_i=B, x_i>=0 下最大化 Base+Σ(βi×Adstock(x_i));检验 KKT 条件(拉格朗日乘子符号);MMM 是历史外推,需用 Geo 实验 + CUPED 方差缩减验证;CUPED(Microsoft 2013)用预处理协变量缩减实验方差",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "预算优化如何求解?为何需增量验证?CUPED 作用?",
+      "back": "scipy.optimize.minimize SLSQP,约束 Σx_i=B, x_i>=0,最大化 Base+Σ(βi×Adstock(x_i));检验 KKT 条件(拉格朗日乘子非负);MMM 是历史外推,市场环境变化时优化可能失效,需用 Geo 实验 + CUPED 验证。CUPED(Microsoft 2013)用预处理协变量缩减 A/B 实验方差,2026 已成大型科技公司实验平台标配。"
+    }
+  ]
+}

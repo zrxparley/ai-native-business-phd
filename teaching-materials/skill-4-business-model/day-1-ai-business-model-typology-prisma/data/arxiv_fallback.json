@@ -1,0 +1,568 @@
+{
+  "all_identified": 160,
+  "after_dedup": 96,
+  "screened": 30,
+  "included": 30,
+  "papers": [
+    {
+      "title": "Business Model Contributions to Bank Profit Performance: A Machine Learning Approach",
+      "authors": [
+        "F. Bolivar",
+        "Miguel A. Duran",
+        "A. Lozano-Vivas"
+      ],
+      "summary": "This paper analyzes the relation between bank profit performance and business models. Using a machine learning-based approach, we propose a methodological strategy in which balance sheet components' contributions to profitability are the identification instruments of business models. We apply this strategy to the European Union banking system from 1997 to 2021. Our main findings indicate that the standard retail-oriented business model is the profile that performs best in terms of profitability, whereas adopting a non-specialized business profile is a strategic decision that leads to poor profitability. Additionally, our findings suggest that the effect of high capital ratios on profitability depends on the business profile. The contributions of business models to profitability decreased during the Great Recession. Although the situation showed signs of improvement afterward, the European Union banking system's ability to yield returns is still problematic in the post-crisis period, even for the best-performing group.",
+      "published": "2024-01-22T19:54:16+00:00",
+      "entry_id": "http://arxiv.org/abs/2401.12334v1",
+      "categories": [
+        "econ.GN"
+      ],
+      "primary_category": "econ.GN",
+      "_query": "AI business model",
+      "typology": "AI-Infrastructure"
+    },
+    {
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "published": "2026-01-23T07:26:45+00:00",
+      "entry_id": "http://arxiv.org/abs/2601.16513v1",
+      "categories": [
+        "cs.CY"
+      ],
+      "primary_category": "cs.CY",
+      "_query": "AI business model",
+      "typology": "AI-Infrastructure"
+    },
+    {
+      "title": "Business and ethical concerns in domestic Conversational Generative AI-empowered multi-robot systems",
+      "authors": [
+        "Rebekah Rousi",
+        "Hooman Samani",
+        "Niko Mäkitalo",
+        "Ville Vakkuri",
+        "Simo Linkola",
+        "Kai-Kristian Kemell",
+        "Paulius Daubaris",
+        "Ilenia Fronza",
+        "Tommi Mikkonen",
+        "Pekka Abrahamsson"
+      ],
+      "summary": "Business and technology are intricately connected through logic and design. They are equally sensitive to societal changes and may be devastated by scandal. Cooperative multi-robot systems (MRSs) are on the rise, allowing robots of different types and brands to work together in diverse contexts. Generative artificial intelligence has been a dominant topic in recent artificial intelligence (AI) discussions due to its capacity to mimic humans through the use of natural language and the production of media, including deep fakes. In this article, we focus specifically on the conversational aspects of generative AI, and hence use the term Conversational Generative artificial intelligence (CGI). Like MRSs, CGIs have enormous potential for revolutionizing processes across sectors and transforming the way humans conduct business. From a business perspective, cooperative MRSs alone, with potential conflicts of interest, privacy practices, and safety concerns, require ethical examination. MRSs empowered by CGIs demand multi-dimensional and sophisticated methods to uncover imminent ethical pitfalls. This study focuses on ethics in CGI-empowered MRSs while reporting the stages of developing the MORUL model.",
+      "published": "2024-01-12T11:05:32+00:00",
+      "entry_id": "http://arxiv.org/abs/2401.09473v1",
+      "categories": [
+        "cs.CY",
+        "cs.AI"
+      ],
+      "primary_category": "cs.CY",
+      "_query": "AI business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "BERT4beam: Large AI Model Enabled Generalized Beamforming Optimization",
+      "authors": [
+        "Yuhang Li",
+        "Yang Lu",
+        "Wei Chen",
+        "Bo Ai",
+        "Zhiguo Ding"
+      ],
+      "summary": "Artificial intelligence (AI) is anticipated to emerge as a pivotal enabler for the forthcoming sixth-generation (6G) wireless communication systems. However, current research efforts regarding large AI models for wireless communications primarily focus on fine-tuning pre-trained large language models (LLMs) for specific tasks. This paper investigates the large-scale AI model designed for beamforming optimization to adapt and generalize to diverse tasks defined by system utilities and scales. We propose a novel framework based on bidirectional encoder representations from transformers (BERT), termed BERT4beam. We aim to formulate the beamforming optimization problem as a token-level sequence learning task, perform tokenization of the channel state information, construct the BERT model, and conduct task-specific pre-training and fine-tuning strategies. Based on the framework, we propose two BERT-based approaches for single-task and multi-task beamforming optimization, respectively. Both approaches are generalizable for varying user scales. Moreover, the former can adapt to varying system utilities and antenna configurations by re-configuring the input and output module of the BERT model, while the latter, termed UBERT, can directly generalize to diverse tasks, due to a finer-grained tokenization strategy. Extensive simulation results demonstrate that the two proposed approaches can achieve near-optimal performance and outperform existing AI models across various beamforming optimization tasks, showcasing strong adaptability and generalizability.",
+      "published": "2025-09-14T02:49:29+00:00",
+      "entry_id": "http://arxiv.org/abs/2509.11056v2",
+      "categories": [
+        "eess.SY",
+        "cs.LG"
+      ],
+      "primary_category": "eess.SY",
+      "_query": "AI business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "Exploitation Business: Leveraging Information Asymmetry",
+      "authors": [
+        "Kwangseob Ahn"
+      ],
+      "summary": "This paper investigates the \"Exploitation Business\" model, which capitalizes on information asymmetry to exploit vulnerable populations. It focuses on businesses targeting non-experts or fraudsters who capitalize on information asymmetry to sell their products or services to desperate individuals. This phenomenon, also described as \"profit-making activities based on informational exploitation,\" thrives on individuals' limited access to information, lack of expertise, and Fear of Missing Out (FOMO).\n  The recent advancement of social media and the rising trend of fandom business have accelerated the proliferation of such exploitation business models. Discussions on the empowerment and exploitation of fans in the digital media era present a restructuring of relationships between fans and media creators, highlighting the necessity of not overlooking the exploitation of fans' free labor.\n  This paper analyzes the various facets and impacts of exploitation business models, enriched by real-world examples from sectors like cryptocurrency and GenAI, thereby discussing their social, economic, and ethical implications. Moreover, through theoretical backgrounds and research, it explores similar themes like existing exploitation theories, commercial exploitation, and financial exploitation to gain a deeper understanding of the \"Exploitation Business\" subject.",
+      "published": "2023-10-15T11:18:54+00:00",
+      "entry_id": "http://arxiv.org/abs/2310.09802v2",
+      "categories": [
+        "cs.CY",
+        "econ.GN"
+      ],
+      "primary_category": "cs.CY",
+      "_query": "AI business model",
+      "typology": "AI-Infrastructure"
+    },
+    {
+      "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+      "authors": [
+        "Chaeyeon Lim"
+      ],
+      "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interaction workflows. The paper presents the importance of considering (1) metacognitive support with deliberate friction focusing on human bias; (2) bi-directional Human-AI interaction intervention addressing both input formulation and output interpretation; and (3) adaptive scaffolding that responds to diverse user engagement patterns. These frameworks are illustrated through ongoing work on \"DeBiasMe,\" AIED (AI in Education) interventions designed to enhance awareness of cognitive biases while empowering user agency in AI interactions. The paper invites multiple stakeholders to engage in discussions on design and evaluation methods for scaffolding mechanisms, bias visualization, and analysis frameworks. This position contributes to the emerging field of AI-augmented learning by emphasizing the critical role of metacognition in helping students navigate the complex interaction between human, statistical, and systemic biases in AI use while highlighting how cognitive adaptation to AI systems must be explicitly integrated into comprehensive AI literacy frameworks.",
+      "published": "2025-04-23T14:41:31+00:00",
+      "entry_id": "http://arxiv.org/abs/2504.16770v1",
+      "categories": [
+        "cs.HC"
+      ],
+      "primary_category": "cs.HC",
+      "_query": "AI business model",
+      "typology": "AI-Enhanced-Product"
+    },
+    {
+      "title": "Quantum batteries in coherent Ising machine",
+      "authors": [
+        "Jin-Tian Zhang",
+        "Shuang-Quan Ma",
+        "Jing-Yi-Ran Jin",
+        "Tao Liu",
+        "Qing Ai"
+      ],
+      "summary": "With intensive studies of quantum thermodynamics, quantum batteries (QBs) have been proposed to store and transfer energy via quantum effects. Despite many theoretical models, decoherence remains a severe challenge and practical platforms are still rare. Here, we propose a QB based on the coherent Ising machine, in which the signal field acts as the core energy-storage unit. To clarify the role of quantum coherence in resisting dissipation, we decompose the ergotropy, i.e., the maximum extractable work from the QB, into its coherent and incoherent components. We find that the coherent part decays at a rate roughly half that of the incoherent part, exhibiting much stronger robustness against decoherence. More importantly, the coherent ergotropy and the average charging power reach their respective maxima at essentially the same moment, which defines the optimal instant to switch off the pump field. Finally, by coupling the QB to a two-level system as the load, we demonstrate an efficient energy discharge process of the proposed QB. Our work establishes a realistic and immediately-implementable QB architecture on a mature optical platform, laying a foundation for experimental exploration of quantum energy storage.",
+      "published": "2025-12-17T04:30:00+00:00",
+      "entry_id": "http://arxiv.org/abs/2512.15072v2",
+      "categories": [
+        "quant-ph"
+      ],
+      "primary_category": "quant-ph",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Agentic Business Process Management Systems",
+      "authors": [
+        "Marlon Dumas",
+        "Fredrik Milani",
+        "David Chapela-Campa"
+      ],
+      "summary": "Since the early 90s, the evolution of the Business Process Management (BPM) discipline has been punctuated by successive waves of automation technologies. Some of these technologies enable the automation of individual tasks, while others focus on orchestrating the execution of end-to-end processes. The rise of Generative and Agentic Artificial Intelligence (AI) is opening the way for another such wave. However, this wave is poised to be different because it shifts the focus from automation to autonomy and from design-driven management of business processes to data-driven management, leveraging process mining techniques. This position paper, based on a keynote talk at the 2025 Workshop on AI for BPM, outlines how process mining has laid the foundations on top of which agents can sense process states, reason about improvement opportunities, and act to maintain and optimize performance. The paper proposes an architectural vision for Agentic Business Process Management Systems (A-BPMS): a new class of platforms that integrate autonomy, reasoning, and learning into process management and execution. The paper contends that such systems must support a continuum of processes, spanning from human-driven to fully autonomous, thus redefining the boundaries of process automation and governance.",
+      "published": "2026-01-25T20:13:57+00:00",
+      "entry_id": "http://arxiv.org/abs/2601.18833v1",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "primary_category": "cs.AI",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Expert-Guided LLM Reasoning for Battery Discovery: From AI-Driven Hypothesis to Synthesis and Characterization",
+      "authors": [
+        "Shengchao Liu",
+        "Hannan Xu",
+        "Yan Ai",
+        "Huanxin Li",
+        "Yoshua Bengio",
+        "Harry Guo"
+      ],
+      "summary": "Large language models (LLMs) leverage chain-of-thought (CoT) techniques to tackle complex problems, representing a transformative breakthrough in artificial intelligence (AI). However, their reasoning capabilities have primarily been demonstrated in solving math and coding problems, leaving their potential for domain-specific applications-such as battery discovery-largely unexplored. Inspired by the idea that reasoning mirrors a form of guided search, we introduce ChatBattery, a novel agentic framework that integrates domain knowledge to steer LLMs toward more effective reasoning in materials design. Using ChatBattery, we successfully identify, synthesize, and characterize three novel lithium-ion battery cathode materials, which achieve practical capacity improvements of 28.8%, 25.2%, and 18.5%, respectively, over the widely used cathode material, LiNi0.8Mn0.1Co0.1O2 (NMC811). Beyond this discovery, ChatBattery paves a new path by showing a successful LLM-driven and reasoning-based platform for battery materials invention. This complete AI-driven cycle-from design to synthesis to characterization-demonstrates the transformative potential of AI-driven reasoning in revolutionizing materials discovery.",
+      "published": "2025-07-21T23:46:11+00:00",
+      "entry_id": "http://arxiv.org/abs/2507.16110v1",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "primary_category": "cs.AI",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "GOD model: Privacy Preserved AI School for Personal Assistant",
+      "authors": [
+        " PIN AI Team",
+        "Bill Sun",
+        "Gavin Guo",
+        "Regan Peng",
+        "Boliang Zhang",
+        "Shouqiao Wang",
+        "Laura Florescu",
+        "Xi Wang",
+        "Davide Crapis",
+        "Ben Wu"
+      ],
+      "summary": "Personal AI assistants (e.g., Apple Intelligence, Meta AI) offer proactive recommendations that simplify everyday tasks, but their reliance on sensitive user data raises concerns about privacy and trust. To address these challenges, we introduce the Guardian of Data (GOD), a secure, privacy-preserving framework for training and evaluating AI assistants directly on-device. Unlike traditional benchmarks, the GOD model measures how well assistants can anticipate user needs-such as suggesting gifts-while protecting user data and autonomy. Functioning like an AI school, it addresses the cold start problem by simulating user queries and employing a curriculum-based approach to refine the performance of each assistant. Running within a Trusted Execution Environment (TEE), it safeguards user data while applying reinforcement and imitation learning to refine AI recommendations. A token-based incentive system encourages users to share data securely, creating a data flywheel that drives continuous improvement. Specifically, users mine with their data, and the mining rate is determined by GOD's evaluation of how well their AI assistant understands them across categories such as shopping, social interactions, productivity, trading, and Web3. By integrating privacy, personalization, and trust, the GOD model provides a scalable, responsible path for advancing personal AI assistants. For community collaboration, part of the framework is open-sourced at https://github.com/PIN-AI/God-Model.",
+      "published": "2025-02-24T20:30:17+00:00",
+      "entry_id": "http://arxiv.org/abs/2502.18527v2",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "primary_category": "cs.CR",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+      "authors": [
+        "Katelyn Xiaoying Mei",
+        "Nic Weber"
+      ],
+      "summary": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critical thinking. Based on definitions of critical thinking across psychology and education, this position paper proposes the distinction between demonstrated and performed critical thinking in the era of generative AI and discusses the implication of this distinction in research and development of AI systems that aim to augment human critical thinking.",
+      "published": "2025-04-20T17:40:28+00:00",
+      "entry_id": "http://arxiv.org/abs/2504.14689v1",
+      "categories": [
+        "cs.HC"
+      ],
+      "primary_category": "cs.HC",
+      "_query": "AI business model",
+      "typology": "AI-Infrastructure"
+    },
+    {
+      "title": "Embodied AI-Enhanced IoMT Edge Computing: UAV Trajectory Optimization and Task Offloading with Mobility Prediction",
+      "authors": [
+        "Siqi Mu",
+        "Shuo Wen",
+        "Yang Lu",
+        "Ruihong Jiang",
+        "Bo Ai"
+      ],
+      "summary": "Due to their inherent flexibility and autonomous operation, unmanned aerial vehicles (UAVs) have been widely used in Internet of Medical Things (IoMT) to provide real-time biomedical edge computing service for wireless body area network (WBAN) users. In this paper, considering the time-varying task criticality characteristics of diverse WBAN users and the dual mobility between WBAN users and UAV, we investigate the dynamic task offloading and UAV flight trajectory optimization problem to minimize the weighted average task completion time of all the WBAN users, under the constraint of UAV energy consumption. To tackle the problem, an embodied AI-enhanced IoMT edge computing framework is established. Specifically, we propose a novel hierarchical multi-scale Transformer-based user trajectory prediction model based on the users' historical trajectory traces captured by the embodied AI agent (i.e., UAV). Afterwards, a prediction-enhanced deep reinforcement learning (DRL) algorithm that integrates predicted users' mobility information is designed for intelligently optimizing UAV flight trajectory and task offloading decisions. Real-word movement traces and simulation results demonstrate the superiority of the proposed methods in comparison with the existing benchmarks.",
+      "published": "2025-12-24T03:06:37+00:00",
+      "entry_id": "http://arxiv.org/abs/2512.20902v1",
+      "categories": [
+        "cs.NI",
+        "cs.AI"
+      ],
+      "primary_category": "cs.NI",
+      "_query": "AI business model",
+      "typology": "AI-Agent-Economy"
+    },
+    {
+      "title": "A Long Short-Term Memory (LSTM) Model for Business Sentiment Analysis Based on Recurrent Neural Network",
+      "authors": [
+        "Md. Jahidul Islam Razin",
+        "Md. Abdul Karim",
+        "M. F. Mridha",
+        "S M Rafiuddin",
+        "Tahira Alam"
+      ],
+      "summary": "Business sentiment analysis (BSA) is one of the significant and popular topics of natural language processing. It is one kind of sentiment analysis techniques for business purposes. Different categories of sentiment analysis techniques like lexicon-based techniques and different types of machine learning algorithms are applied for sentiment analysis on different languages like English, Hindi, Spanish, etc. In this paper, long short-term memory (LSTM) is applied for business sentiment analysis, where a recurrent neural network is used. An LSTM model is used in a modified approach to prevent the vanishing gradient problem rather than applying the conventional recurrent neural network (RNN). To apply the modified RNN model, product review dataset is used. In this experiment, 70\\% of the data is trained for the LSTM and the rest 30\\% of the data is used for testing. The result of this modified RNN model is compared with other conventional RNN models, and a comparison is made among the results. It is noted that the proposed model performs better than the other conventional RNN models. Here, the proposed model, i.e., the modified RNN model approach has achieved around 91.33\\% of accuracy. By applying this model, any business company or e-commerce business site can identify the feedback from their customers about different types of products that customers like or dislike. Based on the customer reviews, a business company or e-commerce platform can evaluate its marketing strategy.",
+      "published": "2025-09-03T06:46:02+00:00",
+      "entry_id": "http://arxiv.org/abs/2509.03060v1",
+      "categories": [
+        "cs.CL"
+      ],
+      "primary_category": "cs.CL",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "How Do AI Companies \"Fine-Tune\" Policy? Examining Regulatory Capture in AI Governance",
+      "authors": [
+        "Kevin Wei",
+        "Carson Ezell",
+        "Nick Gabrieli",
+        "Chinmay Deshpande"
+      ],
+      "summary": "Industry actors in the United States have gained extensive influence in conversations about the regulation of general-purpose artificial intelligence (AI) systems. Although industry participation is an important part of the policy process, it can also cause regulatory capture, whereby industry co-opts regulatory regimes to prioritize private over public welfare. Capture of AI policy by AI developers and deployers could hinder such regulatory goals as ensuring the safety, fairness, beneficence, transparency, or innovation of general-purpose AI systems. In this paper, we first introduce different models of regulatory capture from the social science literature. We then present results from interviews with 17 AI policy experts on what policy outcomes could compose regulatory capture in US AI policy, which AI industry actors are influencing the policy process, and whether and how AI industry actors attempt to achieve outcomes of regulatory capture. Experts were primarily concerned with capture leading to a lack of AI regulation, weak regulation, or regulation that over-emphasizes certain policy goals over others. Experts most commonly identified agenda-setting (15 of 17 interviews), advocacy (13), academic capture (10), information management (9), cultural capture through status (7), and media capture (7) as channels for industry influence. To mitigate these particular forms of industry influence, we recommend systemic changes in developing technical expertise in government and civil society, independent funding streams for the AI ecosystem, increased transparency and ethics requirements, greater civil society access to policy, and various procedural safeguards.",
+      "published": "2024-10-16T21:06:54+00:00",
+      "entry_id": "http://arxiv.org/abs/2410.13042v1",
+      "categories": [
+        "cs.CY"
+      ],
+      "primary_category": "cs.CY",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Using Artificial Intelligence to Unlock Crowdfunding Success for Small Businesses",
+      "authors": [
+        "Teng Ye",
+        "Jingnan Zheng",
+        "Junhui Jin",
+        "Jingyi Qiu",
+        "Wei Ai",
+        "Qiaozhu Mei"
+      ],
+      "summary": "While small businesses are increasingly turning to online crowdfunding platforms for essential funding, over 40% of these campaigns may fail to raise any money, especially those from low socio-economic areas. We utilize the latest advancements in AI technology to identify crucial factors that influence the success of crowdfunding campaigns and to improve their fundraising outcomes by strategically optimizing these factors. Our best-performing machine learning model accurately predicts the fundraising outcomes of 81.0% of campaigns, primarily based on their textual descriptions. Interpreting the machine learning model allows us to provide actionable suggestions on improving the textual description before launching a campaign. We demonstrate that by augmenting just three aspects of the narrative using a large language model, a campaign becomes more preferable to 83% human evaluators, and its likelihood of securing financial support increases by 11.9%. Our research uncovers the effective strategies for crafting descriptions for small business fundraising campaigns and opens up a new realm in integrating large language models into crowdfunding methodologies.",
+      "published": "2024-04-24T20:53:10+00:00",
+      "entry_id": "http://arxiv.org/abs/2407.09480v1",
+      "categories": [
+        "econ.GN",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "primary_category": "econ.GN",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+      "authors": [
+        "Jinhu Qi",
+        "Muzhi Li",
+        "Jiahong Liu",
+        "Yuqin Shu",
+        "Dianzhi Yu",
+        "Shicheng Ma",
+        "Wenqian Cui",
+        "Yiyang Zhao",
+        "Yiyi Chen",
+        "Ruoxi Jiang",
+        "Irwin King",
+        "Zenglin Xu"
+      ],
+      "summary": "Agentic AI systems -- Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions -- can execute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This survey provides a focused examination of trustworthy agentic AI through two core dimensions that are critical for high-risk deployments: Safety and Robustness, and Privacy and System Security. For each dimension, we clarify key concepts, identify where risks emerge along the agent workflow, and summarize stage-targeted mitigation strategies. Other trustworthiness aspects (value alignment, transparency, fairness, and accountability) are discussed as relevant context rather than parallel chapters. To support consistent comparison and deployment decisions, we consolidate evaluation into a unified metrics-and-benchmarks hub, emphasizing both outcome and process signals (e.g., constraint violations, trace completeness, and adversarial success rates) and offering scenario-to-metric guidance for release gating. We conclude by outlining open challenges such as self-evolving agents, runtime monitoring and verification, privacy-preserving personalization, and the trust-utility trade-off, and present a case study of real-world security failures in open-source agentic systems. Our goal is to serve as a practical reference for researchers and practitioners building trustworthy agentic systems in high-stakes environments.",
+      "published": "2026-05-17T10:26:37+00:00",
+      "entry_id": "http://arxiv.org/abs/2605.23989v1",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "primary_category": "cs.AI",
+      "_query": "AI business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Can I Trust My Simulation Model? Measuring the Quality of Business Process Simulation Models",
+      "authors": [
+        "David Chapela-Campa",
+        "Ismail Benchekroun",
+        "Opher Baron",
+        "Marlon Dumas",
+        "Dmitry Krass",
+        "Arik Senderovich"
+      ],
+      "summary": "Business Process Simulation (BPS) is an approach to analyze the performance of business processes under different scenarios. For example, BPS allows us to estimate what would be the cycle time of a process if one or more resources became unavailable. The starting point of BPS is a process model annotated with simulation parameters (a BPS model). BPS models may be manually designed, based on information collected from stakeholders and empirical observations, or automatically discovered from execution data. Regardless of its origin, a key question when using a BPS model is how to assess its quality. In this paper, we propose a collection of measures to evaluate the quality of a BPS model w.r.t. its ability to replicate the observed behavior of the process. We advocate an approach whereby different measures tackle different process perspectives. We evaluate the ability of the proposed measures to discern the impact of modifications to a BPS model, and their ability to uncover the relative strengths and weaknesses of two approaches for automated discovery of BPS models. The evaluation shows that the measures not only capture how close a BPS model is to the observed behavior, but they also help us to identify sources of discrepancies.",
+      "published": "2023-03-30T15:40:26+00:00",
+      "entry_id": "http://arxiv.org/abs/2303.17463v1",
+      "categories": [
+        "cs.SE",
+        "cs.LG"
+      ],
+      "primary_category": "cs.SE",
+      "_query": "AI business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks",
+      "authors": [
+        "Haichao Miao",
+        "Zhimin Li",
+        "Kuangshi Ai",
+        "Kaiyuan Tang",
+        "Chaoli Wang",
+        "Peer-Timo Bremer",
+        "Shusen Liu"
+      ],
+      "summary": "The ability to inspect, interpret, and communicate complex data is crucial for virtually any scientific endeavor, but often requires significant expertise outside the core domain ranging from data management and analysis to visualization design and implementation. We present an end-to-end agentic harness that, based on only the data and a high level description of the tasks, independently designs custom visual analysis applications (VIS apps). This represents an important step towards a general AI co-scientist envisioned by many as an autonomous system that can autonomously execute long horizon tasks based on high-level directions. Our proposed VIS co-scientist is an essential component of this broader AI co-scientist vision: a harness that can autonomously analyze data and design visualization solutions using a collection of agents and specialized skills that coordinate exploratory analysis, plan, configure the environment, implement, validate the interface, and most importantly evaluate the overall task completion. Each stage produces document and instruction artifacts that guide downstream work and enable iterative refinement. We validate this approach on IEEE SciVis Contests spanning multiple science and engineering fields. These contests serve as ideal proving grounds because they encode real-world complexity: ambiguous requirements, diverse data modalities, design trade-offs, and task-driven validation. Given only the data and target tasks, our system autonomously produces functional single-page VIS Apps with verified linked-view behavior, highly customized to domain experts' specified tasks and needs.",
+      "published": "2026-05-20T23:49:28+00:00",
+      "entry_id": "http://arxiv.org/abs/2605.21825v1",
+      "categories": [
+        "cs.AI",
+        "cs.HC"
+      ],
+      "primary_category": "cs.AI",
+      "_query": "AI business model",
+      "typology": "AI-Agent-Economy"
+    },
+    {
+      "title": "A Conceptual Model and Methodology for Sustainability-aware, IoT-enhanced Business Processes",
+      "authors": [
+        "Victoria Torres Bosch",
+        "Ronny Seiger",
+        "Manuela Albert Albiol",
+        "Antoni Mestre Gascon",
+        "Pedro Jose Valderas Aranda"
+      ],
+      "summary": "The real-time data collection and automation capabilities offered by the Internet of Things (IoT) are revolutionizing and transforming Business Processes (BPs) into IoT-enhanced BPs, showing high potential for improving sustainability. Although already studied in Business Process Management (BPM), sustainability research has primarily focused on environmental concerns. However, achieving a holistic and lasting impact requires a systematic approach to address sustainability beyond the environmental dimension. This work proposes a conceptual model and a structured methodology with the goal of analyzing the potential of IoT to measure and improve the sustainability of BPs. The conceptual model formally represents key sustainability concepts, linking BPM and IoT by highlighting how IoT devices support and contribute to sustainability. The methodology guides the systematic analysis of existing BPs, identifies opportunities, and implements sustainability-aware, IoT-enhanced BPs. The approach is illustrated through a running example from the tourism domain and a controlled case study in healthcare.",
+      "published": "2025-08-07T12:00:21+00:00",
+      "entry_id": "http://arxiv.org/abs/2508.05301v2",
+      "categories": [
+        "cs.SE",
+        "cs.CY"
+      ],
+      "primary_category": "cs.SE",
+      "_query": "AI business model",
+      "typology": "AI-Enhanced-Product"
+    },
+    {
+      "title": "On LLM-Assisted Generation of Smart Contracts from Business Processes",
+      "authors": [
+        "Fabian Stiehle",
+        "Hans Weytjens",
+        "Ingo Weber"
+      ],
+      "summary": "Large language models (LLMs) have changed the reality of how software is produced. Within the wider software engineering community, among many other purposes, they are explored for code generation use",
+      "published": "2025-07-30T20:39:45+00:00",
+      "entry_id": "http://arxiv.org/abs/2507.23087v1",
+      "primary_category": "cs.SE",
+      "_query": "LLM business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "Demystifying AI Platform Design for Distributed Inference of Next-Generation LLM models",
+      "authors": [
+        "Abhimanyu Bambhaniya",
+        "Ritik Raj",
+        "Geonhwa Jeong",
+        "Souvik Kundu",
+        "Sudarshan Srinivasan",
+        "Suvinay Subramanian",
+        "Midhilesh Elavazhagan",
+        "Madhu Kumar",
+        "Tushar Krishna"
+      ],
+      "summary": "Large language models (LLMs) have shown remarkable performance across a wide range of applications, often outperforming human experts. However, deploying these gigantic models efficiently for diverse ",
+      "published": "2024-06-03T18:00:50+00:00",
+      "entry_id": "http://arxiv.org/abs/2406.01698v3",
+      "primary_category": "cs.AR",
+      "_query": "LLM business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "HighGuard: Cross-Chain Business Logic Monitoring of Smart Contracts",
+      "authors": [
+        "Mojtaba Eshghie",
+        "Wolfgang Ahrendt",
+        "Cyrille Artho",
+        "Thomas Troels Hildebrandt",
+        "Gerardo Schneider"
+      ],
+      "summary": "Logical flaws in smart contracts are often exploited, leading to significant financial losses. Our tool, HighGuard, detects transactions that violate business logic specifications of smart contracts. ",
+      "published": "2023-05-14T21:33:19+00:00",
+      "entry_id": "http://arxiv.org/abs/2305.08254v2",
+      "primary_category": "cs.CR",
+      "_query": "LLM business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "A Reality check of the benefits of LLM in business",
+      "authors": [
+        "Ming Cheung"
+      ],
+      "summary": "Large language models (LLMs) have achieved remarkable performance in language understanding and generation tasks by leveraging vast amounts of online texts. Unlike conventional models, LLMs can adapt ",
+      "published": "2024-06-09T02:36:00+00:00",
+      "entry_id": "http://arxiv.org/abs/2406.10249v1",
+      "primary_category": "cs.AI",
+      "_query": "LLM business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "Towards Nudging in BPM: A Human-Centric Approach for Sustainable Business Processes",
+      "authors": [
+        "Cielo Gonzalez Moyano",
+        "Finn Klessascheck",
+        "Saimir Bala",
+        "Stephan A. Fahrenkrog-Petersen",
+        "Jan Mendling"
+      ],
+      "summary": "Business Process Management (BPM) is mostly centered around finding technical solutions. Nudging is an approach from psychology and behavioral economics to guide people's behavior. In this paper, we s",
+      "published": "2024-09-20T07:43:53+00:00",
+      "entry_id": "http://arxiv.org/abs/2409.13295v1",
+      "primary_category": "cs.SE",
+      "_query": "LLM business model",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "LLM-Guided Transportation Hub Capacity Planning with Textual Business Inputs",
+      "authors": [
+        "Xiaoyue Liu",
+        "Zheng Dong"
+      ],
+      "summary": "While traditional hub capacity planning models optimize effectively for quantitative inputs, they often fail to digest qualitative business context. We propose a novel framework where a large language",
+      "published": "2026-07-04T00:26:19+00:00",
+      "entry_id": "http://arxiv.org/abs/2607.03651v2",
+      "primary_category": "cs.LG",
+      "_query": "LLM business model",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "AI and the EU Digital Markets Act: Addressing the Risks of Bigness in Generative AI",
+      "authors": [
+        "Ayse Gizem Yasar",
+        "Andrew Chong",
+        "Evan Dong",
+        "Thomas Krendl Gilbert",
+        "Sarah Hladikova",
+        "Roland Maio",
+        "Carlos Mougan",
+        "Xudong Shen",
+        "Shubham Singh",
+        "Ana-Andreea Stoica",
+        "Savannah Thais",
+        "Miri Zilka"
+      ],
+      "summary": "As AI technology advances rapidly, concerns over the risks of bigness in digital markets are also growing. The EU's Digital Markets Act (DMA) aims to address these risks. Still, the current framework ",
+      "published": "2023-07-07T16:50:08+00:00",
+      "entry_id": "http://arxiv.org/abs/2308.02033v1",
+      "primary_category": "cs.CY",
+      "_query": "generative AI commerce",
+      "typology": "AI-Infrastructure"
+    },
+    {
+      "title": "Exploring Antitrust and Platform Power in Generative AI",
+      "authors": [
+        "Konrad Kollnig",
+        "Qian Li"
+      ],
+      "summary": "The concentration of power in a few digital technology companies has become a subject of increasing interest in both academic and non-academic discussions. One of the most noteworthy contributions to ",
+      "published": "2023-06-20T07:21:31+00:00",
+      "entry_id": "http://arxiv.org/abs/2306.11342v3",
+      "primary_category": "cs.LG",
+      "_query": "generative AI commerce",
+      "typology": "AI-Platform"
+    },
+    {
+      "title": "Guardrails for avoiding harmful medical product recommendations and off-label promotion in generative AI models",
+      "authors": [
+        "Daniel Lopez-Martinez"
+      ],
+      "summary": "Generative AI (GenAI) models have demonstrated remarkable capabilities in a wide variety of medical tasks. However, as these models are trained using generalist datasets with very limited human oversi",
+      "published": "2024-06-24T08:50:26+00:00",
+      "entry_id": "http://arxiv.org/abs/2406.16455v1",
+      "primary_category": "cs.AI",
+      "_query": "generative AI commerce",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "Exploring Sectoral Profitability in the Indian Stock Market Using Deep Learning",
+      "authors": [
+        "Jaydip Sen",
+        "Hetvi Waghela",
+        "Sneha Rakshit"
+      ],
+      "summary": "This paper explores using a deep learning Long Short-Term Memory (LSTM) model for accurate stock price prediction and its implications for portfolio design. Despite the efficient market hypothesis sug",
+      "published": "2024-05-28T17:55:54+00:00",
+      "entry_id": "http://arxiv.org/abs/2407.01572v1",
+      "primary_category": "q-fin.CP",
+      "_query": "AI marketing",
+      "typology": "AI-Native-Product"
+    },
+    {
+      "title": "GenAI vs. Human Creators: Procurement Mechanism Design in Two-/Three-Layer Markets",
+      "authors": [
+        "Rui Ai",
+        "David Simchi-Levi",
+        "Haifeng Xu"
+      ],
+      "summary": "With the rapid advancement of generative AI (GenAI), mechanism design adapted to its unique characteristics poses new theoretical and practical challenges. Unlike traditional goods, content from one d",
+      "published": "2025-11-09T22:23:30+00:00",
+      "entry_id": "http://arxiv.org/abs/2511.06559v2",
+      "primary_category": "cs.GT",
+      "_query": "AI marketing",
+      "typology": "AI-Infrastructure"
+    }
+  ],
+  "year_dist": {
+    "2023": 5,
+    "2024": 9,
+    "2025": 11,
+    "2026": 5
+  },
+  "typology_dist": {
+    "AI-Infrastructure": 6,
+    "AI-Native-Product": 9,
+    "AI-Enhanced-Product": 2,
+    "AI-Platform": 11,
+    "AI-Agent-Economy": 2
+  }
+}

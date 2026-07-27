@@ -1,0 +1,44 @@
+{
+  "unit": "skill-0-business-analytics/day-2-data-structures",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_21": [-0.5, -0.2, 0.0, 0.1, 0.2, 0.3, 0.4, 0.4, 0.3, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.1],
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "list O(n) 线性查找 vs dict O(1) 哈希查找 -- 在 10 万级产品目录查询场景下差距 10 万倍; 营销订单按 product_id 查询必须用 dict 而非 list",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S1-结构选择", "Python内置", "list", "dict", "hash-table"],
+      "front": "给定 10 万产品的 list of dicts, 查 product_id == 'P50000' 的 amount, 你会用哪种结构? 时间复杂度?",
+      "back": "构建 product_catalog = {p['product_id']: p for p in products} 后查 product_catalog['P50000'] -- O(1) hash table; list.index() 是 O(n), 10 万倍差距"
+    },
+    {
+      "id": "C2",
+      "concept": "collections.Counter 继承 dict 并覆写 __missing__ 自动初始化为 0, .most_common(n) 用 heapq.nlargest 实现; defaultdict(list) 的 __missing__ 调用 list() 自动建空 list -- 营销聚合的 Pythonic 模式",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S2-collections聚合", "Counter", "defaultdict", "most_common", "heapq"],
+      "front": "如何一行代码统计 1k 订单的商品销量 Top 10? 如何一行代码按渠道分组订单?",
+      "back": "Counter(o['product_id'] for o in orders).most_common(10); defaultdict(list, {**{}}) 后 for o in orders: by_channel[o['channel']].append(o)"
+    },
+    {
+      "id": "C3",
+      "concept": "heapq.nlargest(k, iterable, key) 用大小为 k 的最小堆维护候选, 每元素 O(log k) 进出堆, 总 O(n log k); k << n 时显著优于 sorted()[:k] 的 O(n log n); deque(maxlen=N) 滑动窗口两端 O(1)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S3-高级结构", "heapq", "nlargest", "deque", "Top-K", "滑动窗口"],
+      "front": "实时流式订单每秒万级, 要维护 Top 10 热销商品 + 最近 100 单, 用哪两个 Python 标准库结构? 复杂度?",
+      "back": "heapq.nlargest(10, orders, key=lambda o: o['amount']) -- O(n log 10); deque(maxlen=100) 自动丢弃旧元素 -- 两端 O(1)"
+    },
+    {
+      "id": "C4",
+      "concept": "namedtuple 设计不可变 Product/Order schema 是数据治理与可复现研究的基础; Apache Arrow 列式内存延续 list-of-dicts 工程权衡, Polars 懒求值用 DAG 查询图优化执行顺序 -- 数据结构选择影响 AI pipeline 性能",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S3-前沿", "namedtuple", "schema", "Apache-Arrow", "Polars", "数据治理", "OSF"],
+      "front": "为什么用 namedtuple 而非裸 dict 设计 Product/Order schema? Apache Arrow 列式内存如何延续 list-of-dicts 的权衡?",
+      "back": "namedtuple 不可变 + 字段名访问 + 可追溯 schema (数据治理); Arrow 列式内存 = 行式 list-of-dicts 的列式优化版, 单列分析快 10-100x, 零拷贝跨语言"
+    }
+  ]
+}

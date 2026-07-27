@@ -1,0 +1,72 @@
+{
+  "unit": "U-E2-D1",
+  "unit_name": "营销分析框架: 描述+诊断 (Descriptive/diagnostic analytics framework, funnel, cohort, segmentation, RFM)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "营销分析四层框架 (描述性->诊断性->预测性->处方性) - 每层回答的核心业务问题与对应技术方法",
+      "front": "营销分析四层框架中, 描述性和诊断性分别回答什么业务问题? 各举 1 个技术方法。",
+      "back": "描述性=发生了什么 (数据聚合/漏斗/AARRR); 诊断性=为什么发生 (假设检验/RFM/OLS回归)。本Day聚焦前两层, Day2预测, Day3处方。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["framework", "descriptive", "diagnostic"]
+    },
+    {
+      "id": "C2",
+      "concept": "AARRR 营销漏斗 (Acquisition/Activation/Retention/Revenue/Referral) - 五阶段关键指标与流失节点识别",
+      "front": "AARRR 五个阶段分别是什么? 各阶段 1 个关键指标?",
+      "back": "Acquisition(CAC/CTR), Activation(注册率/首次购买率), Retention(次留/7留/30留), Revenue(ARPU/AOV/LTV), Referral(NPS/K-factor)。识别流失节点=计算各阶段转化率, 找骤降处。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["funnel", "AARRR", "pandas"]
+    },
+    {
+      "id": "C3",
+      "concept": "RFM 客户分群 (Recency/Frequency/Monetary) - 五分群与差异化营销动作",
+      "front": "RFM 三个维度含义? 如何用 pandas qcut 分 5 档? Champions 群如何营销?",
+      "back": "R=最近消费距今天数(越小越活跃), F=消费频次, M=消费总额。pd.qcut(rfm['R'], 5, labels=[5,4,3,2,1]) 等拼成 RFM score。Champions(R高F高M高)→忠诚计划/交叉销售; AtRisk→唤醒券; Lost→流失挽回。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["RFM", "segmentation", "pandas"]
+    },
+    {
+      "id": "C4",
+      "concept": "t检验 + Cohen's d (scipy.stats.ttest_ind) - 统计显著 vs 商业显著的区分",
+      "front": "scipy.stats.ttest_ind 用法? 为什么只报 p 值不够? Cohen's d 公式?",
+      "back": "ttest_ind(treated, control, equal_var=False) 返回(t, p)。p只说有没有效果, d才说多大: d=(mean_t-mean_c)/pooled_sd。d<0.2小效应, 商业上可能不值得放量; 大样本下微小差异也p<0.05, 必须看d。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["ttest", "scipy", "effect-size"]
+    },
+    {
+      "id": "C5",
+      "concept": "卡方独立性检验 (scipy.stats.chi2_contingency) - treat×marr 独立性, 期望频数<5 用 Fisher",
+      "front": "chi2_contingency 输出哪四项? 何时改用 Fisher 精确检验?",
+      "back": "输出(chi2_stat, p, dof, expected_array)。先用pd.crosstab看期望频数, 任一格expected<5则Fisher更稳。p>0.05⇒分组与特征独立, RCT平衡; p<0.05⇒基线不平衡, 需在OLS控制该变量。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["chi2", "scipy", "RCT-balance"]
+    },
+    {
+      "id": "C6",
+      "concept": "OLS 回归 (statsmodels.api.OLS) - 控制混杂后 treat 净效应, re75 协变量与 CUPED 思想相通",
+      "front": "statsmodels OLS 拟合 re78~treat+re75+age+educ 时, 为什么必须放 re75? treat 系数怎么解读?",
+      "back": "re75是预处理协变量, 不放则treat系数被混杂偏误(类似CUPED用预处理信息缩减方差)。treat系数=控制其他变量后干预的净效应(美元), 看p值与95% CI。R-squared看模型解释力。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["OLS", "statsmodels", "CUPED", "confounding"]
+    },
+    {
+      "id": "C7",
+      "concept": "NSW RCT 营销映射 (causaldata) - treat=营销活动, re74/75/78=活动前2年/前1年/后消费",
+      "front": "NSW 数据的 treat/re74/re75/re78 在营销映射中分别对应什么? 为什么用真实 RCT 而非模拟数据?",
+      "back": "treat=收到促销活动, re74=活动前2年消费基线, re75=活动前1年消费, re78=活动后消费(效果指标)。真实RCT有真实基线不平衡/分布偏态/缺失模式, 模拟数据无法复制, 能建立数据质感直觉。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["NSW", "RCT", "causaldata", "marketing-mapping"]
+    }
+  ],
+  "review_log_note": "首次学习后第1天复习C1-C7全部, 之后按due数组间隔。SM-2 backup: 若FSRS-6不可用, 用 ef = ef0 + (0.1-(5-q)*(0.08+(5-q)*0.02)) 更新, q为回忆质量0-5。"
+}

@@ -1,0 +1,71 @@
+{
+  "unit": "U-skill3-day1",
+  "title": "因果推断基础 (NSW后门调整 + LLM-as-judge + causaldata/DoWhy)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_note": "FSRS-6 with 21 weights; if FSRS-6 unavailable, fall back to SM-2 with EF0=2.5, I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+  "request_retention": 0.9,
+  "weights": [
+    0.4072, 1.1829, 3.1262, 15.4722, 7.2102, 0.5316, 1.0651, 0.0589,
+    1.5333, 0.1544, 1.0347, 1.9395, 0.1097, 0.1083, 0.6814, 1.4158,
+    0.0, 0.0, 0.0, 0.0, 0.0
+  ],
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Pearl 因果阶梯三层（关联/干预/反事实）与营销映射；A/B 测试落在 L2 干预层",
+      "front": "Pearl 因果阶梯的三个层级是什么？A/B 测试对应哪一层？为什么随机化能消除偏差？",
+      "back": "L1 关联 P(Y|X) / L2 干预 P(Y|do(X)) / L3 反事实 P(Y_x|X',Y')。A/B 测试 = L2 干预的物理实现（随机分配 ≈ do 操作，切断所有指向处理变量的路径）。随机化通过让 T 与所有潜在混杂独立，从而消除偏差。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tag": ["causal-ladder", "AB-test", "Pearl"]
+    },
+    {
+      "id": "C2",
+      "concept": "混杂因素与后门准则；如何在 DAG 上识别并切断后门路径",
+      "front": "什么是混杂因素？什么是后门路径？后门准则如何让因果效应可识别？",
+      "back": "混杂因素 = 同时影响处理 T 与结果 Y 的变量。后门路径 = T 与 Y 之间所有指向 T 的箭头开头的路径。后门准则 = 在路径上的某个节点集合 Z 上控制（条件化），若能阻断所有后门路径且不打开新路径，则因果效应可识别。NSW 案例中 `age/education/re74/re75/...` 即 Z。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tag": ["confounder", "backdoor", "DAG", "identification"]
+    },
+    {
+      "id": "C3",
+      "concept": "朴素均值差 vs 后门调整估计；偏差来源与 DoWhy 四步流程",
+      "front": "为什么朴素均值差 (treated - control) 有偏？后门调整估计如何修正？DoWhy 的四步是什么？",
+      "back": "朴素 ATE = ATE + Bias，偏差来自混杂在两组分布不均。后门调整 = 在混杂集合 Z 上做条件化（回归/匹配/加权）让两组在 Z 上可比，从而去掉 Bias。DoWhy 四步：modeling（声明 DAG/T/Y/混杂）-> identification（识别后门）-> estimation（backdoor 估计）-> refutation（placebo/random common cause 等反驳检验）。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tag": ["ATE", "backdoor-adjustment", "DoWhy", "refutation"]
+    },
+    {
+      "id": "C4",
+      "concept": "LLM-as-a-judge 评估因果论证（非估计效应本身）；它处于因果阶梯 L1 不能升 L2/L3",
+      "front": "LLM-as-a-judge 在因果推断中的正确用法是什么？它不能做什么？",
+      "back": "正确用法 = 把 DAG/识别/估计/反驳整理成结构化文本，让 LLM 扮演'因果推断评审'（NeurIPS 2023 范式 arXiv 2306.05685），检查 4 维：(a) DAG 是否遗漏混杂 (b) 识别是否满足后门准则 (c) 反驳是否充分 (d) 结论是否过度外推。不能 = 估计 ATE 本身；它处于因果阶梯 L1（对论证文本的关联分析），不能升 L2/L3。定位为'研究方法论自检工具'。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tag": ["LLM-as-judge", "frontier-2026", "causal-ladder-L1"]
+    },
+    {
+      "id": "C5",
+      "concept": "causaldata.nsw 真实数据集 + 营销映射（treat/re78/协变量 -> 优惠券/转化/画像）",
+      "front": "NSW 数据集的变量如何映射到营销场景？为什么用真实数据而非模拟？",
+      "back": "treat (是否参加培训) -> 是否收到优惠券/看广告；re78 (1978收入) -> 转化率/GMV/客单价；age/education/black/hispanic/married/nodegree/re74/re75 -> 用户画像（活跃度/历史消费/设备）。用真实数据因为模拟数据会让你预设了答案（数据按某个因果结构生成），学不到'真实混杂长什么样、有多脏'。NSW 是 Dehejia & Wahba 1999 经典真实数据集，存在严重混杂。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tag": ["NSW", "Lalonde", "real-data", "marketing-mapping"]
+    }
+  ],
+  "review_log_schema": {
+    "card_id": "string",
+    "reviewed_at": "ISO8601",
+    "rating": "again|hard|good|easy",
+    "elapsed_days": "int",
+    "scheduled_days": "int",
+    "state": "new|learning|review|relearning",
+    "stability": "float",
+    "difficulty": "float",
+    "retrievability": "float"
+  },
+  "notes": "本 schedule.json 与 practice.md 的 drill D1-D3 对齐：D1 复习 C1+C2，D2 复习 C3，D3 复习 C4+C5。每次 drill 结束后更新对应 card 的 due 间隔。"
+}

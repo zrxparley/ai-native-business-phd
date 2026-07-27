@@ -1,0 +1,50 @@
+{
+  "unit": "U4D3",
+  "title": "Agent经济 + 新兴商业模式 (mesa ABM + 天道推演×多Agent仿真)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "fsrs_weights": 21,
+  "sm2_backup": {
+    "ef0": 2.5,
+    "interval_formula": "I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+    "ef_update": "EF' = EF + (0.1 - (5-q)*(0.08 + (5-q)*0.02))"
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "mesa ABM 框架: Model/Agent 基类 + DataCollector (model_reporters/agent_reporters) + AgentSet (shuffle_do/select) + batch_run 参数扫描",
+      "front": "mesa 的 4 个核心 API 是什么？DataCollector 的 model_reporters 与 agent_reporters 区别？",
+      "back": "Model.step 调度 Agent.step; DataCollector.model_reporters 收集 Model 级指标 (Gini/avg_price/A2A_count), agent_reporters 收集 Agent 级 (wealth/inventory); batch_run 做参数扫描",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["mesa", "ABM", "S1"]
+    },
+    {
+      "id": "C2",
+      "concept": "Agent经济三层模型: Agent-as-Tool / Agent-as-Worker / Agent-as-Actor 的跨越挑战 (Tool->Worker: 信任+度量; Worker->Actor: 标准化协议 MCP + Agent身份信任 + 经济激励)",
+      "front": "Agent经济三层模型是哪三层？每层跨越的核心挑战是什么？",
+      "back": "Tool(SaaS订阅)->Worker(outcome-based, 信任+度量: 可解释性/可审计日志)->Actor(A2A economy, MCP标准化+身份信任+Vickrey拍卖+声誉系统+质押惩罚)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["A2A", "MCP", "Agent经济", "S2"]
+    },
+    {
+      "id": "C3",
+      "concept": "推理成本约束 (Token定价 × 消耗量): GPT-4o $5/1M = $0.0025/匹配 vs DeepSeek V3 $0.27/1M = $0.000135/匹配 (降95%). 推理成本是 AI中介 vs 传统中介的本质区别",
+      "front": "推理成本如何约束 Agent经济？GPT-4o vs DeepSeek 的单次匹配成本？",
+      "back": "AI中介每次匹配消耗 500 tokens 推理. GPT-4o: 500*$5/1M=$0.0025. DeepSeek: 500*$0.27/1M=$0.000135 (降95%). 推理成本下降5-10倍时 AI中介经济可行性发生质变, 这是2026 Agent经济爆发前夜",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["推理成本", "DeepSeek", "S2"]
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演×多Agent仿真同构映射: 局势感知<->Agent初始化, 因果链追踪<->购买->降价->竞争->破产, 沙盘3层<->100 tick (immediate/near/far), 概率评估<->多seed分布, 最优路径<->参数场景对比",
+      "front": "天道推演 5 能力如何映射到 mesa 多Agent仿真？",
+      "back": "局势感知->初始Agent分布; 因果链追踪->Agent行为因果链 (购买->降价->竞争->破产); 沙盘3层->100 tick (immediate tick1-10/near 11-50/far 51-100); 概率评估->多seed统计分布; 最优路径->参数场景对比选最优商业模式. 仿真让天道推演从意识沙盘变为可计算可复现沙盘",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["天道推演", "多Agent仿真", "S3"]
+    }
+  ]
+}

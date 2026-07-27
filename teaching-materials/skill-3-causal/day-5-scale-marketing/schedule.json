@@ -1,0 +1,44 @@
+{
+  "unit": "U-skill3-day5",
+  "topic": "规模实验+营销因果 (NSW综合案例 + Thompson MAB + Uplift增量建模)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "fsrs6_weights_count": 21,
+  "sm2_backup": {
+    "ef0": 2.5,
+    "I_1": 1,
+    "I_2": 6,
+    "multiplier_easy": 1.3,
+    "multiplier_hard": 0.5
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Thompson Sampling 后验采样原理: Beta(alpha,beta) 先验 -> 采样选最大 -> 观察更新 -> 自动平衡探索-利用; 实践优于 epsilon-Greedy 与 UCB; NSW 案例中真实响应率 0.35 vs 0.42 驱动 bandit",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["MAB", "自适应实验", "NSW案例", "Thompson Sampling"]
+    },
+    {
+      "id": "C2",
+      "concept": "CATE 异质处理效应: econml CausalForestDML 估计条件平均效应, 识别哪类用户响应最大; ATE 是平均, CATE 是条件平均; 营销应用=精准投放; 安慰剂检验验证稳健性",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["econml", "CausalForestDML", "异质效应", "CATE"]
+    },
+    {
+      "id": "C3",
+      "concept": "Uplift Modeling 增量建模四类用户: persuadables(可被说服,该投) / sure things(必然转化,不该投) / lost causes(必不转化,不该投) / sleeping dogs(反响应,投了有害); Qini 曲线评估累计增量, 拐点之外是浪费",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Uplift", "Qini", "scikit-uplift", "增量营销"]
+    },
+    {
+      "id": "C4",
+      "concept": "营销因果三陷阱: 幸存者偏差(只看留存忽略流失) / 辛普森悖论(总体与分群反转) / 选择性停止(p<0.05即停致多重检验假阳性); 应预设样本量或序贯检验",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["因果陷阱", "多重检验", "辛普森悖论", "营销分析"]
+    }
+  ]
+}

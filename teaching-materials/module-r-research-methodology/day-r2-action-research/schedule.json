@@ -1,0 +1,71 @@
+{
+  "unit": "U-R2",
+  "topic": "行动研究 (Action Research)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Plan-Act-Observe-Reflect 四阶段螺旋 (Lewin/Kemmis 行动研究循环)",
+      "front": "Lewin/Kemmis 行动研究循环的四阶段是什么? 它与 Susman & Evered 五步螺旋的关系?",
+      "back": "Plan->Act->Observe->Reflect 螺旋式迭代。Susman 五步 = 诊断->规划->行动->评估->反思, 诊断是 Plan 前置, 评估是 Observe 分析, 本质相同。四阶段更简洁便于数据建模。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["AR-cycle", "Lewin", "Kemmis"]
+    },
+    {
+      "id": "C2",
+      "concept": "Trustworthiness 四准则 (Lincoln & Guba 1985): Credibility/Transferability/Dependability/Confirmability",
+      "front": "Lincoln & Guba 的 trustworthiness 四准则分别对应实证主义的什么? 各自的 AR 操作化方法和量化指标?",
+      "back": "Credibility(内部效度)->三角验证(数据源数); Transferability(外部效度)->厚描述(上下文完整度); Dependability(可靠性)->审计追踪(trace存档完整度); Confirmability(客观性)->成员校验(利益相关方验证率)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["validity", "trustworthiness", "Lincoln-Guba"]
+    },
+    {
+      "id": "C3",
+      "concept": "AR vs DSR vs Case Study 认识论对比 (研究者角色/知识生产/效度标准)",
+      "front": "行动研究、设计科学研究 (DSR)、案例研究在研究者角色和效度标准上有何本质区别? 何时组合使用?",
+      "back": "AR: 干预者/change agent, knowing-in-practice, trustworthiness; DSR: 设计者, artifact+设计原则, design principles rigor; Case Study: 旁观者, 案例描述+理论命题, construct/internal/external validity。组合: DSR 设计 artifact, AR 评估 artifact 实践效果。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["epistemology", "AR-DSR-CaseStudy"]
+    },
+    {
+      "id": "C4",
+      "concept": "PAR 权力-利益矩阵 (power-interest grid) 与共创度演化",
+      "front": "参与式行动研究 (PAR) 的权力-利益矩阵四象限是什么? 共创度如何量化计算?",
+      "back": "高权力高利益=Key Players(紧密协作); 高权力低利益=Meet Their Needs; 低权力高利益=Show Consideration(咨询); 低权力低利益=Least Important(监控)。共创度 = (Key Players + Show Consideration) / 总利益相关方数。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["PAR", "power-interest", "co-creation"]
+    },
+    {
+      "id": "C5",
+      "concept": "Beta-Binomial 共轭贝叶斯更新 (行动研究干预有效性后验)",
+      "front": "用 Beta(α,β) 先验和每轮观察 (successes/failures) 如何更新'干预有效'的后验? α' 和 β' 的公式?",
+      "back": "Beta-Binomial 共轭: α' = α + successes, β' = β + failures。后验均值 = α'/(α'+β'), 95% HDI 用 scipy.stats.beta.ppf([0.025, 0.975], α', β')。每轮 AR 循环的观察顺序更新后验, 量化行动研究的不确定性。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["bayesian", "posterior", "Beta-Binomial"]
+    },
+    {
+      "id": "C6",
+      "concept": "天道推演作为行动研究 Plan 阶段的预演工具 (局势感知/因果链/沙盘模拟/概率评估/最优路径)",
+      "front": "天道推演的 5 项能力如何映射到行动研究的 Plan 阶段? 共享的因果建模底层是什么?",
+      "back": "局势感知->Diagnose(状态空间); 因果链追踪->Plan(干预->效果); 沙盘模拟3层->Plan(多干预方案 immediate/near/far); 概率评估->Observe(贝叶斯更新); 最优路径推荐->Plan->Act(最优干预选择)。底层都是因果有向图建模。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tian-dao", "plan", "causal-modeling"]
+    },
+    {
+      "id": "C7",
+      "concept": "可复现行动研究 (Reproducible AR) trace 结构化存档",
+      "front": "可复现行动研究如何结构化存档每轮干预 trace? 它与传统田野笔记的区别?",
+      "back": "用结构化格式 (类似 MCP tool call trace) 记录每轮: 干预描述/数据收集方法/反思/下一步。导出为可复现研究档案 (OSF preregistration + APA 开放数据)。比田野笔记更系统化、可追溯、可独立复现。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["reproducibility", "trace", "OSF"]
+    }
+  ]
+}

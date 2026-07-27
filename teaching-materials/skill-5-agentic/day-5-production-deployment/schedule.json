@@ -1,0 +1,56 @@
+{
+  "unit": "U5-D5",
+  "title": "Agent 生产部署间隔重复卡组 (FSRS-6)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LangSmith 三层可观测性: 第一层 Prometheus+Grafana 监基础设施 (CPU/内存/网络), 第二层 LangSmith/Langfuse APM 监 LLM 调用 P50/P95/P99 + token + 工具调用成功率, 第三层业务 Dashboard 监用户采纳率/人工修改率/CTR; @traceable 装饰器 + wrap_openai 自动 instrument",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "tiktoken BPE 精确计 token: 用 cl100k_base 编码 (GPT-4o 系列), 不得用 len(text)/4 估算; 单次成本 = input_tokens * $input_per_M / 1e6 + output_tokens * $output_per_M / 1e6; 日均万次请求月成本 = 单次 * 10000 * 30",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "成本优化三大策略: (1) Token 管理 max_tokens + 简洁 prompt; (2) 语义缓存 RedisSemanticCache 复用相似请求响应; (3) 模型路由 - 简单文案用 gpt-4o-mini, 策略分析用 Claude Opus",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "ResilientLLM 多级 fallback 链: 主模型 gpt-4o -> 备用 gpt-4o-mini -> RedisSemanticCache 语义缓存 -> 默认模板; 每级 try/except 捕获特定异常 (RateLimitError / APIConnectionError / Timeout), 不得裸 except",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "CI/CD 评估门禁三阈值: 任务完成率>=90% / 幻觉率<=5% / 安全违规率=0%; pytest + Day3 deepeval 断言 + GitHub Actions YAML; 不达标阻止部署; Agent 非确定性输出需评估门禁而非传统单元测试",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "vLLM 推理优化三机制: PagedAttention 优化 KV Cache 内存 (14-24x 吞吐); 连续批处理 continuous batching; 投机解码 draft model 候选 + 大模型并行验证 (2-3x 延迟降低); MoE Mixtral 8x7B 只激活 2/8 专家 (单次计算量降低); LangGraph checkpointer 中断恢复省重复 token",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C7",
+      "concept": "PoC 到生产五大挑战: 可靠性 99.9%+ / 成本控制日均万次可控 / 延迟 5s 内响应 / 可观测性结构化监控告警 / 安全合规满足法规; PoC 能跑 != 生产能用, 每环节需容错监控降级",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C8",
+      "concept": "压测与并发: ThreadPoolExecutor 模拟 50 并发用户; time.perf_counter 分步计时 (知识库检索 / LLM 推理 / 工具调用); P95 瓶颈用 statistics.quantiles 或 numpy 算; 限流 429 触发 fallback 链",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

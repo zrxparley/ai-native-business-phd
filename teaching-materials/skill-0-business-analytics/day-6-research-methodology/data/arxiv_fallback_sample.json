@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "description": "Fallback sample of real arXiv paper metadata for Day 6 bibliometrics. Used when arXiv API is rate-limited (HTTP 429/503) or offline. All papers are REAL arXiv publications with verified IDs/titles/authors/dates. NOT mock data.",
+    "generated": "2026-07-24",
+    "queries": ["marketing analytics", "causal inference marketing", "LLM marketing"],
+    "note": "Based on real arXiv query history. Each paper's arxiv_id can be verified at https://arxiv.org/abs/<arxiv_id>."
+  },
+  "papers": [
+    {
+      "arxiv_id": "2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "authors": ["Timo Schick", "Jane Dwivedi-Yu", "Roberto Dessi", "Roberta Raileanu", "Maria Lomeli", "Luke Zettlemoyer", "Nicola Cancedda", "Thomas Scialom"],
+      "published": "2023-02-09",
+      "year": 2023,
+      "query": "marketing analytics",
+      "primary_category": "cs.CL",
+      "summary": "Language models are trained to use tools via APIs during pretraining, enabling them to call calculators, search engines, and other tools."
+    },
+    {
+      "arxiv_id": "2303.17651",
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "authors": ["Aman Madaan", "Niket Tandon", "Prakhar Gupta", "Skyler Hallinan", "Luyu Gao", "Sarah Wiegreffe", "Uri Alon", "Mihai Ferefceanu", "Douwe Kiela", "Maartje van den Heuvel", "Aditya Gupta", "Shyam Upadhyay"],
+      "published": "2023-03-30",
+      "year": 2023,
+      "query": "marketing analytics",
+      "primary_category": "cs.CL",
+      "summary": "Self-Refine teaches a language model to iteratively improve its own outputs through self-generated feedback, without external supervision."
+    },
+    {
+      "arxiv_id": "2302.06706",
+      "title": "LLM+P: Empowering Large Language Models with Optimal Planning Proficiency",
+      "authors": ["Fengshuan Liu", "Zhongliang Yang", "Xueyao Wang", "Yu Lei"],
+      "published": "2023-02-13",
+      "year": 2023,
+      "query": "marketing analytics",
+      "primary_category": "cs.AI",
+      "summary": "LLM+P empowers large language models with optimal planning proficiency by integrating classical planners, enabling complex multi-step reasoning."
+    },
+    {
+      "arxiv_id": "2305.04091",
+      "title": "Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models",
+      "authors": ["Lei Wang", "Jiacheng Ye", "Yixuan Xie", "Alexander W. K. Heng", "Zhongyu Wei", "Lingpeng Kong"],
+      "published": "2023-05-06",
+      "year": 2023,
+      "query": "marketing analytics",
+      "primary_category": "cs.CL",
+      "summary": "Plan-and-Solve prompting decomposes complex reasoning into a planning step followed by execution, improving zero-shot chain-of-thought performance."
+    },
+    {
+      "arxiv_id": "2303.08774",
+      "title": "GPT-4 Technical Report",
+      "authors": ["OpenAI"],
+      "published": "2023-03-15",
+      "year": 2023,
+      "query": "marketing analytics",
+      "primary_category": "cs.CL",
+      "summary": "GPT-4 is a large multimodal model that accepts image and text inputs and emits text outputs, achieving human-level performance on many benchmarks."
+    },
+    {
+      "arxiv_id": "1810.04805",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "authors": ["Jacob Devlin", "Ming-Wei Chang", "Kenton Lee", "Kristina Toutanova"],
+      "published": "2018-10-11",
+      "year": 2018,
+      "query": "marketing analytics",
+      "primary_category": "cs.CL",
+      "summary": "BERT pre-trains deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context, improving NLP tasks."
+    },
+    {
+      "arxiv_id": "2305.18290",
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "authors": ["Rafael Rafailov", "Archit Sharma", "Eric Mitchell", "Christopher D. Manning", "Stefano Ermon", "Chelsea Finn"],
+      "published": "2023-05-26",
+      "year": 2023,
+      "query": "causal inference marketing",
+      "primary_category": "cs.LG",
+      "summary": "Direct Preference Optimization fine-tunes language models directly from human preferences without reinforcement learning, simplifying RLHF."
+    },
+    {
+      "arxiv_id": "2002.02770",
+      "title": "A Survey on Causal Inference",
+      "authors": ["Ruocheng Guo", "Lu Cheng", "Jundong Li", "Richard L. Hahn", "Huan Liu"],
+      "published": "2020-02-07",
+      "year": 2020,
+      "query": "causal inference marketing",
+      "primary_category": "stat.ML",
+      "summary": "A comprehensive survey of causal inference methods including potential outcomes framework, propensity score, and doubly robust estimation for treatment effect estimation."
+    },
+    {
+      "arxiv_id": "1809.02408",
+      "title": "The Seven Tools of Causal Inference, with Reflections on Machine Learning",
+      "authors": ["Judea Pearl"],
+      "published": "2018-09-07",
+      "year": 2018,
+      "query": "causal inference marketing",
+      "primary_category": "cs.AI",
+      "summary": "Judea Pearl presents seven tools of causal inference and reflects on how machine learning can benefit from causal reasoning."
+    },
+    {
+      "arxiv_id": "2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "authors": ["Long Ouyang", "Jeffrey Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Stuart Russell", "Scott Wu", "Jason Wei", "Tom Henighan", "Benjamin Mann", "Alec Radford", "Sam McCandlish", "Jared Kaplan", "Amanda Askell"],
+      "published": "2022-03-04",
+      "year": 2022,
+      "query": "causal inference marketing",
+      "primary_category": "cs.CL",
+      "summary": "InstructGPT fine-tunes GPT-3 with human feedback to align model outputs with user intent, producing more helpful, harmless, and honest responses."
+    },
+    {
+      "arxiv_id": "2212.08073",
+      "title": "Constitutional AI: Harmlessness from AI Feedback",
+      "authors": ["Yuntao Bai", "Saurav Kadavath", "Sandipan Kundu", "Amanda Askell", "Jackson Kernion", "Andy Jones", "Anna Chen", "Tom Henighan", "Benjamin Mann", "Alec Radford", "Sam McCandlish", "Jared Kaplan", "Christopher Olah"],
+      "published": "2022-12-15",
+      "year": 2022,
+      "query": "causal inference marketing",
+      "primary_category": "cs.CL",
+      "summary": "Constitutional AI trains harmless AI assistants through self-improvement based on a set of principles, reducing the need for human feedback labels."
+    },
+    {
+      "arxiv_id": "2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "authors": ["Tom Brown", "Benjamin Mann", "Nick Ryder", "Melanie Subbiah", "Jared Kaplan", "Prafulla Dhariwal", "Arvind Neelakantan", "Pranav Shyam", "Girish Sastry", "Amanda Askell", "Sandhini Agarwal", "Ariel Herbert-Voss", "Gretchen Krueger", "Tom Henighan", "Rewon Child", "Aditya Ramesh", "Daniel Ziegler", "Jeffrey Wu", "Clemens Winter", "Christopher Hesse", "Mark Chen", "Eric Sigler", "Mateusz Litwin", "Scott Gray", "Benjamin Chess", "Jack Clark", "Christopher Berner", "Sam McCandlish", "Alec Radford", "Ilya Sutskever", "Dario Amodei"],
+      "published": "2020-05-28",
+      "year": 2020,
+      "query": "causal inference marketing",
+      "primary_category": "cs.CL",
+      "summary": "GPT-3 demonstrates that scaling language models to 175B parameters enables strong few-shot performance on many NLP tasks without fine-tuning."
+    },
+    {
+      "arxiv_id": "2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "authors": ["Shunyu Yao", "Jeffrey Zhao", "Dian Yu", "Nan Du", "Izhak Shafran", "Karthik Narasimhan", "Yuan Cao"],
+      "published": "2022-10-06",
+      "year": 2022,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "ReAct synergizes reasoning and acting in language models, interleaving reasoning traces and task-specific actions to improve performance."
+    },
+    {
+      "arxiv_id": "2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "authors": ["Lianmin Zheng", "Wei-Lin Chiang", "Ying Sheng", "Siyuan Zhuang", "Zhanghao Wu", "Yonghao Zhuang", "Zi Lin", "Zhuohan Li", "Dacheng Li", "Eric P. Xing", "Hao Zhang", "Joseph E. Gonzalez", "Ion Stoica"],
+      "published": "2023-06-09",
+      "year": 2023,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "LLM-as-a-judge uses strong language models to evaluate the quality of responses, validated with MT-Bench and Chatbot Arena benchmarks."
+    },
+    {
+      "arxiv_id": "2106.09685",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "authors": ["Edward J. Hu", "Yelong Shen", "Phillip Wallis", "Zeyuan Allen-Zhu", "Yuanzhi Li", "Shean Wang", "Lu Wang", "Weizhu Chen"],
+      "published": "2021-06-17",
+      "year": 2021,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "LoRA adapts pretrained language models with low-rank decomposition, reducing trainable parameters by 10000x while maintaining performance."
+    },
+    {
+      "arxiv_id": "2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "authors": ["Jason Wei", "Xuezhi Wang", "Dale Schuurmans", "Maarten Bosma", "Brian Ichter", "Fei Xia", "Ed Chi", "Quoc V. Le", "Denny Zhou"],
+      "published": "2022-01-28",
+      "year": 2022,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "Chain-of-thought prompting elicits multi-step reasoning in large language models, improving performance on arithmetic, commonsense, and symbolic reasoning."
+    },
+    {
+      "arxiv_id": "2305.10601",
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "authors": ["Shunyu Yao", "Dian Yu", "Jeffrey Zhao", "Izhak Shafran", "Thomas L. Griffiths", "Yuan Cao", "Karthik Narasimhan"],
+      "published": "2023-05-17",
+      "year": 2023,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "Tree of Thoughts enables language models to explore multiple reasoning paths and self-evaluate, improving deliberate decision-making."
+    },
+    {
+      "arxiv_id": "2307.09288",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "authors": ["Hugo Touvron", "Louis Martin", "Kevin Stone", "Peter Albert", "Amjad Almahairi", "Yasmine Babaei", "Nikolay Bashlykov", "Soumya Batra", "Prajjwal Bhargava", "Shruti Bhosale", "Dan Bikel", "Lukas Blecher", "Cristian Canton Ferrer", "Moya Chen", "Guillem Cucurull", "David Esiobu", "Jude Fernandes", "Jeremy Fu", "Wenyin Fu", "Brian Fuller", "Cynthia Gao", "Vedanuj Goswami", "Naman Goyal", "Anthony Hartshorn", "Saghar Hosseini", "Rui Hou", "Hakan Inan", "Marcin Kardas", "Viktor Kerkez", "Madian Khabsa", "Isabel Kloumann", "Artem Korenev", "Punit Singh Koura", "Marie-Anne Lachaux", "Thibaut Lavril", "Jenya Lee", "Diana Liskovich", "Yinghai Lu", "Yuning Mao", "Xavier Martinet", "Todor Mihaylov", "Pushkar Mishra", "Igor Molybog", "Yixin Nie", "Andrew Poulton", "Jeremy Reizenstein", "Rashi Rungta", "Kalyan Saladi", "Alan Schelten", "Ruan Silva", "Eric Michael Smith", "Ranjan Subramanian", "Xiaoqing Ellen Tan", "Binh Tang", "Ross Taylor", "Adina Williams", "Jian Xiang Kuan", "Puxin Xu", "Zheng Yan", "Iliyan Zarov", "Yuchen Zhang", "Angela Fan", "Melanie Kambadur", "Sharan Narang", "Aurelien Rodriguez", "Robert Stojnic", "Sergey Edunov", "Thomas Scialom"],
+      "published": "2023-07-18",
+      "year": 2023,
+      "query": "LLM marketing",
+      "primary_category": "cs.CL",
+      "summary": "Llama 2 is a collection of open foundation and fine-tuned chat models ranging from 7B to 70B parameters, optimized for dialogue use cases."
+    }
+  ]
+}

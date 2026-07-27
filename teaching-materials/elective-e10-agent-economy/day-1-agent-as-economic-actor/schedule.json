@@ -1,0 +1,71 @@
+{
+  "unit": "U-E10-D1",
+  "topic": "Agent作为经济主体 (Agent as economic actor)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Agent经济三层模型: Agent-as-Tool (SaaS订阅/token计费, 人类决策+操作) / Agent-as-Worker (outcome-based, 人类监督+审核) / Agent-as-Actor (Agent marketplace/A2A economy, 人类设计+治理)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Agent经济三层模型各层的商业模式与人类角色?",
+      "back": "Tool: SaaS订阅, 人类决策+操作; Worker: outcome-based, 人类监督+审核; Actor: Agent marketplace, 人类设计+治理",
+      "tags": ["three-layer-model", "business-model"]
+    },
+    {
+      "id": "C2",
+      "concept": "推理成本硬约束: 每次 A2A 协商消耗 500 tokens, GPT-4o $5/1M -> $0.0025/协商; DeepSeek V3 $0.27/1M -> $0.000135/协商 (降低95%); 推理成本下降 5-10 倍时 Agent 经济可行性发生质变",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "推理成本为何是 Agent 经济的硬约束? GPT-4o vs DeepSeek V3 单次协商成本?",
+      "back": "传统中介边际成本近零, Agent 每次协商消耗 token; GPT-4o $0.0025, DeepSeek V3 $0.000135, 下降5-10倍触发质变",
+      "tags": ["inference-cost", "token-pricing", " DeepSeek"]
+    },
+    {
+      "id": "C3",
+      "concept": "贝叶斯Agent价格信念更新 (conjugate normal update): 先验 Normal(μ, σ²_prior), 观测价格 x, 观测噪声 σ²_obs, 后验 μ' = (μ/σ²_prior + x/σ²_obs) / (1/σ²_prior + 1/σ²_obs), σ'² = 1/(1/σ²_prior + 1/σ²_obs); 决策: 只接受低于 后验均值+1标准差 的报价",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "买方Agent如何用贝叶斯更新公平价格信念? 公式?",
+      "back": "conjugate normal update: μ' = (μ/σ²_prior + x/σ²_obs)/(1/σ²_prior + 1/σ²_obs), σ'² = 1/(1/σ²_prior + 1/σ²_obs); 接受报价 < μ'+σ'",
+      "tags": ["bayesian", "conjugate-normal", "price-belief"]
+    },
+    {
+      "id": "C4",
+      "concept": "A2A协议与MCP: MCP (Model Context Protocol, Anthropic) 是Agent间发现彼此能力的标准化接口 (类比HTTP); A2A交易协议含协商/定价/确认; A2A协议费率10% (低于传统30%平台抽成); 信任三层=身份信任(DID/数字签名)/能力信任(SLA/认证)/行为信任(声誉系统)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "MCP与A2A协议的关系? 信任三层模型?",
+      "back": "MCP是能力发现接口(类HTTP); A2A是交易协议(协商/定价/确认); 信任三层=身份/能力/行为",
+      "tags": ["MCP", "A2A", "trust-model"]
+    },
+    {
+      "id": "C5",
+      "concept": "天道推演×多Agent仿真同构: 天道推演在意识中构建沙盘, mesa在代码中构建沙盘; 局势感知<->初始Agent分布, 因果链追踪<->Agent行为因果(购买->定价->竞争->破产), 沙盘3层推演<->20 tick时间步, 概率评估<->多seed统计分布, 最优路径<->参数场景对比",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "天道推演与多Agent仿真如何同构? 五能力映射?",
+      "back": "局势感知<->初始分布, 因果链<->Agent行为, 沙盘3层<->20 tick, 概率评估<->多seed统计, 最优路径<->参数对比",
+      "tags": ["tian-dao", "mesa", "isomorphism"]
+    },
+    {
+      "id": "C6",
+      "concept": "networkx交易网络三指标经济意义: 网络密度=实际交易边数/可能边数 (Agent经济活跃度); 聚类系数=三角形比例 (三方交易环路, 多边A2A协作可能性); PageRank=资金流向加权影响力 (top-1>0.5 = 事实做市商, 高度中心化)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "networkx三指标在Agent经济中各意味什么?",
+      "back": "密度=活跃度; 聚类=多边协作可能性; PageRank=资金流向影响力(top-1>0.5=做市商)",
+      "tags": ["networkx", "pagerank", "topology"]
+    },
+    {
+      "id": "C7",
+      "concept": "Agent-as-Worker经济价值 (numpy-financial NPV/IRR): Agent部署$2k + 年推理成本 + 年产出价值 vs 人类工人年薪$50k; NPV(r=10%)符号决定投资可行性; IRR>阈值(如50%)证明Agent优于人类; 推理成本敏感性: GPT-4o下可能NPV<0, DeepSeek V3下NPV>0",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "如何用NPV/IRR量化Agent-as-Worker经济价值? 推理成本敏感性?",
+      "back": "Agent现金流(部署/推理/产出/残值) vs 人类$50k年薪; NPV符号定可行性; IRR>50%证明优; GPT-4o可能NPV<0, DeepSeek V3下NPV>0",
+      "tags": ["NPV", "IRR", "numpy-financial", "Agent-as-Worker"]
+    }
+  ]
+}

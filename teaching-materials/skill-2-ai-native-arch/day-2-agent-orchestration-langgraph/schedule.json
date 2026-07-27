@@ -1,0 +1,41 @@
+{
+  "unit": "U-skill2-day2-agent-orchestration-langgraph",
+  "topic": "Agent编排架构+LangGraph (StateGraph条件分支修订循环+HITL interrupt_before + A2A/Plan-Execute)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights": [0.4, 0.6, 1.2, 2.4, 5.8, 0.4, 0.4, 0.6, 1.5, 0.4, 0.4, 1.0, 1.8, 0.4, 0.4, 0.8, 0.4, 0.4, 0.4, 0.4, 0.4],
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LangGraph StateGraph 三要素 (StateGraph/Node/Edge) + Conditional Edge + 四种编排模式 (顺序/条件/循环/HITL) + Annotated[list, operator.add] 追加模式 State",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "画 research->strategy->approval->publish 的状态图, 标出哪里是顺序/条件/循环/HITL。为什么用图不用链?",
+      "feedback_rule": "漏 HITL 或把条件边写成普通边 -> 回 practice.md D1 faded"
+    },
+    {
+      "id": "C2",
+      "concept": "HITL 三步模式: graph.invoke(暂停于 interrupt_before) -> graph.update_state(注入人工决策) -> graph.invoke(None)(恢复) + MemorySaver/SqliteSaver Checkpointing 状态持久化 + 跨进程恢复",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "去掉 interrupt_before, HITL 塌缩成几步? update_state 在没有暂停点时是什么行为? 为什么?",
+      "feedback_rule": "答'一步'或漏 update_state -> 回 practice.md D2 + tutorial.ipynb Socratic 追问 3"
+    },
+    {
+      "id": "C3",
+      "concept": "多 Agent 拓扑: Supervisor (条件路由=主管, 有全局视图) / 层级式 (Hierarchical, 顶层 Supervisor 管子团队) / A2A (Google 2024 Agent-to-Agent Protocol) / Plan-Execute (strategy=Plan, copywriter=Execute); A2A 与 MCP 互补: MCP 接工具, A2A 接 Agent",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "给一个既要 MCP 又要 A2A 的企业场景, 解释为什么缺一不可。Supervisor 与 Plan-Execute 能兼任吗?",
+      "feedback_rule": "A2A/MCP 混淆或 Supervisor/Plan-Execute 混淆 -> 回 practice.md D3 + worked example"
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演 × 多Agent仿真同构: 沙盘=StateGraph, 决策分支=Conditional Edge, 假设记录=Checkpointing (MemorySaver), 因果模型更新=反馈学习节点; 把天道推演从思维框架升级为可计算多Agent沙盘",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "retrieval_cue": "把天道推演六能力 (局势感知/因果链/沙盘/概率/最优路径/反馈学习) 映射到 LangGraph 组件。Checkpointing 对应哪一能力?",
+      "feedback_rule": "映射不全 -> 回 notes.md §天道推演×多Agent仿真 + 选做 M4 poster"
+    }
+  ]
+}

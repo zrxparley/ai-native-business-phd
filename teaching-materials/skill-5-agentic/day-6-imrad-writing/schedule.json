@@ -1,0 +1,72 @@
+{
+  "unit": "U5D6",
+  "title": "IMRaD 论文写作 间隔重复卡片",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "generator_notes": "卡片 concept 取自本单元 notes.md 真实概念: IMRaD 四部分结构 / Introduction 漏斗 / Methods 可复现性五要素 / APA 第 7 版统计格式 / arxiv 包 / statsmodels / LLM-as-a-judge。due 间隔 [1,3,8,21,60,180] 天, 模拟 FSRS-6 默认稳定性增长, SM-2 作为 backup。",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "IMRaD 四部分结构对应读者四问 (Introduction=为什么做/Methods=怎么做/Results=发现什么/Discussion=意味什么)",
+      "front": "IMRaD 各部分分别回答读者什么问题? 为什么说它是科学交流效率的最优解?",
+      "back": "Introduction 回答'你为什么做这个研究'(背景动机); Methods 回答'你怎么做的'(可复现); Results 回答'你发现了什么'(数据说话); Discussion 回答'这意味着什么'(解读局限)。7 所顶尖大学博士论文全采用此结构, 是科学交流效率最优解而非格式要求。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["structure", "IMRaD", "notes.md-key-recap-1"]
+    },
+    {
+      "id": "C2",
+      "concept": "Introduction 漏斗结构: 领域背景 -> 具体问题 -> 研究空白 -> 本文贡献 -> 论文结构",
+      "front": "Introduction 漏斗结构的 5 层是什么? 每层建议段落数?",
+      "back": "5 层从宽到窄: (1) 研究背景 2-3 段, 引行业报告+学术文献; (2) 研究问题 1-2 段, 明确指出当前系统问题; (3) 研究空白 1 段, 通过文献综述指出前人未做; (4) 本文贡献 3-4 个 bullet; (5) 论文结构 1 段概述各节。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Introduction", "funnel", "notes.md-key-recap-2"]
+    },
+    {
+      "id": "C3",
+      "concept": "Methods 可复现性五要素: 研究设计 -> 系统架构 -> 数据收集 -> 评估指标 -> 数据分析方法",
+      "front": "Methods 部分的可复现性五要素是? 可复现性的核心要求?",
+      "back": "核心要求: 别人读完 Methods 能用同样方法重复研究。五要素: (1) 研究设计 (DSR/混合方法); (2) 系统架构; (3) 数据收集 (定量+定性); (4) 评估指标; (5) 数据分析方法。本单元营销研究: A/B 测试 N=400 + 8 位营销人员访谈, 用 t 检验和卡方。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Methods", "reproducibility", "notes.md-key-recap-3"]
+    },
+    {
+      "id": "C4",
+      "concept": "APA 第 7 版统计报告格式: t(df)=X.XX, p<.001, d=X.XX; χ²(df, N=XXX)=X.XX, p<.01, φ=0.XX",
+      "front": "写出 t 检验和卡方检验的 APA 第 7 版格式, Cohen's d 效应量小/中/大阈值?",
+      "back": "t 检验: t(df) = X.XX, p < .001, d = X.XX。卡方: χ²(df, N = XXX) = X.XX, p < .01, φ = 0.XX。注意 APA 用 .001 而非 0.001 (p 值前不加 0)。Cohen's d 阈值 (Cohen, 1988): 0.2 小 / 0.5 中 / 0.8 大。statsmodels.ttest_ind + scipy.stats.chi2_contingency 生成。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Results", "APA", "statsmodels", "scipy", "notes.md-key-recap-4"]
+    },
+    {
+      "id": "C5",
+      "concept": "Discussion 六要素: 发现解读 -> 理论贡献 -> 实践启示 -> 局限性 -> 未来方向 -> 伦理声明",
+      "front": "Discussion 论文灵魂的六要素是? APA 第 7 版正文引用 3 种作者数格式?",
+      "back": "六要素: (1) 发现解读; (2) 理论贡献; (3) 实践启示; (4) 局限性; (5) 未来方向; (6) 伦理声明。APA 第 7 版正文引用: (Smith, 2025) 单作者 / (Smith & Jones, 2025) 双作者 (& 号) / (Smith et al., 2025) 三作者及以上 (et al. 拉丁缩写)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Discussion", "APA-citation", "notes.md-key-recap-5"]
+    },
+    {
+      "id": "C6",
+      "concept": "arxiv Python 包 (lukasschwab/arxiv.py, 1.5k★): 下载/解析 ReAct 论文 (arXiv 2210.03629) 元数据+摘要, 自动抽取 IMRaD 结构",
+      "front": "arxiv Python 包的作者/仓库 star 数? 用它下载 ReAct 论文的 arXiv ID? 如何抽取 IMRaD?",
+      "back": "lukasschwab/arxiv.py, 1.5k★。ReAct 论文 arXiv ID: 2210.03629。用 arxiv.Search(id_list=['2210.03629']) 获取 paper.summary, 用正则匹配 Introduction/Methods/Results/Discussion section heading 抽取四段边界, 输出 (start_char, end_char) 对照表。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["arxiv", "ReAct", "tool", "starter.ipynb-TODO1"]
+    },
+    {
+      "id": "C7",
+      "concept": "LLM-as-a-judge (NeurIPS 2023, arXiv 2306.05685): 自动评估论文各部分质量, 已知偏差 (长度/位置/自我偏好), 对应因果阶梯 L1",
+      "front": "LLM-as-a-judge 论文的 arXiv ID 和会议? 评估 IMRaD 四部分各关注什么? 三大已知偏差?",
+      "back": "arXiv 2306.05685, NeurIPS 2023。Introduction: 研究问题是否清晰/贡献是否具体/漏斗是否连贯。Methods: 是否可复现/指标是否合理/分析方法是否恰当。Results: 统计检验是否正确/APA 是否准确/效应量解读是否合理。Discussion: 局限是否诚实/理论贡献深度/未来方向可行性。三大偏差: 偏好长答案 (长度偏差) / 位置偏差 / 自我偏好。对应因果阶梯 L1 (关联), 不能替代真实同行评审 (L2 干预)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["LLM-as-a-judge", "frontier-2026", "causal-ladder-L1", "DeepSeek"]
+    }
+  ]
+}

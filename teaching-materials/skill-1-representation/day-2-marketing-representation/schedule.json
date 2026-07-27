@@ -1,0 +1,56 @@
+{
+  "unit": "skill-1-representation/day-2-marketing-representation",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_note": "21 weights (FSRS-6 default); SM-2 fallback uses EF0=2.5, I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "四大营销表示类型 (客户/产品/内容/跨域对齐) 与异构信息融合的分通道编码+拼接+MLP映射策略",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S1", "概念", "对齐"]
+    },
+    {
+      "id": "C2",
+      "concept": "sentence-transformers 文本语义嵌入: BERT/RoBERTa 预训练 -> 384维向量 -> cosine 相似度检索 -> KMeans+Silhouette 分群",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S1", "真实库", "sentence-transformers"]
+    },
+    {
+      "id": "C3",
+      "concept": "Two-Tower 双塔模型: 客户塔 + 产品塔 -> 共享空间 -> InfoNCE 对比损失 L=-log[exp(sim(u,v+))/Σexp(sim(u,vi))] -> 负采样 -> 在线ANN检索",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S2", "torch", "InfoNCE", "对比学习"]
+    },
+    {
+      "id": "C4",
+      "concept": "CLIP 对比学习对齐: 双塔 + N×N相似度矩阵 + 对称InfoNCE + 温度参数τ (τ小->信心强) -> 图文匹配/多模态检索",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S3", "transformers", "CLIP", "对比学习"]
+    },
+    {
+      "id": "C5",
+      "concept": "多模态演进路线 CLIP(2021对比对齐) -> BLIP-2(2023 Q-Former桥接) -> GPT-4o(2024原生多模态统一token) -> LLaVA(2024开源) 的本质区别与营销应用",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["S3", "前沿", "GPT-4o", "LLaVA"]
+    },
+    {
+      "id": "C6",
+      "concept": "对比学习是贯穿全程的底层技术: CLIP对齐图文, Two-Tower对齐客户-产品, sentence-transformers微调文本编码器 - InfoNCE是现代表示学习核心",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["跨subskill", "InfoNCE", "对比学习"]
+    }
+  ],
+  "review_policy": {
+    "pass_threshold": 0.9,
+    "fail_action": "ef = max(1.3, ef - 0.2), 重置 due[0]=1",
+    "interleaving_note": "复习时按 C1->C3->C5->C2->C4->C6 交叉, 不按 subskill 块状",
+    "weak_loop_trigger": "同一card连续2次fail -> 触发 practice.md weak_loop"
+  }
+}

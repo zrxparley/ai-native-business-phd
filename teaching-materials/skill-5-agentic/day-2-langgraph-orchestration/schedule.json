@@ -1,0 +1,75 @@
+{
+  "unit": "U5-D2",
+  "title": "LangGraph 编排实战 - 间隔重复卡片",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "notes": "Concepts extracted from notes.md: StateGraph/Node/Edge 三要素, MarketingState (TypedDict), add_conditional_edges + should_approve, 循环退出条件 revision_count>=3, MemorySaver/SqliteSaver checkpointing, interrupt/Command HITL, 状态驱动设计, 多Agent仿真 × 天道推演映射. SM-2 EF 初始 2.5, FSRS-6 stability/difficulty 字段供后续校准.",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LangGraph 三要素: StateGraph / Node / Edge (有状态有向图替代线性 Chain)",
+      "front": "LangGraph 把 Agent 工作流建模为什么数据结构？三要素分别是什么？营销多Agent场景中 MarketingState (TypedDict) 对应哪个要素？",
+      "back": "有状态有向图 (stateful directed graph)。三要素: StateGraph (维护全局 State 的有向图) / Node (接收 State 返回 State 更新的节点函数) / Edge (无条件边 A->B 或条件边)。MarketingState 对应 State (TypedDict)，是所有节点共享的全局状态对象。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.4,
+      "fsrs_difficulty": 0.3,
+      "tags": ["StateGraph", "Node", "Edge", "notes.md-关键回顾1"]
+    },
+    {
+      "id": "C2",
+      "concept": "条件边 add_conditional_edges + should_approve (publish/revise 路由)",
+      "front": "在营销多Agent图中，审核节点 review 如何根据 State 动态选下一节点？写出条件函数签名与 add_conditional_edges 注册调用的三参数。",
+      "back": "条件函数: should_approve(state) -> Literal['publish','revise']，读 State 决定下一节点。注册: workflow.add_conditional_edges('review', should_approve, {'publish':'publish','revise':'content'})。三参数: 源节点名 / 条件函数 / 路由映射字典。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.5,
+      "fsrs_difficulty": 0.5,
+      "tags": ["add_conditional_edges", "should_approve", "条件路由", "notes.md-关键回顾2"]
+    },
+    {
+      "id": "C3",
+      "concept": "循环退出条件 revision_count >= 3 (防止审核-修改死循环)",
+      "front": "为什么 LangGraph 任何循环都必须有退出条件？若删掉 should_approve 里 revision_count >= 3 的强制 publish，输入 brief 触发审核不通过时会发生什么？",
+      "back": "任何循环必须有退出条件，否则图无法终止。删掉 revision_count >= 3 后，若审核持续不通过，图会在 review -> content -> review 之间无限循环，stream 永不收敛。退出条件 = 概率评估里的'高杠杆点'，小投入（强制发布）改变大局（终止图）。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.6,
+      "fsrs_difficulty": 0.6,
+      "tags": ["循环退出", "revision_count", "天道推演-概率评估", "notes.md-关键回顾2"]
+    },
+    {
+      "id": "C4",
+      "concept": "Checkpointing: MemorySaver (内存) / SqliteSaver (持久) + interrupt/Command HITL",
+      "front": "LangGraph 如何实现人机协作 (HITL) 审核节点？interrupt 在节点函数内调用后图状态如何变化？人工恢复时用什么对象传入结果？",
+      "back": "用 langgraph.types.interrupt 在节点函数内暂停图，State 被 MemorySaver/SqliteSaver 持久化（checkpointing）。图进入暂停态等待外部输入。人工审核后用 Command(resume={'approved': True, 'comment': '...'}) 恢复执行，图从检查点继续。这是 LangGraph 相对 CrewAI 的核心优势，生产审核合规关键能力。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.45,
+      "fsrs_difficulty": 0.7,
+      "tags": ["MemorySaver", "SqliteSaver", "interrupt", "Command", "HITL", "notes.md-关键回顾3"]
+    },
+    {
+      "id": "C5",
+      "concept": "多Agent仿真 × 天道推演同构映射 (局势感知/沙盘模拟/反馈学习)",
+      "front": "LangGraph 多Agent编排如何与项目 CLAUDE.md 的天道推演系统同构？列出至少 3 个节点-能力对应，并说明如何把天道推演升级为可计算多Agent沙盘。",
+      "back": "同构映射: analysis_agent(市场分析)=局势感知(感知棋盘状态) / strategy_agent(策略)=沙盘模拟(展开多路径) / content_agent(创意)=最优路径推荐 / review_node(审核)=反馈学习(对比推演与结果) / should_approve(路由)=概率评估(选高概率路径)。升级: 用 LangGraph 模拟多方立场 Agent (品牌方/消费者/竞品方) 博弈，条件边模拟博弈分支，Checkpointing 持久化推演前提假设，把天道推演从思维框架变成可复现可版本化的决策工具。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.55,
+      "fsrs_difficulty": 0.8,
+      "tags": ["天道推演", "多Agent仿真", "局势感知", "沙盘模拟", "反馈学习", "notes.md-2026前沿"]
+    },
+    {
+      "id": "C6",
+      "concept": "状态驱动设计: 节点只写自己负责的字段 (新增 Agent 只加节点+加边)",
+      "front": "LangGraph 状态驱动设计为何比节点间传参更优？以 MarketingState 为例，analysis_agent 与 content_agent 各写哪个字段？新增投放优化 Agent 需要改哪些代码？",
+      "back": "状态驱动设计: 所有节点共享 MarketingState，每节点只写自己负责字段 (analysis_agent 写 market_analysis，content_agent 写 content)，比传参更清晰、更易调试、更易扩展。新增投放优化 Agent 只需: (1) 加节点 add_node('optimization_agent', fn) (2) 加边 add_edge 或 add_conditional_edges (3) 在 MarketingState 加 optimization 字段。不改现有节点代码 = 开闭原则。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "fsrs_stability": 0.5,
+      "fsrs_difficulty": 0.4,
+      "tags": ["状态驱动", "MarketingState", "开闭原则", "notes.md-关键回顾4"]
+    }
+  ]
+}

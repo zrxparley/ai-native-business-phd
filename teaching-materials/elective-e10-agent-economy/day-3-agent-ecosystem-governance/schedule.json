@@ -1,0 +1,98 @@
+{
+  "unit": "U-E10-D3",
+  "unit_title": "Agent生态治理 (Agent ecosystem governance)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "algorithm_params": {
+    "fsrs_version": "6.0",
+    "sm2_fallback_ef_min": 1.3,
+    "sm2_fallback_ef_default": 2.5,
+    "interval_modifier": 1.0,
+    "maximum_interval": 365
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Agent平台三边市场模型 + 四类网络效应 (同边正向/跨边正向/数据飞轮/同边负向) - 区别于App Store/Uber/淘宝的本质是多了'数据飞轮'AI特有网络效应",
+      "front": "Agent平台的三边市场包含哪三方? 四类网络效应分别是什么? 哪一类是AI平台区别于传统双边市场的本质?",
+      "back": "三方: Agent开发者(供给)/Agent用户(需求)/模型与工具提供商(基础设施)。四类: 同边正向(开发者越多->Agent越多)、跨边正向(开发者越多->用户越多)、数据飞轮(使用->数据->模型->使用, AI特有)、同边负向(开发者越多->竞争越激烈->部分退出)。数据飞轮是AI平台本质区别。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["三边市场", "网络效应", "数据飞轮", "platform-economics"],
+      "source": "notes.md § 关键回顾1+2"
+    },
+    {
+      "id": "C2",
+      "concept": "Agent市场监管6维度 (责任/消保/反垄断/数据隐私/金融/税收) + 责任归属4层模型 (开发者->部署者->用户->Agent本身, 前沿法律未定)",
+      "front": "Agent市场监管的6维度是什么? Agent自主决策致损的责任归属4层模型? 哪一层是2026前沿法律未定问题?",
+      "back": "6维度: 责任归属/消费者保护/反垄断/数据隐私/金融安全/税收。4层模型: 开发者(设计缺陷)->部署者(配置错误)->用户(故意违规)->Agent本身(前沿法律未定, 目前无定论)。Agent本身承担责任是2026未解法律前沿。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["市场监管", "责任归属", "antitrust", "regulation"],
+      "source": "notes.md § 关键回顾3"
+    },
+    {
+      "id": "C3",
+      "concept": "Agent经济激励设计4原则 (激励兼容/帕累托效率/个体理性/预算平衡) - 对应mesa仿真中PlatformAgent.apply_rule的设计约束",
+      "front": "激励设计4原则是什么? 他们在mesa仿真PlatformAgent中分别对应什么约束?",
+      "back": "4原则: 激励兼容(诚实报告能力是最优策略)、帕累托效率(任务分配无法再改进)、个体理性(参与优于不参与)、预算平衡(平台抽成覆盖运营成本)。mesa中: 激励兼容->DevAgent如实上报capability; 帕累托->任务按信誉排序匹配; 个体理性->UserAgent参与收益>0; 预算平衡->平台收入=sum(抽成)>=运营成本。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["激励设计", "mechanism-design", "mesa", "incentive"],
+      "source": "notes.md § 关键回顾4"
+    },
+    {
+      "id": "C4",
+      "concept": "pydantic治理schema四契约 (AdmissionRule/RevenueShare/PenaltyRule/ReputationScoring) + API Economy 2.0 Agent可发现治理声明",
+      "front": "用pydantic定义哪4类治理规则? 'Agent可发现治理声明'是什么? 真实生态中OpenAI GPT Store抽成30%/MCP零抽成如何用schema表达?",
+      "back": "4类: AdmissionRule(准入门槛/审核流程)、RevenueShare(平台抽成/开发者分润)、PenaltyRule(违规惩罚/信誉扣分)、ReputationScoring(信誉分/排序权重)。可发现治理声明=model_dump_json()输出可被其它Agent自动解析。OpenAI: RevenueShare(platform_take=0.30, developer_split=0.70); MCP: RevenueShare(platform_take=0.0, developer_split=1.0)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pydantic", "schema", "governance", "API-economy"],
+      "source": "notes.md § 上机任务TODO1"
+    },
+    {
+      "id": "C5",
+      "concept": "networkx生态拓扑: MultiDiGraph(平台=hub/Agent=节点/A2A-MCP=边) + 度分布/聚类系数/核心-边缘/三类中心性(degree-betweenness-closeness)用于识别单点故障",
+      "front": "如何用networkx构建Agent生态网络? 哪些指标用于识别'生态核心'和'单点故障风险'? betweenness标准差大说明什么?",
+      "back": "MultiDiGraph: 平台节点=hub, Agent=节点, A2A/MCP调用=有向边。识别核心用degree_centrality和k_core; 单点故障用betweenness_centrality(节点在所有最短路径上的频率); betweenness标准差>0.2说明少数hub承载大量调用, 单点故障风险高。closeness_centrality衡量信息传播效率。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["networkx", "topology", "centrality", "single-point-failure"],
+      "source": "notes.md § 上机任务TODO2+TODO3"
+    },
+    {
+      "id": "C6",
+      "concept": "mesa多Agent仿真(30agents/15ticks) + Gini/成交率/欺诈率/平台收入 4指标 + 严准入+高分润 vs 宽准入+低分润 治理对比 + 贝叶斯后验分布解读",
+      "front": "mesa仿真中PlatformAgent/DevAgent/UserAgent分别做什么? 4个生态健康指标是什么? 两种治理规则如何对比? 为什么用5次run的均值±标准差而非单点?",
+      "back": "PlatformAgent执行准入/分润/惩罚; DevAgent积累信誉; UserAgent按信誉选Agent调用。4指标: Gini系数(信誉/收入分布)、成交率、欺诈率、平台收入。对比: 同样30agents/15ticks跑两种规则各5次取均值±std。用5次而非单点是因为Agent行为有随机性, 多次run得到Gini后验分布(贝叶斯视角), 是天道推演的概率评估能力。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["mesa", "simulation", "Gini", "bayesian", "tian-dao"],
+      "source": "notes.md § 上机任务TODO4 + 天道推演"
+    },
+    {
+      "id": "C7",
+      "concept": "numpy-financial平台12月NPV估值 + 治理规则ROI对比 + 天道推演三时间线 (immediate月/near年/far3年MCP-A2A演化)",
+      "front": "如何用numpy-financial.npv量化治理规则对平台长期价值的影响? 天道推演三时间线分别对应什么? far 3年线必须涉及什么协议演化?",
+      "back": "12月现金流(治理运营成本+平台抽成收入) -> npv(rate, cashflows)。两种治理规则NPV对比即ROI。三时间线: immediate(月,mesa tick级别)/near(年,numpy-financial 12月NPV)/far(3年,MCP-A2A协议标准化下的生态终局)。far必须涉及MCP+A2A标准化下Agent经济的去中心化或新垄断走向。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["numpy-financial", "NPV", "tian-dao", "three-timeline"],
+      "source": "notes.md § 上机任务TODO5 + 天道推演×生态治理沙盘"
+    },
+    {
+      "id": "C8",
+      "concept": "2026前沿: MCP生态(Anthropic, 零抽成开放协议) vs A2A协议(Google, Agent间直接通信交易) - Agent经济的新型平台形态与去中心化范式",
+      "front": "MCP和A2A分别是什么? 谁提出的? 抽成模式与传统App Store 30%抽成有何不同? A2A催生的Agent协作链分润是什么?",
+      "back": "MCP=Model Context Protocol(Anthropic, 连接Agent与工具/数据的标准, 零抽成开放协议)。A2A=Agent-to-Agent(Google, Agent间直接通信交易)。两者都代表去中心化平台新范式, 区别于App Store 30%抽成。A2A催生分润: Agent协作链(洞察->创意->投放->分析)按贡献度分得最终收益。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["MCP", "A2A", "frontier-2026", "decentralization"],
+      "source": "notes.md § 2026前沿"
+    }
+  ],
+  "review_log": {
+    "note": "本卡片集对应practice.md的D1-D4四个drill。weak_loop触发后, 失败drill对应的卡片(如D3失败->C6/C7)应在下一次due前优先复习。FSRS-6默认ef0=2.5, 若学生连续3次recall困难, ef降至1.3并触发weak_loop。"
+  }
+}

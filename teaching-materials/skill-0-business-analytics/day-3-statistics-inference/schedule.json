@@ -1,0 +1,66 @@
+{
+  "unit": "U-skill0-day3-statistics-inference",
+  "topic": "描述统计与推断统计 (scipy.stats t检验/卡方/贝叶斯Beta-Binomial/ASA p值声明)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_params": {
+    "fsrs_version": "6.0",
+    "request_retention": 0.9,
+    "weights_count": 21,
+    "sm2_backup": {
+      "ef0": 2.5,
+      "interval_formula": "I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+      "ef_update": "EF' = EF + (0.1 - (5-q)*(0.08 + (5-q)*0.02))"
+    }
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "scipy.stats.ttest_ind Welch t 检验 - A/B 两组转化率差异显著性 (equal_var=False 应对营销方差不等)",
+      "front": "营销 A/B 测试中两组方差不等，应如何调用 scipy.stats.ttest_ind？返回值 t 与 p 各代表什么？",
+      "back": "stats.ttest_ind(a, b, equal_var=False) 调用 Welch t；t 是检验统计量（差/SE），p 是 H₀（两组均值相等）成立时观察到当前或更极端差的概率。ASA 2016 第三条：p≠效应量，必须同时报告 Cohen's d + 95% CI。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["scipy.stats", "t检验", "Welch", "ASA", "A/B测试"]
+    },
+    {
+      "id": "C2",
+      "concept": "scipy.stats.chi2_contingency 卡方独立性检验 - 用户分群(新客/回客/VIP)与购买品类(美妆/电子/健身/家居)是否独立",
+      "front": "scipy.stats.chi2_contingency 输入数据结构与返回元组四元素？dof 如何计算？",
+      "back": "输入 = pd.crosstab(df['segment'], df['category']) 列联表（行=分群，列=品类）；返回 (chi2, p, dof, expected)。dof = (r-1)(c-1)。p<0.05 拒绝独立性，即分群与品类有关联。expected 是 H₀ 下的期望频数。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["scipy.stats", "卡方", "chi2_contingency", "列联表", "独立性"]
+    },
+    {
+      "id": "C3",
+      "concept": "Beta-Binomial 贝叶斯推断 - 先验 Beta(α,β) + s 成功/n 试验 -> 后验 Beta(α+s, β+n-s)，后验均值 (α+s)/(α+β+n)",
+      "front": "Beta(1,1) 先验 + 30 次转化/200 次试验，后验参数与后验均值？可信区间(credible interval)与频率派置信区间(CI)语义差异？",
+      "back": "后验 Beta(31, 171)，均值 31/(31+171) = 0.153，95% credible interval [0.107, 0.205]（直接说'转化率有 95% 概率落在此区间'）。频率派 CI 说'重复实验 95% 次包含真值'——根本语义不同。ASA 2016 第四条：p+CI+效应量透明报告。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["贝叶斯", "Beta-Binomial", "后验", "PyMC", "ASA"]
+    },
+    {
+      "id": "C4",
+      "concept": "ASA 2016 p 值六原则 - p≠P(H₀真)/不抹杀研究/不只看p/p需透明/p+CI+效应量/科学推论不归一指标",
+      "front": "ASA 2016 Wasserstein & Lazar p 值六原则是哪六条？p-hacking 如何膨胀第一类错误？",
+      "back": "①p≠P(H₀真|数据) ②p 不决定研究真伪 ③科学结论与决策不只靠 p ④p 需透明完整报告 ⑤p 不等于效应量，需配 CI 与效应量 ⑥p 值与统计显著性不归一指标。p-hacking：不断检查 p，达 0.05 即停，会膨胀 α。对策：预注册(OSF) + 预计算样本量(功效分析)。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["ASA", "p值", "p-hacking", "预注册", "可复现研究"]
+    },
+    {
+      "id": "C5",
+      "concept": "右偏分布与稳健描述统计 - 营销客单价(AOV)右偏下中位数比均值更稳健，skewness>0 验证",
+      "front": "为何营销客单价(AOV)分布右偏时中位数比均值更稳健？如何用 scipy.stats.skew 验证？",
+      "back": "右偏分布少数大额订单拉高均值，mean > median；中位数抗极端值。scipy.stats.skew(aov) > 0 即右偏。numpy/pandas：np.mean, np.median, df['aov'].describe()。国家统计局发布'居民收入中位数'同理。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["描述统计", "右偏", "中位数", "稳健性", "skewness"]
+    }
+  ],
+  "review_log": {
+    "policy": "FSRS-6: 每日复习到期卡片，按 0-5 评分更新 EF 与 next interval；EF<1.3 强制重学；连续 3 次 5 分提前进入下一 due 点",
+    "cross_unit_linking": "弱项卡片(连续2次失败)会在 student_model.json 标记，跨单元复习优先安排"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "unit": "elective-e3-llm-intro/day-2-llm-application-engineering",
+  "topic": "LLM 应用工程 (RAG / Prompt Engineering / Function Calling / MCP / RAGAS / tiktoken / langchain_core / langsmith)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LLM 应用四种模式决策框架: 先 Prompt Engineering (成本极低) -> 不够再 RAG (成本中) -> 最后才 Fine-tuning (成本高, 灾难性遗忘风险)。Function Calling 提供'操作能力', RAG 提供'知识', 互补。",
+      "front": "LLM 应用四种模式的工程原则是什么? 为何 Fine-tuning 放最后?",
+      "back": "先 Prompt Engineering (成本极低) -> 不够再 RAG (成本中) -> 最后才 Fine-tuning (成本高, 灵活性低, 可能灾难性遗忘)。Function Calling 让 LLM 调外部工具, RAG 注入私有知识, 两者互补构成 Agent 基础。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["决策框架", "Prompt-Engineering", "RAG", "Fine-tuning", "Function-Calling"]
+    },
+    {
+      "id": "C2",
+      "concept": "tiktoken BPE 分词器: gpt-4o 用 o200k_base, DeepSeek V3 用 cl100k_base。同一句中文营销文案 token 数不同 -> 影响推理成本。gpt-4o input $2.50/M vs DeepSeek V3 input $0.27/M (约 1/10), 万次/日场景月成本从 ~$300 降到 ~$30。",
+      "front": "gpt-4o 与 DeepSeek V3 各用哪个 tiktoken 编码? 定价差异对营销文案生成选型有何启示?",
+      "back": "gpt-4o=o200k_base, DeepSeek V3=cl100k_base。DeepSeek V3 MoE (671B 总参/37B 激活) input $0.27/M 仅 gpt-4o $2.50/M 的 1/10。日均万次营销文案月成本 ~$30 vs ~$300, 降幅 10 倍。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tiktoken", "o200k_base", "cl100k_base", "DeepSeek-V3", "推理成本"]
+    },
+    {
+      "id": "C3",
+      "concept": "RAG 五种 Prompt 技术: Zero-shot (直接描述), Few-shot (示例引导格式), CoT (展示推理), Self-Consistency (多次取多数), Structured Output (JSON/XML 程序解析)。langchain_core ChatPromptTemplate (System+Human) + StrOutputParser 构建管道。",
+      "front": "五种 Prompt 技术各自适用场景? langchain_core 如何构建 Prompt 模板管道?",
+      "back": "Zero-shot=LLM 已有能力; Few-shot=需特定格式; CoT=复杂推理; Self-Consistency=减随机性; Structured Output=程序解析。ChatPromptTemplate.from_messages([(system,...),(human,...)]) | StrOutputParser()。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["Prompt-技术", "ChatPromptTemplate", "StrOutputParser", "Few-shot", "CoT"]
+    },
+    {
+      "id": "C4",
+      "concept": "RAG 检索原理: numpy TF-IDF 向量化 + 余弦相似度召回 top-k。质量优化六维度: 分块策略 / Embedding 模型 (all-MiniLM-L6-v2) / 检索策略 (向量+BM25 混合) / 重排序 / Prompt 设计 / 评估 (RAGAS)。",
+      "front": "用 numpy 实现 RAG 检索的核心步骤? RAG 质量优化有哪六个维度?",
+      "back": "TF-IDF 矩阵 (docs x vocab) -> query 向量化 -> cosine_sim(query, docs) -> argsort top-k。六维: 分块策略 / Embedding 模型 / 混合检索 (向量+BM25) / 重排序 / Prompt 设计 / RAGAS 评估。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["RAG", "TF-IDF", "余弦相似度", "分块策略", "all-MiniLM-L6-v2"]
+    },
+    {
+      "id": "C5",
+      "concept": "RAGAS 评估三指标: faithfulness (回答信息是否都在检索上下文, 防幻觉) / context_recall (ground truth 信息是否被检索到) / answer_relevance (回答是否切题)。2026 趋势: RAGAS 集成 CI/CD, 质量回归阻断部署。",
+      "front": "RAGAS 三个核心指标各自防哪类 RAG 失败模式? faithfulness=0.6, context_recall=0.9 瓶颈在哪?",
+      "back": "faithfulness 防幻觉 (生成不在 context 的内容), context_recall 防漏检索, answer_relevance 防跑题。faithfulness=0.6 (低) / context_recall=0.9 (高) -> 瓶颈在生成层非检索层。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["RAGAS", "faithfulness", "context_recall", "answer_relevance", "CI/CD"]
+    },
+    {
+      "id": "C6",
+      "concept": "MCP (Model Context Protocol, Anthropic): LLM 工具调用开放协议, 2026 年正成为 Function Calling 事实标准, 替代厂商私有 tool calling 格式, 使 Agent 可移植。LangSmith @traceable: LLM 应用可观测性标配, 记录 Prompt/响应/token/延迟/工具链。",
+      "front": "MCP 解决什么问题? LangSmith @traceable 在 LLM 应用工程中扮演什么角色?",
+      "back": "MCP 标准化 LLM 与外部工具/数据源连接, 替代各厂商私有 tool calling, 使营销 Agent 可跨模型移植。@traceable 装饰器记录每次 LLM 调用全链路 (Prompt/响应/token/延迟/工具链), 无追踪=黑箱。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["MCP", "Function-Calling", "LangSmith", "traceable", "可观测性"]
+    }
+  ],
+  "review_log_note": "按 FSRS-6 间隔重复: 首次学习后 1 天复习, 逐步拉长到 3/8/21/60/180 天。若复习时回忆失败, ef0 衰减并重置 due 到下一更近间隔。配合 practice.md 的 interleaving 交叉练习使用。"
+}

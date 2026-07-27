@@ -1,0 +1,58 @@
+{
+  "unit": "U-day3-knowledge-graph-graphrag",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weight_count": 21,
+  "sm2_backup": {
+    "ef0": 2.5,
+    "interval_formula": "I(1)=1, I(2)=6, I(n)=I(n-1)*EF",
+    "ef_update": "EF' = EF + (0.1 - (5-q)*(0.08+(5-q)*0.02))"
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "TransE KGE 得分函数与 margin-based ranking loss",
+      "front": "写出 TransE 的得分函数 f(h,r,t) 与 margin loss L；解释 h+r≈t 的几何意义与一对多局限性",
+      "back": "f(h,r,t) = -||h+r-t||; L = Σ max(0, γ + f(h,t) - f(h',t'))，其中 (h',r,t') 为负采样三元组，γ 为间隔。几何意义：h 在向量空间，r 为平移向量，t=h+r。局限：一对多关系（如'产品-属于-品类'多个产品同属一品类）要求多个 h+r 趋近同一 t，向量空间无法同时满足；改用 RotatE（复数旋转）或 ComplEx（复数内积）。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["KGE", "TransE", "numpy", "drill-D2"]
+    },
+    {
+      "id": "C2",
+      "concept": "GraphRAG 三种搜索模式（Global/Local/DRIFT）及适用场景",
+      "front": "GraphRAG（微软2024, arXiv 2404.16130）的三种搜索模式分别是什么？各自适合回答哪类问题？为何传统向量 RAG 无法回答全局性问题？",
+      "back": "Global Search：基于 Leiden 社区检测的社区层级摘要，回答'主要主题是什么'等全局问题；Local Search：以实体为中心的邻居检索，回答'X 的相关实体'等局部问题；DRIFT Search：先全局定位再局部精确检索的混合模式。传统向量 RAG 只能基于语义相似度检索 chunk，无法沿关系链推理或聚合全局主题，故无法回答全局性问题与多跳关系问题。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["GraphRAG", "微软2024", "arXiv-2404.16130", "drill-D3"]
+    },
+    {
+      "id": "C3",
+      "concept": "KGE 三大方法对比（TransE / RotatE / ComplEx）",
+      "front": "对比 TransE / RotatE / ComplEx 三种 KGE 方法的得分函数、适用关系类型（对称/反对称/一对多）与局限性",
+      "back": "TransE: f=-||h+r-t||，一对一，无法处理一对多/对称；RotatE: f=-||h∘r-t||（复数空间旋转，r 为相位），一对多/多对多/反对称，实现较复杂；ComplEx: Re(h̄·diag(r)·t)（复数内积取实部），对称+非对称，需复数运算。生产实现可用 pykeen 库。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["KGE", "TransE", "RotatE", "ComplEx", "pykeen"]
+    },
+    {
+      "id": "C4",
+      "concept": "networkx 图查询 API（MultiDiGraph 有向图）",
+      "front": "在 networkx.MultiDiGraph 中如何获取：①某节点的所有出边邻居 ②两节点最短路径 ③介数中心性 ④社区发现",
+      "back": "① G.successors(node)（注意有向图不用 neighbors）；② nx.shortest_path(G, source, target)；③ nx.betweenness_centrality(G)；④ nx.community.louvain_communities(G) 或 Leiden 算法（需 igraph）。Neo4j 等价 Cypher：MATCH (n)-[r]->(m) RETURN m。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["networkx", "图查询", "drill-D1"]
+    },
+    {
+      "id": "C5",
+      "concept": "GraphRAG vs 传统 RAG 召回率差异原因",
+      "front": "为何 GraphRAG 在多跳问答（如'买跑鞋的客户还买什么'）召回率显著优于 TF-IDF 向量 RAG？请从检索机制差异解释",
+      "back": "TF-IDF/向量 RAG 基于语义相似度检索 chunk，无法沿关系链推理；GraphRAG 沿知识图谱边做多跳检索（如 跑鞋->属于->运动装备->互补->运动护具），可触达语义不相似但关系相连的实体。GraphRAG 构建成本高（需 LLMGraphTransformer 抽取实体关系），适合需要推理的复杂问题；简单事实问答传统 RAG 仍够用。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["GraphRAG", "RAG", "TF-IDF", "多跳", "drill-D3"]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "unit": "U-R6",
+  "topic": "研究伦理与AI治理 (Research ethics + AI governance: IRB, NIST RMF, EU AI Act, responsible AI, bias/fairness)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Belmont Report (1979) 三原则: Respect for Persons (尊重个人/知情同意) / Beneficence (善行/风险-收益) / Justice (公平正义/负担收益分配), 是 IRB 审查基础",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "NIST AI RMF 四步循环 (2023): Govern (IRB审批/伦理委员会/研究者问责) / Map (人类参与者识别/风险映射) / Measure (偏见公平性度量/风险-收益量化) / Manage (知情退出/风险缓解/参与者保护), 研究伦理视角区别于企业治理视角",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "EU AI Act 风险分级: 禁止 (Article 5, 操控性营销/弱势剥削) / 高风险 (Annex III, AI信用评分, 需风险评估+数据治理+人工监督) / 有限风险 (Article 50, AI客服/AI生成内容, 透明度义务) / 最小风险 (推荐系统, 自由使用)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "garak (NVIDIA, 0.15.1) + PyRIT (Microsoft, 1.0.0) 红队测试是 Belmont 善行原则的履行手段: 主动发现漏洞=最小化伤害; probes 含 dan/promptinject/goodside; 防止 AI 被操纵泄露用户数据=保护参与者自主权",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "天道推演 3 层风险路径: immediate (敏感数据无授权使用) -> near (用户投诉/GDPR调查) -> far (巨额罚款+研究禁令+声誉受损); 高杠杆点=部署前补全知情同意+差分隐私 (小投入改变大局)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "算法偏见评估: 偏见来源 (Barocas & Selbst 2016) = 训练数据/算法/部署偏见; 评估方法 = Model Cards (Mitchell 2019) / Fairlearn / AIF360; computer use 引入新伦理风险 (知情同意/隐私/可逆性/风险-收益 4 维度)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C7",
+      "concept": "pydantic BelmontChecklist schema + IRB 评分器: assess_checklist_item / score_to_status (compliant>=80, conditional 60-79, non_compliant<60) / irb_ethics_review (返回 score/status/risk_level/weakest_principle); pandas 构建案例×原则透视热力图",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

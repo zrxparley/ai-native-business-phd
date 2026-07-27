@@ -1,0 +1,56 @@
+{
+  "unit": "U-R3",
+  "unit_title": "混合方法研究 (Mixed Methods Research)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Creswell & Plano Clark (2018) 三种核心设计：收敛式 Convergent (三角验证, 同步收集) / 解释性序列 Explanatory Sequential (先定量后定性, 解释为什么) / 探索性序列 Exploratory Sequential (先定性后定量, 新领域建理论)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Creswell & Plano Clark 三种 MMR 核心设计是什么？各自适用场景？",
+      "back": "Convergent=三角验证同步收集；Explanatory Sequential=先定量后定性解释；Exploratory Sequential=先定性后定量建理论。"
+    },
+    {
+      "id": "C2",
+      "concept": "Morse (1991) 三种整合策略：合并 Merging (并排比较, 收敛式常用) / 解释 Explaining (定性解释定量, 解释性序列常用) / 构建 Building (定性构建定量框架, 探索性序列常用)。整合是 MMR 区别于分别做定量定性的核心。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Morse 三种整合策略是什么？为什么整合是 MMR 核心？",
+      "back": "Merging/Explaining/Building。Creswell 2015: 不整合即非真正 MMR。"
+    },
+    {
+      "id": "C3",
+      "concept": "joint display 联合展示矩阵：定量统计 (t, Cohen's d, p, CI) × 定性主题 (频次, 代表性摘录) 对照矩阵，识别一致性与差异。主要服务 Morse Merging 策略。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "joint display 联合展示矩阵是什么？服务哪种 Morse 策略？",
+      "back": "定量×定性对照矩阵，识别一致/差异，服务 Merging。"
+    },
+    {
+      "id": "C4",
+      "concept": "贝叶斯 Beta-Binomial 整合：定性编码主题置信度 -> Beta(α,β) 先验；NSW 二项化结果 -> 似然；后验 = 先验×似然。从展示整合走向概率整合，相比 joint display 强在概率融合而非并排展示。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "贝叶斯 Beta-Binomial 如何整合定量定性？相比 joint display 强在哪？",
+      "back": "定性置信度作 Beta 先验，定量作似然，后验概率融合而非并排。"
+    },
+    {
+      "id": "C5",
+      "concept": "LLM-as-a-judge 定性编码：DeepSeek/RAGAS 用 codebook 自动标注访谈主题，faithfulness/answer_relevancy 评估质量，Cohen's kappa 量化人工 vs LLM 一致性。LLM 是加速器非替代器 (有偏差)，正确用法=LLM 初筛+人工复核不一致案例。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "LLM-as-a-judge 如何辅助定性编码？为什么不能完全替代人工？",
+      "back": "codebook 自动标注+kappa 量化一致性；LLM 有偏差，初筛+人工复核。"
+    },
+    {
+      "id": "C6",
+      "concept": "NSW causaldata 真实数据 (LaLonde 1986, Dehejia & Wahba 1999)：445 条观测，treat=1 培训组 vs treat=0 对照组，re78=1978 真实收入。因果推断教科书基准，pandas+scipy.stats.ttest_ind(equal_var=False) 做 Welch t 检验，Cohen's d 效应量。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "NSW 数据集是什么？如何用 pandas+scipy.stats 做分析？",
+      "back": "LaLonde 1986 真实实验数据 445 条，Welch t 检验+Cohen's d。"
+    }
+  ]
+}

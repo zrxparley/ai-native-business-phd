@@ -1,0 +1,54 @@
+{
+  "unit": "skill-3-causal/day-3-observational-causal",
+  "title": "观测因果 (NSW+CPS PSM + close_college IV + DML)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_notes": "FSRS-6 (request_retention=0.9, 21 weights) 为主; 若环境不支持 FSRS-6, 回退到 SM-2 (EF0=2.5, I(1)=1, I(2)=6, I(n)=I(n-1)*EF). 间隔序列 [1,3,8,21,60,180] 为 FSRS-6 在 retention=0.9 下的典型复习日。",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "PSM 倾向得分匹配 - 可忽略性假设 (Rosenbaum-Rubin 1983) + 平衡检验 SMD<0.1 + NSW+CPS 观测对照自选择偏差",
+      "front": "PSM 的核心假设是什么? 在 NSW+CPS 观测对照数据上, 朴素估计为何偏? PSM 修正多少?",
+      "back": "可忽略性 (无未观测混杂). NSW 实验处理组 + CPS 观测对照组存在严重自选择偏差, 朴素估计偏大 $600-$1000 (LaLonde 1986). PSM 通过倾向得分 e(X)=P(T=1|X) 匹配消除可观测混杂, 平衡检验 SMD<0.1 方可接受 ATT.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["PSM", "observational", "NSW", "CPS", "confounding"]
+    },
+    {
+      "id": "C2",
+      "concept": "IV 工具变量三假设 (相关性/独立性/排他性) + 2SLS + LATE vs ATE + close_college (Card 1995) + 弱工具 F<10",
+      "front": "IV 三假设是什么? 2SLS 估计的是 ATE 还是 LATE? close_college 数据中 nearc4 满足哪条最可疑?",
+      "back": "三假设: 相关性 Cov(Z,T)≠0 / 独立性 Z⊥(Y(1),Y(0)) / 排他性 Z 只通过 T 影响 Y. 2SLS 估计的是 LATE (局部平均处理效应) -- 只对 compliers 有效, 非 ATE. close_college 中 nearc4 的排他性最可疑 (近大学可能通过其他渠道影响工资). 第一阶段 F<10 = 弱工具.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["IV", "2SLS", "LATE", "close_college", "Card1995"]
+    },
+    {
+      "id": "C3",
+      "concept": "DML 双重机器学习 (Chernozhukov 2018 arXiv 1705.07626) - 正交化 + cross-fitting + 放松函数形式但不放松可忽略性",
+      "front": "DML 相比 PSM 的优势是什么? DML 是否解决了未观测混杂? cross-fitting 为何重要?",
+      "back": "DML 用 ML 估计 nuisance (E[T|X], E[Y|X]) 捕捉高维非线性, 通过正交化 + cross-fitting 保持 sqrt(n) 一致性. DML 放松函数形式假设但不放松可忽略性 -- 未观测混杂仍需 IV. cross-fitting 避免过拟合偏差. 实现: econml.dml / DoubleML.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["DML", "Chernozhukov", "econml", "cross-fitting"]
+    },
+    {
+      "id": "C4",
+      "concept": "四大准实验方法选择决策树 - PSM (横截面/可忽略) vs DiD (面板/平行趋势) vs IV (未观测混杂/有好工具) vs RDD (阈值决定)",
+      "front": "给定营销观测数据, 何时用 PSM/DiD/IV/RDD? 各自核心假设?",
+      "back": "PSM: 横截面 + 无未观测混杂 (优惠券例子). DiD: 面板 + 平行趋势 (活动前后). IV: 未观测混杂 + 有好工具 Z (门店→促销). RDD: 处理由阈值决定 (满500送会员). 决策顺序: 先问有无未观测混杂 → 有则 IV/RDD, 无则 PSM/DiD.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["decision-tree", "PSM", "DiD", "IV", "RDD"]
+    },
+    {
+      "id": "C5",
+      "concept": "营销映射 - 优惠券→转化 (PSM) / 门店→促销→转化 (IV) / 满额送会员 (RDD) + LATE 在 compliers 的局限",
+      "front": "把 NSW+CPS + close_college 映射到营销场景. IV 的 LATE 在营销中意味着什么局限?",
+      "back": "treat(NSW培训)→优惠券, re78→转化率, educ→推荐次数, nearc4→门店覆盖. LATE 在营销中 = IV 只估计因门店覆盖而改变促销曝光的 compliers 的效应, 对始终接受/始终不接受者无效. 这意味着 IV 估计不能直接外推到全量用户.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["marketing", "LATE", "compliers", "mapping"]
+    }
+  ]
+}

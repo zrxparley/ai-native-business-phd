@@ -1,0 +1,45 @@
+{
+  "unit": "U-skill4-day5-business-model-canvas-investment",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_21": [0.4, 0.6, 1.2, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0],
+  "sm2_backup": {"EF0": 2.5, "I(1)": 1, "I(2)": 6, "update_rule": "EF_new = EF_old + (0.1 - (5-q)*(0.08 + (5-q)*0.02))"},
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "商业模式画布九宫格AI适配版: 客户细分/价值主张/渠道/客户关系/收入流/核心资源/核心活动/核心伙伴/成本结构。AI独有变化: 推理成本(持续)+数据成本作为成本结构核心; Agent分发渠道作为新渠道; outcome-based收入流替代seat; 数据+模型+算力作为核心资源。HubSpot 78%毛利率, AI SaaS因推理成本拉低到65%",
+      "front": "商业模式画布九宫格AI适配版有哪4项独有变化?",
+      "back": "推理成本+数据成本(AI独有成本结构) / Agent分发渠道(新渠道) / outcome-based收入流(替代seat) / 数据+模型+算力(核心资源)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["canvas", "AI-adaptation", "inference-cost"]
+    },
+    {
+      "id": "C2",
+      "concept": "numpy-financial NPV/IRR/PI计算: npf.npv(rate, cashflows)中cashflows[0]为负投资支出(t=0), t>=1为正流入。npf.irr()要求现金流序列至少一次符号变化否则无解。MarketingAgent Pro基准: NPV=$451.2K, IRR=20.08%, PI=1.45, 回收期3.2年。PI>1且IRR>折现率(10%) => 投资可行",
+      "front": "numpy-financial NPV/IRR/PI计算要点? MarketingAgent Pro基准值?",
+      "back": "cashflows[0]必负; IRR需符号变化; NPV=$451.2K IRR=20.08% PI=1.45 回收期3.2年; PI>1且IRR>10% => 可行",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["dcf", "npv", "irr", "numpy-financial"]
+    },
+    {
+      "id": "C3",
+      "concept": "scipy.stats蒙特卡洛模拟10000次抽样得P(NPV>0)=55.7%: 对营收/毛利率/增长率同时抽样(scipy.stats.norm.rvs/truncnorm), 得NPV分布而非点估计。P(NPV>0)是分布右偏程度。与单点NPV=$451.2K不矛盾: 均值vs分布。决策价值: P(NPV>0)=55.7%意味着44.3%概率亏损, 需评估风险偏好",
+      "front": "蒙特卡洛P(NPV>0)=55.7%含义? 与单点NPV矛盾吗?",
+      "back": "不矛盾。NPV $451.2K是均值, P(NPV>0)=55.7%是分布右偏程度。44.3%概率亏损, 决策需评估风险偏好",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["monte-carlo", "scipy-stats", "probability"]
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演Bull/Base/Bear三路径×三层(immediate/near/far)推演: 蒙特卡洛评估参数不确定性(频率派分布), 天道推演评估场景路径优不优(因果推演), 两者互补。推理成本对AI估值影响: DeepSeek效应使推理成本降90%+, 每降1pct毛利率升1pct, NPV显著上升。龙卷风图识别NPV高杠杆因子(推理成本通过毛利率影响最大)",
+      "front": "天道推演Bull/Base/Bear三层推演? 与蒙特卡洛关系? 推理成本对估值影响?",
+      "back": "三路径×三层(immediate/near/far)。蒙特卡洛评估参数不确定性, 天道推演评估场景路径, 互补。推理成本每降1pct毛利率升1pct, 龙卷风图识别为高杠杆因子",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tiandao", "scenario", "inference-cost", "sensitivity"]
+    }
+  ]
+}

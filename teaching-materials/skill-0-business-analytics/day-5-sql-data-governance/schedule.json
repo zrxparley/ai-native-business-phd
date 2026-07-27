@@ -1,0 +1,41 @@
+{
+  "unit": "U0D5",
+  "topic": "数据治理与SQL",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights": [0.4072, 0.2885, 0.2985, 0.2477, 0.1318, 0.3912, 0.1664, 0.1825, 0.1307, 0.1764, 0.1167, 0.1404, 0.2142, 0.2414, 0.1378, 0.2787, 0.1576, 0.1679, 0.1832, 0.1975, 0.0789, 0.0567],
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "数据治理六维度 (DAMA-DMBOK): 准确性/完整性/一致性/及时性/唯一性/有效性 - 用 sqlite3 + SQL COUNT(DISTINCT)/IS NULL/strftime 检测",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "DAMA-DMBOK 数据治理六维度是哪六个? 各用什么 SQL 检测?",
+      "back": "准确性/完整性/一致性/及时性/唯一性/有效性; COUNT(DISTINCT)查唯一性, IS NULL查完整性, strftime查及时性"
+    },
+    {
+      "id": "C2",
+      "concept": "sqlite3 CREATE TABLE 约束四件套: PRIMARY KEY / FOREIGN KEY / CHECK / DEFAULT - 电商营销 Schema (customers/products/categories/orders/order_items/campaigns) 设计",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "sqlite3 表设计四类约束是什么? 各防什么数据异常?",
+      "back": "PRIMARY KEY (唯一标识) / FOREIGN KEY (引用完整性) / CHECK (值域) / DEFAULT (默认值)"
+    },
+    {
+      "id": "C3",
+      "concept": "RFM 52/49/31/45 客户分群 - R(recency最近购买)/F(frequency频次)/M(monetary金额), 用窗口函数 RANK + CTE + 子查询计算, pandas.read_sql 转 DataFrame 分析",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "RFM 52/49/31/45 四组客户的消费特征差异? 用 SQL 窗口函数怎么算?",
+      "back": "52=高R高F高M核心客户; 49=高R低F高M新客; 31=低R高F高M流失风险; 45=低R低F低M流失客户; RANK() OVER (ORDER BY recency) + CTE 分箱"
+    },
+    {
+      "id": "C4",
+      "concept": "数据仓库 vs 数据湖 vs 湖仓一体 - Apache Iceberg 开放表格式 (ACID/Time Travel/Schema 演化), Snowflake/Databricks/Trino 选型",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "数据仓库/数据湖/湖仓一体三者差异? Apache Iceberg 解决什么?",
+      "back": "仓库=结构化+写时模式; 湖=结构化+非结构化+读时模式; 湖仓=统一底座; Iceberg 给数据湖加 ACID + Schema 管理"
+    }
+  ]
+}

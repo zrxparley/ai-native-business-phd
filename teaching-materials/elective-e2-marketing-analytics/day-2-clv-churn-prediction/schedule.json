@@ -1,0 +1,48 @@
+{
+  "unit": "U-E2-Day2",
+  "topic": "CLV与流失预测 (BG/NBD + RFM + sklearn Logistic/RandomForest + AUC/PR)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "CLV 三种计算方法 (历史 CLV / 简单预测 CLV / BG/NBD + Gamma-Gamma 概率模型 CLV) 的数据需求与适用场景，及 BG/NBD 两大行为假设 (Poisson 购买率恒定 + Beta 流失后不可逆) 在 B2B 场景的违背点",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "BG/NBD 模型的两大行为假设是什么？B2B 合同周期场景中哪个假设最可能被违背？为什么？",
+      "back": "假设1：购买率恒定 (Poisson process)，假设2：流失后不可逆 (Beta 几何)。B2B 合同周期(年付/季付)使购买率非恒定->假设1违背。补救：贝叶斯 CLV (PyMC/Stan) 融入合同周期先验。本 Day TODO3 用频率学派简化版 BG/NBD: pred_clv = F × retention^12 × AOV × 12 × discount_factor。"
+    },
+    {
+      "id": "C2",
+      "concept": "RFM 客户分群 (Recency / Frequency / Monetary) -> Champions / Recent / At Risk / Hibernating / Lost 五类，pd.qcut 等频分箱 vs pd.cut 等距分箱在重尾零售分布上的选择",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "RFM 分群时为什么通常用 pd.qcut 而非 pd.cut？Recency 的 label 顺序为什么与 Frequency/Monetary 相反？",
+      "back": "零售场景 F/M 通常是重尾分布，pd.cut 等距会让低值区(0)大量堆积，分群不均衡；pd.qcut 等频分箱保证每类样本量均衡。Recency=距上次购买天数，越小越好->label 倒序 [4,3,2,1]；F/M 越大越好->label 升序 [1,2,3,4]。R+F 组合产出 Champions(R高F高)/Recent/At Risk/Hibernating/Lost 五类。NSW 数据映射: re74/re75/re78 -> 历史/近期/活动后消费。"
+    },
+    {
+      "id": "C3",
+      "concept": "sklearn 流失预测三大工程陷阱: train_test_split(stratify=y) 分层抽样 + StandardScaler 仅 fit(X_train) 防数据泄露 + class_weight='balanced' 处理类不平衡，以及为什么 Accuracy 在 8% 流失率场景下不可信，必须看 AUC-ROC > 0.80 + Precision/Recall",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "流失率仅 8%，LogisticRegression accuracy=0.92，这个模型可信吗？应该改看哪两个指标？NSW 数据上 AUC≈0.54 为什么是预期的？",
+      "back": "0.92 accuracy 不可信--全预测不流失也有 0.92。改看 AUC-ROC (工业门槛 >0.80) 和 Precision/Recall (不平衡场景必看)。NSW AUC≈0.54 接近随机的原因: NSW 只有基线人口学特征(age/educ/marr/nodegree)，随机化 RCT 设计使基线不应强预测流失--这正是教学价值: 真实营销需补行为特征(登录频率/会话时长/客服投诉/退款趋势)才能 AUC>0.80。"
+    },
+    {
+      "id": "C4",
+      "concept": "CLV × 流失风险四象限行动矩阵: Q1 高CLV高风险(优先挽留:专属客户经理/深度折扣) / Q2 高CLV低风险(价值提升:向上销售/交叉销售) / Q3 低CLV高风险(低成本挽留:自动化邮件) / Q4 低CLV低风险(维持现状)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "CLV × 流失四象限的 Q1 (高 CLV 高流失风险) 营销行动是什么？如何用 retained_value = N × success_rate × avg_CLV 与 cost = N × cost_per_customer 决策是否挽留？",
+      "back": "Q1 行动: 专属客户经理 + 深度折扣 + 产品体验优化 (高价值客户值得高成本挽留)。决策不等式: 若 retained_value > cost 则做。例: 500 客户 × 30% × 3000 = 45 万 > 500 × 200 = 10 万 -> 做。Q2 价值提升(向上/交叉销售), Q3 低成本挽留(自动化邮件/Push), Q4 维持现状+监控。售前故事化: '500 高价值客户高风险，挽留 30% 挽回 45 万'。"
+    },
+    {
+      "id": "C5",
+      "concept": "CUPED 方差缩减技术 (Microsoft 2013) 与贝叶斯 CLV (PyMC/Stan, MCMC 后验) 与数据治理五维 (完整性/一致性/准确性/时效性/合规性) 对 CLV 预测的影响 - 2026 前沿",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "CUPED 如何连接 Day 1 OLS 控制与 Day 2 LogisticRegression 协变量？贝叶斯 CLV 相对 BG/NBD 的三个优势？GDPR/个人信息保护法对个体级 CLV 预测的约束？",
+      "back": "CUPED 思想: 利用实验前协变量(re74/re75)缩减指标方差提升功效，与 LogisticRegression 把 re74/re75 作为协变量进入模型一致--都是利用预处理信息提升估计精度。贝叶斯 CLV 三优势: ① 高价值 B2B 小样本+专家先验 ② 新产品少数据借相似产品先验 ③ 个体级后验分布(频率学派只给群体平均)。GDPR/个保法限制个体级 CLV 用于精准营销的合法性，需匿名化/聚合/同意管理。"
+    }
+  ]
+}

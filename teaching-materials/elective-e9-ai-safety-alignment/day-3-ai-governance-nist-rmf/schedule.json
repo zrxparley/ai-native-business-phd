@@ -1,0 +1,49 @@
+{
+  "unit": "U-E9-D3",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "NIST AI RMF 1.0 四步循环 Govern/Map/Measure/Manage - Govern贯穿全过程而非第一步做完就结束",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "EU AI Act 4级风险分级 Article 5禁止 / Annex III高风险 / Article 50有限风险 / 最小风险",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "三框架互补 NIST=怎么管(方法论) / EU=必须怎么管(法律分级) / 中国=怎么管(备案+标识+透明), 跨国企业需同时满足",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "中国AI监管5法规 生成式AI备案/算法推荐透明/深度合成标识/个保法知情同意/数安法跨境评估",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "企业AI安全5层架构 L1治理/L2评估/L3技术防护/L4运营/L5合规 - L3对应Day2的5层Prompt Injection防御",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "MCP治理即代码(事前自动拦截) vs computer use治理风险(UI操作权限/可逆性/审计粒度/隔离性) - NIST GOVERN-2/MANAGE-4/MEASURE-3/MANAGE-3对应",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C7",
+      "concept": "garak(NVIDIA LLM漏洞扫描) + PyRIT(微软红队编排) 在NIST AI RMF中属MEASURE层度量手段, garak通过不等于安全",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

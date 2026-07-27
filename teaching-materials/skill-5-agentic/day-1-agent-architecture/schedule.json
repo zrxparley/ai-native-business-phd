@@ -1,0 +1,56 @@
+{
+  "unit": "U5-D1",
+  "unit_topic": "Agent系统架构设计 (ReAct/Plan-Execute/Reflection/Tool Calling/Memory/MCP)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "ReAct (Reasoning+Acting): Thought-Action-Observation 三元交替循环; 用 LangGraph create_react_agent 实现; 适用灵活但可能死循环, 成本不可控",
+      "front": "ReAct 模式的三元组是什么? 用 LangGraph 哪个 API 实现? 一条优势一条劣势?",
+      "back": "Thought-Action-Observation; create_react_agent(model, tools, checkpointer=MemorySaver()); 优势=灵活直观, 劣势=可能死循环/成本不可控",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "Plan-and-Execute vs Reflection: 前者 Planner 先规划再 Executor 逐步执行 (静态计划, 前提错需重规划); 后者 生成->评估->改进循环 (Evaluator-Optimizer, token 消耗高)",
+      "front": "Plan-Execute 与 Reflection 各自的循环结构? 各一条劣势?",
+      "back": "Plan-Execute: Planner->Executor 逐步, 劣势=计划静态需重规划; Reflection: 生成->评估->改进, 劣势=token 消耗+延迟高",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "Tool Calling 接口契约: @tool 装饰器 + docstring + 类型注解 (名称/描述/参数Schema) 是 LLM 看到的接口; docstring 不清 LLM 不调; 从 langchain_core.tools 导入",
+      "front": "为什么 @tool 的 docstring 和参数类型注解是 LLM 的'接口契约'? 写一个反例 (会让 LLM 误调的工具定义)",
+      "back": "LLM 据名称+docstring+参数Schema 决定是否调; 反例: def calc(x,y): return (x-y)/y*100 -- 无 docstring 无类型无语义, LLM 不知是 ROI 还是别的",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "Agent Memory: 短期=当前对话 messages 列表 (LangGraph MemorySaver checkpointer 按 thread_id 隔离); 长期=跨会话 (向量库 Chroma/Pinecone + Redis/PostgreSQL 结构化存储)",
+      "front": "短期记忆与长期记忆的实现差异? thread_id 的作用?",
+      "back": "短期=messages 列表+MemorySaver 按 thread_id 隔离会话; 长期=向量库(Chroma/Pinecone)+结构化(Redis/PostgreSQL); thread_id 是会话隔离 key",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "Anthropic 五模式 + Workflow vs Agent: Prompt Chaining/Routing/Parallelization/Orchestrator-Workers/Evaluator-Optimizer; 实践直觉='能用 Workflow 解决的不要用 Agent' (Workflow 确定性可控, Agent 非确定难预测)",
+      "front": "Anthropic 五模式列出 3 个+各自适用场景。Workflow vs Agent 一句话选型直觉?",
+      "back": "Prompt Chaining(固定步骤)/Routing(分类)/Parallelization(可分解并行)/Orchestrator-Workers(动态分解)/Evaluator-Optimizer(质量敏感生成); 直觉: 能用 Workflow 解决不要用 Agent",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "MCP (Model Context Protocol): Anthropic 2024 底发布的开放协议, 标准化 AI 应用如何从外部获取上下文/调工具; Host/Client/Server 架构, Server 提供 Tools/Resources/Prompts; 与 @tool 区别=MCP 是进程外工具 (JSON-RPC)",
+      "front": "MCP 三层架构? 与应用内 @tool 的本质区别? 为什么营销 Agent 接 Salesforce CRM 用 MCP 而非 @tool?",
+      "back": "MCP Host(AI应用)->Client(连接)->Server(Tools/Resources/Prompts); @tool 是应用内进程内, MCP 是进程外 JSON-RPC; CRM 是企业系统, MCP Server 已就绪, 不用为每个 API 写定制集成",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

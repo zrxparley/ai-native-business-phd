@@ -1,0 +1,43 @@
+{
+  "unit": "U-Capstone-P2",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "向量表示 vs 知识图谱：向量余弦相似度擅长语义相似度匹配（找相似产品），知识图谱 MultiDiGraph 擅长关系推理/多跳推理（买跑鞋的客户还买什么），GraphRAG 将两者融合",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "营销知识图谱本体：六类实体（Customer/Product/Content/Campaign/Channel/Metric）+ 八类关系（PURCHASED/INTERACTED_WITH/CATEGORIZED_AS/COMPETES_WITH/PROMOTES/TARGETS/DISTRIBUTES/MEASURES），用 networkx MultiDiGraph 实现",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "GraphRAG（微软2024, arXiv 2404.16130）：用 LLM 抽取实体关系构建图谱 + Leiden 算法社区检测 + 社区摘要，支持 Global Search/Local Search/DRIFT Search 三模式，解决传统向量 RAG 无法回答全局关系型问题",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "sentence-transformers all-MiniLM-L6-v2 384维：客户/产品文本向量化标准模型，配合 pandas 数据预处理与特征工程，输出用于语义检索的稠密向量表示",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "图查询四类：最短路径（nx.shortest_path 查客户到产品的购买路径）+ 邻居（查直接关联）+ 社区发现（nx.community.louvain_communities 或 Leiden）+ 中心性（nx.betweenness_centrality 找桥接节点）",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "天道推演×知识图谱：KG 中每条边是因果链骨架，每个节点是决策变量；营销Agent在KG上做多跳推理 = 沙盘推演不同推荐策略的连锁反应；GraphRAG 是天道推演在营销领域的实例化",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}

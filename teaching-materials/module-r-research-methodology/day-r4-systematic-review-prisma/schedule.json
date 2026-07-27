@@ -1,0 +1,56 @@
+{
+  "unit": "R4",
+  "title": "系统综述 PRISMA 2020 方法论 - 间隔重复卡片",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "PRISMA 2020 四阶段流程：Identification -> Screening -> Quality Assessment -> Synthesis，对应 27 条 checklist Item 5-11/16a-17/21-23",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "PRISMA 2020 的四阶段流程是什么？各阶段对应哪些 checklist 条目？",
+      "back": "Phase 1 识别(Item 5-6 多数据库检索+去重) -> Phase 2 筛选(Item 7-8 双盲筛选+kappa) -> Phase 3 质量评估(Item 9-10 Kitchenham五维+RoB) -> Phase 4 综合(Item 11 叙述性/meta分析)。流程图见 Item 16a-17。"
+    },
+    {
+      "id": "C2",
+      "concept": "Cohen's kappa 公式与 Landis-Koch 等级表：kappa = (p_o - p_e)/(1 - p_e)，<0.20 低 / 0.21-0.40 一般 / 0.41-0.60 中等 / 0.61-0.80 较好 / 0.81-1.00 优秀",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Cohen's kappa 公式是什么？PRISMA 2020 要求 kappa 达到哪个门槛才算可接受？",
+      "back": "kappa = (p_o - p_e)/(1 - p_e)，p_o 观察一致率，p_e 期望一致率。kappa >= 0.61 (substantial) 是可接受的筛选质量门槛。用 sklearn.metrics.cohen_kappa_score 计算。"
+    },
+    {
+      "id": "C3",
+      "concept": "Kitchenham & Charters (2007) 五维质量评估：研究问题清晰度/方法适当性/数据系统性/分析恰当性/局限讨论，每维 0-1 分总分 0-5",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "Kitchenham & Charters 五维质量评估的五个维度是什么？Risk of Bias 三级如何分？",
+      "back": "五维：研究问题清晰度/方法适当性/数据系统性/分析恰当性/局限讨论。RoB 分级：Low Risk (质量分>=4) / Moderate Risk (2-3) / High Risk (0-1)。注意方法适当性≠分析恰当性。"
+    },
+    {
+      "id": "C4",
+      "concept": "ASReview 主动学习机制：种子集标注 -> TF-IDF + LogisticRegression 训练 -> 迭代查询排序 -> 连续 N 篇负例停止，效率 10x",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "ASReview 主动学习的五个步骤是什么？效率提升多少？假停止风险如何缓解？",
+      "back": "1.种子集标注 2.分类器训练(TF-IDF+LogReg) 3.排序查询 4.迭代主动学习(人工复核Top-N重新训练) 5.停止规则(连续N篇负例)。读前20-30%覆盖90%+相关，10x加速。假停止风险用多样化种子集+随机采样缓解。"
+    },
+    {
+      "id": "C5",
+      "concept": "RAGAS evidence synthesis 质量评估三指标：faithfulness(忠实度)/answer_relevancy(相关性)/context_precision(上下文精度)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "RAGAS 评估 LLM 生成综述文本质量的三个核心指标是什么？",
+      "back": "faithfulness(忠实度-是否忠于原文) / answer_relevancy(相关性-是否回答研究问题) / context_precision(上下文精度-检索是否精准)。用于 DeepSeek 等开源模型辅助证据合成的质量评估。"
+    },
+    {
+      "id": "C6",
+      "concept": "系统文献综述 vs 叙述性综述的本质区别：可重复性(reproducibility) - PRISMA 流程足够明确使另一研究者按相同流程能得到类似结果",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "front": "系统文献综述与叙述性综述的本质区别是什么？",
+      "back": "可重复性(reproducibility)。系统综述流程足够明确(27条checklist+flow diagram)，使另一研究者按相同流程能得到类似结果；叙述性综述主观性强，不可重复。这是 PRISMA 2020 的核心命题。"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "unit": "skill-4-business-model/day-4-platform-strategy-ecosystem",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "weights_21": [
+    0.4, 0.6, 1.2, 2.4, 5.8,
+    0.4, 0.6, 1.2, 2.4, 5.8,
+    0.4, 0.6, 1.2, 2.4, 5.8,
+    0.4, 0.6, 1.2, 2.4, 5.8,
+    1.0
+  ],
+  "sm2_backup": {
+    "ef0": 2.5,
+    "I_1": 1,
+    "I_2": 6,
+    "rule": "EF_new = EF_old + (0.1 - (5-q)*(0.08 + (5-q)*0.02)), floor 1.3"
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "AI 多边平台 vs 传统双边市场 - 数据网络效应飞轮 (使用->数据->模型->使用)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S1",
+      "ilo": "ILO1",
+      "front": "AI 平台的'数据网络效应'与传统平台的网络效应有何本质区别？为什么这是 AI 平台最核心的护城河？",
+      "back": "传统平台 = 用户数量驱动 (Metcalfe n²)；AI 平台 = 数据质量+数量驱动飞轮 (使用->数据->模型->使用)，数据积累不可速成故护城河更强。",
+      "tags": ["platform-strategy", "network-effects", "data-flywheel", "moat"]
+    },
+    {
+      "id": "C2",
+      "concept": "networkx 核心-边缘结构分析 - 识别平台生态核心节点与边缘风险",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S1",
+      "ilo": "ILO1",
+      "front": "用 networkx 如何计算平台生态网络的核心-边缘结构？输出什么指标？",
+      "back": "nx.k_core(G) / nx.algorithms.core.wrap_core_sequence；输出每节点 core_number、整体 core-periphery 划分、度分布、聚类系数。核心节点 = 生态枢纽，边缘节点 = 颠覆风险点。",
+      "tags": ["networkx", "core-periphery", "graph-algorithm", "ecosystem"]
+    },
+    {
+      "id": "C3",
+      "concept": "多归属率 (multi-homing rate) 与锁定度 (lock-in index) 的 pandas 量化",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S2",
+      "ilo": "ILO2",
+      "front": "多归属率与锁定度的计算公式？为什么 AI 平台的锁定度要乘数据网络效应强度？",
+      "back": "多归属率 = 该类型多平台参与者数 / 该类型总参与者数（按类型 groupby）；锁定度 = 转换成本 × 数据网络效应强度。AI 平台锁定度源于数据积累不可速成，故需乘飞轮强度。",
+      "tags": ["multi-homing", "lock-in", "pandas", "quantification"]
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演 - 平台 tipping point 蒙特卡洛 + 贝叶斯先验",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S3",
+      "ilo": "ILO3",
+      "front": "为何平台 tipping point 是概率分布而非单点阈值？天道推演如何量化它？",
+      "back": "tipping = 概率树上条件概率跃迁，受网络效应强度/多归属率/数据飞轮速度等变量共同决定。蒙特卡洛 1000 次采样 + 贝叶斯先验 -> P(tipping | 条件) 分布，输出 2-3 时间线 + 盲点。非宿命而是概率分布。",
+      "tags": ["tipping-point", "monte-carlo", "bayesian", "tian-dao-tui-yan"]
+    },
+    {
+      "id": "C5",
+      "concept": "MCP/A2A 生态 - 去中心化平台新范式 vs App Store 30% 抽成",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S1",
+      "ilo": "ILO1",
+      "front": "MCP 生态与 A2A 协议为何代表'去中心化平台'新范式？与传统 App Store 抽成模式有何不同？",
+      "back": "MCP (Anthropic) = AI Agent 连接工具/数据的标准协议，连接 Agent 开发者/工具提供者/数据源/用户的多边生态，零抽成开放协议；A2A 让 Agent 间直接通信交易，催生 Agent 经济。vs App Store 30% 抽成的中心化模式。",
+      "tags": ["MCP", "A2A", "decentralized-platform", "agent-economy", "frontier-2026"]
+    },
+    {
+      "id": "C6",
+      "concept": "AI 原生平台四维护城河 - 数据/模型/人才/生态",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "subskill": "S2",
+      "ilo": "ILO2",
+      "front": "AI 原生平台四维护城河分别是什么？哪个最难复制也最持久？为什么 DeepSeek 开源改变了护城河结构？",
+      "back": "数据/模型/人才/生态四维护城河。生态护城河最难复制也最持久（开发者社区/集成网络/标准制定/品牌信任）。DeepSeek 开源降低模型护城河，使数据护城河+生态护城河变得更关键。",
+      "tags": ["moat", "four-dimensions", "deepseek", "open-source"]
+    }
+  ],
+  "review_log": [],
+  "weak_loop_trigger": "连续 2 次同一 card 评分 <3 (SM-2 q<=2) -> 触发 practice.md weak_loop"
+}

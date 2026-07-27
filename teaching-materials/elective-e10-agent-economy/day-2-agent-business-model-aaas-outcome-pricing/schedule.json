@@ -1,0 +1,72 @@
+{
+  "unit": "U-E10-D2",
+  "title": "Agent商业模式设计--从AaaS到outcome-based pricing",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "Agent定价模式演进五阶段：1.0按席位(Salesforce) -> 2.0按用量(OpenAI API $5/1M) -> 3.0按任务(Agent-as-Worker) -> 4.0按结果(Intercom Fin $0.99/解决) -> 5.0按价值分成(增量收入15%)",
+      "front": "Agent定价模式演进的五个阶段是什么？每个阶段举一个代表产品。",
+      "back": "1.0按席位(Salesforce) / 2.0按用量(OpenAI API) / 3.0按任务(Agent-as-Worker) / 4.0按结果(Intercom Fin $0.99/解决) / 5.0按价值分成(增量收入15%分润)。演进逻辑：从为过程付费到为结果付费到为价值付费。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pricing-evolution", "aaas", "outcome-based"]
+    },
+    {
+      "id": "C2",
+      "concept": "Outcome-based Pricing五个实施条件：结果可量化 / 因果关系清晰 / 风险可控 / 信任已建立 / 成本结构支持(推理成本足够低)",
+      "front": "outcome-based pricing在Agent经济中可行的五个实施条件是什么？为什么推理成本是关键约束？",
+      "back": "①结果可量化(业务结果可测量) ②因果关系清晰(Agent行为与结果有归因) ③风险可控(失败后果有限) ④信任已建立(客户愿为结果付费) ⑤成本结构支持(推理成本足够低)。推理成本是关键因为GPT-4o $5/1M下每次调用$0.005，DeepSeek V3 $0.27/1M下$0.00027(降95%)，推理成本下降5-10倍才使outcome-based从亏钱变盈利。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["outcome-based", "inference-cost", "implementation"]
+    },
+    {
+      "id": "C3",
+      "concept": "推理成本基准：GPT-4o $5/1M input vs DeepSeek V3 $0.27/1M input(降95%)；推理成本是Agent商业模式与传统SaaS的本质区别(传统SaaS边际成本≈0，Agent每次调用消耗token)",
+      "front": "GPT-4o与DeepSeek V3的input token定价分别是多少？推理成本下降对outcome-based pricing有什么影响？",
+      "back": "GPT-4o $5.00/1M input，DeepSeek V3 $0.27/1M input(降低约95%)。推理成本下降5-10倍时outcome-based pricing从亏钱变盈利——传统SaaS边际成本接近0，Agent每次调用消耗token是硬约束，推理成本下降是outcome-based可行的关键条件。来源：openai.com/api/pricing 与 api-docs.deepseek.com/quick_start/pricing",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["inference-cost", "GPT-4o", "DeepSeek", "economics"]
+    },
+    {
+      "id": "C4",
+      "concept": "API Economy 2.0：调用者从人类开发者变为Agent自主发现，设计目标从DX变AX(Agent Experience)，文档从人类可读变Agent可读schema(OpenAPI/JSON Schema)，计费从按API调用次数变按Agent任务完成；MCP协议是基础设施",
+      "front": "API Economy 1.0与2.0的四个维度差异是什么？MCP协议在其中扮演什么角色？",
+      "back": "①调用者：人类开发者 -> Agent自主发现 ②设计目标：DX -> AX(Agent Experience) ③文档：人类可读 -> Agent可读schema(OpenAPI/JSON Schema) ④计费：按API调用次数 -> 按Agent任务完成。MCP(Model Context Protocol)是Anthropic提出的开放协议，为Agent间工具/数据访问提供标准化接口，是API Economy 2.0的基础设施。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["api-economy", "MCP", "A2A", "AX"]
+    },
+    {
+      "id": "C5",
+      "concept": "定价弹性回归 log-log OLS：log(采纳率) ~ log(价格)，系数=弹性；|ε|>1弹性需求降价增收，|ε|<1非弹性需求涨价增收；Lerner公式最优定价 price_opt = ε·MC/(ε-1)",
+      "front": "log-log OLS回归的系数代表什么？弹性需求和非弹性需求下分别应该涨价还是降价？最优定价点公式是什么？",
+      "back": "log-log OLS系数=价格弹性ε。|ε|>1弹性需求：降价增收(需求增幅>价格降幅)；|ε|<1非弹性需求：涨价增收(需求降幅<价格增幅)。最优定价点Lerner公式：price_opt = ε·MC/(ε-1)，其中MC=边际成本。需检查95% CI是否包含-1(单位弹性)及p-value<0.05。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["elasticity", "statsmodels", "OLS", "optimal-pricing"]
+    },
+    {
+      "id": "C6",
+      "concept": "A2A经济与分润模式：Agent协作链(洞察->创意->投放->分析)按贡献度分润；挑战=贡献归因(因果推断)+信任建立(声誉系统)+分配公平(机制设计)",
+      "front": "A2A经济的分润模式面临哪三个核心挑战？分别对应什么解决思路？",
+      "back": "①贡献归因：用因果推断(DoWhy/EconML)解 ②信任建立：用声誉系统(链上历史贡献记录) ③分配公平：用机制设计(Shapley value / 拍卖机制)。A2A协作链典型：洞察Agent->创意Agent->投放Agent->分析Agent，每个按贡献度分最终收益。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["A2A", "revenue-share", "attribution", "mechanism-design"]
+    },
+    {
+      "id": "C7",
+      "concept": "天道推演×商业模式沙盘同构：局势感知(定价案例+推理成本基准) / 因果链追踪(定价->采纳率->收入->利润) / 沙盘模拟三时间线(immediate月/near年/far 3年) / 概率评估(弹性CI+敏感度) / 最优路径推荐(三模式对比+最优定价)",
+      "front": "天道推演的五项能力如何映射到Agent商业模式设计？三时间线推演分别对应什么时间尺度？",
+      "back": "①局势感知->真实定价案例+推理成本基准 ②因果链追踪->定价->采纳率->收入->利润因果图 ③沙盘模拟->三时间线(immediate月度NPV/near年度IRR/far 3年范式转移) ④概率评估->弹性回归95%CI+推理成本敏感度 ⑤最优路径推荐->三模式对比+Lerner最优定价点。",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tian-dao", "sandbox", "scenario", "three-timelines"]
+    }
+  ],
+  "review_notes": "卡片按FSRS-6算法调度，request_retention=0.9。第1次review在Day+1，若recall困难(GPA<3)则ef0降至1.8并压缩间隔到[1,2,4,10,30,90]；若轻松(GPA=5)则ef0升到3.2并拉长间隔到[1,5,15,45,120,365]。SM-2为backup：当FSRS-6参数missing时退化为SM-2 EF更新公式 EF' = EF + (0.1 - (5-q)*(0.08+(5-q)*0.02))。每张卡片概念锚定notes.md真实案例(Cursor/Devin/Intercom Fin/Sierra/11x.ai/DevRev)与真实库(pydantic/numpy-financial/statsmodels)。"
+}

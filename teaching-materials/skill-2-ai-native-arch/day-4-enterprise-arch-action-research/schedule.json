@@ -1,0 +1,71 @@
+{
+  "unit": "U-skill2-day4",
+  "unit_topic": "企业级架构+行动研究 (CDP pydantic + TOGAF networkx 17节点27边 + 行动研究4轮KPI + 天道推演×企业架构)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_note": "FSRS-6: request_retention=0.9, 21 weights; SM-2 backup: EF0=2.5, I(1)=1, I(2)=6, I(n)=I(n-1)*EF. 间隔序列 [1,3,8,21,60,180] 天, 对应 FSRS-6 默认 retention=0.9 的稳定化曲线。",
+  "request_retention": 0.9,
+  "weights_count": 21,
+  "sm2_backup": {
+    "ef0": 2.5,
+    "i1": 1,
+    "i2": 6,
+    "formula": "I(n) = I(n-1) * EF; EF updated by quality q in {0,1,2,3,4,5}"
+  },
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "CDP 四层 schema (Identity/Event/Segment/Profile) 基于 Segment Spec 的 pydantic 建模 -- Identity (userId/traits/context/timestamp), Event (event_type/properties/context), Segment (conditions), Profile (embedding 向量化)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pydantic", "CDP", "Segment-Spec", "数据层"],
+      "retrieval_cue": "给定一段 {\"userId\":\"u123\",\"traits\":{\"email\":\"a@b.com\"}} JSON, 写出 pydantic Identity 模型, 字段类型匹配 Segment Spec",
+      "front": "CDP 四层 schema 是哪四层? 每层用 pydantic 建模时关键字段是什么?",
+      "back": "Identity (userId/traits/context) / Event (event_type/properties/context) / Segment (conditions list[dict]) / Profile (embedding list[float] + traits)"
+    },
+    {
+      "id": "C2",
+      "concept": "TOGAF 四层架构域 (业务/应用/数据/技术) 的 networkx DAG 依赖图建模 -- 17 节点 27 边, 关键路径用 topological_sort 识别, 单点故障用因果链分析",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["TOGAF", "ArchiMate", "networkx", "DAG", "应用层"],
+      "retrieval_cue": "给定 17 节点架构图, 用 networkx 画 DAG 并输出从 CDP事件层 到 营销报表 的关键路径",
+      "front": "TOGAF 四层架构域是哪四层? networkx 怎么识别关键依赖路径?",
+      "back": "业务 (营销流程/Agent角色) / 应用 (Agent编排/RAG/API网关) / 数据 (CDP/向量库/知识图谱) / 技术 (云服务/推理/可观测); nx.topological_sort + longest_path"
+    },
+    {
+      "id": "C3",
+      "concept": "行动研究 Susman & Evered (1978) 五步螺旋 (诊断/规划/行动/评估/反思) 的 pandas KPI 追踪与改善幅度计算 -- 4 轮 KPI (决策时间/决策质量/团队满意度/AI使用率), 排除霍桑效应",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["action-research", "pandas", "Susman-Evered", "KPI"],
+      "retrieval_cue": "给定 4 轮行动研究 KPI DataFrame, 用 pandas 计算各阶段改善幅度 (last-first)/first*100%",
+      "front": "行动研究五步螺旋是哪五步? 改善幅度怎么算? 如何排除霍桑效应?",
+      "back": "诊断→规划→行动→评估→反思; 改善幅度=(末轮-首轮)/首轮*100%; 霍桑效应排除需设对照组或用 DML/合成控制归因"
+    },
+    {
+      "id": "C4",
+      "concept": "天道推演×企业架构的同构映射 -- 局势感知(架构审计)/因果链追踪(networkx DAG)/沙盘模拟(3层推演 immediate-near-far)/概率评估(贝叶斯)/最优路径推荐(2-3方案对比)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["天道推演", "沙盘推演", "架构选型", "因果链"],
+      "retrieval_cue": "用天道推演视角对'全云托管 vs 混合架构 vs 全自建'三个营销中心架构方案做 3 层沙盘推演",
+      "front": "天道推演的 5 个能力如何映射到企业架构设计?",
+      "back": "局势感知→现有架构审计; 因果链→networkx DAG; 沙盘模拟→TOGAF 场景规划 (immediate/near/far 3层); 概率评估→贝叶斯架构决策; 最优路径→2-3 方案收益/风险/成本权衡"
+    },
+    {
+      "id": "C5",
+      "concept": "DSR (Design Science Research) artifact 视角 -- 企业架构作为可发表研究产物, Hevner et al. (2004) 七准则, Peffers et al. (2007) 六步流程, 可复现性要求 (代码+数据+KPI 全部可独立复现)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["DSR", "Hevner", "Peffers", "可复现研究", "artifact"],
+      "retrieval_cue": "把你的营销中心 AI 原生参考架构定位为 DSR artifact, 说明它满足 Hevner 七准则中的哪几条",
+      "front": "企业架构如何作为 DSR artifact 发表? 可复现性要求什么?",
+      "back": "artifact=架构设计; 知识贡献=CDP四层/Agent编排/治理嵌入点设计原则; Hevner 七准则 (问题相关性/设计评估/研究贡献/研究严谨性/设计搜索/研究沟通); 可复现=pydantic+networkx+pandas 全代码定义"
+    }
+  ],
+  "review_log": {
+    "note": "每次复习后根据回忆质量 q in {0..5} 更新 EF: q<3 重置 I(1)=1; q>=3 EF=EF+(0.1-(5-q)*(0.08+(5-q)*0.02)); FSRS-6 则用 21 weights 预测稳定性和检索概率",
+    "last_review": null,
+    "next_review": null
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "unit": "U-skill2-day3-human-ai-collaboration-org-change",
+  "title": "人机协作治理 + 组织变革",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "algorithm_note": "FSRS-6 21 weights, request_retention=0.9, w[17..20] for short-term memory; SM-2 fallback EF0=2.5, I(1)=1, I(2)=6, EF update: EF' = EF + (0.1 - (5-q)*(0.08+(5-q)*0.02))",
+  "request_retention": 0.9,
+  "weights_note": "See open-spaced/fsrs4anki for 21-weight optimizer; here we ship SM-2 intervals as backup",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "人机分工矩阵：任务复杂度 × AI成熟度 → 选择分工模式（人类主导/人机协作/AI主导）；审计日志验证分工设计是否合理（干预率>30% = AI成熟度被高估）",
+      "front": "人机分工矩阵的二维框架是什么？什么阈值说明 AI 成熟度被高估？",
+      "back": "二维 = 任务复杂度 × AI成熟度；阈值 = 'AI主导'任务人工干预率 >30% → 应重划入'人机协作'",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["人机协作", "审计日志", "pandas"],
+      "source": "notes.md § 关键回顾 1"
+    },
+    {
+      "id": "C2",
+      "concept": "pandas 审计日志多维聚合：df.groupby('分工模式').agg(干预率=('人工干预','mean'), 完成率=('Agent自主完成','mean'))；mean 不是 sum（干预率是 0/1 比例）",
+      "front": "用 pandas 按分工模式计算人工干预率，关键聚合函数是？为什么不是 sum？",
+      "back": "groupby + agg + mean；干预率 = 干预次数/总次数 = mean of 0/1 列，sum 只给计数不给比例",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["pandas", "groupby", "agg", "审计日志"],
+      "source": "starter.ipynb TODO1 + practice.md D1"
+    },
+    {
+      "id": "C3",
+      "concept": "networkx 组织网络中心性：degree_centrality = 谁连接最多（枢纽）；betweenness_centrality = 谁在最多最短路径上（桥接/信息瓶颈）；Agentic Organization 下 Agent 是 first-class member 必须纳入计算",
+      "front": "degree_centrality 与 betweenness_centrality 的区别？Agent 节点是否参与计算？",
+      "back": "degree=枢纽（连接数），betweenness=桥接（最短路径经过数）；Agent 在 Agentic Organization 下是 first-class member，必须参与",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["networkx", "degree_centrality", "betweenness_centrality", "Agentic Organization"],
+      "source": "starter.ipynb TODO3 + practice.md D2"
+    },
+    {
+      "id": "C4",
+      "concept": "McKinsey 7S 框架：Strategy/Structure/Systems/Shared Values/Skills/Style/Staff 七维评估组织AI就绪度；雷达图可视化薄弱维度；Shared Values 是核心",
+      "front": "McKinsey 7S 的七个维度？哪个是核心？如何识别薄弱维度？",
+      "back": "Strategy/Structure/Systems/Shared Values/Skills/Style/Staff；Shared Values 是核心；雷达图最低分维度=薄弱",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["McKinsey 7S", "组织就绪度", "雷达图"],
+      "source": "starter.ipynb TODO4"
+    },
+    {
+      "id": "C5",
+      "concept": "ADKAR 变革管理模型：Awareness/Desire/Knowledge/Ability/Reinforcement 五阶段；诊断组织变革阻力最大阶段；中层管理者的 Desire 阶段往往是全链路瓶颈（高杠杆点）",
+      "front": "ADKAR 五阶段是？哪个阶段最易成为瓶颈？高杠杆点在哪？",
+      "back": "Awareness/Desire/Knowledge/Ability/Reinforcement；Desire 最易瓶颈；中层管理者 Desire 阶段 = 高杠杆点",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["ADKAR", "变革管理", "阻力诊断", "高杠杆点"],
+      "source": "starter.ipynb TODO5 + notes.md 关键回顾 3"
+    },
+    {
+      "id": "C6",
+      "concept": "天道推演×组织变革：静态模型（7S/ADKAR 告诉你'当前在哪')→动态推演（模拟不同干预下阻力如何演化）；3层沙盘（immediate→near→far）+ 概率分布 + 黑天鹅预警；多Agent仿真模拟群体动力学",
+      "front": "天道推演如何把 ADKAR 从静态升级为动态？沙盘推演的 3 层结构？",
+      "back": "ADKAR 静态定位当前阶段；天道推演并行模拟多干预策略下阻力扩散；三层 = immediate/near/far，每层 2-3 分支 + 概率 + 风险",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["天道推演", "多Agent仿真", "阻力扩散", "沙盘"],
+      "source": "starter.ipynb TODO6 + notes.md 2026 前沿补充"
+    }
+  ],
+  "review_log_example": {
+    "note": "实际复习时按 FSRS-6 算法更新 EF 和 interval；此处 due 数组为 SM-2 默认间隔（1,3,8,21,60,180 天）",
+    "sm2_ef_update": "EF' = EF + (0.1 - (5-q)*(0.08+(5-q)*0.02)), q in {0,1,2,3,4,5}, clamp EF to [1.3, 2.5]",
+    "fsrs6_formula": "retention = exp(-elapsed / stability), stability updated by 21 weights"
+  },
+  "interleaving_note": "复习时按 A1B1C1...B2C2A2...C3A3B3 交叉（pandas/networkx/推演 三类卡片混合），不块状刷同类型"
+}

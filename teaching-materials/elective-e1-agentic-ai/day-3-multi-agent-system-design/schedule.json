@@ -1,0 +1,78 @@
+{
+  "unit": "U-E1-D3",
+  "unit_title": "多Agent系统设计 (Multi-agent system design: A2A protocol, role specialization, communication, coordination, emergence)",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "algorithm_note": "FSRS-6 主算法基于遗忘曲线+记忆强度自适应; 当学生评分缺失时回退到 SM-2 (EF0=2.5, EF 调整公式: EF'=EF+(0.1-(5-q)*(0.08+(5-q)*0.02))). due 数组单位为天, 对应 SM-2 间隔 1/3/8/21/60/180.",
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "A2A协议与MCP协议的互补关系 (A2A=Agent间互操作, MCP=Agent与工具连接)",
+      "front": "Google 2025 提出的 A2A 协议与 Anthropic 的 MCP 协议分别解决什么层的连接? 二者是替代还是互补?",
+      "back": "A2A (Agent-to-Agent) 解决 Agent 间互操作 (Agent Card 发现/任务委托/状态查询); MCP (Model Context Protocol) 解决 Agent 与工具连接. 二者互补: MCP 标准化工具层, A2A 标准化 Agent 间通信层, 共同构成 2026 跨框架多Agent协作基础设施.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["protocol", "A2A", "MCP", "frontier-2026"]
+    },
+    {
+      "id": "C2",
+      "concept": "五种多Agent协作模式 (流水线/中心化协调/辩论/层级委托/自由协作) 及其拓扑选型决策",
+      "front": "列出五种多Agent协作模式, 并说明营销场景「调研->策略->文案->审核」最适用哪种? 为什么?",
+      "back": "五种模式: (1)流水线 A->B->C (2)中心化协调 (CrewAI hierarchical, supervisor) (3)辩论 A<->B+裁判 (4)层级委托 CEO->CMO/CTO (MetaGPT) (5)自由协作 (AutoGen GroupChat). 营销「调研->策略->文案->审核」流程明确, 选流水线; 若需合规仲裁, 加中心化 supervisor. 选型不是哪个最好, 而是哪个最匹配任务结构.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["topology", "collaboration-pattern", "LangGraph"]
+    },
+    {
+      "id": "C3",
+      "concept": "LangGraph StateGraph + add_conditional_edges 构建 supervisor 中心化拓扑",
+      "front": "用 LangGraph StateGraph 构建 supervisor 中心化多Agent拓扑 (researcher/strategist/writer/reviewer) 的关键 API 是什么? supervisor 如何路由?",
+      "back": "graph=StateGraph(MultiAgentState); graph.add_node('supervisor', sup_fn); graph.add_conditional_edges('supervisor', lambda s: s['next_agent'], {'researcher':'researcher','strategist':'strategist','writer':'writer','reviewer':'reviewer','END':END}); 每个 Agent 节点回流 supervisor; supervisor 在 task_done=True 时返回 END. MultiAgentState 是 TypedDict 含 messages/next_agent/current_agent/task_done.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["LangGraph", "StateGraph", "supervisor", "topology"]
+    },
+    {
+      "id": "C4",
+      "concept": "networkx 度中心性/连通性/关键路径 识别多Agent系统瓶颈Agent与单点故障",
+      "front": "若 supervisor 节点 degree_centrality=1.0 而其他 Agent 均为 0.2, 拓扑是什么形状? 单点故障风险如何?",
+      "back": "星型拓扑 (hub-and-spoke), supervisor 是 hub. degree_centrality=1.0 意味着 supervisor 与所有其他节点相连, 其他节点仅与 supervisor 相连. 单点故障风险极高: 移除 supervisor 则全盘瘫痪 (连通分量从 1 变 N). 关键路径长度通常=2 (Agent->supervisor->Agent). 缓解: 加副 supervisor 或转 team 去中心化拓扑.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["networkx", "centrality", "single-point-failure", "emergence"]
+    },
+    {
+      "id": "C5",
+      "concept": "三层通信协议 (传输层/格式层/语义层) 与 AgentMessage pydantic 结构化设计",
+      "front": "Agent 间通信协议的三层设计是什么? 每层的设计考量? pydantic AgentMessage 主要解决哪层?",
+      "back": "三层: (1)传输层 同步/异步 推/拉 - 同步简单但阻塞, 异步灵活但需回调 (2)格式层 自然语言/结构化JSON/混合 - NL 灵活但模糊, JSON 精确但受限 (3)语义层 请求/响应/通知/协商/投票 - 对应不同协作模式. pydantic AgentMessage (sender/receiver/msg_type/payload/timestamp) 主要解决格式层, MessageType 枚举 (REQUEST/RESPONSE/NOTIFY/NEGOTIATE/VOTE) 映射语义层.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["protocol", "pydantic", "AgentMessage", "MessageType"]
+    },
+    {
+      "id": "C6",
+      "concept": "三种共识机制 (投票/权威/协商) 及营销内容审核场景的选型",
+      "front": "三种多Agent共识机制是什么? 营销内容审核场景 (Content Agent vs Compliance Agent 冲突) 推荐哪种? 为什么?",
+      "back": "三种: (1)投票机制 多数决定, 简单但忽略少数派 (2)权威机制 裁判Agent终决, 高效但依赖裁判质量 (3)协商机制 多轮协商一致, 灵活但耗时. 营销内容审核推荐权威机制: Compliance Agent 拥有合规终决权 (非合规必改), 非合规问题允许 Content Agent 专业判断. 协商机制适合多方利益平衡, 投票机制适合低风险并行任务.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["consensus", "voting", "authority", "negotiation", "marketing"]
+    },
+    {
+      "id": "C7",
+      "concept": "天道推演沙盘↔多Agent仿真同构 (因果链追踪/关键节点/沙盘多分支)",
+      "front": "天道推演框架与多Agent仿真如何同构? 用沙盘方法预测不同拓扑的涌现质量?",
+      "back": "同构映射: 天道推演「在意识中构建多路径沙盘」= 多Agent仿真「在代码中构建多Agent状态图」; 「模拟决策路径未来走向」= 条件边展开多分支Agent执行; 「识别关键因果节点与不可逆点」= networkx 识别瓶颈Agent与单点故障; 「概率评估各路径风险」= 拓扑分析评估通信开销与收敛风险; 「记录前提假设追踪偏差」= AgentMessage 记录 + 反馈学习. 用沙盘方法可在部署前推演: 中心化拓扑可控但 supervisor 是瓶颈, 去中心化灵活但可能不收敛.",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5,
+      "tags": ["tian-dao", "sandbox", "emergence", "causal-chain"]
+    }
+  ],
+  "review_log_policy": {
+    "rating_scale": "1=Again 2=Hard 3=Good 4=Easy 5=Perfect",
+    "ef_adjustment_sm2": "EF'=EF+(0.1-(5-q)*(0.08+(5-q)*0.02)), floor EF=1.3",
+    "interval_after_lapse": "重置为 1 天, EF 减 0.2 (floor 1.3)",
+    "interleaving_note": "复习时按 A1B1C1...B2C2A2...C3A3B3 交叉, 不按 card id 顺序刷 (见 practice.md interleaving)"
+  }
+}

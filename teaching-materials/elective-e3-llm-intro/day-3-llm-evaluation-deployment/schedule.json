@@ -1,0 +1,44 @@
+{
+  "unit": "U-E3-D3",
+  "title": "LLM 评估与部署 - 间隔重复卡片",
+  "algorithm": "FSRS-6 (SM-2 backup)",
+  "request_retention": 0.9,
+  "cards": [
+    {
+      "id": "C1",
+      "concept": "LLM 评估三层框架: 通用能力 (MMLU/HumanEval/AgentBench) / 任务能力 (自建评测集+LLM-as-Judge) / 系统效果 (A/B+业务转化)。工程原则: 标准基准只做初筛, 最终评估必须在真实业务数据上",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C2",
+      "concept": "deepeval BaseMetric + LLMTestCase + evaluate: 继承 BaseMetric 实现 measure() 返回 MetricMeasurement(score, reason), 用 LLMTestCase 包装 input/actual_output/expected_output, 用 evaluate 批量运行。GEval 内置 LLM-as-a-Judge",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C3",
+      "concept": "LLM 评估四维度 (营销场景映射): 准确性 (产品参数不编造) / 相关性 (切题不跑题) / 无害性 (无歧视违规) / 忠实性 (RAG 不幻觉, RAGAS 检索忠实度)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C4",
+      "concept": "langsmith @traceable: 装饰器为部署后 LLM 调用配置端到端追踪, 监控延迟/token/成本。无 API key 时本地模式可运行。配合 tiktoken 精确计数 (非 len(split) 估算)",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C5",
+      "concept": "vLLM PagedAttention 优化 KV Cache 显存 + 连续批处理 (continuous batching), 吞吐量达原生 HuggingFace 14-24x。投机解码: 小模型先生成草稿大模型验证, 2-3x 加速质量不变。MoE: DeepSeek V3 671B 总参/37B 激活, 成本仅 gpt-4o 1/10",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    },
+    {
+      "id": "C6",
+      "concept": "模型选择决策框架: 数据能否出域 -> 能出域走 API (任务复杂选 Claude 3.5 Sonnet/GPT-4o, 简单选 Haiku/4o-mini) / 不能出域走开源本地 (>=2xA100 选 Llama3 70B, 1xA100 选 8B+量化, 无 GPU 重估)。策略: 先求质量再降成本, 评测集质量差<10% 即切便宜模型",
+      "due": [1, 3, 8, 21, 60, 180],
+      "ef0": 2.5
+    }
+  ]
+}
