@@ -223,3 +223,9 @@ v4.0 的R2只讲理论（五步螺旋、PAR概念），学生看完就忘。v5.0
 
 ## 研究产出与产业链接层 (v7.0)
 本单元产出可发表研究工件 (research.md: 研究问题+贡献声明+arXiv/DOI链接+IMRaD大纲+NeurIPS可复现清单+research-to-practice翻译) 与产业链接 (industry.md: >=3真实企业+部署场景+Imperial咨询项目+HBS教学案例+客座讲座+实习指针)。研究产出遵循IMRaD/DSR(Hevner)/OSF预注册/FAIR/可复现研究标准; 产业链接遵循Imperial MSc BA咨询项目(Burberry/Expedia/J&J)/HBS案例法/MIT Sloan行动学习模式。研究问题锚定5轮AR螺旋决策时间45->18min(降幅60%)+trustworthiness 2.50->4.70的共现改善, 用Beta-Binomial贝叶斯更新给出后验P(干预有效|观察)=0.8333的可复现声明; linked_paper覆盖Susman & Evered 1978/Kemmis et al. 2014/Coughlan & Coghlan 2002/Lincoln & Guba 1985/Hevner 2004五篇真实可追溯文献。产业链接锚定McKinsey/Deloitte/IBM/Accenture四家咨询与 transformation 企业, 含Burberry 8周咨询项目(4-5人团队)+Lena Chen(HBS教学案例protagonist, Head of AI Marketing)+IBM Head of AI客座讲座+IBM/McKinsey/Deloitte/Google AI实习指针。详见 research.md 与 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

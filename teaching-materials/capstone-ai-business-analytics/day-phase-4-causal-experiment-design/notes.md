@@ -184,3 +184,9 @@ Uplift建模（增量建模）是营销领域的因果推断应用：估计每�
 **研究产出关键词**：research output / IMRaD / 可复现 reproducibility / OSF preregistration 预注册 / FAIR / contribution 贡献 / linked_paper (arXiv 1608.00060 DML + 1510.04342 因果森林 + 1702.05675 Uplift + 2306.05685 LLM-as-judge) / research-to-practice / NeurIPS。
 
 **产业链接关键词**：industry linkage / consulting 咨询项目 / case study 教学案例 / guest lecture 客座讲座 / internship 实习 / deployment 部署场景 (Microsoft ExP CUPED / Netflix DML / Booking.com Uplift / Uber / Amazon / LinkedIn)。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

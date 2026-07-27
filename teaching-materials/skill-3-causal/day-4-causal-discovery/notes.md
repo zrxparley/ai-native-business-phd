@@ -194,3 +194,9 @@ ML 因果部分继续用 **NSW 真实数据**（同 Day 1），但这次不是�
 - **产业链接 (industry linkage)**: real_companies 含 Microsoft ExP / Netflix / Booking.com / Uber / Salesforce Einstein; consulting_project partner=Booking.com (8周4-5人); case_study protagonist=Sephora Head of AI; guest_lecture=Booking.com experimentation Director; internship_pointer=Microsoft ExP / OpenAI Residency / Uber-Netflix-Booking.com DS Intern。
 - **deployment**: Netflix 用 CausalForestDML 做推荐算法改动的 CATE 异质性分析 (2.6 亿用户, 1000+ A/B/天)。
 - **咨询 (consulting)** / **案例 (case study)** / **客座 (guest lecture)** / **实习 (internship)**: 详见 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-3-causal.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：因果推断 × LLM（因果发现/推理/反事实）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

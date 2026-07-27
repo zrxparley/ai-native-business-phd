@@ -179,3 +179,9 @@ v4.0 的代码普遍用"伪代码 / 模拟框架"--模拟框架会让你**学不
 - **industry.md (产业链接)**: real_companies 表格列 5 家真实企业 (LangChain/Sierra/Cognition/Anthropic/OpenAI) 与本单元关联; deployment_example 描述 Sierra 客服 Agent 日均 10万+对话的 LangGraph 状态图部署; consulting_project 是 Imperial MSc BA 风格 8周4-5人 Burberry 营销内容审核咨询项目; case_study 是 HBS 风格 Head of AI 在 LLM自动审核 vs HITL人工审核 间的两难决策; guest_lecture 邀请 LangChain Head of LangGraph 讲《From Workflow to Agent》; internship_pointer 指向 LangChain Engineering Intern / OpenAI Residency / Sierra AI Engineer 等角色。
 
 *v7.0 研究产出与产业链接层追加完成, 未修改 v5.0/v6.0 原文一字。最后更新: 2026-07-26*
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

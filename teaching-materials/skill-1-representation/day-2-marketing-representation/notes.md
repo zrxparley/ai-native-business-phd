@@ -173,3 +173,9 @@ v5.0 的 7 条验收 (notes.md / data/README.md / starter.ipynb / solution.ipynb
 ## 研究产出与产业链接层 (v7.0)
 
 本单元产出可发表研究工件 (research.md: 研究问题 + 贡献声明 + arXiv 链接 + IMRaD 大纲 + NeurIPS 可复现清单 + research-to-practice 翻译) 与产业链接 (industry.md: >=3 真实企业 + 部署场景 + Imperial 咨询项目 + HBS 教学案例 + 客座讲座 + 实习指针)。研究产出遵循 IMRaD / DSR (Hevner) / OSF 预注册 (preregistration) / FAIR / 可复现研究 (reproducibility) 标准; 产业链接遵循 Imperial MSc BA 咨询项目 (consulting, Burberry/Expedia/J&J) / HBS 案例法 (case study) / MIT Sloan 行动学习 (action learning) 模式。linked_paper 锚定 CLIP (arXiv 2103.00020) + Sentence-BERT (1908.10084) + InfoNCE/CPC (1807.03748) + BLIP-2 (2301.12597) + LLaVA (2304.08485)。deployment 锚定 Stitch Fix / Sephora / Adobe Sensei / Meta Ads / Unilever。详见 research.md 与 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-1-representation.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：表示工程 × 多模态对齐 × 检索蒸馏。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

@@ -177,3 +177,9 @@ v4.0 的代码用"手写几个prompt试试"--手写测试只能覆盖已知攻�
 - **关键词命中**: 研究产出 / IMRaD / 可复现 / reproducibility / OSF / preregistration / 预注册 / FAIR / contribution / 贡献 / 产业链接 / industry linkage / consulting / 咨询 / case study / 案例 / guest lecture / 客座 / internship / 实习 / deployment / 部署 / linked_paper (>12 个 v7.0 关键词命中)
 
 > 这一层不替代 v5.0 工程实现与 v6.0 学习科学层, 而是把工程实现提升为可发表研究工件 + 桥接到产业场景 (企业/部署/咨询/案例/讲座/实习), 形成"工程 -> 学习 -> 研究 -> 产业"四层闭环。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e9-ai-safety-alignment.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：可扩展监督 × 机制可解释性 × Agent安全。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

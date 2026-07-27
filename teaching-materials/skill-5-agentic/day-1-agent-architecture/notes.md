@@ -204,3 +204,9 @@ Agent 架构直接映射到营销 Agent 流水线：
 - research.md 的 research_question 锚定本单元真实营销任务 (ROI=806.1% / 情感得分=2 / 6 TODO), linked_paper 引用 reading.md 已记录的真实 arXiv 链接 (ReAct 2210.03629 / Self-Refine 2303.17651), imrad_outline 引用 `starter.ipynb` 真实方法与 `solution.ipynb` 真实结果, reproducibility_checklist 引用 `data/README.md` 真实库版本与 model id。
 - industry.md 的 real_companies 从公司库挑 (LangChain/Sierra/Cognition/Anthropic/OpenAI, 全部真实), deployment_example 锚定 LangGraph Platform + MemorySaver + MCP 生产部署, consulting_project partner = Sephora (公司库零售/CPG 候选), case_study protagonist = Sephora Head of AI, guest_lecture speaker = LangChain 创始团队, internship_pointer = OpenAI/Anthropic Residency + LangChain Capstone。
 - 与 v5.0/v6.0 衔接: research.md IMRaD Methods 引用 `starter.ipynb` TODO1-6, industry.md consulting_project 引用 practice.md 刻意练习子技能, case_study 引用 alignment.md ILO 矩阵, guest_lecture 引用 reading.md 深链。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

@@ -243,3 +243,9 @@ v4.0 用手写公式演示 NPV/IRR 概念。v5.0 改用真实库和真实行业�
 **验收**: `/tmp/verify_v7_unit.py` 3/3 (v7.0层 13-15) + `/tmp/verify_v6_unit.py` 5/5 (v6.0层 8-12) + `/tmp/verify_unit.py` 7/7 (v5.0基线 1-7) = 15/15 收敛
 
 > 本产业链接层与项目 CLAUDE.md 的「天道推演系统 - 沙盘模拟 + 反馈学习」同构: real_companies 是棋手, deployment_example 是棋盘, consulting_project/case_study 是沙盘分支, internship_pointer 是高杠杆点。本单元通过研究产出+产业链接, 把"上机跑通 NPV=$451.2K"升级为"可发表研究工件+可落地产业实践", 完成技能4收官。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

@@ -251,3 +251,9 @@ DSR方法论可直接应用到营销AI artifact的设计和评估：
 ## 研究产出与产业链接层 (v7.0)
 
 本单元产出可发表研究工件 (research.md: 研究问题 + 贡献声明 + arXiv/JSTOR/DOI 链接 + IMRaD 大纲 + NeurIPS 可复现清单 7 项 + research-to-practice 翻译) 与产业链接 (industry.md: >=3 真实企业 Stitch Fix/LangChain/Booking.com/McKinsey/Burberry + 部署场景 + Imperial MSc BA 咨询项目 partner=Burberry + HBS 教学案例 + 客座讲座 + 实习指针 OpenAI/Anthropic Residency)。研究产出遵循 IMRaD / DSR (Hevner 2004) / OSF 预注册 / FAIR / NeurIPS 可复现研究标准, 产业链接遵循 Imperial MSc BA 咨询项目 (Burberry/Expedia/J&J) / HBS 案例法 / MIT Sloan 行动学习模式。linked_paper 锚定 Hevner 2004 (MIS Quarterly, JSTOR)、Peffers 2007 (JMIS)、March & Smith 1995 (DSS)、LaLonde 1986 (AER, NSW ATE=1794.34)。contribution 声明 4 条 delta-vs-prior-work (pydantic schema 化 / ArtifactType 枚举化 / 天道推演↔DSR 同构 / 4 条设计原则)。详见 research.md 与 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

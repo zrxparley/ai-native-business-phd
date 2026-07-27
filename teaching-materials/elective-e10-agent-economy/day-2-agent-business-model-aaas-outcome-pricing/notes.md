@@ -303,3 +303,9 @@ A2A（Agent-to-Agent）经济催生分润模式：
 ---
 
 *v7.0 研究产出与产业链接层追加完成。v5.0原文(1-273行)+v6.0学习科学层原文均未修改一字。最后更新：2026-07-26*
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e10-agent-economy.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent经济 × 多Agent市场设计 × A2A。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

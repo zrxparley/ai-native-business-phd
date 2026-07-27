@@ -252,3 +252,9 @@ FSRS-6 / SM-2 / 刻意练习 (deliberate practice, Ericsson) / 建构对齐 (con
 本单元产出可发表研究工件 (research.md: research_question + contribution 声明 + linked_paper 含 arXiv/JSTOR/Google Research 链接 + IMRaD 大纲 + NeurIPS 可复现 reproducibility_checklist + research-to-practice 翻译为 HBR / MIT Sloan case / 企业白皮书) 与产业链接 (industry.md: >=3 真实企业 Meta/Google/Coca-Cola/Unilever/Microsoft/Booking.com + deployment 部署场景 + Imperial MSc BA consulting_project 咨询项目 partner= Coca-Cola CCEP + HBS case_study 教学案例 protagonist=CMO Sarah Chen + guest_lecture 客座讲座 + internship 实习指针 Google AI Resident / Meta Robyn / OpenAI Residency)。
 
 研究产出遵循 IMRaD / DSR (Hevner) / OSF 预注册 (preregistration) / FAIR / NeurIPS 可复现 (reproducibility) 标准, linked_paper 锚定 Chernozhukov 2018 DML (arXiv:1608.00060) + Abadie 2010 合成控制 (JSTOR) + Chan & Perry 2017 MMM (Google Research); 产业链接遵循 Imperial MSc BA 咨询项目 (Burberry / Expedia / J&J 模式) / HBS 案例法 / MIT Sloan 行动学习 (action learning) 模式, deployment 部署锚定 Coca-Cola $4B 营销预算 MMM 生产管线。详见 research.md 与 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e2-marketing-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：营销归因 × 增量测量 × LLM决策。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

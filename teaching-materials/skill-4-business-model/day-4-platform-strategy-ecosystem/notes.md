@@ -183,3 +183,9 @@ v5.0 五件套 (notes.md/data/README.md/starter.ipynb/solution.ipynb/reading.md)
 ---
 
 *v7.0 研究产出与产业链接层追加完毕。最后更新: 2026-07-26*
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

@@ -213,3 +213,9 @@ CLV 预测的可靠性取决于数据质量。2026 年，随着 GDPR / CCPA / �
 研究产出与产业链接双向锚定：research.md linked_paper 4 篇 (Fader-Hardie BG/NBD 2005 / Fader-Hardie SIR 2007 / Microsoft CUPED 2013 / Cunningham Mixtape) 全部来自本单元 reading.md 已验证深链 (2026-07-25 验证存在)，未联网重查 arXiv API；industry.md real_companies 5 家全部来自 v7.0 公司库 (真实企业)。研究环 (假设检验) -> 设计环 (clv-lite PyPI 包 + Playbook) -> 评估环 (企业白皮书效果测量) 三环构成 DSR 双循环。详见 [`research.md`](./research.md) 与 [`industry.md`](./industry.md)。
 
 *v7.0 研究产出与产业链接层追加于 2026-07-26，不修改 v5.0/v6.0 原文一字。*
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e2-marketing-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：营销归因 × 增量测量 × LLM决策。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

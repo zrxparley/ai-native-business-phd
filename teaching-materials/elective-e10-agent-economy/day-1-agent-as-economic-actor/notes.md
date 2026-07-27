@@ -249,3 +249,9 @@ Agent作为经济主体需要自主决策，而决策基于对市场的不完全
 ## 研究产出与产业链接层 (v7.0)
 
 本单元产出可发表研究工件 (research.md: 研究问题+贡献声明+linked_paper链接+IMRaD大纲+NeurIPS可复现清单+research-to-practice翻译) 与产业链接 (industry.md: >=3真实企业+部署场景+Imperial咨询项目+HBS教学案例+客座讲座+实习指针)。研究产出遵循IMRaD/DSR(Hevner)/OSF预注册/FAIR/可复现研究标准; 产业链接遵循Imperial MSc BA咨询项目(Burberry/Expedia/J&J)/HBS案例法/MIT Sloan行动学习模式。研究问题锚定Agent作为经济主体在mesa仿真下的市场均衡与机制设计(三边市场/四类网络效应/责任4层/激励4原则); linked_paper用reading.md已有arXiv深链; 产业链接锚定Sierra/Cognition-Devin/OpenAI/Anthropic等Agent经济前沿企业 + Burberry咨询项目 + Head of Agent Economy HBS案例 + a16z/OpenAI Residency实习指针。详见 research.md 与 industry.md。
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e10-agent-economy.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent经济 × 多Agent市场设计 × A2A。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。

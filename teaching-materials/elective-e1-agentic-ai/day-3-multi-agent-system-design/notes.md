@@ -194,3 +194,9 @@ v4.0的代码用"伪代码+模拟输出"。v5.0改用 **LangGraph + networkx 双
 研究产出遵循 IMRaD (Day & Gastel 2016) / DSR (Hevner 2004, design science research) / OSF 预注册 (preregistration) / FAIR 数据原则 / NeurIPS 可复现 (reproducibility) 标准; 产业链接遵循 Imperial MSc BA 咨询项目模式 (Burberry/Expedia/J&J) / HBS 案例法 / MIT Sloan 行动学习 (action learning) 模式。contribution 增量: 首次将项目 CLAUDE.md 天道推演沙盘形式化为多Agent仿真协议, 让认知能力工业化。详见 research.md 与 industry.md。
 
 *研究产出与产业链接层 (v7.0) 最后更新: 2026-07-26*
+
+---
+
+## 学术前沿层 (v9.0)
+
+本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e1-agentic-ai.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：多Agent框架 × 协作拓扑。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
