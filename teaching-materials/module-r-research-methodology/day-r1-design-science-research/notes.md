@@ -257,3 +257,7 @@ DSR方法论可直接应用到营销AI artifact的设计和评估：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，把 DSR 评估从 pandas/pydantic 库调用下沉到 AI工程从零构建的 numpy 数学推导层。scratch_topic：手写 DSR 三维评估框架（rigor/relevance/efficacy 加权评分矩阵 + 不平衡方差惩罚），对应 rohitg00 P0 Debugging and Profiling（可复现评估）+ P14 Eval Driven Agent Development（评估驱动设计），链接取自 `_from_scratch_map/module-r-research-methodology.md`。core_algorithm 从 Hevner 2004 rigor vs design 张力出发，将七准则划分为三维，推导加权均值 $\mu_D$ 与带方差惩罚的效用 $Q = \bar\mu - \lambda\,\text{Var}(\mu_R,\mu_V,\mu_E)$，把"rigor/design 平衡"从定性论述转成可优化目标。code_artifact 手写 numpy（≤50 行，imports 严格白名单），实现 `dim_mean` + `dsr_quality`，verification_property 锚定"平衡 artifact 的 $Q$ 严格高于偏科 artifact"且惩罚项捕获 Hevner 平衡约束。connection_to_unit 给出 ≥3 delta：pandas `.mean()` 掩盖偏科 vs from-scratch 暴露之；TODO4 评分向量可直接喂入 `dsr_quality` 重算；WEIGHTS 数组显式化评估哲学。exercises 绑定 `starter.ipynb` TODO4 与 `practice.md` D3 drill。rohitg00 深链见 from_scratch.md deep_dive_links 节（ai-engineering-from-scratch 仓库 P0/12 + P14/30）。本层与 v5.0 pydantic/pandas 实现互补：库层教"如何结构化 artifact"，from scratch 层教"如何用数学推导审计评估聚合"--前者是工程底座，后者是方法论底座。

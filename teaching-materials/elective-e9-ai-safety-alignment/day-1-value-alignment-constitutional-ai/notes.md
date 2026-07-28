@@ -172,3 +172,9 @@ v4.0 的代码用"手写几个if-else检查是否包含违规词"--手写检查�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e9-ai-safety-alignment.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：可扩展监督 × 机制可解释性 × Agent安全。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 RLHF 奖励模型损失 + DPO 偏好优化目标，对应 rohitg00 P18/05 Constitutional AI RLAIF（ai-engineering-from-scratch）。AI工程从零构建层把对齐"训练"的数学底座补回：从 Bradley-Terry 偏好模型推导奖励模型损失 $\mathcal{L}_{RM}=-\log\sigma(r_w-r_l)$，再用 KL 约束最优策略的闭式解反演出 DPO 目标 $\mathcal{L}_{DPO}=-\log\sigma(\beta[\log\frac{\pi(y_w|x)}{\pi_{ref}(y_w|x)}-\log\frac{\pi(y_l|x)}{\pi_{ref}(y_l|x)}])$。core_algorithm 从第一性原理数学推导，scratch_topic 锚定 CAI 宪法批评产出偏好对 -> DPO 损失消费的衔接点。code_artifact 用纯 numpy 手写（sigmoid + 偏好概率 + DPO 损失 + 线性奖励模型），配 verification_property 验证配分函数 $Z(x)$ 相消导致的不变性（DPO 损失对共同 logp 平移不变）与 RM/DPO 损失一致性。手写实现让"为什么 DPO 不需要显式奖励模型"在白板级代码中显形，不被 trl 的 DPOTrainer 抽象遮蔽。rohitg00 深链见 deep_dive_links。详见 `from_scratch.md`。

@@ -178,3 +178,15 @@ ASReview（Utrecht University开发）是AI辅助系统性文献综述的开源�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 arxiv+pandas+sklearn 形成对照。
+> - **从零构建主题**：手写 PRISMA 四阶段筛选流水线 + 主动学习不确定性采样排序
+> - **核心算法**：PRISMA 单调过滤链 $n_{\text{incl}} \le n_{\text{scr}} \le n_{\text{dedup}} \le n_{\text{id}}$ + 熵不确定性采样 $x^* = \arg\max H(p_\theta)$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架（prisma_filter + active_learn_rank），imports ⊆ {numpy, math}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P5 Information Retrieval / P18 Ethics 模型卡透明度
+> - **手写实现要点**：用 from-scratch numpy 而非 arxiv/pandas/sklearn，理解到金属层
+> - **verification_property**：PRISMA 计数单调递减；主动学习返回熵最大的 n_query 个样本；熵 $H(p) \le \log 2$

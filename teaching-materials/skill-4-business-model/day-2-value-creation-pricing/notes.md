@@ -216,3 +216,15 @@ v6.0 四件套**只追加不修改** v5.0 内容。v5.0 的 statsmodels OLS (R²
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 statsmodels/numpy-financial/scipy.stats 形成对照。
+> - **从零构建主题**：手写 NPV 贴现估值 + OLS 正规方程 + 价格弹性 log-log 回归 + outcome-based pricing 封顶模型
+> - **核心算法**：$\text{NPV} = \sum_t \frac{CF_t}{(1+r)^t}$ + 弹性 $\epsilon = \frac{d\ln Q}{d\ln P}$ + OLS $\hat\beta=(X^TX)^{-1}X^Ty$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架（npv + ols_fit + price_elasticity + outcome_pricing），imports ⊆ {numpy}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P17 Inference Platform Economics / P17 FinOps LLMs
+> - **手写实现要点**：用 from-scratch numpy 而非 statsmodels/numpy-financial，理解到金属层
+> - **verification_property**：NPV 与闭式 DCF 一致；log-log 回归精确恢复真实弹性 -1.5；outcome pricing Cap 生效

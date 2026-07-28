@@ -197,3 +197,15 @@ v6.0: **科学即高效 · 反馈即成长** -- 用学习科学把"练习"升级
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-3-causal.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：因果推断 × LLM（因果发现/推理/反事实）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 DoWhy/econml 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 IPW 逆概率加权 + DML 双重机器学习（观测因果去偏 from scratch）
+> - **核心算法**：$\hat\tau_{IPW}=\frac{\sum TY/\hat e}{\sum T/\hat e}-\frac{\sum(1-T)Y/(1-\hat e)}{\sum(1-T)/(1-\hat e)}$ + $\hat\theta=\frac{\sum\tilde T\tilde Y}{\sum\tilde T^2}$（含数学推导 + LaTeX，Hájek 稳定化 + Frisch-Waugh-Lovell 正交化）
+> - **code_artifact**：手写 numpy 骨架（≤50行），imports ⊆ {numpy}，附 verification_property（IPW/DML 收敛真值）
+> - **延伸阅读**：rohitg00 AI工程 from scratch P2/15 Statistics for ML + P1/18 Convex Optimization
+> - **手写实现要点**：用 from-scratch numpy 写 logistic 倾向得分 + 双残差而非 DoWhy/econml 黑箱，理解"加权 vs 正交化"去偏到金属层
+> - **verification_property**：IPW 与 DML 在构造真值 1.5 下均落入 [1.2,1.8]；朴素估计因混杂偏离 1.5 超 0.3

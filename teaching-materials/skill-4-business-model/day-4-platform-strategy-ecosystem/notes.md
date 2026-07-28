@@ -189,3 +189,15 @@ v5.0 五件套 (notes.md/data/README.md/starter.ipynb/solution.ipynb/reading.md)
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 networkx/pandas/matplotlib 形成对照。
+> - **从零构建主题**：手写邻接矩阵 + 度中心性 + core-periphery 划分 + tipping point 蒙特卡洛
+> - **核心算法**：度中心性 $d_i=\sum_j A_{ij}$ + core-periphery $\text{core}=\{i \mid d_i \geq \bar{d}\}$ + tipping $P(\text{tip})=\sigma(\beta\cdot\text{NE}-\alpha\cdot\text{MH}+\epsilon)$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架（build_adj + degree_centrality + core_periphery + tipping_prob），imports ⊆ {numpy}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P13 Skills and Agent SDKs / P16 Supervisor Orchestrator
+> - **手写实现要点**：用 from-scratch numpy 而非 networkx 图算法，理解到金属层
+> - **verification_property**：星图中心度=n-1；core-periphery 划分中心为 core；tipping 随 NE 递增、随 MH 递减

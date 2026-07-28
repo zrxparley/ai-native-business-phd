@@ -185,3 +185,9 @@ LangChain团队官方Agent编排框架（https://github.com/langchain-ai/langgra
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 agent 编排状态机（Plan-Execute-Verify 三阶段 + 验证门控 + 修订循环），从零构建 python/dataclasses 版 FSM 编排引擎，不调 LangGraph StateGraph、不调 langchain。对应 rohitg00 P19/24 Plan Execute Control Flow + P19/29 End to End Coding Task Demo。core_algorithm 从第一性原理推导 DFA 转移函数 $\delta: Q \times \Sigma \to Q$ + 几何停止概率 $P(\text{ACCEPT}) = 1-(1-p)^K$，code_artifact 含手写骨架（AgentState dataclass + VerificationGate ABC + transition 转移函数），verification_property 验证 FSM 必然终止 + ACCEPT/REJECT 条件 + 几何概率数值。与 notes.md 的 LangGraph 库实现对比：库版用 StateGraph+add_conditional_edges+interrupt_before+MemorySaver 黑箱，from-scratch 版让控制流可逐行审计。这是 agent 编排的可计算内核--ai-engineering-from-scratch 的工程底座。

@@ -222,3 +222,15 @@ FSRS-6 / SM-2 / 刻意练习 / 建构对齐 / Oxford tutorial / Socratic / Hatti
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-0-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM-as-data-analyst × Polars/duckdb 列式引擎。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 scipy.stats（ttest_ind / chi2_contingency / beta）形成对照。
+> - **从零构建主题**：手写贝叶斯后验更新 + 概率分布采样
+> - **核心算法**：Beta-Binomial 共轭后验 $P(p|s,n) \propto p^{(\alpha+s)-1}(1-p)^{(\beta+n-s)-1}$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy + math 骨架，imports ⊆ {numpy, math}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P1/06 Probability and Distributions + P1/07 Bayes Theorem + P1/15 Statistics for ML
+> - **手写实现要点**：用 from-scratch math.lgamma + 拒绝采样而非 scipy.stats.beta，理解到金属层
+> - **verification_property**：后验参数 (a+s, b+n-s)=(31,171)；序列更新 == 批量更新；样本均值收敛后验均值

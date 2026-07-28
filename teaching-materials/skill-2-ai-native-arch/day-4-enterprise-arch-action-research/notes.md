@@ -313,3 +313,15 @@ ILO (预期学习产出) ↔ TLA (教学学习活动) ↔ AT (评估任务) 三�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-2-ai-native-arch.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：企业Agent编排 × MCP/A2A 标准化协议。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 networkx DAG + pandas KPI 形成对照。
+> - **从零构建主题**：手写 TOGAF 四层依赖图（拓扑排序 + 关键路径）+ 行动研究 KPI 改善幅度
+> - **核心算法**：Kahn BFS 拓扑排序 + 最长加权路径 $\text{dist}(v) = \max_{(u,v)\in E}[\text{dist}(u)+w(v)]$ + KPI 改善 $\Delta_k = \frac{\text{KPI}(R)-\text{KPI}(0)}{\text{KPI}(0)}\times100\%$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, collections}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P17 Infrastructure（Managed LLM Platforms）/ P14 Agent Engineering（Orchestration Patterns）
+> - **手写实现要点**：用 from-scratch numpy + collections 而非 networkx topological_sort + pandas groupby，理解到 DAG 拓扑排序与关键路径 DP 的金属层
+> - **verification_property**：拓扑序满足 DAG 依赖方向；关键路径 CP=7.0（CDP->Agent->Report）；KPI 改善 time=-40% / quality=+50%

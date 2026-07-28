@@ -232,3 +232,9 @@ DSR（Hevner et al. 2004, MIS Quarterly; Peffers et al. 2007, JMIS）是信息�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写文献检索 Agent（query expansion + BM25 排序），从零构建 numpy 版 BM25 打分器，不调 arxiv/Search 服务端排序、不调 sklearn TfidfVectorizer。对应 rohitg00 P19/05 Autonomous Research Agent + P19/51 Literature Retrieval。core_algorithm 从第一性原理推导 BM25 公式（IDF 平滑 + 词频饱和 k1 + 文档长度归一化 b），code_artifact 含手写 numpy 骨架（tokenize -> build_corpus -> bm25_score -> expand_query），verification_property 验证精确匹配文档排第一 + 同义文档召回。与 notes.md 的 arxiv+pandas 库实现对比：库版把检索排序交给 arXiv 服务端 Solr 黑箱，from-scratch 版让"为什么这篇排第一"可逐行审计。这是 PRISMA Step 1 检索的可计算内核--ai-engineering-from-scratch 的工程底座。

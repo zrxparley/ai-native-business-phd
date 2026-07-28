@@ -167,3 +167,7 @@ mastery 阈值与 Worked-Faded 示例见 `practice.md` 与 `alignment.md`。交�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，把混合方法 joint display 与三角验证从 pandas/scipy 库调用下沉到 AI工程从零构建的 numpy 数学推导层。scratch_topic：手写 joint display 对齐矩阵 + 三角验证收敛指数（quant Cohen's d × qual 主题饱和度的乘性证据合并），对应 rohitg00 P5 LLM Evaluation Frameworks（多源证据整合）+ P2 Model Evaluation（效应量），链接取自 `_from_scratch_map/module-r-research-methodology.md`。core_algorithm 从 Cohen's $d = (\bar\mu_1-\bar\mu_0)/s_p$ 与 Hedges 方差 $\text{Var}(d) \approx (n_1+n_0)/(n_1 n_0) + d^2/(2(n_1+n_0))$ 出发，推导乘性证据合并 $w_k = (|d_k|/\sqrt{\sigma_{d,k}^2+1}) \cdot q_k \cdot \mathbb{1}[\text{方向一致}]$ 与三角验证收敛指数 $T = \tfrac{1}{K}\sum_k w_k \text{sign}(d_k) \in [-1,1]$，把"整合 ≠ 并列"从定性论述转成可计算目标。code_artifact 手写 numpy（≤50 行，imports 严格白名单），实现 `cohens_d` + `joint_display` + `triangulation_index`，verification_property 锚定"收敛发现 converged=True、发散发现 agree=0 且 $w=0$"。connection_to_unit 给出 ≥3 delta：pandas 并排列掩盖方向冲突 vs from scratch 乘性合并暴露之；scipy t 检验只给 d 点值 vs Hedges 方差可见；饱和度阈值 0.6 可计算化。exercises 绑定 `starter.ipynb` TODO4（Joint Display）与 TODO5（贝叶斯整合）。rohitg00 深链见 from_scratch.md deep_dive_links 节（ai-engineering-from-scratch 仓库 P5/27 + P2/09）。本层与 v5.0 pandas/scipy 实现互补：库层教"如何结构化对齐矩阵"，from scratch 层教"如何用数学推导审计证据合并"--前者是工程底座，后者是方法论底座。

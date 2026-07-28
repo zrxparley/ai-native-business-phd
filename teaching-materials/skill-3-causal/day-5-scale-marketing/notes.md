@@ -177,3 +177,15 @@ FSRS · SM-2 · 刻意练习 · deliberate practice · 建构对齐 · construct
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-3-causal.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：因果推断 × LLM（因果发现/推理/反事实）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 econml/scikit-uplift 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 uplift modeling（two-model CATE + Qini 曲线）+ MAB 贪心预算分配（规模营销决策 from scratch）
+> - **核心算法**：$\hat\tau(x)=\hat\mu_1(x)-\hat\mu_0(x)$ + $\text{Qini}(k)=\sum_{i\le k}T_iY_i-\sum_{i\le k}(1-T_i)Y_i\frac{\sum T_i}{\sum(1-T_i)}$ + 贪心 $\max\sum\hat\tau_k a_k$（含数学推导 + LaTeX，two-model CATE + 累计增量 + 线性背包）
+> - **code_artifact**：手写 numpy 骨架（≤50行），imports ⊆ {numpy}，附 verification_property（Qini 顶部增量>0、贪心填最高 CATE 群）
+> - **延伸阅读**：rohitg00 AI工程 from scratch P2/13 ML Pipelines + P9/06 Policy Gradients REINFORCE
+> - **手写实现要点**：用 from-scratch numpy 写 two-model OLS + Qini + 贪心分配而非 econml/scikit-uplift 黑箱，理解"估计效应->优化决策"到金属层
+> - **verification_property**：Qini 在 CATE 随 X 变化的随机化数据上 top 30% 累计增量 $>0$；贪心 MAB 先填满最高 CATE 群（idx=1，50）再填次高（idx=0，70）

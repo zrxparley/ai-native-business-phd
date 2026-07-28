@@ -185,3 +185,15 @@ v4.0 的代码普遍用"伪代码 / 模拟框架"--模拟框架会让你**学不
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangGraph 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 StateGraph 状态机 + 条件分支路由（state graph from scratch）
+> - **核心算法**：有向图状态转移 $s_{t+1}=s_t \oplus n_{v_t}(s_t)$ + 终止性定理 $T_{\max}=\sum |C|\cdot N_C$（含数学推导 + 单调字段退出条件）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {typing}，附 verification_property（max_steps 终止 + revision_count 单调递增）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P14/13 LangGraph Stateful Graphs + P14/12 Anthropic Workflow Patterns
+> - **手写实现要点**：用 from-scratch 邻接表 + 条件路由而非 LangGraph StateGraph，理解图执行到金属层
+> - **verification_property**：run 在 max_steps 内终止；history 记录每次节点访问的 state 快照可回放

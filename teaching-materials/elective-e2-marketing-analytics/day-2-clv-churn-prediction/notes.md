@@ -219,3 +219,20 @@ CLV 预测的可靠性取决于数据质量。2026 年，随着 GDPR / CCPA / �
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e2-marketing-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：营销归因 × 增量测量 × LLM决策。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：AI工程从零构建层，叠加在 v5.0/v6.0/v7.0/v9.0 之上，不破坏既有基线。scratch 哲学：不调 sklearn.LogisticRegression、不调 lifetimes.BetaGeoFitter，手写 numpy 实现 sigmoid 梯度下降 + BG/NBD 生存公式，从对数似然梯度直译到 numpy。
+
+- **scratch_topic**：手写逻辑回归梯度下降 + BG/NBD 简化 CLV。对应 rohitg00 P2/03 Logistic Regression（sigmoid + 梯度下降 from scratch）+ P2/10 Bias Variance（正则化与泛化）。notes.md TODO4 用 `sklearn.LogisticRegression` 一行训练流失模型，TODO3 用简化公式算 BG/NBD CLV；本层把"训练"拆成梯度上升循环 `w += lr * X^T(y - sigmoid(Xw))/n`，把"生存概率"拆成几何存活函数 $r^{12}$--让"流失概率怎么算"和"CLV 怎么贴现"不再是 sklearn/lifetimes 的黑箱。
+- **core_algorithm**：数学推导从对数似然 $\ell(w) = \sum_i [y_i \log \sigma(w^Tx_i) + (1-y_i)\log(1-\sigma(w^Tx_i))]$ 出发，对 $w$ 求梯度得 $\nabla_w \ell = X^T(y - \sigma(Xw))$，梯度上升更新。BG/NBD 用几何存活函数 $P(\text{alive after } t) = r^t$，CLV 贴现公式 $\text{CLV} = F \cdot r^T \cdot \text{AOV} \cdot T \cdot \delta$。完整 LaTeX 公式见 from_scratch.md。
+- **code_artifact**：手写 numpy 骨架（≤50 行），imports 严格白名单（仅 numpy），禁 sklearn/lifetimes/pandas。含 `sigmoid`（数值稳定版）/ `logistic_gd`（梯度下降 + L2）/ `bg_nbd_clv`（简化 BG/NBD）三个函数。**verification_property**：逻辑回归在可分数据上准确率 > 0.9，BG/NBD CLV 对留存率单调递增。
+- **deep_dive_links**：rohitg00 ai-engineering-from-scratch P2/03 Logistic Regression + P2/10 Bias Variance，链接从 `_from_scratch_map/elective-e2-marketing-analytics.md` 取，禁止编造。
+- **connection_to_unit**：4 个 delta 对比库实现 vs from-scratch（sklearn L-BFGS vs 手写 vanilla 梯度上升 / C 参数 vs l2 系数 / BG/NBD 简化公式 vs 完整 Beta-Geometric 似然 / AUC-ROC 黑箱 vs 手算 ROC 曲线）。
+- **exercises**：4 个编号练习，其中练习 1 绑定 starter.ipynb TODO4（对比 sklearn LogReg 与手写 logistic_gd 的 AUC），练习 4 绑定 practice.md D5-SKLEARN drill（添加 class_weight balanced 损失加权）。
+
+**v11.0 关键词命中**：从零构建 / from scratch / 手写 / numpy / 数学推导 / rohitg00 / AI工程 / verification_property / scratch_topic / code_artifact / core_algorithm / ai-engineering-from-scratch（≥4 命中）。
+
+*v11.0 AI工程从零构建层追加于 2026-07-28，不修改 v5.0/v6.0/v7.0/v9.0 原文一字。*

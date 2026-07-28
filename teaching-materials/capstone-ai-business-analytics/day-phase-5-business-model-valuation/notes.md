@@ -211,3 +211,9 @@ AI营销Agent系统的商业模式依赖多Agent协作基础设施：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写蒙特卡洛 NPV + 敏感性分析（龙卷风图），从零构建 numpy 版投资评估引擎，不调 numpy-financial、不调 scipy.stats。对应 rohitg00 P19/56 Iteration Scheduler + P17/27 FinOps LLMs。core_algorithm 从第一性原理推导 DCF 折现 $\text{NPV} = \sum FCF_t/(1+r)^t$ + 逆变换采样 $x = \mu + \sigma\sqrt{2}\,\text{erf}^{-1}(2u-1)$ + 龙卷风一阶偏导近似，code_artifact 含手写 numpy 骨架（npv 折现 -> irr 二分求根 -> erfinv_approx 逆变换 -> monte_carlo_npv 向量化 -> sensitivity_tornado 单变量扫描），verification_property 验证 NPV 闭式解 + IRR 趋零 + ATE 是高杠杆因子。与 notes.md 的 numpy-financial+scipy 库实现对比：库版用 npf.npv/irr + scipy.stats.norm.rvs 黑箱，from-scratch 版让金融计算可逐行审计。这是商业模式估值的可计算内核--ai-engineering-from-scratch 的工程底座。

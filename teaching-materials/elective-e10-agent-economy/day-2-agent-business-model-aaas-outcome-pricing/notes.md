@@ -309,3 +309,22 @@ A2A（Agent-to-Agent）经济催生分润模式：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e10-agent-economy.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent经济 × 多Agent市场设计 × A2A。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，落实 **AI工程从零构建** 哲学：不调 numpy-financial 的 NPV 黑箱，**手写 numpy** 实现 outcome-based pricing 的风险调整定价 `price = E[loss] + risk_premium + margin`。与 notes.md 的 pydantic schema（把 `price_per_outcome` 当给定字段）+ numpy-financial NPV（折现给定单价）形成对照：notes.md 把"单价"当输入做财务折现，from scratch 把"单价"当输出从风险结构推导，两者串联构成完整定价决策。
+
+核心手写实现（numpy only，无 pydantic/numpy-financial/statsmodels 依赖）：
+- `outcome_price_risk_adjusted(theta, loss_per_fail, reasoning_cost, lam, margin, n_mc)`：蒙特卡洛估计 $\mathbb{E}[\text{loss}]$ 与 $\sigma[\text{loss}]$，按均值-方差风险定价公式推出公平单价，并输出 break-even 闭式解
+
+**数学推导**：盈亏平衡定价 $p^* = \frac{(1-\theta)L + c}{\theta}$、均值-方差风险定价 $p = (1-\theta)L + \lambda\sqrt{\theta(1-\theta)}L + m + c$、蒙特卡洛大数定律收敛 $\hat\mu \xrightarrow{a.s.} (1-\theta)L$（速率 $O(1/\sqrt{N})$）、推理成本闭式敏感度 $dp^*/dc = 1/\theta$（解释 DeepSeek V3 降本后 outcome 定价可行的数学根源）。
+
+**verification_property**：风险中性（$\lambda=0$）时 `price = E[loss] + margin + cost` 且 MC $\hat\mu \to 1.5$（$\theta=0.85, L=10$）；风险厌恶（$\lambda=2$）时 `price > risk-neutral` 且 `risk_premium > 0`；break-even 闭式 $1.7706$ 与公式一致。
+
+rohitg00 深链（来自 `_from_scratch_map/elective-e10-agent-economy.md`，对应 ai-engineering-from-scratch 仓库的 infra/finops phase）：
+- [P17/02 Inference Platform Economics](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/17-infrastructure-and-production/02-inference-platform-economics/README.md)
+- [P17/27 FinOps LLMs](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/17-infrastructure-and-production/27-finops-llms/README.md)
+
+详见 `from_scratch.md` 的 `scratch_topic` / `core_algorithm` / `code_artifact` / `connection_to_unit` / `deep_dive_links` / `exercises` 六节。

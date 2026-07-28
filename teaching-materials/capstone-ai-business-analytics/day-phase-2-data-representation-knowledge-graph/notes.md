@@ -199,3 +199,9 @@ v4.0 的代码用"手写字典模拟图"和"手写余弦相似度"——手写�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写知识图谱邻接矩阵 + 多跳检索（BFS 矩阵幂 + 个性化 PageRank），从零构建 numpy 版 KG 检索引擎，不调 networkx、不调 sentence-transformers。对应 rohitg00 P19/30 BPE Tokenizer from Scratch + P19/50 Hypothesis Generator。core_algorithm 从第一性原理推导邻接矩阵幂 $A^k$ 计数 k 长路径 + PPR 不动点迭代 $\mathbf{r} = \alpha \mathbf{s} + (1-\alpha) P^T \mathbf{r}$，code_artifact 含手写 numpy 骨架（build_kg 三元组->邻接矩阵 -> k_hop_reachable 矩阵幂 -> personalized_pagerank 迭代），verification_property 验证三跳可达 + PPR 种子节点得分最高。与 notes.md 的 networkx+pandas 库实现对比：库版用 MultiDiGraph + nx.shortest_path 黑箱，from-scratch 版让多跳推理可逐行审计矩阵运算。这是 GraphRAG 混合检索的可计算内核--ai-engineering-from-scratch 的工程底座。

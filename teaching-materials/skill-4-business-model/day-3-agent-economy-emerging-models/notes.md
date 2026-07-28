@@ -266,3 +266,15 @@ Agent经济催生的四种新兴商业模式（用pandas结构化）：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-4-business-model.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：AI原生商业模式 × outcome-based pricing。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 mesa/pandas/matplotlib 形成对照。
+> - **从零构建主题**：手写多 Agent 双边市场仿真（ABM）+ Gini 系数涌现追踪
+> - **核心算法**：财富转移 $\Delta W_c=-(P+f), \Delta W_m=P(1-\gamma), \Delta W_i=f-c_{\text{reason}}$ + Gini $G=\frac{2\sum i\cdot x_{(i)}}{n\sum x_{(i)}}-\frac{n+1}{n}$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架（gini + simulate_market），imports ⊆ {numpy}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P16 Agent Economies / P9 Actor-Critic
+> - **手写实现要点**：用 from-scratch numpy 而非 mesa OOP 框架，理解到金属层
+> - **verification_property**：Gini(equal)=0；Gini([0,0,0,100])≈0.75；仿真中 Gini 递增（财富集中）

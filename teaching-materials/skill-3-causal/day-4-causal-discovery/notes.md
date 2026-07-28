@@ -200,3 +200,15 @@ ML 因果部分继续用 **NSW 真实数据**（同 Day 1），但这次不是�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-3-causal.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：因果推断 × LLM（因果发现/推理/反事实）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 causal-learn/gcastle 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 PC 算法骨架 + 条件独立性检验（因果发现 from scratch）
+> - **核心算法**：$\rho(i,j\mid S)=-P_{ij}/\sqrt{P_{ii}P_{jj}}$ + $z=\frac12\ln\frac{1+r}{1-r}\sqrt{n-|S|-3}$ + v-结构定向（含数学推导 + LaTeX，精度矩阵偏相关 + Fisher Z + collider 检测）
+> - **code_artifact**：手写 numpy 骨架（≤50行），imports ⊆ {numpy, math, itertools}，附 verification_property（链 X->Z->Y 删 X-Y 边、不触发 v-结构）
+> - **延伸阅读**：rohitg00 AI工程 from scratch P1/21 Graph Theory + P2/07 Unsupervised Learning
+> - **手写实现要点**：用 from-scratch numpy 写 CI 检验 + 骨架学习 + v-结构而非 causal-learn `pc()` 黑箱，理解"删边/定向"到金属层
+> - **verification_property**：链 $X\to Z\to Y$ 上 PC 删除 $X$-$Y$ 边（sepset={Z}）且不触发 v-结构定向（$Z\in$ sepset）

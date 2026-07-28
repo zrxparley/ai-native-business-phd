@@ -224,3 +224,15 @@ v4.0的代码用"手写几个规则"演示治理概念。v5.0改用两个真实�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-2-ai-native-arch.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：企业Agent编排 × MCP/A2A 标准化协议。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 NIST AI RMF + pydantic + pandas 形成对照。
+> - **从零构建主题**：手写 MCP server 骨架 + JSON-RPC 工具调度 + NIST 合规评分
+> - **核心算法**：JSON-RPC 2.0 dispatch(method->callable) + NIST 加权评分 $score = 100 \cdot \sum_k w_k c_k$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, typing, dataclasses}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P13 Tools & Protocols（MCP Fundamentals / Building MCP Server / Tool Interface）
+> - **手写实现要点**：用 from-scratch numpy + dataclasses 而非 mcp SDK + pydantic，理解到 JSON-RPC 分发与加权评分的金属层
+> - **verification_property**：JSON-RPC dispatch 路由 method->callable；nist_score `w @ c` 输出 [0,100]，80/50 阈值分界状态映射

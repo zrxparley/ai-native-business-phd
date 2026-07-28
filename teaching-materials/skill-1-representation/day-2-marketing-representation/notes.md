@@ -179,3 +179,15 @@ v5.0 的 7 条验收 (notes.md / data/README.md / starter.ipynb / solution.ipynb
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-1-representation.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：表示工程 × 多模态对齐 × 检索蒸馏。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 sentence-transformers + torch Two-Tower 形成对照。
+> - **从零构建主题**：手写 TF-IDF + 两塔检索模型
+> - **核心算法**：TF-IDF $\text{tf-idf}(t,d) = \text{tf}(t,d) \times [\log\frac{N+1}{\text{df}(t)+1} + 1]$ + 两塔余弦相似度 $\text{sim}(q,d) = \frac{\mathbf{z}_q \cdot \mathbf{z}_d}{\|\mathbf{z}_q\| \|\mathbf{z}_d\|}$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, collections}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P5/02 Bag of Words TF-IDF + P5/22 Embedding Models Deep Dive
+> - **手写实现要点**：用 from-scratch numpy TF-IDF + 余弦检索 而非 sentence-transformers + torch Two-Tower，理解到金属层
+> - **verification_property**：稀有词 IDF > 常见词 IDF；自检索 sim≈1；cosine sim ∈ [-1,1]

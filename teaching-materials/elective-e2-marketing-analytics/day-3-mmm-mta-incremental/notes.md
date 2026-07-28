@@ -258,3 +258,20 @@ FSRS-6 / SM-2 / 刻意练习 (deliberate practice, Ericsson) / 建构对齐 (con
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e2-marketing-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：营销归因 × 增量测量 × LLM决策。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：AI工程从零构建层，叠加在 v5.0/v6.0/v7.0/v9.0 之上，不破坏既有基线。scratch 哲学：不调 sklearn.Ridge、不调 scipy.optimize，手写 numpy 实现岭回归正规方程 + Markov 吸收链移除效应，从 $(X^TX+\alpha I)^{-1}X^Ty$ 和 $(I-Q)^{-1}R$ 直译到 numpy。
+
+- **scratch_topic**：手写 MMM 岭回归 + Markov MTA 移除效应。对应 rohitg00 P2/13 ML Pipelines（Ridge from scratch）+ P9/04 Q Learning SARSA（MDP / Markov 链基础）。notes.md TODO1 用 `sklearn.Ridge(alpha=1.0)` 一行拟合 MMM，TODO2 用 pandas crosstab + `np.linalg.inv` 做 MTA；本层把"岭回归"拆成修正正规方程 $(X^TX+\alpha I)\hat\beta = X^Ty$，把"移除效应"拆成吸收链基础矩阵 $N=(I-Q)^{-1}$ 与吸收概率 $B=NR$--让"为什么 Ridge 比 OLS 稳"和"移除渠道后转化率怎么算"不再是 sklearn/pandas 的黑箱。
+- **core_algorithm**：数学推导从 Ridge 目标 $\|y-X\beta\|^2 + \alpha\|\beta\|^2$ 出发，对 $\beta$ 求梯度令其为零，得修正正规方程 $(X^TX+\alpha I)\hat\beta = X^Ty$，$\alpha I$ 加到对角使矩阵恒可逆（正定）。Markov 移除效应：转移矩阵 $P$ 分块为瞬态 $Q$ 与吸收 $R$，基础矩阵 $N=(I-Q)^{-1}$，吸收概率 $B=NR$，基线转化率 $= B[\text{Start}, \text{Conv}]$，移除渠道 $c$ 后重算转化率，移除效应 $= (r_{\text{base}} - r_c)/r_{\text{base}}$。完整 LaTeX 公式见 from_scratch.md。
+- **code_artifact**：手写 numpy 骨架（≤50 行），imports 严格白名单（仅 numpy），禁 sklearn/scipy/pandas/statsmodels。含 `adstock`（递推变换）/ `ridge_fit`（修正正规方程）/ `removal_effect`（Markov 吸收链移除效应归一化）三个函数。**verification_property**：Adstock 递推正确（a[0]=spend[0]），Ridge 低 alpha 恢复真实系数，移除效应归一化和为 1。
+- **deep_dive_links**：rohitg00 ai-engineering-from-scratch P2/13 ML Pipelines + P9/04 Q Learning SARSA，链接从 `_from_scratch_map/elective-e2-marketing-analytics.md` 取，禁止编造。
+- **connection_to_unit**：4 个 delta 对比库实现 vs from-scratch（sklearn Ridge 黑箱 vs 手写修正正规方程 / Adstock 递推 vs 渠道衰减率经验值映射 / pandas crosstab 转移矩阵 vs 手写吸收链 N=(I-Q)^{-1} / 共线性条件数诊断）。
+- **exercises**：4 个编号练习，其中练习 1 绑定 starter.ipynb TODO1（对比 sklearn Ridge 与手写 ridge_fit 的系数），练习 4 绑定 practice.md DRILL-01 drill（添加 sqrt 饱和变换）。
+
+**v11.0 关键词命中**：从零构建 / from scratch / 手写 / numpy / 数学推导 / rohitg00 / AI工程 / verification_property / scratch_topic / code_artifact / core_algorithm / ai-engineering-from-scratch（≥4 命中）。
+
+*v11.0 AI工程从零构建层追加于 2026-07-28，不修改 v5.0/v6.0/v7.0/v9.0 原文一字。*

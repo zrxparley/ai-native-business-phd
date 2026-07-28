@@ -220,3 +220,15 @@ v4.0 的代码用"手写字典模拟图"--手写图无法执行图算法（最�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-1-representation.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：表示工程 × 多模态对齐 × 检索蒸馏。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 networkx + LLMGraphTransformer 形成对照。
+> - **从零构建主题**：手写 KG 三元组抽取 + 多跳图检索
+> - **核心算法**：正则模式三元组抽取 $\text{text} \rightarrow \{(h,r,t)\}$ + 邻接矩阵幂运算 $R_k = (\sum_{i=1}^{k} A^i) > 0$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy + re 骨架，imports ⊆ {numpy, re}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P5/26 Relation Extraction KG + P11/06 RAG + P5/23 Chunking Strategies RAG
+> - **手写实现要点**：用 from-scratch numpy 邻接矩阵幂 + re 正则抽取 而非 networkx + LLMGraphTransformer，理解到金属层
+> - **verification_property**：2-hop 可达节点不在 1-hop 结果中；三元组抽取数 = 输入模式匹配数

@@ -6,9 +6,9 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-zrxparley/ai--native--business--phd-blue?logo=github)](https://github.com/zrxparley/ai-native-business-phd)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
-![Version](https://img.shields.io/badge/version-v10.0-orange)
+![Version](https://img.shields.io/badge/version-v11.0-orange)
 ![Days](https://img.shields.io/badge/days-58-blue)
-![Convergence](https://img.shields.io/badge/convergence-17/17-brightgreen)
+![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
 ![Papers](https://img.shields.io/badge/arXiv%20papers-185_(124%2B61)-9cf)
 
 ---
@@ -116,7 +116,7 @@ Doctoral thesis direction: *"An AI-Native Enterprise Marketing Agent System: A C
 
 ## Versions
 
-Ten iterations. v8.0 deliberately skipped. Latest = **v10.0**.
+Eleven iterations. v8.0 deliberately skipped. Latest = **v11.0**.
 
 | Date | Version | Name | Highlight |
 |---|:---:|---|---|
@@ -131,6 +131,7 @@ Ten iterations. v8.0 deliberately skipped. Latest = **v10.0**.
 | 2026-07-26 | v7.0 | Research & industry | + research.md + industry.md (IMRaD / NeurIPS reproducibility + HBS / Imperial industry links), 15/15 |
 | 2026-07-27 | v9.0 | Frontier injection | + frontier.md × 58 units, 124 real 2025-2026 arXiv papers, `_frontier_corpus/` 13-module corpus, `verify_v9_unit.py` 17/17 *(v8 skipped)* |
 | 2026-07-27 | v10.0 | Deep-dive monographs | + 4 flagship deep-dives (scalable oversight / causal-LLM / LLM reasoning economy / agent eval), 61 papers, `verify_v10_deepdive.py` |
+| 2026-07-28 | v11.0 | From-scratch engineering | + `from_scratch.md` × 58 units (handwritten numpy backprop / attention / agent-loop / INT8 quantization / DPO / Shapley), standalone textbook《AI工程从零构建》(12 ch · 5 flagship), `_from_scratch_map/` 13-module map, `verify_v11_unit.py` 19/19 *(fuses github.com/rohitg00/ai-engineering-from-scratch)* |
 
 > 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison.
 
@@ -163,14 +164,15 @@ ai-native-business-phd/
 ├── AI原生化商业博士_独立教材_选修E3_LLM导论.md               (6h · elective)
 ├── AI原生化商业博士_独立教材_选修E9_AI安全与对齐.md          (6h · elective)
 ├── AI原生化商业博士_独立教材_选修E10_Agent经济与商业模式.md  (6h · elective)
+├── AI原生化商业博士_独立教材_AI工程从零构建.md              (v11.0 · from-scratch engineering · 12 ch / 5 flagship)
 └── AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md    (capstone)
 ```
 
 ---
 
-## Teaching Materials (v5 -> v10)
+## Teaching Materials (v5 -> v11)
 
-Five layered upgrades, all converged. **58 Days × 17/17.**
+Six layered upgrades, all converged. **58 Days × 19/19.**
 
 | Layer | Version | Files / Day | Verifier | Status |
 |---|:---:|---|---|:---:|
@@ -179,21 +181,25 @@ Five layered upgrades, all converged. **58 Days × 17/17.**
 | Research & industry | v7.0 | +2 (research / industry) | `verify_v7_unit.py` | 15/15 ✅ |
 | Frontier injection | v9.0 | +1 (frontier.md) | `verify_v9_unit.py` | 17/17 ✅ |
 | Deep-dive monographs | v10.0 | 4 standalone (`frontier-deep-dives/`) | `verify_v10_deepdive.py` | 4/4 ✅ |
+| From-scratch engineering | v11.0 | +1 (from_scratch.md) + standalone textbook | `verify_v11_unit.py` | 19/19 ✅ |
 
 ```
 teaching-materials/
 ├── _frontier_corpus/          (v9.0 shared frontier corpus · 13 modules × 8-10 real 2025-2026 arXiv papers)
+├── _from_scratch_map/         (v11.0 shared from-scratch map · 13 modules × rohitg00 phase deep links)
+├── _verifiers/                (v5-v11 unit verifiers + panorama · committed)
 ├── frontier-deep-dives/       (v10.0 flagship monographs · 4 files / 61 papers)
 ├── _shared/                   (cross-unit shared resources)
-└── <module>/day-*/            (13 modules × 58 Days · 10 files per Day)
-    ├── notes.md               (v5 lecture + v6/v7/v9 appended sections)
+└── <module>/day-*/            (13 modules × 58 Days · 11 files per Day)
+    ├── notes.md               (v5 lecture + v6/v7/v9/v11 appended sections)
     ├── data/ · starter.ipynb · solution.ipynb · reading.md
     ├── practice.md · schedule.json · alignment.md · tutorial.ipynb
     ├── research.md · industry.md
-    └── frontier.md            (v9 academic frontier · 6 sections)
+    ├── frontier.md            (v9 academic frontier · 6 sections)
+    └── from_scratch.md        (v11 handwritten numpy from-scratch · 6 sections + verification_property)
 ```
 
-**Anti-hallucination pipeline**: corpus built upfront (arXiv search + abstract-page spot-check) → wave agents consume OFFLINE → static verifier checks arXiv ID ⊆ corpus → main-session human audit + WebFetch spot-check. 4/5 deep-dive papers independently verified at `arxiv.org/abs/`.
+**Anti-hallucination pipeline**: corpus built upfront (arXiv search + abstract-page spot-check) → wave agents consume OFFLINE → static verifier checks arXiv ID ⊆ corpus → main-session human audit + WebFetch spot-check. 4/5 deep-dive papers independently verified at `arxiv.org/abs/`. v11.0 from-scratch layer: rohitg00 GitHub blob URLs curated in `_from_scratch_map/` upfront, wave agents consume OFFLINE, `verify_v11_unit.py` checks URL format + code `ast.parse` syntax + imports whitelist (numpy/math/re/collections/...; torch/transformers/jax/langchain forbidden), main-session cross-checks every module's links ⊆ map (zero hallucination confirmed across all 13 modules).
 
 ---
 
@@ -298,4 +304,4 @@ MIT - maintained by the system-awakening community.
 ---
 
 *Generated by 系统觉醒 (system-awakening) × 天道推演 (Tian Dao Tui Yan) × WorkBuddy × Claude*
-*Last updated: 2026-07-27*
+*Last updated: 2026-07-28*

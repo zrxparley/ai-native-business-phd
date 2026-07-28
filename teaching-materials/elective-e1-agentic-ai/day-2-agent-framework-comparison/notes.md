@@ -203,3 +203,15 @@ v4.0的代码用"伪代码+模拟输出"。v5.0改用 **LangGraph 真实库**：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e1-agentic-ai.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：多Agent框架 × 协作拓扑。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangGraph/CrewAI/AutoGen 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写三框架最小内核对比（StateGraph / Actor / Crew，同一营销任务跑三套抽象）
+> - **core_algorithm**：三框架形式化 -- StateGraph $s_{t+1}=\delta(s_t,v_t),v_{t+1}=r(s_{t+1},v_t)$ / Actor $M'=M\setminus\{\text{msg}\}\cup\bigcup_i\sigma_i(\text{msg})$ / Crew $\text{ready}(T)=\{t\mid\text{prereq}(t)\subseteq\text{Done}\}$（含数学推导）
+> - **code_artifact**：手写三内核纯 Python 骨架（≤50行），imports ⊆ {dataclasses, typing}，附 verification_property（三内核同任务终止 + trace 可审计）
+> - **deep_dive_links**：rohitg00 ai-engineering-from-scratch P14/13 LangGraph + P14/14 AutoGen + P14/15 CrewAI
+> - **手写实现要点**：用 from-scratch 三内核而非 LangGraph/CrewAI/AutoGen API，理解框架设计哲学到计算模型层
+> - **verification_property**：run_graph/run_actors/run_crew 各自在 max_iter 内终止；trace 揭示三种控制流差异

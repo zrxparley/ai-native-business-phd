@@ -208,3 +208,15 @@ v5.0 基线 (notes.md/data/starter.ipynb/solution.ipynb/reading.md) 不动, 本�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-3-causal.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：因果推断 × LLM（因果发现/推理/反事实）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 scipy/statsmodels 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 Welch t 检验 + Thompson sampling bandit（A/B 显著性检验 + 自适应实验 from scratch）
+> - **核心算法**：$t=\frac{\bar Y_1-\bar Y_0}{\sqrt{s_1^2/n_1+s_0^2/n_0}}$ + Beta 后验采样（含数学推导 + LaTeX，Welch-Satterthwaite 自由度 + Thompson 探索-利用）
+> - **code_artifact**：手写 numpy 骨架（≤50行），imports ⊆ {numpy, math}，附 verification_property（t 显著 + bandit 收敛最优臂）
+> - **延伸阅读**：rohitg00 AI工程 from scratch P2/09 Model Evaluation + P9/04 Q Learning SARSA
+> - **手写实现要点**：用 from-scratch numpy 写 t 统计量与 Beta 采样而非 scipy/statsmodels 黑箱，理解"p<0.05"与"探索-利用"到金属层
+> - **verification_property**：Welch t 在真实效应 0.5/n=500 下 $|t|>1.96$；Thompson bandit 3 臂 2000 步后把多数拉臂分配给真实率最高臂

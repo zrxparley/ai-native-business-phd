@@ -202,3 +202,15 @@ Google 2024 提出的 Agent 间通信协议（https://github.com/google/A2A）�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-2-ai-native-arch.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：企业Agent编排 × MCP/A2A 标准化协议。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangGraph 形成对照。
+> - **从零构建主题**：手写 StateGraph 有状态有向图 + 条件分支 + 修订循环退出
+> - **核心算法**：有向图状态转移 $s_{t+1} = s_t \uplus v_t(s_t)$ + 条件路由 + 循环退出 $\text{rev} \ge r_{\max}$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, typing}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P14 Agent Engineering（LangGraph Stateful Graphs）/ P11 LLM Engineering（State Machines）
+> - **手写实现要点**：用 from-scratch numpy + dict 而非 LangGraph StateGraph + TypedDict + Annotated[list, operator.add]，理解到有向图遍历的金属层
+> - **verification_property**：修订循环 rev>=3 退出（trace 含 3 次 copywriter）；条件路由是 State->key 纯函数；quality 是 numpy 均值标量化

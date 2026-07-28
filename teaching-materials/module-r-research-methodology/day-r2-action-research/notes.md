@@ -229,3 +229,7 @@ v4.0 的R2只讲理论（五步螺旋、PAR概念），学生看完就忘。v5.0
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，把行动研究 KPI 螺旋追踪与贝叶斯更新从 pandas/matplotlib 库调用下沉到 AI工程从零构建的 numpy 数学推导层。scratch_topic：手写行动研究 KPI 时序追踪 + Beta-Binomial 干预有效性贝叶斯更新，对应 rohitg00 P14 Anthropic Workflow Patterns（plan-act-observe-reflect 螺旋同构）+ P17 Load Testing LLM APIs（KPI 量化），链接取自 `_from_scratch_map/module-r-research-methodology.md`。core_algorithm 从 Susman 螺旋的"知识累积"本质出发，推导 Beta-Binomial 共轭后验 $\theta|X_{1:r} \sim \text{Beta}(\alpha_0+S_r, \beta_0+r-S_r)$，后验均值 $\hat\theta_r = (\alpha_0+S_r)/(\alpha_0+\beta_0+r)$，证明频率派 $S_r/r$ 在小样本下极端而贝叶斯受先验平滑。code_artifact 手写 numpy（≤50 行，imports 严格白名单），实现 `is_effective` + `beta_binomial_update`，verification_property 锚定"4 轮后后验 $\in (0.7,0.95)$"且后验随成功单调递增。connection_to_unit 给出 ≥3 delta：pandas 隐藏 τ 阈值决策 vs from scratch 暴露之；频率派 p-hat 在 r=1 归零 vs 贝叶斯平滑；KPI 方向（时间越小越好）需显式取反。exercises 绑定 `starter.ipynb` TODO7 与 `practice.md` D4 drill。rohitg00 深链见 from_scratch.md deep_dive_links 节（ai-engineering-from-scratch 仓库 P14/12 + P17/22）。本层与 v5.0 pandas/matplotlib 实现互补：库层教"如何结构化螺旋数据"，from scratch 层教"如何用数学推导审计贝叶斯更新"--前者是工程底座，后者是方法论底座。

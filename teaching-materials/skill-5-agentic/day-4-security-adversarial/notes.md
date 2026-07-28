@@ -163,3 +163,15 @@ v4.0 的代码用"手写几个 prompt 试试"--手写测试只能覆盖已知攻
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 garak + PyRIT 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 prompt injection 检测器 + 分层防御管道（injection detector from scratch）
+> - **核心算法**：Naive Bayes log-odds $\ell(x)$ + 层叠漏检率 $F=\prod f_l$（含数学推导 + Bayes 最优阈值）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {re, math, dataclasses}，附 verification_property（层叠漏检率=乘积）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P14/27 Prompt Injection Defense + P18/16 Red Team Tooling
+> - **手写实现要点**：用 from-scratch regex + Naive Bayes 而非 garak probes，理解注入检测到金属层
+> - **verification_property**：已知注入被捕获；正常查询通过；层叠漏检率 = 各层乘积

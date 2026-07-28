@@ -275,3 +275,23 @@ mesa多Agent仿真是天道推演的代码化版本：在意识中构建沙盘�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e10-agent-economy.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent经济 × 多Agent市场设计 × A2A。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，落实 **AI工程从零构建** 哲学：不调 pydantic schema 声明 + mesa 涌现仿真黑箱，**手写 numpy** 实现生态治理的两个核心机制--声誉评分衰减更新 + Shapley 值排列枚举分润。与 notes.md 的 pydantic `ReputationScoring`/`RevenueShare` schema（字段配置）+ mesa 仿真涌现 Gini（治理效果）形成对照：notes.md 声明治理字段并仿真涌现，from scratch 实现治理机制的动力学与公理保证。
+
+核心手写实现（numpy + itertools only，无 pydantic/networkx/mesa/numpy-financial 依赖）：
+- `reputation_update(R_prev, behavior_scores, weights, alpha)`：声誉衰减更新 $R_{t+1}=\alpha R_t + (1-\alpha)\bar b$，多维行为加权 $\bar b = \sum w_k b_k$
+- `shapley_value(value_func, players)`：排列枚举求 Shapley 值 $\phi_i = \frac{1}{n!}\sum_\pi [v(S_\pi(i)\cup\{i\}) - v(S_\pi(i))]$
+
+**数学推导**：Shapley 值四公理（对称性/载体性/可加性/效率）唯一确定公平分配；声誉衰减稳态 $R^*=\bar b$（行为恒定时不动点）；BFT 门限 $\tau$ 与声誉准入的同构（$n \geq 3f+1$ 容错 -> 低于 $\tau$ 的 Agent 被驱逐）。
+
+**verification_property**：Shapley 对称性（对称 3 人博弈 $\phi_A=\phi_B=\phi_C=4.0$）；Shapley 效率（$\sum\phi_i=v(N)=12$）；声誉衰减稳态（$\alpha=0.7$ 下 $R \to \bar b=0.875$）。
+
+rohitg00 深链（来自 `_from_scratch_map/elective-e10-agent-economy.md`，对应 ai-engineering-from-scratch 仓库的 multi-agent consensus 与 ethics/regulatory phase）：
+- [P16/14 Consensus and BFT](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/16-multi-agent-and-swarms/14-consensus-and-bft/README.md)
+- [P18/24 Regulatory Frameworks EU US UK Korea](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/18-ethics-safety-alignment/24-regulatory-frameworks-eu-us-uk-korea/README.md)
+
+详见 `from_scratch.md` 的 `scratch_topic` / `core_algorithm` / `code_artifact` / `connection_to_unit` / `deep_dive_links` / `exercises` 六节。

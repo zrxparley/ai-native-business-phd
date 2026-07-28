@@ -205,3 +205,9 @@ Day 2已认知的**garak**（NVIDIA LLM漏洞扫描器）和**PyRIT**（微软�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e9-ai-safety-alignment.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：可扩展监督 × 机制可解释性 × Agent安全。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 NIST RMF 风险评分聚合（加权风险函数 + 风险矩阵），对应 rohitg00 P18/24 Regulatory Frameworks + P18/18 Frontier Safety Frameworks（ai-engineering-from-scratch）。AI工程从零构建层把 pydantic 合规扫描器的评分聚合数学拆开：core_algorithm 从加权均值公式 $R_f=\sum w_i s_i / \sum w_i$ 数学推导两层聚合（函数内控制项加权 + 跨函数加权），再到 likelihood-impact 风险矩阵的乘积模型 $R_{\text{matrix}}=L \times I$ 与 composite 融合 $R=\alpha R_{\text{control}}+(1-\alpha)R_{\text{matrix}}/25 \times 100$。scratch_topic 锚定"治理分数 70 分"的数值来源。code_artifact 用纯 numpy 手写（加权控制分 + NIST 四函数聚合 + 5×5 风险矩阵 + composite 融合），配 verification_property 验证加权均值有界性、矩阵乘积边界、风险等级单调性。手写实现让"Govern 权重 0.30 高于 Map 0.20"这类治理决策在白板级代码中显形，不被 pydantic schema 的默认值遮蔽。rohitg00 深链见 deep_dive_links。详见 `from_scratch.md`。

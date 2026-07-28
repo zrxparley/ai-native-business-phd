@@ -229,3 +229,15 @@ v4.0 的代码用"手写特征工程"演示概念。v5.0 改用工业级真实�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-1-representation.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：表示工程 × 多模态对齐 × 检索蒸馏。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 sentence-transformers + scikit-learn + torch 形成对照。
+> - **从零构建主题**：手写 word2vec SGNS + SVD 降维
+> - **核心算法**：Skip-gram 负采样损失 $\mathcal{L}_{\text{SGNS}} = -\log\sigma(\mathbf{v}'_c \cdot \mathbf{v}_w) - \sum_{n} \log\sigma(-\mathbf{v}'_n \cdot \mathbf{v}_w)$ + 截断 SVD $X_k = U_k \Sigma_k V_k^T$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, collections}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P5/03 Word Embeddings Word2Vec + P1/11 SVD
+> - **手写实现要点**：用 from-scratch numpy SGNS + SVD 而非 sentence-transformers + sklearn PCA，理解到金属层
+> - **verification_property**：共现词对余弦相似度 > 非共现词对；SVD 降维输出 (V, k)

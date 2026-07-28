@@ -224,3 +224,7 @@ ASReview（Utrecht University 开发）是AI辅助系统性文献综述的开源
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，把 PRISMA 四阶段筛选与 ASReview 主动学习从 pandas/sklearn/ASReview 库调用下沉到 AI工程从零构建的 numpy 数学推导层。scratch_topic：手写 PRISMA 2020 四阶段筛选漏斗 + ASReview 主动学习排序（种子扩样余弦排序 + recall/precision 度量），对应 rohitg00 P5 Information Retrieval Search（信息检索排序）+ P18 Data Provenance Training Governance（数据溯源），链接取自 `_from_scratch_map/module-r-research-methodology.md`。core_algorithm 从 PRISMA attrition 漏斗 $n_1\to n_2\to n_3\to n_4\to n_5$ 与筛选 recall/precision 定义 $\text{recall}=TP/(TP+FN)$、$\text{precision}=TP/(TP+FP)$ 出发，推导 ASReview 相关性函数 $f(u)=\max_{l\in L^+}\cos(\mathbf{tf}_u,\mathbf{tf}_l)$ 与种子扩样的几何聚簇解释，把"主动学习省 80% 标注"从经验转成可计算论证。code_artifact 手写 numpy（≤50 行，imports 严格白名单），实现 `prisma_funnel` + `asreview_rank` + `recall_precision`，verification_property 锚定"种子扩样 recall$\geq 0.66$"。connection_to_unit 给出 ≥3 delta：ASReview 黑箱 vs 余弦扩样可审计；$\kappa$ 高不代表 recall 高；PRISMA 流程图从文档升级为状态机。exercises 绑定 `starter.ipynb` TODO3（$\kappa$）与 `practice.md` PRISMA drill。rohitg00 深链见 from_scratch.md deep_dive_links 节（ai-engineering-from-scratch 仓库 P5/14 + P18/27）。本层与 v5.0 pandas/sklearn/ASReview 实现互补：库层教"如何执行 PRISMA 流程"，from scratch 层教"如何用数学推导审计检索效率"--前者是工程底座，后者是方法论底座。

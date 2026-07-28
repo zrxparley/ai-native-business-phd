@@ -255,3 +255,23 @@ Agent作为经济主体需要自主决策，而决策基于对市场的不完全
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e10-agent-economy.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent经济 × 多Agent市场设计 × A2A。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，落实 **AI工程从零构建** 哲学：不调 mesa 的贝叶斯 ABM 黑箱，**手写 numpy** 实现博弈论 `payoff_matrix` + `best_response` 迭代（fictitious play）求解 Nash 均衡。与 notes.md 的 mesa 仿真（贝叶斯价格信念 + A2A 协商）形成对照：mesa 是 agent-based 学习仿真（回答"会发生什么"），from scratch 是博弈论均衡分析（回答"应该发生什么"），两者互补刻画 Agent 作为经济主体的策略行为。
+
+核心手写实现（numpy only，无 mesa/networkx/numpy-financial 依赖）：
+- `best_response_iter(payoff_A, payoff_B)`：fictitious play 迭代求混合策略 Nash（Brown 1951 提出，Robinson 1951 证明零和博弈收敛性）
+- `nash_mixed_closed_form_2x2(payoff_B)`：2x2 博弈混合 Nash 闭式解（无差异原则）
+
+**数学推导**：Nash 均衡存在性（Kakutani 不动点定理）、best response 映射 $BR_i(\sigma_{-i}) = \arg\max_{\sigma_i} u_i(\sigma_i, \sigma_{-i})$、混合策略无差异原则 $p^* = \frac{b_{22}-b_{21}}{b_{11}-b_{12}-b_{21}+b_{22}}$、fictitious play 经验频率收敛速率 $O(1/\sqrt{t})$。
+
+**verification_property**：Prisoner's Dilemma 收敛到纯策略 Nash (Defect, Defect)（Defect 严格占优）；Matching Pennies（零和博弈）fictitious play 经验频率收敛到混合 Nash `[0.5, 0.5]`。
+
+rohitg00 深链（来自 `_from_scratch_map/elective-e10-agent-economy.md`，对应 ai-engineering-from-scratch 仓库的 multi-agent 与 RL phase）：
+- [P16/21 Agent Economies](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/16-multi-agent-and-swarms/21-agent-economies/README.md)
+- [P9/07 Actor-Critic A2C A3C](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/phases/09-reinforcement-learning/07-actor-critic-a2c-a3c/README.md)
+
+详见 `from_scratch.md` 的 `scratch_topic` / `core_algorithm` / `code_artifact` / `connection_to_unit` / `deep_dive_links` / `exercises` 六节。

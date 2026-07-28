@@ -162,3 +162,15 @@ v4.0 的代码用"手写 for 循环 + 字典统计"--手写统计只能做单维
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-2-ai-native-arch.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：企业Agent编排 × MCP/A2A 标准化协议。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 pandas + networkx + LangGraph interrupt 形成对照。
+> - **从零构建主题**：手写 HITL interrupt 工作流 + 审批门控 + 人工干预率统计
+> - **核心算法**：interrupt_before 等待状态机 + 审批门控 $\text{gate}(s) = \text{approved}(s) \lor \text{rev} \ge r_{\max}$ + 干预率 $r_k = \frac{1}{|T_k|}\sum \mathbb{1}[\text{human}]$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy, typing}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P14 Agent Engineering（Anthropic Workflow Patterns / REWOO Plan and Execute）
+> - **手写实现要点**：用 from-scratch numpy + dict 而非 LangGraph interrupt_before + pandas groupby，理解到 HITL 等待状态机的金属层
+> - **verification_property**：interrupt 在 approve 前暂停；resume 跳过首节点中断检查执行被暂停节点；干预率 0.4>0.3 触发降级

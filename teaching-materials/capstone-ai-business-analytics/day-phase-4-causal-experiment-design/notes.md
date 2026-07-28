@@ -190,3 +190,9 @@ Uplift建模（增量建模）是营销领域的因果推断应用：估计每�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 ATE/IPW 估计器 + DML 双重机器学习，从零构建 numpy 版因果估计器，不调 DoWhy、不调 econml、不调 sklearn。对应 rohitg00 P19/52 Experiment Runner + P19/53 Result Evaluator。core_algorithm 从第一性原理推导 IPW 逆倾向得分加权 $\hat{\text{ATE}}_{\text{IPW}} = \frac{1}{n}\sum[\frac{T_i Y_i}{\hat{e}(X_i)} - \frac{(1-T_i)Y_i}{1-\hat{e}(X_i)}]$ + DML 双重正交 $\hat{\theta} = \frac{\sum \tilde{T}_i \tilde{Y}_i}{\sum \tilde{T}_i^2}$，code_artifact 含手写 numpy 骨架（logistic_irls 倾向得分 -> ipw_ate 加权估计 -> ols nuisance -> dml_ate 残差正交），verification_property 验证 IPW/DML 收敛真实 ATE + 朴素有偏 + DML 优于朴素。与 notes.md 的 DoWhy+econml 库实现对比：库版用 CausalModel.estimate_effect + LinearDML 黑箱，from-scratch 版让因果估计可逐行审计。这是因果实验设计的可计算内核--ai-engineering-from-scratch 的工程底座。

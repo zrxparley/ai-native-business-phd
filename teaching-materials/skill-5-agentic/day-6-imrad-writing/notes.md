@@ -170,3 +170,15 @@ mastery 阈值与 Worked-Faded 示例见 `practice.md` 与 `alignment.md`。交�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 arxiv + statsmodels 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写实验追踪 logger（trace + span，OTel GenAI 风格）
+> - **核心算法**：trace/span DAG + 尾延迟 P95 order statistics + GenAI 语义约定（含数学推导 + 可复现回溯）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {dataclasses, typing}，附 verification_property（P50≤P95 单调性）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P14/24 Agent Observability Platforms + P14/23 OTel GenAI Conventions
+> - **手写实现要点**：用 from-scratch Tracer 而非 LangSmith/Langfuse，理解 trace/span 到金属层
+> - **verification_property**：所有 span 共享 trace_id；P50 ≤ P95；n_spans 无丢失

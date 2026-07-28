@@ -155,3 +155,15 @@ v4.0 的代码用"手写 `time.time()` 计时 + `print` 打日志"--手写监控
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangSmith + tiktoken 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 vLLM 连续批处理调度骨架（continuous batching from scratch）
+> - **核心算法**：Little's Law $L=\lambda W$ + KV cache 页分配 + 碎片率 $\text{frag}$（含数学推导 + 背包调度）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {math, dataclasses}，附 verification_property（页回收无泄漏）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P17/04 vLLM Serving Internals + P17/13 LLM Observability
+> - **手写实现要点**：用 from-scratch admit/decode/evict 循环而非 vLLM PagedAttention，理解推理调度到金属层
+> - **verification_property**：所有请求有限步完成；free_pages 完全回收；running 不超 max_batch

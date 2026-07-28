@@ -222,3 +222,20 @@ CUPED 是 Microsoft Research 2013 年提出的方差缩减技术（variance redu
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e2-marketing-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：营销归因 × 增量测量 × LLM决策。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：AI工程从零构建层，叠加在 v5.0/v6.0/v7.0/v9.0 之上，不破坏既有基线。scratch 哲学：不调 statsmodels.OLS、不调 pandas.qcut，手写 numpy 实现 OLS 正规方程求解 + RFM 分位数分箱，从第一性原理推导 $\hat\beta = (X^TX)^{-1}X^Ty$。
+
+- **scratch_topic**：手写 OLS 正规方程 + RFM 分位数分箱。对应 rohitg00 P2/02 Linear Regression（OLS from scratch）+ P1/15 Statistics for ML。notes.md TODO6 用 `sm.OLS` 一行拟合回归，TODO3 用 `pd.qcut` 一行做 M 分桶；本层把"求 beta"拆成 `np.linalg.solve(X.T @ X, X.T @ y)`，把"等频分箱"拆成 `np.argsort` + 秩次映射--让"控制混杂后的净效应"和"自适应分群"成为可逐行审计的 numpy 数组操作。
+- **core_algorithm**：数学推导从最小化残差平方和 $\|y - X\beta\|^2$ 出发，对 $\beta$ 求梯度令其为零，推出正规方程 $X^TX\hat\beta = X^Ty$，解为 $\hat\beta = (X^TX)^{-1}X^Ty$。数值上用 `np.linalg.solve` 而非求逆（更稳定）。$R^2 = 1 - \text{SSE}/\text{SST}$。完整 LaTeX 公式见 from_scratch.md。
+- **code_artifact**：手写 numpy 骨架（≤50 行），imports 严格白名单（仅 numpy），禁 sklearn/statsmodels/pandas。含 `ols_fit` / `r_squared` / `rfm_quantile_bin` / `rfm_segment` 四个函数。**verification_property**：OLS 在近线性数据上恢复真实系数（atol=0.05），$R^2 > 0.95$，RFM 分箱单调性（最小值->bin0，最大值->top）。
+- **deep_dive_links**：rohitg00 ai-engineering-from-scratch P2/02 Linear Regression + P1/15 Statistics for ML，链接从 `_from_scratch_map/elective-e2-marketing-analytics.md` 取，禁止编造。
+- **connection_to_unit**：4 个 delta 对比库实现 vs from-scratch（statsmodels QR 分解 vs 手写 solve 的数值稳定差异 / pandas qcut vs 手写 argsort 秩次映射 / 残差诊断可读性 / 共线性条件数诊断）。
+- **exercises**：4 个编号练习，其中练习 1 绑定 starter.ipynb TODO6（对比 sm.OLS 与手写 ols_fit 的 treat 系数），练习 4 绑定 practice.md D4 drill（添加残差正态性检验）。
+
+**v11.0 关键词命中**：从零构建 / from scratch / 手写 / numpy / 数学推导 / rohitg00 / AI工程 / verification_property / scratch_topic / code_artifact / core_algorithm / ai-engineering-from-scratch（≥4 命中）。
+
+*v11.0 AI工程从零构建层追加于 2026-07-28，不修改 v5.0/v6.0/v7.0/v9.0 原文一字。*

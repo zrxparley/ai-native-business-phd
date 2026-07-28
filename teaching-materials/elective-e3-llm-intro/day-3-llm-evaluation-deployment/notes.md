@@ -188,3 +188,15 @@ AgentBench（arXiv 2308.03688）是评估 LLM Agent 能力的基准，测试多�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e3-llm-intro.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM推理经济 × 推理模型 × 高效推理。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建（旗舰模块），与本单元 deepeval BaseMetric 规则评分 + tiktoken API 成本形成"信息论指标 + 量化降本"对照。
+> - **从零构建主题**：手写 INT8 对称量化（矩阵分解 + 反量化误差）+ 手写 perplexity 计算 + 手写 greedy/beam search（LLM eval + deployment from scratch）
+> - **核心算法**：INT8 对称量化 $\text{scale}=\max(|W|)/127$ + round + 反量化误差 + perplexity $=\exp(-\text{mean}(\text{NLL}))$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy/math 骨架（≤50行），imports ⊆ 白名单 {numpy, math}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P11/10 Evaluation + P17/04 vLLM Serving Internals（ai-engineering-from-scratch 仓库）
+> - **手写实现要点**：用 from-scratch INT8 量化而非 deepeval/vLLM 黑箱，理解量化误差到数学层；notes.md 标注"不实装"被 from-scratch 打破
+> - **verification_property**：INT8 范围 $[-127,127]$；反量化相对 L2 误差 $<5\%$；均匀分布 PPL $= V$（词表大小）

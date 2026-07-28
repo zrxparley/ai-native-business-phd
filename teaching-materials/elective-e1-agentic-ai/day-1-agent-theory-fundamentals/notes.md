@@ -196,3 +196,15 @@ v4.0的代码用"伪代码+模拟输出"--让你看到结构但学不到真实AP
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e1-agentic-ai.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：多Agent框架 × 协作拓扑。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangChain/LangGraph/pydantic 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 BDI（信念-愿望-意图）推理循环状态机（agent loop from scratch）
+> - **core_algorithm**：BDI 推理循环 $B_t=\text{BR}(B_{t-1},\text{obs}_t)$ / $D_t=\text{options}(B_t,I_{t-1})$ / $I_t=\text{filter}(B_t,D_t,I_{t-1})$（含数学推导 + intention persistence 条件公式）
+> - **code_artifact**：手写纯 Python dataclass 骨架（≤50行），imports ⊆ {dataclasses}，附 verification_property（max_iter 终止 + 意图持续性）
+> - **deep_dive_links**：rohitg00 ai-engineering-from-scratch P14/01 The Agent Loop + P14/03 Reflexion Verbal RL
+> - **手写实现要点**：用 from-scratch BDI 状态机而非 LangChain create_react_agent，理解 agent 认知架构（信念修订/意图持续）到金属层
+> - **verification_property**：bdi_loop 在 max_iter 内终止；每步先修订信念再执行意图；intention 持续直到耗尽才 replan

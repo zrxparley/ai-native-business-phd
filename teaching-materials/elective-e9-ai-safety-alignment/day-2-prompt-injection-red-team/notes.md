@@ -183,3 +183,9 @@ v4.0 的代码用"手写几个prompt试试"--手写测试只能覆盖已知攻�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e9-ai-safety-alignment.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：可扩展监督 × 机制可解释性 × Agent安全。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 Prompt Injection 检测器（关键词/模式匹配 + Shannon 熵异常检测），对应 rohitg00 P18/15 Indirect Prompt Injection + P18/16 Red Team Tooling（ai-engineering-from-scratch）。AI工程从零构建层把 L1 输入过滤从纯 regex 黑名单升级为 regex + 熵异常双信号融合：core_algorithm 从 Shannon 熵公式 $H(X)=-\sum p(c)\log_2 p(c)$ 数学推导，解释自然语言（偏斜分布 $H\approx 3.5$-$4.0$）与 Base64 编码载荷（近均匀分布 $H\to 6$）的熵差为何是编码注入的统计指纹。scratch_topic 锚定 PI-11 编码绕过攻击的 from-scratch 防线。code_artifact 用纯 numpy 手写（Shannon 熵 + 熵异常 clipsigmoid + regex 模式匹配 + max 融合评分），配 verification_property 验证合规文案低分/直接注入 regex 命中/编码载荷熵异常三类场景。手写实现让 garak encoding probe 背后的数学原理在白板级代码中显形，不被 garak/PyRIT 的工具抽象遮蔽。rohitg00 深链见 deep_dive_links。详见 `from_scratch.md`。

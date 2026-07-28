@@ -182,3 +182,15 @@ MCP 是 Anthropic 提出的 LLM 工具调用开放协议，标准化 LLM 与外�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e3-llm-intro.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM推理经济 × 推理模型 × 高效推理。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建（旗舰模块），与本单元 numpy TF-IDF 检索形成"向量空间 TF-IDF vs 概率检索 BM25"对照。
+> - **从零构建主题**：手写 BM25 检索 + top-k RAG 上下文拼接（RAG from scratch，不调 langchain VectorStore / sentence-transformers）
+> - **核心算法**：BM25 概率检索公式（含数学推导 + LaTeX，IDF 贝叶斯后验 + tf 饱和 $k_1$ + 文档长度归一化 $b$）
+> - **code_artifact**：手写 numpy/math/collections 骨架（≤50行），imports ⊆ 白名单 {numpy, math, collections}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P11/06 RAG + P11/09 Function Calling + P11/14 MCP（ai-engineering-from-scratch 仓库）
+> - **手写实现要点**：用 from-scratch BM25 而非 langchain VectorStore，理解检索到概率模型层（Robertson 2-泊松模型）
+> - **verification_property**：BM25 score 当 $f=0$ 时贡献为 0；tf 饱和上界 $\text{IDF}\cdot(k_1+1)$；长文档被 $b>0$ 惩罚

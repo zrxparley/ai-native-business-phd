@@ -204,3 +204,15 @@ v5.0 的 6 个 TODO 填空 + solution.ipynb 仍是核心上机交付物。v6.0 �
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-1-representation.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：表示工程 × 多模态对齐 × 检索蒸馏。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 transformers CLIPModel/BLIP + torch 形成对照。
+> - **从零构建主题**：手写 CLIP 对比损失 + 跨模态对齐
+> - **核心算法**：InfoNCE 对称对比损失 $\mathcal{L}_{\text{CLIP}} = \frac{1}{2}(\mathcal{L}_{\text{i2t}} + \mathcal{L}_{\text{t2i}})$，$\mathcal{L}_{\text{i2t}} = -\frac{1}{N}\sum_i \log\frac{\exp(S_{ii}/\tau)}{\sum_j \exp(S_{ij}/\tau)}$（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P12/02 CLIP Contrastive Pretraining + P12/03 BLIP2 QFormer Bridge
+> - **手写实现要点**：用 from-scratch numpy InfoNCE 对称损失 而非 transformers CLIPModel + torch，理解到金属层
+> - **verification_property**：对齐对 loss < 随机对 loss；小 $\tau$ 使对齐 loss 更低（分布更尖锐）

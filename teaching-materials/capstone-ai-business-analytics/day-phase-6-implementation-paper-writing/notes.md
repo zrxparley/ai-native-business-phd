@@ -238,3 +238,9 @@ DSR（Hevner et al. 2004, MIS Quarterly）在AI原生系统时代获得新生命
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/capstone-ai-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：端到端AI原生企业闭环（综合）。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`：手写 IMRaD 结构校验（DFA 状态机）+ 引用图影响力排序（HITS 算法），从零构建 numpy/python 版论文质量评估引擎，不调 langsmith、不调 deepeval、不调 statsmodels。对应 rohitg00 P19/57 End to End Research Demo + P19/54 Paper Writer。core_algorithm 从第一性原理推导 IMRaD 校验 DFA 转移函数 $\delta(q_0, \text{Intro}) = q_I \to q_M \to q_R \to q_{acc}$ + HITS 超链接迭代 $\mathbf{a} = A^T \mathbf{h}, \mathbf{h} = A \mathbf{a}$，code_artifact 含手写骨架（validate_imrad DFA 校验 -> parse_citations 正则解析 -> build_citation_graph 邻接矩阵 -> hits 幂迭代），verification_property 验证 IMRaD 缺失/乱序检测 + authority 排序 + hub 排序。与 notes.md 的 deepeval+langsmith+statsmodels 库实现对比：库版用 GEval LLM-as-judge 黑箱评分，from-scratch 版让论文结构合规与引用影响力可逐行审计。这是论文撰写与发表的可计算内核--ai-engineering-from-scratch 的工程底座。

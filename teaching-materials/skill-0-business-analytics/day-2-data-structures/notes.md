@@ -227,3 +227,15 @@ v5.0 的 7 条验收 (verify_unit.py) 不变, v6.0 在其上叠加 5 条 (verify
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-0-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM-as-data-analyst × Polars/duckdb 列式引擎。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 Python 内置数据结构（list/dict/set + collections + heapq）形成对照。
+> - **从零构建主题**：手写向量/矩阵运算 + 线性系统求解
+> - **核心算法**：矩阵乘法 $C_{ij}=\sum_k A_{ik}B_{kj}$ + 高斯消元（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy 骨架，imports ⊆ {numpy}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P1/02 Vectors Matrices Operations + P1/17 Linear Systems
+> - **手写实现要点**：用 from-scratch numpy 矩阵运算而非 list/dict，理解到金属层
+> - **verification_property**：matmul 匹配 numpy @；gauss_solve 精确恢复已知解；残差 ≈ 0

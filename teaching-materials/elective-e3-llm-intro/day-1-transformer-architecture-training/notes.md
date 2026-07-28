@@ -185,3 +185,15 @@ LLM 是营销 Agent 的引擎。本 Day 处理一个"营销文案 tokenization +
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/elective-e3-llm-intro.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM推理经济 × 推理模型 × 高效推理。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建（旗舰单元），与本单元 torch 手写注意力形成"纯 numpy vs torch"对照。
+> - **从零构建主题**：手写 scaled dot-product attention + multi-head attention（self-attention from scratch）
+> - **核心算法**：softmax(QK^T/√d_k)V（含数学推导 + LaTeX，缩放因子与因果掩码）
+> - **code_artifact**：手写 numpy 骨架（≤50行），imports ⊆ {numpy}，附 verification_property（权重行和=1）
+> - **延伸阅读**：rohitg00 AI工程 from scratch P7/02 Self Attention + P7/05 Full Transformer + P10/04 Pre-training Mini GPT
+> - **手写实现要点**：用 from-scratch numpy 而非 torch.nn.MultiheadAttention，理解注意力到金属层
+> - **verification_property**：attention 权重行和=1；因果掩码上三角≈0；multi-head 输出形状=输入形状

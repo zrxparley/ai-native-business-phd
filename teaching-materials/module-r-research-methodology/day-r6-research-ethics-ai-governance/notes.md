@@ -198,3 +198,7 @@ R6 是模块R（博士研究方法论）的收官单元：
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/module-r-research-methodology.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM辅助系统综述 × 可复现性危机。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+## AI工程从零构建层 (v11.0)
+
+本单元新增 `from_scratch.md`，把 IRB 风险分级与 NIST RMF 控制项合规从 pydantic/pandas 库调用下沉到 AI工程从零构建的 numpy 数学推导层。scratch_topic：手写 IRB 风险分级模型（Belmont 善行原则的风险-收益加权方程）+ NIST RMF 控制项合规扫描器，对应 rohitg00 P18 Regulatory Frameworks EU US UK Korea（监管框架）+ P18 Model System Dataset Cards（透明度卡片），链接取自 `_from_scratch_map/module-r-research-methodology.md`。core_algorithm 从 Belmont 1979 善行原则出发，推导总风险 $R_{gross}=\sum_i w_i f_i$ 与净风险 $R_{net}=R_{gross}-\lambda\sum_j c_j m_j$（$\lambda$ 控制缓解抵扣），风险分级 minimal/greater/high 由阈值 $\tau_1,\tau_2$ 划定；NIST SP 800-53 控制项加权合规分 $C=\tfrac{\sum_k v_k x_k}{2\sum_k v_k}\in[0,1]$，高临界控制（IA-2 $v=1.2$）fail 时一票否决，把"伦理审查"从 pydantic 枚举字段转成可计算数值模型。code_artifact 手写 numpy（≤50 行，imports 严格白名单），实现 `irb_risk` + `risk_tier` + `nist_compliance`，verification_property 锚定"高风险无缓解=high、低风险全缓解=minimal、NIST 部分合规 non_compliant、全 pass compliant"。connection_to_unit 给出 ≥3 delta：TODO3 pydantic 逐项打分 vs from scratch 加权方程；Belmont 善行操作化为缓解抵扣；NIST 控制项非等权 + 一票否决。exercises 绑定 `starter.ipynb` TODO3（IRB 评分器）与 `practice.md` 伦理审查 drill。rohitg00 深链见 from_scratch.md deep_dive_links 节（ai-engineering-from-scratch 仓库 P18/24 + P18/26）。本层与 v5.0 pydantic/pandas 实现互补：库层教"如何执行伦理审查清单"，from scratch 层教"如何用数学推导审计风险量化与合规加权"--前者是工程底座，后者是方法论底座。

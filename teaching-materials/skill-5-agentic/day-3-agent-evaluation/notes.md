@@ -180,3 +180,15 @@ v4.0 的代码用"手写 if-else 检查输出格式"--手写评估只能做规�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（5 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估与LLM-as-a-Judge。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 deepeval 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写 Agent eval harness（任务 fixture + 通过率 + Wilson CI + 轨迹评分）
+> - **核心算法**：Wilson 置信区间 $\text{CI}_{95}$ + Cohen's $\kappa$ judge 一致性（含数学推导 + 小样本修正）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {math, dataclasses}，附 verification_property（CI 覆盖率保证）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P14/19 Benchmarks SWE-bench GAIA + P14/30 Eval Driven Agent Development
+> - **手写实现要点**：用 from-scratch 指标函数而非 deepeval BaseMetric，理解评估到金属层
+> - **verification_property**：pass_rate ∈ [0,1]；Wilson CI 下界 ≤ pass_rate ≤ 上界

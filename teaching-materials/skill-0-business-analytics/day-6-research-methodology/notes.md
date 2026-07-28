@@ -197,3 +197,15 @@ FAIR 原则要求研究数据和代码是 **F**indable（可发现）、**A**cce
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-0-business-analytics.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：LLM-as-data-analyst × Polars/duckdb 列式引擎。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 arxiv + networkx + OSF/FAIR 可复现研究形成对照。
+> - **从零构建主题**：手写可复现实验 + 数值稳定技巧
+> - **核心算法**：log-sum-exp 稳定 $m+\log\sum e^{x_i-m}$ + FNV-1a 实验指纹（含数学推导 + LaTeX）
+> - **code_artifact**：手写 numpy + math + random 骨架，imports ⊆ {numpy, math, random}，附 verification_property
+> - **延伸阅读**：rohitg00 AI工程 from scratch P0/12 Debugging and Profiling + P1/13 Numerical Stability
+> - **手写实现要点**：用 from-scratch math + random 而非 scipy.special/hashlib，理解到金属层
+> - **verification_property**：stable_logsumexp 大 x 不溢出；同 seed 同 shuffle；指纹对版本敏感

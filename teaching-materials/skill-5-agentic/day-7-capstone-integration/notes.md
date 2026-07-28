@@ -213,3 +213,15 @@ DSR（Hevner et al. 2004, MIS Quarterly）是信息系统的经典研究范式�
 ## 学术前沿层 (v9.0)
 
 本单元新增 `frontier.md`：注入 2025-2026 最新学术前沿（N 篇真实 arXiv 论文 + 批判性综述 + delta_to_unit + ≥3 开放研究问题 + 方法论批评）。论文来自 `_frontier_corpus/skill-5-agentic.md` 共享语料库（arXiv 搜索 + abstract 页抽查验证），覆盖前沿课题：Agent评估 × LLM-as-a-Judge × Agent可靠性。面向博后/教授级读者：批判性综述非罗列，delta_to_unit 显式指出前沿如何更新本单元所教，开放问题为可发表研究方向。详见 `frontier.md`。
+
+---
+
+## AI工程从零构建层 (v11.0)
+
+> v11.0 新增 [`from_scratch.md`](./from_scratch.md)：AI工程从零构建，与本单元 LangGraph + deepeval + langsmith 库实现形成"from-scratch vs 库"对照。
+> - **从零构建主题**：手写端到端 Agent runtime（loop + tool + guardrail + observability 四件套组装）
+> - **核心算法**：层组合可靠性 $R=\prod R_l$ + SLO 误差预算 + guardrail AND 语义 $F=F_{\text{in}}\cdot F_{\text{out}}$（含数学推导 + 工具异常隔离）
+> - **code_artifact**：手写纯 Python 骨架（≤50行），imports ⊆ {dataclasses}，附 verification_property（注入拦截 + 工具异常不崩）
+> - **延伸阅读**：rohitg00 ai-engineering-from-scratch P14/29 Production Runtimes + P17/23 SRE for AI
+> - **手写实现要点**：用 from-scratch AgentRuntime 四件套而非 LangGraph create_react_agent，理解生产 runtime 到金属层
+> - **verification_property**：正常查询返回 answer；注入被 guard 拦截；工具异常捕获不崩；max_steps 内终止
