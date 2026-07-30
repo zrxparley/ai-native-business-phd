@@ -6,7 +6,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-zrxparley/ai--native--business--phd-blue?logo=github)](https://github.com/zrxparley/ai-native-business-phd)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
-![Version](https://img.shields.io/badge/version-v11.0-orange)
+![Version](https://img.shields.io/badge/version-v12.1-orange)
 ![Days](https://img.shields.io/badge/days-58-blue)
 ![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
 ![Papers](https://img.shields.io/badge/arXiv%20papers-185_(124%2B61)-9cf)
@@ -89,13 +89,25 @@ Pick 3 (18h). **Recommended combo C** (best fit for the maintainer's background)
 | E1 | Agentic AI | Skill 5 |
 | E2 | Marketing Analytics & Intelligence | Skill 1 + 3 |
 | E3 | Introduction to Large Language Models | Skill 2 + 5 |
-| E4 | NLP for Business Applications | Skill 1 |
-| E5 | Programming with GenAI | Skill 5 |
-| E6 | Cloud Computing for AI | Skill 5 |
-| E7 | AI-based Optimization | Skill 3 |
-| E8 | Data Visualization for Business | Skill 0 |
-| E9 | AI Safety & Alignment | Skill 5 |
+| E4 | 商业智能与数据可视化 (BI & Data Visualization) ⭐ | Skill 0 + 1 |
+| E5 | 商业生成式AI应用与流程自动化 (GenAI Apps & Process Automation) ⭐ | Skill 5 + 2 |
+| E6 | 应用统计与优化方法 (Applied Statistics & Optimization) ⭐ | Skill 0 + 3 |
+| E7 | 计算机视觉与多模态感知 (Computer Vision & Multimodal) ⭐ | Skill 1 |
+| E8 | 深度学习与生成模型进阶 (DL & Generative Models) ⭐ | Skill 1 + E3 |
+| E9 | AI Safety & Alignment | Skill 5 + 2 |
 | E10 | Agent Economy & Business Models | Skill 4 + 5 |
+| E11 | 推荐系统与个性化营销 (Recommender Systems) ⭐ | Skill 1 + 3 |
+| E12 | 语音AI与音频处理 (Speech AI & Audio Processing) ⭐ | Skill 1 + 5 |
+| E13 | 战略思维画布工具集 (Strategic Thinking Canvas Tools) ⭐ | Skill 4 + 2 |
+
+> ⭐ = v4.2 新增教材，对标 Fairfield AIBA + MSc Applied AI 双维度
+
+**Recommended combos**:
+- Combo C (original): E1 + E2 + E3 — Agentic AI + Marketing + LLM
+- Combo D: E2 + E5 + E6 — Marketing + GenAI Apps + Statistics (AIBA-oriented)
+- Combo E: E1 + E4 + E5 — Agentic AI + BI + GenAI Apps (enterprise deployment)
+- Combo F: E7 + E8 + E11 — CV + DL + RecSys (Applied AI technical)
+- Combo G: E4 + E6 + E11 — BI + Statistics + RecSys (marketing data science)
 
 ---
 
@@ -116,7 +128,7 @@ Doctoral thesis direction: *"An AI-Native Enterprise Marketing Agent System: A C
 
 ## Versions
 
-Eleven iterations. v8.0 deliberately skipped. Latest = **v11.0**.
+Eleven iterations + dual-benchmark fusion. v8.0 deliberately skipped. Latest = **v12.1**.
 
 | Date | Version | Name | Highlight |
 |---|:---:|---|---|
@@ -132,8 +144,10 @@ Eleven iterations. v8.0 deliberately skipped. Latest = **v11.0**.
 | 2026-07-27 | v9.0 | Frontier injection | + frontier.md × 58 units, 124 real 2025-2026 arXiv papers, `_frontier_corpus/` 13-module corpus, `verify_v9_unit.py` 17/17 *(v8 skipped)* |
 | 2026-07-27 | v10.0 | Deep-dive monographs | + 4 flagship deep-dives (scalable oversight / causal-LLM / LLM reasoning economy / agent eval), 61 papers, `verify_v10_deepdive.py` |
 | 2026-07-28 | v11.0 | From-scratch engineering | + `from_scratch.md` × 58 units (handwritten numpy backprop / attention / agent-loop / INT8 quantization / DPO / Shapley), standalone textbook《AI工程从零构建》(12 ch · 5 flagship), `_from_scratch_map/` 13-module map, `verify_v11_unit.py` 19/19 *(fuses github.com/rohitg00/ai-engineering-from-scratch)* |
+| 2026-07-30 | v12.0 | Dual-benchmark fusion ⭐ | + 7 new standalone textbooks (E4-E8, E11, E12) aligning to Fairfield AIBA + MSc Applied AI + AEFS 503-lesson integration + 8 existing textbook extensions with AEFS cross-references, 20 standalone textbooks total (~1.55 MB) |
+| 2026-07-30 | v12.1 | Strategic canvas | + E13 战略思维画布工具集 (BLM/DSTE/五看三定/Lean Canvas/Strategy Canvas/VPC/Porter/OKR/Hoshin/North Star) + 技能4/技能2/Capstone extensions |
 
-> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison.
+> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references.
 
 ---
 
@@ -148,24 +162,35 @@ ai-native-business-phd/
 ├── AI原生化商业博士_主教材_v3.1_学位融合版_含英语轨道.md      (v3.1)
 ├── AI原生化商业博士_主教材_v4.0_全球对标与研究方法论版.md     (v4.0 ⭐)
 ├── AI原生化商业博士_v4.0_升级方案.md                        (v4.0 upgrade plan)
+├── AI原生化商业博士_v4.1_迭代计划_对标AIBA.md               (v4.1 AIBA gap analysis)
+├── AI原生化商业博士_v4.1_统一迭代计划_双维对标.md            (v4.1 unified dual-benchmark plan)
+├── AI原生化商业博士_v4.2_融合方案_AEFS.md                   (v4.2 AEFS fusion plan)
 ├── AI原生化商业博士_v5.0_升级方案.md                        (v5.0 upgrade plan)
 │
-│  ── Standalone textbooks (research-grade) ──
+│  ── Standalone textbooks (research-grade, 21 + 1 capstone) ──
 │
-├── AI原生化商业博士_独立教材_技能0_AI商业分析基础.md          (22h · prep)
+├── AI原生化商业博士_独立教材_技能0_AI商业分析基础.md          (29h · prep · +Day 4.5 ML/Day 7 AI编程/NoSQL)
 ├── AI原生化商业博士_独立教材_模块R_博士研究方法论.md          (10h · research methods)
-├── AI原生化商业博士_独立教材_技能1_表示工程与营销智能.md      (8h · core)
+├── AI原生化商业博士_独立教材_技能1_表示工程与营销智能.md      (8h · core · +GNN/异常检测/联邦学习)
 ├── AI原生化商业博士_独立教材_技能2_AI原生企业架构.md          (8h · core)
 ├── AI原生化商业博士_独立教材_技能3_因果推断与规模实验.md      (10h · core)
 ├── AI原生化商业博士_独立教材_技能4_AI驱动商业模式创新.md      (10h · core)
-├── AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md   (14h · core)
-├── AI原生化商业博士_独立教材_选修E1_Agentic_AI.md            (6h · elective)
-├── AI原生化商业博士_独立教材_选修E2_Marketing_Analytics.md   (6h · elective)
-├── AI原生化商业博士_独立教材_选修E3_LLM导论.md               (6h · elective)
-├── AI原生化商业博士_独立教材_选修E9_AI安全与对齐.md          (6h · elective)
+├── AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md   (14h · core · +MLOps/AutoML/推理优化)
+├── AI原生化商业博士_独立教材_选修E1_Agentic_AI.md            (6h · elective · +RPA对比/流程挖掘)
+├── AI原生化商业博士_独立教材_选修E2_Marketing_Analytics.md   (6h · elective · +数据叙事/BI框架)
+├── AI原生化商业博士_独立教材_选修E3_LLM导论.md               (6h · elective · +传统RL基础)
+├── AI原生化商业博士_独立教材_选修E4_商业智能与数据可视化.md   (6h · elective ⭐ AIBA: DATA 6540)
+├── AI原生化商业博士_独立教材_选修E5_商业生成式AI应用与流程自动化.md (6h · elective ⭐ AIBA: DATA 6570)
+├── AI原生化商业博士_独立教材_选修E6_应用统计与优化方法.md     (6h · elective ⭐ AIBA: DATA 6500 + R)
+├── AI原生化商业博士_独立教材_选修E7_计算机视觉与多模态感知.md (6h · elective ⭐ Applied AI: CV)
+├── AI原生化商业博士_独立教材_选修E8_深度学习与生成模型进阶.md (6h · elective ⭐ Applied AI: DL/Diffusion/GNN)
+├── AI原生化商业博士_独立教材_选修E9_AI安全与对齐.md          (6h · elective · +AEFS P18引用)
 ├── AI原生化商业博士_独立教材_选修E10_Agent经济与商业模式.md  (6h · elective)
+├── AI原生化商业博士_独立教材_选修E11_推荐系统与个性化营销.md  (6h · elective ⭐ Applied AI: RecSys)
+├── AI原生化商业博士_独立教材_选修E12_语音AI与音频处理.md     (6h · elective ⭐ Applied AI: Speech)
+├── AI原生化商业博士_独立教材_选修E13_战略思维画布工具集.md  (6h · elective ⭐ BLM/DSTE/Canvas)
 ├── AI原生化商业博士_独立教材_AI工程从零构建.md              (v11.0 · from-scratch engineering · 12 ch / 5 flagship)
-└── AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md    (capstone)
+└── AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md    (capstone · +AEFS P19项目库)
 ```
 
 ---
@@ -281,6 +306,12 @@ Aligned to an **AI + Business Analytics master's** curriculum (since v3.0). All 
 - [The Natural Approach - BYU](https://methodsoflanguageteaching.byu.edu/the-natural-approach)
 - [CMU 10741 Lecture Notes (English)](https://www.cs.cmu.edu/~pradeepr/741/files/lect_notes/)
 
+### v4.2 Dual-Benchmark Alignment
+- [Fairfield University MS in Applied AI (AIBA)](https://www.fairfield.edu/academics/schools-and-colleges/charles-f-dolan-college-of-business/graduate-programs/ms-applied-artificial-intelligence-business-analytics.html) - 9-course mapping (DATA 5405-6570)
+- [AI Engineering from Scratch (AEFS)](https://github.com/rohitg00/ai-engineering-from-scratch) - 503 lessons × 20 phases × ~1050 hrs, MIT license
+- AEFS cross-references embedded in 15 textbooks via `> 🔗 延伸实践：详见 AEFS Phase X · Lesson Y` format
+- AEFS Phase mapping: P0 Setup / P1 Math / P2 ML / P3 DL / P4 CV / P5 NLP / P6 Speech / P7 Transformers / P8 GenAI / P9 RL / P10 LLMs / P11 LLM Eng / P12 Multimodal / P13 Tools&MCP / P14 Agent Eng / P15 Autonomous / P16 Multi-Agent / P17 Infra / P18 Ethics / P19 Capstone
+
 ---
 
 ## Contributing
@@ -304,4 +335,4 @@ MIT - maintained by the system-awakening community.
 ---
 
 *Generated by 系统觉醒 (system-awakening) × 天道推演 (Tian Dao Tui Yan) × WorkBuddy × Claude*
-*Last updated: 2026-07-28*
+*Last updated: 2026-07-30*

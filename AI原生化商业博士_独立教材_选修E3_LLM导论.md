@@ -118,6 +118,9 @@ Attention(Q, K, V) = softmax(Q × K^T / √d_k) × V
 
 RNN/LSTM按顺序处理词，信息需要经过每一步的传递，长距离信息会逐渐衰减。Self-Attention让每个词直接与所有其他词交互，无论距离多远，信息传递路径长度始终为O(1)。这解决了长程依赖问题，也使模型可以并行计算（不需要等待前一步完成）。
 
+> 🔗 **延伸实践**：详见 AEFS Phase 7 · Lesson 02: [Self-Attention from Scratch](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/02-self-attention)
+> 预计时长：~75 min
+
 **机制2：Multi-Head Attention（多头注意力）**
 
 一个Attention Head只能学习一种关联模式。Multi-Head Attention将Q/K/V分成多组，每组独立计算Attention，然后拼接结果。
@@ -129,6 +132,9 @@ Multi-Head(Q, K, V) = Concat(head_1, head_2, ..., head_h) × W_O
 ```
 
 不同的Head可以学习不同的关联模式：有的Head关注语法关系（主谓一致），有的关注语义关系（同义词），有的关注位置关系（相邻词）。这让模型能同时从多个角度理解语言。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 7 · Lesson 03: [Multi-Head Attention](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/03-multi-head-attention)
+> 预计时长：~75 min
 
 **机制3：Positional Encoding（位置编码）**
 
@@ -174,7 +180,262 @@ Self-Attention本身没有顺序概念--它把输入看作"词的集合"而非"�
 
 当前主流LLM（GPT-4、Claude、Llama）几乎都是Decoder-only架构。原因是Decoder-only的生成能力和Scale Law表现更好。
 
-#### 三、LLM训练三阶段
+> 🔗 **延伸实践**：详见 AEFS Phase 7 · Lesson 14: [Build a Transformer from Scratch](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/14-build-transformer)
+> 预计时长：~120 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 10 · Lesson 04: [Pre-Training a Mini GPT (124M)](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/10-pre-training/04-mini-gpt)
+> 预计时长：~120 min
+
+#### 三、传统强化学习基础：从MDP到PPO
+
+在深入LLM的对齐训练（特别是RLHF）之前，理解传统强化学习（Reinforcement Learning, RL）的理论基础至关重要。RLHF中的"RL"指的就是强化学习，而RLHF最核心的优化算法PPO（Proximal Policy Optimization）正是传统RL的经典方法。本节建立从MDP到PPO的完整知识链路，为理解下一节的RLHF做好理论准备。
+
+**1. 马尔可夫决策过程（MDP）**
+
+强化学习的形式化基础是马尔可夫决策过程（Markov Decision Process, MDP）。MDP用一个五元组 (S, A, P, R, γ) 描述决策问题：
+
+- **S（States，状态集合）**：环境可能处于的所有情况。例如，在营销投放优化中，状态可以是当前的预算剩余、各渠道的转化率、市场竞品动态等。
+- **A（Actions，动作集合）**：Agent可以采取的所有行动。例如，增加某个渠道的投放、调整出价、暂停某个广告组。
+- **P（Transition Probability，转移概率）**：在状态s下采取动作a后，转移到状态s'的概率 P(s'|s,a)。"马尔可夫"性质意味着转移只依赖当前状态和动作，与历史无关。
+- **R（Reward，奖励函数）**：在状态s下采取动作a后获得的即时奖励 R(s,a)。例如，转化率提升带来正奖励，预算超支带来负奖励。
+- **γ（Discount Factor，折扣因子）**：未来奖励的折扣系数，取值[0,1]。γ越接近1，Agent越重视长期回报；γ越接近0，Agent越短视。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 01: [MDPs, States, Actions & Rewards](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/01-mdp)
+> 预计时长：~45 min
+
+**2. 值函数与贝尔曼方程**
+
+Agent的目标是找到一个策略 π（policy，从状态到动作的映射），使得长期累积奖励的期望最大化。为了评估策略的好坏，引入值函数：
+
+- **状态值函数 V(s)**：在状态s下，遵循策略π所能获得的期望累积奖励。V(s)回答"当前状态有多好？"
+- **动作值函数 Q(s,a)**：在状态s下采取动作a后，遵循策略π所能获得的期望累积奖励。Q(s,a)回答"在这个状态下采取这个动作有多好？"
+
+V(s)和Q(s,a)通过**贝尔曼方程（Bellman Equation）**联系在一起：
+
+```
+V(s) = Σ_a π(a|s) × [R(s,a) + γ × Σ_s' P(s'|s,a) × V(s')]
+
+Q(s,a) = R(s,a) + γ × Σ_s' P(s'|s,a) × V(s')
+```
+
+贝尔曼方程的核心思想是：当前状态的价值 = 即时奖励 + 折扣后的下一状态价值。这是一个递归关系，是几乎所有RL算法的基础。
+
+**3. 值迭代与策略迭代：动态规划方法**
+
+当MDP的转移概率P和奖励函数R已知时，可以用动态规划方法求解最优策略：
+
+- **值迭代（Value Iteration）**：反复用贝尔曼方程更新状态值，直到收敛，然后从最优值函数导出最优策略。
+- **策略迭代（Policy Iteration）**：交替进行"策略评估"（计算当前策略的值函数）和"策略改进"（基于值函数找到更好的策略），直到策略不再变化。
+
+这两种方法要求已知环境的完整模型（P和R），这在实际问题中很少满足。因此实际应用中更多使用model-free方法（如Q-learning）。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 02: [Dynamic Programming](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/02-dynamic-programming)
+> 预计时长：~75 min
+
+**4. Q-learning：时序差分学习**
+
+Q-learning是最经典的model-free RL算法。它不需要知道环境的转移概率，而是通过与环境交互的经验来学习Q值函数。
+
+Q-learning的更新规则：
+
+```
+Q(s,a) ← Q(s,a) + α × [r + γ × max_a' Q(s',a') - Q(s,a)]
+```
+
+其中α是学习率。这个更新规则的核心是**时序差分（Temporal Difference, TD）**：用新的估计（r + γ × max Q(s',a')）来修正旧的估计 Q(s,a)。
+
+**ε-greedy探索**：Q-learning使用ε-greedy策略平衡探索与利用--以ε的概率随机选择动作（探索），以1-ε的概率选择Q值最大的动作（利用）。ε通常从1.0逐渐衰减到0.1。
+
+```python
+"""
+Q-learning网格世界示例
+Agent在4x4网格中学习从起点(0,0)到目标(3,3)的最短路径
+依赖安装：pip install numpy
+"""
+
+import numpy as np
+
+class GridWorld:
+    """4x4网格世界环境"""
+    def __init__(self):
+        self.size = 4
+        self.start = (0, 0)
+        self.goal = (3, 3)
+        self.reset()
+
+    def reset(self):
+        self.state = self.start
+        return self.state
+
+    def step(self, action):
+        """执行动作，返回 (next_state, reward, done)"""
+        row, col = self.state
+        if action == 0:    # 上
+            row = max(0, row - 1)
+        elif action == 1:  # 下
+            row = min(self.size - 1, row + 1)
+        elif action == 2:  # 左
+            col = max(0, col - 1)
+        elif action == 3:  # 右
+            col = min(self.size - 1, col + 1)
+
+        self.state = (row, col)
+        done = (self.state == self.goal)
+        reward = 1.0 if done else -0.01  # 到达目标得1，每步小惩罚
+        return self.state, reward, done
+
+
+def q_learning_train(episodes=1000, alpha=0.1, gamma=0.95,
+                     epsilon=1.0, epsilon_min=0.1, epsilon_decay=0.995):
+    """Q-learning训练"""
+    env = GridWorld()
+    n_states = env.size * env.size
+    n_actions = 4
+    Q = np.zeros((n_states, n_actions))
+
+    for episode in range(episodes):
+        state = env.reset()
+        state_idx = state[0] * env.size + state[1]
+        done = False
+
+        while not done:
+            # ε-greedy选择动作
+            if np.random.random() < epsilon:
+                action = np.random.randint(n_actions)
+            else:
+                action = np.argmax(Q[state_idx])
+
+            # 执行动作
+            next_state, reward, done = env.step(action)
+            next_state_idx = next_state[0] * env.size + next_state[1]
+
+            # Q-learning更新
+            best_next = np.max(Q[next_state_idx]) if not done else 0
+            td_target = reward + gamma * best_next
+            td_error = td_target - Q[state_idx, action]
+            Q[state_idx, action] += alpha * td_error
+
+            state_idx = next_state_idx
+
+        # 衰减探索率
+        epsilon = max(epsilon_min, epsilon * epsilon_decay)
+
+    return Q
+
+# 训练
+Q = q_learning_train(episodes=2000)
+
+# 展示学到的策略
+action_names = ["上", "下", "左", "右"]
+print("学到的策略（每个位置的最优动作）：")
+for row in range(4):
+    for col in range(4):
+        state_idx = row * 4 + col
+        if (row, col) == (3, 3):
+            print(" 目标 ", end="")
+        else:
+            best_action = np.argmax(Q[state_idx])
+            print(f" {action_names[best_action]}  ", end="")
+    print()
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 04: [Temporal Difference - Q-Learning, SARSA](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/04-td-q-learning)
+> 预计时长：~75 min
+
+**5. DQN（Deep Q-Network）**
+
+当状态空间非常大或连续时（如棋盘游戏的10^170种状态），表格法存储Q值不可行。DQN（Deep Q-Network, DeepMind 2015）用神经网络来近似Q值函数 Q(s,a;θ)，输入状态s，输出每个动作的Q值。
+
+DQN的两个关键创新：
+
+- **经验回放（Experience Replay）**：将Agent与环境交互的转移 (s, a, r, s') 存入回放缓冲区，训练时从中随机采样mini-batch。这打破了数据间的相关性，使训练更稳定。
+- **目标网络（Target Network）**：使用一个独立的"目标网络"计算TD目标，目标网络的参数定期从主网络同步。这避免了"追着自己尾巴跑"的不稳定性。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 05: [Deep Q-Networks (DQN)](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/05-dqn)
+> 预计时长：~75 min
+
+**6. 策略梯度：REINFORCE**
+
+Q-learning和DQN属于"基于值"的方法--先学习Q值，再从Q值导出策略。"策略梯度"方法直接优化策略本身，用参数化的策略网络 π(a|s;θ) 直接输出动作的概率分布。
+
+REINFORCE算法（Williams, 1992）是最基本的策略梯度方法。它的目标函数是：
+
+```
+J(θ) = E_τ [Σ_t γ^t × R_t]
+```
+
+其中τ是轨迹（一整条状态-动作-奖励序列）。梯度为：
+
+```
+∇J(θ) = E_τ [Σ_t ∇log π(a_t|s_t;θ) × G_t]
+```
+
+其中G_t是从时刻t开始的累积奖励。直觉理解：如果某个动作导致了高回报，就增大该动作的出现概率；如果导致了低回报，就降低其概率。
+
+策略梯度的优势是可以处理连续动作空间（基于值的方法难以处理），且能学习随机策略。劣势是方差大、训练不稳定。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 06: [Policy Gradient Methods - REINFORCE](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/06-policy-gradient)
+> 预计时长：~75 min
+
+**7. Actor-Critic：A2C/A3C**
+
+策略梯度的方差问题可以通过引入"评论家"（Critic）来缓解。Actor-Critic架构包含两个网络：
+
+- **Actor（演员）**：策略网络 π(a|s;θ)，负责选择动作
+- **Critic（评论家）**：值函数网络 V(s;φ)，负责评估Actor的选择好不好
+
+Critic用"优势函数" A(s,a) = Q(s,a) - V(s) 来指导Actor的更新。优势函数衡量"动作a比平均水平好多少"，比直接用绝对回报的方差小得多。
+
+- **A2C（Advantage Actor-Critic）**：同步更新Actor和Critic，使用多个worker收集经验后统一更新。
+- **A3C（Asynchronous Advantage Actor-Critic）**：多个worker异步更新共享参数，不需要经验回放，训练效率更高。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 07: [Actor-Critic - A2C, A3C](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/07-actor-critic)
+> 预计时长：~75 min
+
+**8. PPO（Proximal Policy Optimization）**
+
+PPO（OpenAI, 2017）是目前最广泛使用的策略梯度算法，也是RLHF的核心优化算法。PPO解决了策略梯度中"步长过大导致策略崩溃"的问题。
+
+PPO的核心思想是**截断目标函数**：限制每次更新时策略的变化幅度，防止"一步走太远"。
+
+```
+L_CLIP(θ) = E_t [min(r_t(θ) × A_t, clip(r_t(θ), 1-ε, 1+ε) × A_t)]
+
+其中 r_t(θ) = π(a_t|s_t;θ) / π(a_t|s_t;θ_old)
+```
+
+r_t(θ) 是新旧策略的概率比。clip操作将这个比值限制在 [1-ε, 1+ε] 范围内（通常ε=0.2），确保每次更新策略不会偏离太远。
+
+PPO的优势：
+- 训练稳定（截断机制防止策略崩溃）
+- 样本效率高于REINFORCE（可以多次重用经验）
+- 实现相对简单
+- 适用于大规模并行训练
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 08: [PPO](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/08-ppo)
+> 预计时长：~75 min
+
+**9. 从传统RL到RLHF：理论桥梁**
+
+理解了以上传统RL的概念后，RLHF（Reinforcement Learning from Human Feedback）的逻辑就清晰了：
+
+1. **MDP映射**：在RLHF中，"状态"是当前的prompt和已生成的文本，"动作"是生成下一个token，"奖励"来自人类训练的Reward Model。
+2. **Reward Model**：相当于传统RL中的奖励函数R(s,a)，但RLHF中奖励不是预定义的，而是从人类偏好数据中学习出来的。
+3. **PPO优化**：RLHF使用PPO算法优化LLM（作为策略网络π），使LLM生成的文本最大化Reward Model的分数。Actor是LLM，Critic是值函数网络，两者协同训练。
+4. **KL散度约束**：RLHF在PPO目标中加入KL惩罚项，防止LLM偏离预训练模型太远（避免"奖励黑客"--模型找到Reward Model的漏洞而非真正提升质量）。
+
+```
+RLHF目标 = PPO目标 - β × KL(π_new || π_reference)
+```
+
+其中β是KL惩罚系数，π_reference是SFT后的参考模型。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 9 · Lesson 09: [Reward Modeling & RLHF](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/09-reward-modeling-rlhf)
+> 预计时长：~45 min
+
+> 💡 **学习建议**：传统RL的概念较多，对于AI商业分析师而言，重点理解三件事即可：(1) MDP的形式化框架--它是RLHF的理论基础；(2) PPO的核心思想--截断目标函数防止策略崩溃，这是RLHF直接使用的算法；(3) Actor-Critic架构--RLHF中LLM是Actor，值函数网络是Critic。其他细节（如Q-learning的具体实现）可以在需要时再深入。
+
+#### 四、LLM训练三阶段
 
 LLM的训练不是一步到位的，而是经历三个阶段，每个阶段有不同的目标和数据。
 
@@ -232,7 +493,7 @@ DPO是2023年出现的简化方案，它绕过了Reward Model训练和RL优化�
 
 > 💡 **实践意义**：理解训练三阶段有助于理解LLM的行为特征。预训练决定了模型的"知识上限"，SFT决定了模型的"交互风格"，对齐决定了模型的"安全边界"。当模型在某个任务上表现不好时，需要判断是知识不足（需要RAG或Fine-tuning）、还是交互风格不对（需要更好的Prompt）、还是安全限制过严（需要调整系统Prompt或换模型）。
 
-#### 四、Tokenization：LLM看到的不是"词"
+#### 五、Tokenization：LLM看到的不是"词"
 
 LLM处理的不是人类理解的"词"，而是Token。Tokenization是将文本切分为Token的过程。
 

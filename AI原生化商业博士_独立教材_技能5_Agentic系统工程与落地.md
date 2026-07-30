@@ -276,6 +276,8 @@ LangGraph是LangChain团队推出的Agent编排框架，其核心思想是将Age
 | 可控性 | 中 | 高 | 中 |
 | 适合场景 | 快速原型 | 生产级复杂Agent | 角色协作模拟 |
 
+> 🔗 **延伸实践**：Agent的工具调用与上下文集成涉及MCP（Model Context Protocol）协议。详见 AEFS Phase 13 系列课程（Lesson 06-18），涵盖MCP协议设计、工具服务器实现、多工具编排、Stdio与SSE传输层等内容。参考仓库：[ai-engineering-from-scratch - Phase 13 MCP](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-mcp)
+
 ### 3.2.2 复杂Agent工作流设计
 
 营销Agent系统的典型工作流涉及多个阶段和条件分支。以下是一个完整的工作流设计：
@@ -661,6 +663,8 @@ def human_review_node(state: MarketingState) -> dict:
 3. **设置循环上限**：任何循环都必须有退出条件，否则Agent可能陷入无限循环。
 4. **测试每个节点**：单独测试每个节点的输入输出，再测试完整流程。
 5. **生产环境用持久化**：将`MemorySaver`替换为`SqliteSaver`或`PostgresSaver`，确保状态在服务重启后不丢失。
+
+> 🔗 **延伸实践**：Agent系统工程是一个完整的工程实践领域。AEFS Phase 14（Agent工程系列，Lesson 01-42）提供了从Agent架构设计、工具调用、记忆系统、评估方法到生产部署的系统性实践课程，涵盖LangGraph、AutoGen、CrewAI等主流框架的对比和实践。参考仓库：[ai-engineering-from-scratch - Phase 14 Agent Engineering](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering)
 
 ---
 
@@ -1112,6 +1116,9 @@ def build_safe_prompt(user_query: str, retrieved_content: str) -> str:
 | 输出层 | 输出检测 | 检查Agent输出是否包含敏感信息或异常行为 |
 | 监控层 | 实时告警 | 监控异常的Agent行为模式 |
 
+> 🔗 **延伸实践**：详见 AEFS Phase 14 · Lesson 27: [Prompt Injection and the PVE Defense](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/27-prompt-injection-pve-defense)
+> 预计时长：~75 min
+
 ### 3.4.2 数据泄露防护
 
 **系统提示泄露**
@@ -1257,6 +1264,8 @@ Anthropic在AI安全领域处于行业前沿。Claude模型采用了Constitution
 4. **可审计性**：记录Agent的所有决策和操作，确保事后可以审计追溯。
 
 5. **优雅降级**：当Agent遇到不确定或可能危险的情况时，应该安全降级（拒绝执行、请求人工介入），而不是冒险执行。
+
+> 🔗 **延伸实践**：AI安全是一个系统工程问题。AEFS Phase 18（安全系列）提供了从Prompt Injection攻击与防御、越狱（Jailbreak）防御、模型安全评估到红队测试自动化的系统性实践课程。参考仓库：[ai-engineering-from-scratch - Phase 18 Security](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-security)
 
 ### 3.4.5 模块R6嵌入：研究伦理与AI治理
 
@@ -1694,6 +1703,661 @@ def evaluate_before_deploy(test_cases: list, agent_graph) -> dict:
     
     return results
 ```
+
+### 3.5.6 MLOps工具链与模型生命周期管理
+
+Agent系统不是"部署完就结束"的。模型会过时、数据会漂移、业务需求会变化。MLOps（Machine Learning Operations）是一套将ML模型开发、部署、运维标准化的工程实践，目标是将ML系统从"实验室手工品"变为"工业流水线产品"。
+
+**MLOps成熟度模型**
+
+Google提出的MLOps成熟度模型定义了三个级别，每个级别代表自动化程度的提升：
+
+| 级别 | 名称 | 特征 | 适用场景 |
+|:----:|------|------|---------|
+| **Level 0** | 手动流程 | 数据准备->模型训练->部署全手动，无自动化管道 | PoC阶段、实验探索 |
+| **Level 1** | ML Pipeline自动化 | 训练管道可自动触发，模型可自动部署，但CI/CD不完整 | 中小规模生产 |
+| **Level 2** | CI/CD全自动化 | 代码提交->训练->评估->部署->监控全链路自动化 | 大规模生产、高频迭代 |
+
+Level 0到Level 2的演进本质是"手动->半自动->全自动"的过程。对于Agent系统，建议从Level 1起步：至少实现训练管道自动化和模型版本管理，然后逐步向Level 2演进。
+
+**MLflow：实验追踪、模型注册与服务**
+
+MLflow是Databricks开源的ML生命周期管理平台，是MLOps工具链中最流行的组件之一。它提供三大核心功能：
+
+- **Tracking（实验追踪）**：记录每次实验的参数、指标、artifacts（模型文件、图表等），支持对比不同实验的结果
+- **Model Registry（模型注册）**：管理模型版本和状态（Staging/Production/Archived），支持模型审批流程
+- **Serving（模型服务）**：将注册的模型部署为REST API端点，支持本地和云端部署
+
+以下是用MLflow追踪Agent实验的Python代码示例：
+
+```python
+"""
+MLflow实验追踪示例：记录Agent系统的实验参数和结果
+依赖安装：pip install mlflow
+启动MLflow UI：mlflow ui --port 5000
+"""
+
+import mlflow
+import json
+from datetime import datetime
+
+# 设置实验名称（不存在则自动创建）
+mlflow.set_experiment("marketing_agent_experiments")
+
+def run_agent_experiment(
+    model_name: str,
+    temperature: float,
+    max_tokens: int,
+    prompt_strategy: str,
+    test_cases: list,
+):
+    """运行Agent实验并用MLflow记录结果
+
+    Args:
+        model_name: 使用的LLM名称
+        temperature: 温度参数
+        max_tokens: 最大输出token数
+        prompt_strategy: 提示策略（zero-shot/few-shot/CoT）
+        test_cases: 测试用例列表
+    """
+    # 开始一次MLflow run
+    with mlflow.start_run(run_name=f"{model_name}_{prompt_strategy}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"):
+        # 记录参数
+        mlflow.log_params({
+            "model": model_name,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "prompt_strategy": prompt_strategy,
+            "num_test_cases": len(test_cases),
+        })
+
+        # 模拟运行Agent并收集结果
+        results = []
+        for case in test_cases:
+            # 实际场景中这里调用Agent系统
+            # 这里用模拟数据演示MLflow记录功能
+            result = {
+                "case_id": case["id"],
+                "task_completed": True,
+                "latency_seconds": 12.5,
+                "token_cost": 0.38,
+                "quality_score": 8,
+            }
+            results.append(result)
+
+        # 计算聚合指标
+        completion_rate = sum(1 for r in results if r["task_completed"]) / len(results)
+        avg_latency = sum(r["latency_seconds"] for r in results) / len(results)
+        avg_cost = sum(r["token_cost"] for r in results) / len(results)
+        avg_quality = sum(r["quality_score"] for r in results) / len(results)
+
+        # 记录指标
+        mlflow.log_metrics({
+            "completion_rate": completion_rate,
+            "avg_latency_seconds": avg_latency,
+            "avg_cost_usd": avg_cost,
+            "avg_quality_score": avg_quality,
+        })
+
+        # 记录详细结果作为artifact
+        with open("experiment_results.json", "w") as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
+        mlflow.log_artifact("experiment_results.json")
+
+        # 记录prompt模板作为artifact
+        prompt_template = f"策略: {prompt_strategy}, 模型: {model_name}, 温度: {temperature}"
+        with open("prompt_template.txt", "w") as f:
+            f.write(prompt_template)
+        mlflow.log_artifact("prompt_template.txt")
+
+        print(f"实验完成: completion_rate={completion_rate:.2%}, "
+              f"avg_latency={avg_latency:.1f}s, avg_cost=${avg_cost:.2f}")
+
+        return results
+
+# 运行多组对比实验
+test_cases = [{"id": i, "brief": f"营销Brief #{i}"} for i in range(1, 11)]
+
+# 实验1: Claude + Few-shot
+run_agent_experiment("claude-sonnet-4", 0.3, 1000, "few-shot", test_cases)
+
+# 实验2: Claude + CoT
+run_agent_experiment("claude-sonnet-4", 0.3, 1000, "chain-of-thought", test_cases)
+
+# 实验3: GPT-4o + Few-shot
+run_agent_experiment("gpt-4o", 0.3, 1000, "few-shot", test_cases)
+
+# 运行后，打开 http://localhost:5000 查看MLflow UI
+# 可以对比不同实验的指标，选择最优配置
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 13: [ML Pipelines & Experiment Tracking](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/13-ml-pipelines)
+> 预计时长：~75 min
+
+**DVC（Data Version Control）：数据版本管理**
+
+在传统软件中，Git管理代码版本。但在ML系统中，数据也是"代码"的一部分--同样的模型代码，用不同版本的数据训练，会产生完全不同的模型。DVC（Data Version Control）解决了这个问题。
+
+DVC的核心能力：
+- **数据版本控制**：像Git管理代码一样管理数据集版本，支持大文件（GB/TB级）
+- **数据管道**：定义数据预处理->特征工程->模型训练的DAG管道，支持增量执行
+- **实验管理**：记录每次实验的数据版本、代码版本、参数和结果，支持复现
+
+```bash
+# DVC基本使用示例
+# 初始化DVC
+dvc init
+
+# 添加数据集到DVC追踪
+dvc add data/marketing_dataset_v1.csv
+
+# DVC生成 .gitignore 和 .dvc 文件，将大文件存储在DVC缓存中
+# .dvc 文件记录数据的哈希值，提交到Git
+
+# 修改数据后，创建新版本
+dvc add data/marketing_dataset_v2.csv
+git commit -am "Update marketing dataset to v2"
+
+# 切换到之前的数据版本
+git checkout HEAD~1 data/marketing_dataset_v1.csv.dvc
+dvc checkout
+```
+
+**Kubeflow：Kubernetes上的ML管道编排**
+
+Kubeflow是专为Kubernetes设计的ML平台，适合大规模、分布式的ML工作流编排。它的核心组件包括：
+
+- **Pipelines**：定义可复用的ML管道（数据准备->训练->评估->部署），以DAG形式编排
+- **Katib**：超参数自动调优（支持网格搜索、贝叶斯优化等）
+- **KFServing**：模型服务（支持自动扩缩容、金丝雀发布）
+- **Notebooks**：Jupyter Notebook环境，直接在K8s集群中开发
+
+Kubeflow适合大型企业级ML平台，但对小团队来说过于复杂。对于Agent系统，如果团队已经在用Kubernetes，Kubeflow是自然的选择；否则MLflow + 简单的CI/CD管道更实际。
+
+**模型监控：数据漂移与概念漂移检测**
+
+模型部署后，性能会随时间下降，原因主要有两个：
+
+- **数据漂移（Data Drift）**：输入数据的分布发生变化。例如，营销Agent的用户输入风格变了（从"帮我写文案"变成"生成种草内容"），导致模型处理的输入分布与训练时不同。
+- **概念漂移（Concept Drift）**：输入与输出的关系发生变化。例如，某个营销策略在2025年有效，但2026年市场环境变了，同样的输入不再产生有效的输出。
+
+数据漂移检测的常用方法是PSI（Population Stability Index）：
+
+```python
+"""
+PSI（Population Stability Index）计算示例
+用于检测输入数据分布是否发生漂移
+PSI < 0.1: 无显著漂移
+0.1 <= PSI < 0.25: 轻微漂移，需要关注
+PSI >= 0.25: 显著漂移，需要重新训练
+"""
+
+import numpy as np
+
+def calculate_psi(expected: np.ndarray, actual: np.ndarray, buckets: int = 10) -> float:
+    """计算PSI（Population Stability Index）
+
+    Args:
+        expected: 基准数据（训练时的数据分布）
+        actual: 实际数据（当前生产数据分布）
+        buckets: 分桶数量
+
+    Returns:
+        PSI值
+    """
+    # 基于基准数据定义分桶边界
+    breakpoints = np.linspace(0, 100, buckets + 1)
+    breakpoints[0] = -np.inf
+    breakpoints[-1] = np.inf
+
+    # 计算每个桶中的样本比例
+    expected_pct = np.histogram(expected, bins=breakpoints)[0] / len(expected)
+    actual_pct = np.histogram(actual, bins=breakpoints)[0] / len(actual)
+
+    # 避免除零：将0替换为极小值
+    expected_pct = np.where(expected_pct == 0, 0.0001, expected_pct)
+    actual_pct = np.where(actual_pct == 0, 0.0001, actual_pct)
+
+    # 计算PSI
+    psi = np.sum((actual_pct - expected_pct) * np.log(actual_pct / expected_pct))
+
+    return psi
+
+# 示例：检测用户输入长度分布是否漂移
+np.random.seed(42)
+
+# 训练时的用户输入长度分布（基准）
+baseline_lengths = np.random.normal(50, 15, 1000)
+
+# 当前生产环境的用户输入长度分布
+current_lengths = np.random.normal(65, 20, 1000)  # 均值和方差都变了
+
+psi_score = calculate_psi(baseline_lengths, current_lengths)
+print(f"PSI: {psi_score:.4f}")
+
+if psi_score < 0.1:
+    print("状态: 无显著漂移")
+elif psi_score < 0.25:
+    print("状态: 轻微漂移，建议关注")
+else:
+    print("状态: 显著漂移，建议重新训练模型")
+```
+
+除了PSI，概念漂移检测可以监控预测质量指标（如用户满意度、采纳率）的变化趋势。如果这些指标持续下降，即使没有数据漂移，也可能是概念漂移的信号。
+
+### 3.5.7 AutoML：自动化机器学习
+
+AutoML（Automated Machine Learning）旨在将ML模型开发中的重复性工作自动化，让非ML专家也能构建高质量的模型。在Agent系统的某些环节（如分类、排序、推荐），AutoML可以显著提升开发效率。
+
+**AutoML的核心原理**
+
+AutoML自动化三个关键环节：
+
+1. **超参数优化（Hyperparameter Optimization, HPO）**：模型的超参数（学习率、batch size、网络深度等）对性能影响巨大，但手动调参耗时且依赖经验。AutoML自动搜索最优超参数组合：
+
+| HPO方法 | 原理 | 优势 | 劣势 |
+|---------|------|------|------|
+| **网格搜索（Grid Search）** | 遍历所有参数组合 | 简单、exhaustive | 计算量大、维度灾难 |
+| **随机搜索（Random Search）** | 随机采样参数组合 | 比网格搜索高效 | 可能错过最优解 |
+| **贝叶斯优化（Bayesian Optimization）** | 用概率模型（如高斯过程）建模参数与性能的关系，指导下一轮采样 | 样本效率最高 | 实现复杂、初始化慢 |
+
+2. **神经网络架构搜索（Neural Architecture Search, NAS）**：自动搜索最优的网络结构（层数、每层神经元数、连接方式）。NAS计算成本极高，但在图像分类等任务上可以超越人工设计的架构。
+
+3. **自动集成（Auto-Ensemble）**：自动选择多个模型并组合它们的预测，通常比单一模型表现更好。常见方法包括Stacking、Bagging、Boosting。
+
+**AutoML工具对比**
+
+| 工具 | 开发者 | 特点 | 适用场景 | 许可证 |
+|------|--------|------|---------|--------|
+| **Auto-sklearn** | Fraunhofer研究所 | 基于sklearn，自动选择算法和超参数 | 传统ML任务（分类/回归） | 开源 |
+| **H2O.ai** | H2O.ai | 企业级AutoML平台，支持分布式 | 企业级ML管道 | 开源+商业 |
+| **Google AutoML** | Google Cloud | 云端AutoML，支持Vision/Tables/NLP | 无需基础设施的快速原型 | 商业 |
+| **TPOT** | Randy Olson | 基于遗传算法的Pipeline优化 | 学术研究、小规模数据 | 开源 |
+| **Optuna** | Preferred Networks | 通用的超参数优化框架，支持任意ML框架 | 需要精细控制优化过程 | 开源 |
+
+```python
+"""
+Optuna超参数优化示例：优化Agent系统的参数配置
+依赖安装：pip install optuna
+"""
+
+import optuna
+
+def objective(trial: optuna.Trial) -> float:
+    """Optuna目标函数：优化Agent系统的参数配置
+
+    通过调整LLM参数和提示策略，最大化Agent的任务完成质量
+    """
+    # 定义搜索空间
+    temperature = trial.suggest_float("temperature", 0.0, 1.0)
+    max_tokens = trial.suggest_int("max_tokens", 500, 2000, step=100)
+    prompt_strategy = trial.suggest_categorical("prompt_strategy", ["zero-shot", "few-shot", "cot"])
+    retrieval_k = trial.suggest_int("retrieval_k", 3, 10)
+
+    # 模拟Agent运行（实际场景中调用真实Agent系统）
+    quality_score = simulate_agent_quality(temperature, max_tokens, prompt_strategy, retrieval_k)
+
+    return quality_score
+
+def simulate_agent_quality(temp, max_tokens, strategy, k):
+    """模拟Agent质量评分（实际中替换为真实评估）"""
+    # 模拟：温度0.3左右、CoT策略、retrieval_k=5时最优
+    temp_score = -abs(temp - 0.3) * 10
+    strategy_score = {"zero-shot": 5, "few-shot": 7, "cot": 8}.get(strategy, 5)
+    k_score = -abs(k - 5) * 0.5
+    return temp_score + strategy_score + k_score
+
+# 创建优化研究
+study = optuna.create_study(direction="maximize", study_name="agent_param_optimization")
+
+# 运行优化（50次试验）
+study.optimize(objective, n_trials=50)
+
+# 输出最优结果
+print(f"最优参数: {study.best_params}")
+print(f"最优质量评分: {study.best_value:.4f}")
+
+# 可视化优化过程（需要plotly）
+# optuna.visualization.plot_optimization_history(study).show()
+# optuna.visualization.plot_param_importances(study).show()
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 12: [Hyperparameter Tuning & AutoML](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/12-hyperparameter-tuning)
+> 预计时长：~75 min
+
+**AutoML的适用场景与局限**
+
+适用场景：
+- **传统ML任务**：分类、回归、聚类等结构化数据任务，AutoML已经非常成熟
+- **快速基线建立**：在项目初期，用AutoML快速建立一个性能基线，后续再手动优化
+- **非ML专家场景**：业务团队需要构建简单模型但缺乏ML专业知识
+
+局限：
+- **LLM场景效果有限**：AutoML主要优化传统ML模型，对LLM的prompt工程、Agent架构设计等无能为力
+- **特征工程依赖**：AutoML可以自动选择和组合特征，但无法从零创造领域特征--领域知识仍然重要
+- **计算成本**：NAS和大规模HPO需要大量计算资源
+- **可解释性降低**：自动搜索出的模型/参数组合可能难以解释
+
+对于Agent系统工程，AutoML的最大价值在于：用它优化Agent系统中的辅助模型（如分类器、排序器、推荐器），让工程师专注于LLM核心逻辑的设计。
+
+### 3.5.8 推理优化与生产部署
+
+LLM推理是Agent系统生产部署中最复杂的环节。一个7B参数的模型在FP16精度下需要14GB显存，70B模型需要140GB。推理优化直接决定了部署成本和用户体验。
+
+**推理引擎核心技术**
+
+现代LLM推理引擎（如vLLM、SGLang、TensorRT-LLM）通过三项核心技术大幅提升推理效率：
+
+- **PagedAttention**：借鉴操作系统的虚拟内存分页机制，将KV Cache分成固定大小的"页"，按需分配和回收。这解决了传统KV Cache管理中显存碎片化的问题，显存利用率可提升2-4倍，支持更多并发请求。
+
+- **Continuous Batching（连续批处理）**：传统的批处理需要等待同一批次的所有请求完成才能处理下一批，长请求会拖慢短请求。Continuous Batching在每次iteration级别动态调整批次--新请求可以在任何iteration加入，已完成的请求可以随时退出，显著提高吞吐量。
+
+- **Chunked Prefill（分块预填充）**：将长prompt的prefill阶段（首次处理输入token）分块执行，与decode阶段（生成输出token）交替进行。这避免了长prompt请求独占GPU导致的排队延迟，改善了TTFT（首Token延迟）。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 04: [Serving Engine Internals](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/04-serving-engine-internals)
+> 预计时长：~75 min
+
+**量化部署：AWQ/GPTQ/GGUF/FP8**
+
+量化是将模型权重从高精度（FP16/BF16）压缩到低精度（INT8/INT4/FP8），以减少显存占用和加速推理。
+
+| 量化方法 | 原理 | 精度损失 | 硬件支持 | 适用场景 |
+|---------|------|---------|---------|---------|
+| **AWQ** | 基于激活感知的权重量化，保护重要权重 | 极小（<1%） | NVIDIA GPU | GPU服务端部署 |
+| **GPTQ** | 基于二阶信息的逐层量化 | 极小（<1%） | NVIDIA GPU | GPU服务端部署 |
+| **GGUF** | llama.cpp格式，支持CPU/GPU混合推理 | 小（1-3%） | CPU/GPU/Apple Silicon | 本地部署、边缘设备 |
+| **FP8** | 原生8位浮点格式（NVIDIA H100+） | 几乎无损 | NVIDIA H100/H200 | 最新GPU集群 |
+
+```python
+"""
+vLLM量化部署示例
+依赖安装：pip install vllm
+"""
+
+from vllm import LLM, SamplingParams
+
+# 使用AWQ量化模型部署（显存需求减半）
+llm = LLM(
+    model="TheBloke/Llama-2-13B-chat-AWQ",  # 预量化模型
+    quantization="awq",
+    tensor_parallel_size=1,          # 单GPU
+    gpu_memory_utilization=0.9,      # 显存利用率
+    max_model_len=4096,              # 最大上下文长度
+    enable_chunked_prefill=True,     # 启用Chunked Prefill
+)
+
+sampling_params = SamplingParams(
+    temperature=0.7,
+    top_p=0.9,
+    max_tokens=500,
+)
+
+# 批量推理（vLLM的Continuous Batching自动生效）
+prompts = [
+    "为一款新款烟酰胺精华液写小红书种草文案",
+    "分析2026年美妆行业的关键趋势",
+    "生成5个社交媒体广告标题，主题：夏季防晒",
+]
+
+outputs = llm.generate(prompts, sampling_params)
+for output in outputs:
+    print(f"Prompt: {output.prompt[:50]}...")
+    print(f"Output: {output.outputs[0].text}\n")
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 09: [Production Quantization](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/09-production-quantization)
+> 预计时长：~75 min
+
+**推理性能指标**
+
+LLM推理性能不能用单一的"延迟"指标衡量，需要分解为多个维度：
+
+| 指标 | 全称 | 含义 | 用户体验关联 |
+|------|------|------|------------|
+| **TTFT** | Time To First Token | 从请求发出到首个Token返回的时间 | 用户等待"开始响应"的时间 |
+| **TPOT** | Time Per Output Token | 生成阶段每个Token的平均时间 | 文本流式输出的速度 |
+| **ITL** | Inter-Token Latency | 连续两个Token之间的延迟 | 流式输出的流畅度（卡顿感） |
+| **Goodput** | 有效吞吐量 | 满足SLA（如TTFT<2s）的请求吞吐量 | 系统在保证质量前提下的真实处理能力 |
+| **P99 Latency** | 99th Percentile Latency | 99%的请求在多少时间内完成 | 最差用户体验的边界 |
+
+```python
+"""
+推理性能指标采集示例
+"""
+
+import time
+import statistics
+from dataclasses import dataclass, field
+from typing import List
+
+@dataclass
+class InferenceMetrics:
+    """单次推理的完整指标"""
+    ttft: float                    # 首Token延迟（秒）
+    token_times: List[float]       # 每个Token的时间戳
+    total_tokens: int              # 总生成Token数
+    request_start: float           # 请求开始时间
+    request_end: float             # 请求结束时间
+
+    @property
+    def tpot(self) -> float:
+        """Time Per Output Token"""
+        if self.total_tokens <= 1:
+            return 0.0
+        return (self.request_end - self.request_start - self.ttft) / (self.total_tokens - 1)
+
+    @property
+    def itl_list(self) -> List[float]:
+        """Inter-Token Latency列表"""
+        return [self.token_times[i + 1] - self.token_times[i]
+                for i in range(len(self.token_times) - 1)]
+
+    @property
+    def itl_p99(self) -> float:
+        """P99 ITL"""
+        itls = self.itl_list
+        if not itls:
+            return 0.0
+        return statistics.quantiles(itls, n=100)[98]
+
+    @property
+    def total_latency(self) -> float:
+        """总延迟"""
+        return self.request_end - self.request_start
+
+
+def compute_goodput(metrics_list: List[InferenceMetrics],
+                    ttft_sla: float = 2.0,
+                    tpot_sla: float = 0.05) -> float:
+    """计算Goodput：满足SLA的请求比例 x 总吞吐量
+
+    Args:
+        metrics_list: 多次推理的指标列表
+        ttft_sla: TTFT的SLA阈值（秒）
+        tpot_sla: TPOT的SLA阈值（秒）
+
+    Returns:
+        Goodput（tokens/second）
+    """
+    good_requests = [
+        m for m in metrics_list
+        if m.ttft <= ttft_sla and m.tpot <= tpot_sla
+    ]
+
+    total_good_tokens = sum(m.total_tokens for m in good_requests)
+    total_time = (max(m.request_end for m in metrics_list)
+                  - min(m.request_start for m in metrics_list))
+
+    if total_time == 0:
+        return 0.0
+
+    return total_good_tokens / total_time
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 08: [Inference Metrics](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/08-inference-metrics)
+> 预计时长：~60 min
+
+**FinOps for LLMs：LLM的单位经济模型**
+
+LLM推理成本是Agent系统运营的最大开支之一。FinOps（Financial Operations）for LLMs是一套管理和优化LLM成本的实践框架。
+
+核心概念：
+- **单位经济模型（Unit Economics）**：计算每个业务动作的LLM成本。例如，生成一条营销文案的平均成本 = (输入token x 输入价格 + 输出token x 输出价格)。如果一条文案成本$0.05，每天生成10000条，月成本$15000。
+- **多租户归因（Multi-tenant Attribution）**：在SaaS平台中，不同租户（客户）的LLM使用量不同。需要按租户精确归因token消耗和成本，支持按使用量计费。
+
+```python
+"""
+LLM FinOps：多租户成本归因示例
+"""
+
+from dataclasses import dataclass
+from collections import defaultdict
+from datetime import datetime
+
+@dataclass
+class LLMMetrics:
+    """单次LLM调用的指标记录"""
+    tenant_id: str           # 租户ID
+    agent_name: str          # 调用的Agent名称
+    input_tokens: int        # 输入token数
+    output_tokens: int       # 输出token数
+    model: str               # 使用的模型
+    timestamp: datetime      # 调用时间
+    latency_seconds: float   # 延迟
+
+class LLMFinOps:
+    """LLM成本追踪和归因系统"""
+
+    # 模型定价（美元/百万Token）
+    PRICING = {
+        "claude-sonnet-4": {"input": 3.00, "output": 15.00},
+        "claude-haiku": {"input": 0.25, "output": 1.25},
+        "gpt-4o": {"input": 2.50, "output": 10.00},
+        "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+    }
+
+    def __init__(self):
+        self.records: list[LLMMetrics] = []
+
+    def record(self, metrics: LLMMetrics):
+        """记录一次LLM调用"""
+        self.records.append(metrics)
+
+    def compute_cost(self, metrics: LLMMetrics) -> float:
+        """计算单次调用的成本"""
+        pricing = self.PRICING.get(metrics.model, {"input": 0.0, "output": 0.0})
+        input_cost = metrics.input_tokens / 1_000_000 * pricing["input"]
+        output_cost = metrics.output_tokens / 1_000_000 * pricing["output"]
+        return input_cost + output_cost
+
+    def tenant_cost_report(self) -> dict:
+        """按租户生成成本报告"""
+        tenant_costs = defaultdict(lambda: {
+            "total_cost": 0.0,
+            "total_calls": 0,
+            "by_agent": defaultdict(float),
+            "by_model": defaultdict(float),
+        })
+
+        for record in self.records:
+            cost = self.compute_cost(record)
+            tenant_costs[record.tenant_id]["total_cost"] += cost
+            tenant_costs[record.tenant_id]["total_calls"] += 1
+            tenant_costs[record.tenant_id]["by_agent"][record.agent_name] += cost
+            tenant_costs[record.tenant_id]["by_model"][record.model] += cost
+
+        return dict(tenant_costs)
+
+# 使用示例
+finops = LLMFinOps()
+
+# 记录多次调用
+finops.record(LLMMetrics("tenant_a", "analysis_agent", 2000, 500, "claude-sonnet-4", datetime.now(), 3.2))
+finops.record(LLMMetrics("tenant_a", "content_agent", 1500, 800, "claude-sonnet-4", datetime.now(), 5.1))
+finops.record(LLMMetrics("tenant_b", "analysis_agent", 1000, 300, "claude-haiku", datetime.now(), 1.5))
+finops.record(LLMMetrics("tenant_b", "content_agent", 1200, 600, "gpt-4o-mini", datetime.now(), 2.0))
+
+# 生成报告
+report = finops.tenant_cost_report()
+for tenant, data in report.items():
+    print(f"\n租户: {tenant}")
+    print(f"  总成本: ${data['total_cost']:.4f}")
+    print(f"  总调用次数: {data['total_calls']}")
+    print(f"  按Agent: {dict(data['by_agent'])}")
+    print(f"  按模型: {dict(data['by_model'])}")
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 27: [FinOps for LLMs](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/27-finops-for-llms)
+> 预计时长：~60 min
+
+**AI网关：统一模型管理**
+
+当Agent系统使用多个LLM提供商（OpenAI、Anthropic、本地模型）时，管理不同的API格式、认证方式、限流策略成为工程负担。AI网关（AI Gateway）统一了这些接口。
+
+| 网关 | 特点 | 适用场景 |
+|------|------|---------|
+| **LiteLLM** | 开源，支持100+模型提供商，统一OpenAI格式API | 多模型路由、成本控制 |
+| **Portkey** | 商业，提供可观测性+网关一体化 | 需要完整可观测性方案 |
+| **Kong AI Gateway** | 基于Kong API网关扩展，企业级 | 已有Kong基础设施的企业 |
+
+AI网关的核心功能：
+- **统一接口**：所有LLM调用通过统一API，切换模型只需改配置
+- **自动Fallback**：主模型不可用时自动切换到备用模型
+- **负载均衡**：在多个模型实例间分配请求
+- **限流和配额**：按租户/API Key设置调用限制
+- **成本追踪**：统一记录所有模型的token消耗和成本
+
+```python
+"""
+LiteLLM网关示例：统一管理多模型调用
+依赖安装：pip install litellm
+"""
+
+import litellm
+import os
+
+# 配置API Keys
+os.environ["ANTHROPIC_API_KEY"] = "your-anthropic-key"
+os.environ["OPENAI_API_KEY"] = "your-openai-key"
+
+# 统一接口调用不同模型
+response = litellm.completion(
+    model="claude-sonnet-4-20250514",  # Anthropic模型
+    messages=[{"role": "user", "content": "写一句营销文案"}],
+    max_tokens=100,
+)
+print(f"Claude: {response.choices[0].message.content}")
+
+# 切换模型只需改model参数
+response = litellm.completion(
+    model="gpt-4o",  # OpenAI模型
+    messages=[{"role": "user", "content": "写一句营销文案"}],
+    max_tokens=100,
+)
+print(f"GPT-4o: {response.choices[0].message.content}")
+
+# 自动Fallback：主模型失败时切换备用模型
+response = litellm.completion(
+    model="claude-sonnet-4-20250514",
+    messages=[{"role": "user", "content": "写一句营销文案"}],
+    fallbacks=["gpt-4o", "gpt-4o-mini"],  # 依次尝试
+)
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 19: [AI Gateways](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/19-ai-gateways)
+> 预计时长：~60 min
+
+**A/B测试LLM功能**
+
+LLM功能的A/B测试比传统功能更复杂，因为输出是非确定性的。关键设计考量：
+
+1. **分流单位**：按用户ID分流（同一用户始终看到同一版本），而非按请求分流，避免用户体验不一致
+2. **评估指标**：除了业务指标（CTR、转化率），还需要监控质量指标（幻觉率、用户满意度）
+3. **样本量计算**：由于LLM输出方差大，通常需要比传统A/B测试更大的样本量才能达到统计显著性
+4. **自动回滚**：设置安全指标（如幻觉率>5%或安全违规率>0%），触发时自动回滚
+
+> 🔗 **延伸实践**：详见 AEFS Phase 17 · Lesson 21: [A/B Testing LLM Features](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-llm-deployment/21-ab-testing-llm-features)
+> 预计时长：~60 min
 
 ---
 

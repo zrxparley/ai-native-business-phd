@@ -74,6 +74,12 @@ AI对齐问题的核心是：**如何确保AI系统的行为符合人类的意�
 - **Distributional Shift**：医疗AI在训练数据上表现优秀，但在真实临床环境中因数据分布不同而产生错误诊断
 - **营销场景的对齐风险**：营销Agent被设定为"最大化转化率"，它可能选择欺骗性广告、操纵用户心理或歧视性定向——虽然"转化率"高了，但损害了品牌和用户
 
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 01: Instruction-Following as Alignment Signal（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~45 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 02: Reward Hacking & Goodhart's Law（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~60 min
+
 #### 1.2 RLHF：基于人类反馈的强化学习
 
 RLHF（Reinforcement Learning from Human Feedback）是当前大语言模型对齐的主流方法。OpenAI的GPT系列和Anthropic的Claude系列都采用了RLHF。
@@ -172,6 +178,12 @@ Anthropic公开的宪法原则涵盖多个维度：
 - "不利用用户的心理弱点"
 - "不基于敏感属性进行歧视性定向"
 - "清晰标注AI生成的内容"
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 05: Constitutional AI & RLAIF（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~60 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 06: Mesa-Optimization & Deceptive Alignment（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
 
 #### 1.5 可解释性研究（Mechanistic Interpretability）
 
@@ -367,6 +379,9 @@ agent_permissions = {
 | **可审计** | 所有AI行为可追溯 | 完整的日志记录，包括输入、输出、决策过程 |
 | **持续更新** | 攻击手法在演化，防御也要更新 | 定期更新注入模式库，持续红队测试 |
 
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 15: Indirect Prompt Injection（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
+
 #### 2.3 Jailbreak攻击
 
 Jailbreak是指通过特定的提示技巧绕过模型的安全限制，使其产生本应被拒绝的有害内容。
@@ -497,6 +512,12 @@ for result in results:
 3. **保密原则**：发现的漏洞应及时报告和修复，不应公开
 4. **可追溯原则**：所有测试活动应有完整记录
 
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 12: Red-Teaming - PAIR & Automated Attacks（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 16: Red-Team Tooling - Garak, Llama Guard, PyRIT（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
+
 ---
 
 ### Day 3：AI治理框架——从NIST AI RMF到企业安全策略
@@ -576,6 +597,9 @@ EU AI Act是全球第一部全面的AI监管法律，2024年正式通过，2026�
 3. **聊天机器人透明度**：用户必须知道他们在与AI而非人类交互
 4. **生物识别限制**：禁止使用AI进行实时生物识别（除执法例外）
 5. **数据治理**：高风险AI系统的训练数据必须满足质量和偏见标准
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 24: Regulatory Frameworks - EU, US, UK, Korea（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
 
 #### 3.3 中国AI监管体系
 
@@ -665,6 +689,15 @@ EU AI Act是全球第一部全面的AI监管法律，2024年正式通过，2026�
 - [ ] 是否满足NIST AI RMF / EU AI Act / 中国法规的合规要求？
 
 ---
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 20: Bias & Representational Harm（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~60 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 22: Differential Privacy for LLMs（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~60 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 18 · Lesson 23: Watermarking - SynthID, Stable Signature, C2PA（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~75 min
 
 ## 知识问答
 

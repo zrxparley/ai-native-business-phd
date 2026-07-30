@@ -3,7 +3,7 @@
 > **修读者**：aha.gare
 > **导师系统**：Claude / 天道推演 + 系统觉醒 + 学位对标融合 + 牛津自然学习法 + 全球七校对标
 > **版本**：v4.0 | **日期**：2026-07-16
-> **学时**：22小时 + 英语平行轨道4小时
+> **学时**：29小时 + 英语平行轨道4小时（含Day 4.5经典ML算法补充3h + Day 7 AI辅助开发工具4h）
 > **对标课程**：Introduction to Computing + Statistics + Business Data Management + Principle of Data Analytics and Programming
 > **对标大学**：MIT OCW 15.071 The Analytics Edge / Stanford CS229先修要求 / Imperial Maths & Stats Foundations / NUS CS6101研究导论
 > **英语轨道材料**：Kaggle英文教程 + Khan Academy Statistics + MIT OCW 15.071英文讲义 + Python Official Tutorial（i+1难度：⭐⭐）
@@ -55,7 +55,7 @@ aha.gare的背景是售前解决方案产品经理，聚焦AI+企业营销，具
 
 ---
 
-## 学习计划表（6天 · v4.0）
+## 学习计划表（8天 · v4.0扩展）
 
 | 天次 | 主题 | 时长 | 核心产出 | 对标课程 | 英语轨道材料 |
 |:---:|------|:----:|---------|:------:|-------------|
@@ -63,10 +63,12 @@ aha.gare的背景是售前解决方案产品经理，聚焦AI+企业营销，具
 | Day 2 | 计算概论：数据结构与应用 | 4h | 能处理JSON/CSV/数据库数据 | 计算概论 + 数据分析与编程原理 | Python Official Tutorial Part 2-3（⭐） + MIT OCW 15.071 Unit 1（⭐⭐） |
 | Day 3 | 统计学：描述统计与推断统计 | 4h | 理解均值/方差/假设检验 | 统计学 | Khan Academy Statistics（⭐⭐） |
 | Day 4 | 统计学：回归分析与概率分布 | 4h | 能独立完成线性回归分析 | 统计学 | Khan Academy Probability（⭐⭐） + MIT OCW 15.071 Unit 2（⭐⭐） |
-| Day 5 | 商业数据管理：数据治理与SQL | 4h | 能设计简单的企业数据Schema | 商业数据管理 | Kaggle Learn: SQL（⭐） |
+| Day 4.5 | 经典机器学习算法补充（扩展） | 3h | 理解SVM/KNN/决策树/集成学习/模型评估 | 对标Stanford CS229算法覆盖 | scikit-learn官方文档（⭐⭐） |
+| Day 5 | 商业数据管理：数据治理与SQL+NoSQL | 4h | 能设计企业数据Schema，理解NoSQL选型 | 商业数据管理 | Kaggle Learn: SQL（⭐） |
 | Day 6 | 研究方法论入门（v4.0新增） | 2h | 理解学术研究的基本流程和IMRaD格式 | 对标Imperial MRes入门 / NUS CS6101 | Creswell《Research Design》Ch.1（⭐⭐⭐） |
+| Day 7 | AI辅助编程与开发工具（扩展） | 4h | 掌握AI辅助编程/Docker/Git/数据仓库 | 对标AEFS Phase 0工具链 | GitHub Copilot文档 + Docker入门（⭐⭐） |
 
-> **英语轨道总时长**：4小时，分散在6天中，每天约40分钟。不单独安排大块时间，而是在学习对应内容时同步阅读英文材料。
+> **英语轨道总时长**：4小时，分散在8天中，每天约30分钟。不单独安排大块时间，而是在学习对应内容时同步阅读英文材料。
 
 ---
 
@@ -994,6 +996,262 @@ MIT OCW 15.071 Unit 2的英文讲义涵盖了线性回归的完整内容，且�
 
 ---
 
+### Day 4.5：经典机器学习算法补充（v4.0扩展）
+
+> 🌐 **英语轨道（i+1）**：scikit-learn官方用户指南（https://scikit-learn.org/stable/user_guide.html）-- 英文文档，但代码示例丰富，语言障碍小。选择"1.4. Support Vector Machines"和"1.6. Nearest Neighbors"章节阅读，关注术语：kernel, hyperparameter, cross-validation, overfitting。
+
+#### 为什么在统计学之后补充经典ML
+
+Day 3-4的统计学打下了描述统计和推断统计的基础，线性回归是连接统计与机器学习的桥梁。但线性回归只是机器学习算法库中的一员。在进入后续技能1（表示工程）和技能2（模型工程）之前，你需要对经典机器学习算法有基本认知--这些算法至今仍在商业分析中广泛使用，且它们的核心思想（间隔最大化、集成学习、概率推断）是理解深度学习的基础。
+
+Stanford CS229在先修要求中明确列出"对基本ML算法的理解"。本节对标CS229的算法覆盖范围，用营销场景案例讲解每个算法。
+
+#### 核心算法
+
+**1. SVM（支持向量机）--最大间隔分类器**
+
+SVM的核心思想是找到一个超平面（hyperplane），使得两类数据点到它的最小距离（间隔）最大化。直觉上，不只是"分开"两类，而是"尽可能宽地分开"。
+
+- **最大间隔原理**：在所有能分开两类的超平面中，选择间隔最大的那个。间隔越大，模型的泛化能力越好--这与正则化思想一致。
+- **核函数（Kernel）**：当数据线性不可分时，核函数将数据映射到高维空间使其可分。常用核函数：
+  - 线性核（linear）：适用于特征数多、样本量适中的场景
+  - RBF核（径向基函数）：最常用的非线性核，适用于大多数场景
+  - 多项式核（polynomial）：适用于特征间有交互效应的场景
+- **软间隔（Soft Margin）**：允许部分样本被错误分类，通过参数C控制容忍度。C越大越严格（可能过拟合），C越小越宽容（可能欠拟合）。
+
+在营销场景中，SVM适合中等规模数据集的客户分类（如高价值/低价值客户识别），在特征维度高时表现优于逻辑回归。
+
+**代码示例（用sklearn.svm做客户分类）**：
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix
+
+# ============================================================
+# SVM客户分类脚本
+# 场景：根据客户行为特征预测是否为高价值客户
+# ============================================================
+
+np.random.seed(42)
+n = 500
+
+# 生成模拟数据
+data = pd.DataFrame({
+    'age': np.random.normal(35, 10, n).clip(18, 70),
+    'purchase_count': np.random.poisson(5, n) + 1,
+    'avg_order_value': np.random.lognormal(5, 0.5, n),
+    'days_since_last_purchase': np.random.randint(1, 180, n),
+    'registration_days': np.random.randint(30, 1000, n),
+})
+
+# 构造标签：消费总额 > 2000 且购买次数 > 3 为高价值客户
+total_spending = data['purchase_count'] * data['avg_order_value']
+data['is_high_value'] = ((total_spending > 2000) & (data['purchase_count'] > 3)).astype(int)
+
+# 特征与标签
+X = data[['age', 'purchase_count', 'avg_order_value',
+           'days_since_last_purchase', 'registration_days']]
+y = data['is_high_value']
+
+# 标准化（SVM对特征尺度敏感，必须标准化）
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 划分训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# 训练SVM（RBF核）
+svm_model = SVC(kernel='rbf', C=1.0, gamma='scale', random_state=42)
+svm_model.fit(X_train, y_train)
+
+# 预测与评估
+y_pred = svm_model.predict(X_test)
+
+print("=" * 60)
+print("SVM客户分类结果（RBF核）")
+print("=" * 60)
+print(f"\n训练集大小: {len(X_train)}, 测试集大小: {len(X_test)}")
+print(f"高价值客户占比: {y.mean():.1%}")
+print(f"\n混淆矩阵:\n{confusion_matrix(y_test, y_pred)}")
+print(f"\n分类报告:\n{classification_report(y_test, y_pred, target_names=['普通客户', '高价值客户'])}")
+
+# 对比线性核
+svm_linear = SVC(kernel='linear', C=1.0, random_state=42)
+svm_linear.fit(X_train, y_train)
+print(f"线性核准确率: {svm_linear.score(X_test, y_test):.4f}")
+print(f"RBF核准确率: {svm_model.score(X_test, y_test):.4f}")
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 05: [Support Vector Machines](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/05-support-vector-machines)
+> 预计时长：~75 min
+
+**2. KNN（K近邻）--惰性学习器**
+
+KNN是最直觉的算法："近朱者赤"。给定一个新样本，找到训练集中距离它最近的K个样本，用这K个邻居的多数投票决定新样本的类别。
+
+- **距离度量**：欧氏距离（L2）、曼哈顿距离（L1）、余弦距离。不同距离度量适用于不同数据类型--余弦距离适合文本/embedding，欧氏距离适合数值特征。
+- **K值选择**：K太小（如K=1）容易过拟合（受噪声影响大），K太大容易欠拟合（决策边界过于平滑）。通常用交叉验证选择最优K值。经验法则：K ≈ √n（n为样本量）。
+- **惰性学习**：KNN没有显式的训练过程，"训练"只是存储数据。预测时才计算距离，因此预测速度慢于SVM/决策树。
+
+在营销场景中，KNN适合客户分群（基于行为特征的相似客户识别）和推荐系统的协同过滤基础。
+
+**代码示例（用sklearn做客户分群）**：
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_val_score
+
+# 使用与SVM相同的数据
+# 测试不同K值
+k_values = [1, 3, 5, 7, 9, 11, 15, 21]
+cv_scores = []
+
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k, metric='euclidean')
+    scores = cross_val_score(knn, X_scaled, y, cv=5, scoring='accuracy')
+    cv_scores.append(scores.mean())
+    print(f"K={k:2d}: 5折交叉验证准确率 = {scores.mean():.4f} (±{scores.std():.4f})")
+
+best_k = k_values[np.argmax(cv_scores)]
+print(f"\n最优K值: {best_k}")
+
+# 用最优K值训练最终模型
+knn_final = KNeighborsClassifier(n_neighbors=best_k, metric='euclidean')
+knn_final.fit(X_train, y_train)
+print(f"KNN（K={best_k}）测试集准确率: {knn_final.score(X_test, y_test):.4f}")
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 06: [K-Nearest Neighbors & Distance Metrics](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/06-knn-and-distances)
+> 预计时长：~75 min
+
+**3. 决策树--可解释的规则提取器**
+
+决策树通过递归地将数据按特征分裂，形成一棵从根到叶的判定树。每个内部节点是一个特征判断（如"购买次数 > 5？"），每个叶子节点是一个类别预测。
+
+- **分裂准则**：
+  - 信息增益（Information Gain）：基于信息熵，选择使信息不确定性减少最多的特征。ID3和C4.5算法使用。
+  - 基尼系数（Gini Index）：衡量数据不纯度，CART算法默认使用。基尼系数越小，数据越纯。
+- **剪枝（Pruning）**：决策树容易过拟合（可以一直分裂到每个叶子只有一个样本）。剪枝分为预剪枝（限制树深度、叶子最小样本数）和后剪枝（先生长完整树再回剪）。
+
+决策树最大的优势是**可解释性**--你可以把树可视化，直接看到决策规则。在商业场景中，"购买次数>5且最近购买<30天的高价值客户"这种规则比一个黑箱模型的预测分数更容易被业务方接受。
+
+**代码示例（用sklearn.tree做营销响应预测）**：
+
+```python
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+import matplotlib.pyplot as plt
+
+# 场景：预测客户是否响应营销活动
+np.random.seed(42)
+n = 800
+data_tree = pd.DataFrame({
+    'age': np.random.normal(35, 10, n).clip(18, 70).astype(int),
+    'customer_level': np.random.choice([1, 2, 3, 4], n, p=[0.5, 0.3, 0.15, 0.05]),
+    'days_since_last_purchase': np.random.randint(1, 180, n),
+    'total_spending': np.random.lognormal(6, 0.8, n),
+    'email_open_rate': np.random.beta(2, 5, n),  # 邮件打开率
+})
+
+# 构造标签：高等级、近期购买、高消费的客户更可能响应
+prob = 1 / (1 + np.exp(-(-2 + 0.5 * data_tree['customer_level']
+                          - 0.02 * data_tree['days_since_last_purchase']
+                          + 0.0003 * data_tree['total_spending']
+                          + 3 * data_tree['email_open_rate'])))
+data_tree['responded'] = np.random.binomial(1, prob)
+
+X_tree = data_tree[['age', 'customer_level', 'days_since_last_purchase',
+                     'total_spending', 'email_open_rate']]
+y_tree = data_tree['responded']
+
+X_tr, X_te, y_tr, y_te = train_test_split(X_tree, y_tree, test_size=0.2, random_state=42)
+
+# 训练决策树（限制深度防止过拟合）
+dt_model = DecisionTreeClassifier(max_depth=4, min_samples_leaf=20, random_state=42)
+dt_model.fit(X_tr, y_tr)
+
+print("=" * 60)
+print("决策树营销响应预测")
+print("=" * 60)
+print(f"训练集准确率: {dt_model.score(X_tr, y_tr):.4f}")
+print(f"测试集准确率: {dt_model.score(X_te, y_te):.4f}")
+print(f"特征重要性:")
+for name, imp in sorted(zip(X_tree.columns, dt_model.feature_importances_),
+                         key=lambda x: -x[1]):
+    print(f"  {name}: {imp:.4f}")
+
+# 可视化决策树
+fig, ax = plt.subplots(figsize=(20, 8))
+plot_tree(dt_model, feature_names=list(X_tree.columns),
+          class_names=['未响应', '响应'], filled=True, ax=ax, fontsize=8)
+plt.title('营销响应预测决策树')
+plt.tight_layout()
+plt.savefig('decision_tree_marketing.png', dpi=150)
+plt.show()
+print("\n决策树可视化已保存为 decision_tree_marketing.png")
+```
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 04: [Decision Trees & Random Forests](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/04-decision-trees)
+> 预计时长：~75 min
+
+**4. 随机森林与XGBoost--集成学习的两大流派**
+
+单个决策树容易过拟合且不稳定（数据微变可能导致树结构大变）。集成学习通过组合多个弱学习器来构建强学习器，是提升模型性能的核心方法。
+
+- **Bagging（Bootstrap Aggregating）**：随机有放回抽样生成多个子数据集，每个子集训练一棵决策树，最终投票/平均。**随机森林**是Bagging的代表：在Bagging基础上进一步随机选择特征子集，使每棵树"看到"不同的数据视角。随机森林几乎不需要调参就能获得不错的性能，是"开箱即用"的首选算法。
+- **Boosting**：串行训练弱学习器，每个新模型专注于纠正前一个模型的错误。**XGBoost**（Extreme Gradient Boosting）是Boosting的工业级实现，通过正则化目标函数、二阶梯度信息、并行化等优化，在Kaggle竞赛中长期霸榜表格数据任务。LightGBM和CatBoost是同类替代品。
+
+在营销场景中，随机森林适合客户流失预测、营销响应预测等表格数据任务；XGBoost在数据量大、特征多时通常优于随机森林。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 11: [Ensemble Methods - Boosting, Bagging, Stacking](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/11-ensemble-methods)
+> 预计时长：~75 min
+
+**5. 朴素贝叶斯--概率推断的极简之美**
+
+朴素贝叶斯基于贝叶斯定理，加上一个"朴素"假设：特征之间条件独立。虽然这个假设几乎总是不成立（年龄和消费通常相关），但朴素贝叶斯在实践中出奇地有效，尤其在文本分类和高维稀疏数据上。
+
+贝叶斯定理：`P(Y|X) = P(X|Y) * P(Y) / P(X)`
+
+朴素假设将联合概率分解为各特征条件概率的乘积：`P(X|Y) = P(x1|Y) * P(x2|Y) * ... * P(xk|Y)`
+
+在营销场景中，朴素贝叶斯适合：
+- 文本分类（客户评论情感分析、客服工单分类）
+- 垃圾信息检测（营销短信是否被标记为垃圾）
+- 实时推荐（计算速度快，适合在线预测）
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 14: [Naive Bayes](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/14-naive-bayes)
+> 预计时长：~75 min
+
+**6. 模型选择与评估--如何选择"最好的"模型**
+
+训练完模型后，最关键的问题是：哪个模型最好？这个"好"如何量化？模型评估不仅仅是看准确率，而是需要系统的方法论。
+
+- **交叉验证（Cross-Validation）**：将数据分为K份（通常K=5或10），每次用K-1份训练、1份验证，重复K次取平均。交叉验证比单次训练/测试分割更稳健，能减少因数据划分随机性导致的评估偏差。K折交叉验证是业界标准做法。
+- **评估指标**：
+  - 分类：准确率（Accuracy）、精确率（Precision）、召回率（Recall）、F1-score、AUC-ROC。在客户流失预测中，召回率（能识别多少流失客户）通常比准确率更重要。
+  - 回归：MSE、RMSE、MAE、R2。RMSE对大误差更敏感，MAE更鲁棒。
+  - 注意类别不平衡：当正负样本比例悬殊时（如转化率2%），准确率会失真--全部预测为"不转化"也有98%准确率。此时应看AUC-ROC或F1。
+- **网格搜索（Grid Search）**：系统地遍历超参数组合，用交叉验证评估每组参数的性能，选出最优组合。例如对SVM搜索`C = [0.1, 1, 10]`和`gamma = [0.01, 0.1, 1]`的组合。随机搜索（RandomizedSearchCV）在参数空间大时更高效。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 12: [Hyperparameter Tuning & AutoML](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/12-hyperparameter-tuning)
+> 预计时长：~75 min
+
+> 🔗 **延伸实践**：详见 AEFS Phase 2 · Lesson 09: [Model Evaluation](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/09-model-evaluation)
+> 预计时长：~75 min
+
+#### 与营销/商业的连接点
+
+1. **经典ML算法是AI营销的工程基线**。在投入深度学习之前，应先用经典ML建立性能基线。很多时候，随机森林或XGBoost在表格化客户数据上的表现并不逊于深度学习，且训练成本低、可解释性强。
+
+2. **可解释性是商业落地的关键**。决策树和随机森林可以输出特征重要性，帮助业务方理解"哪些因素驱动了客户行为"。在面向客户提案时，"基于决策规则的客户分群"比"黑箱模型的预测分数"更容易获得信任。这与后续技能1中的embedding可解释性议题呼应。
+
+3. **模型评估的严谨性直接影响商业决策质量**。在A/B测试中，我们用假设检验判断效果是否显著；在ML模型中，我们用交叉验证和合适的评估指标判断模型是否可靠。两者的底层逻辑一致：避免因随机波动做出错误决策。
+
+---
+
 ### Day 5：商业数据管理——数据治理与SQL
 
 > 🌐 **英语轨道（i+1）**：Kaggle Learn: SQL（https://www.kaggle.com/learn/sql）—— 英文界面，但SQL是通用语言，语言障碍小。完成Kaggle的SQL互动练习。
@@ -1356,6 +1614,156 @@ Kaggle Learn的SQL课程（https://www.kaggle.com/learn/sql）是英文界面的
 
 ---
 
+#### NoSQL数据建模（扩展）
+
+Day 5的核心内容覆盖了关系型数据库与SQL。但在AI营销场景中，大量数据并非结构化的表格--客服对话、用户行为日志、知识图谱、实时缓存等场景需要NoSQL（Not Only SQL）数据库。本节补充NoSQL数据建模的基础知识，为后续技能中的多模态数据管理打基础。
+
+**1. CAP定理--分布式系统的根本约束**
+
+CAP定理（Brewer's Theorem）指出，分布式数据系统最多只能同时满足三个特性中的两个：
+
+- **一致性（Consistency）**：所有节点在同一时刻看到相同的数据
+- **可用性（Availability）**：每个请求都能收到响应（不保证是最新数据）
+- **分区容错性（Partition Tolerance）**：网络分区（节点间通信失败）时系统仍能运行
+
+由于网络分区在分布式系统中不可避免，实际选择是在C和A之间取舍：
+- **CP系统**：优先一致性（如MongoDB在强一致性模式下、HBase）--分区时拒绝写入，保证数据一致
+- **AP系统**：优先可用性（如Cassandra、DynamoDB）--分区时继续服务，可能返回旧数据
+- **CA系统**：单机关系型数据库（如MySQL单机版）--无分区问题，但无法水平扩展
+
+**2. ACID vs BASE--事务模型的两个极端**
+
+| 维度 | ACID（关系型数据库） | BASE（NoSQL数据库） |
+|------|---------------------|---------------------|
+| 一致性 | 强一致性：事务完成后数据立即可见 | 最终一致性：数据经过一段时间后达到一致 |
+| 隔离性 | 事务间严格隔离 | 事务间可能可见中间状态 |
+| 可用性 | 分区时可能不可用 | 分区时仍可服务 |
+| 适用场景 | 金融交易、订单处理 | 社交网络、内容管理、日志分析 |
+
+在营销系统中，订单和支付用ACID数据库（MySQL/PostgreSQL），用户画像和行为日志用BASE数据库（MongoDB/Cassandra）。
+
+**3. 文档数据库（MongoDB）**
+
+MongoDB是最流行的文档数据库，用BSON（Binary JSON）格式存储数据。每个文档是一个JSON对象，集合（Collection）相当于关系型数据库的表，但文档结构可以不同（Schema-less）。
+
+- **文档模型**：嵌套结构天然适合层级数据。一个客户文档可以包含订单历史、标签、行为记录，无需多表JOIN。
+- **CRUD操作**：`db.collection.insertOne()`, `find()`, `updateOne()`, `deleteOne()`
+- **索引**：支持单字段索引、复合索引、文本索引、地理空间索引
+- **聚合管道（Aggregation Pipeline）**：`$match` -> `$group` -> `$sort` -> `$project`，类似于SQL的WHERE/GROUP BY/ORDER BY/SELECT，但支持多阶段流水线
+
+**代码示例（用pymongo操作MongoDB）**：
+
+```python
+from pymongo import MongoClient
+from datetime import datetime
+
+# 连接MongoDB（实际使用时替换为真实连接字符串）
+# client = MongoClient('mongodb://localhost:27017/')
+# 此处用内存演示操作语法
+
+# 假设已连接，获取数据库和集合
+# db = client['marketing_db']
+# customers = db['customers']
+
+# --- 插入文档（Create）---
+customer_doc = {
+    'customer_id': 'CUST00001',
+    'name': '张三',
+    'level': '金卡',
+    'register_date': datetime(2024, 3, 15),
+    'tags': ['高频', '价格敏感', '移动端'],
+    'orders': [
+        {'order_id': 'ORD001', 'amount': 299.0, 'date': '2025-06-01'},
+        {'order_id': 'ORD002', 'amount': 159.0, 'date': '2025-06-15'},
+    ],
+    'profile': {
+        'age': 32,
+        'city': '上海',
+        'preferred_channel': 'mini_program',
+    }
+}
+# customers.insert_one(customer_doc)
+print("文档插入完成（演示语法）")
+
+# --- 查询文档（Read）---
+# 查询金卡客户
+# gold_customers = customers.find({'level': '金卡'})
+# 查询上海的高频客户
+# result = customers.find({
+#     'profile.city': '上海',
+#     'tags': '高频'
+# })
+print("查询完成（演示语法）")
+
+# --- 聚合管道示例：各城市客户消费统计 ---
+pipeline = [
+    {'$match': {'level': {'$in': ['金卡', '钻石']}}},
+    {'$unwind': '$orders'},
+    {'$group': {
+        '_id': '$profile.city',
+        'total_spending': {'$sum': '$orders.amount'},
+        'avg_order_value': {'$avg': '$orders.amount'},
+        'customer_count': {'$sum': 1}
+    }},
+    {'$sort': {'total_spending': -1}}
+]
+# result = list(customers.aggregate(pipeline))
+print("聚合管道：各城市金卡/钻石客户消费统计（演示语法）")
+print(f"Pipeline阶段: $match -> $unwind -> $group -> $sort")
+```
+
+**4. 键值数据库（Redis）**
+
+Redis是内存级键值数据库，以极低的延迟（亚毫秒级）著称。它不仅是缓存，还支持多种数据结构：字符串、列表、哈希、集合、有序集合。
+
+- **数据类型**：String（缓存HTML/API响应）、Hash（用户会话）、List（消息队列）、Set（标签/去重）、Sorted Set（排行榜）
+- **持久化**：RDB（定期快照）和AOF（追加日志），可在性能与数据安全间权衡
+- **缓存模式**：Cache-Aside（应用先查缓存，未命中再查数据库并回填）、Write-Through（写时同步更新缓存）
+
+在AI营销系统中，Redis常用于：用户会话管理、实时推荐结果缓存、限流控制。这与后续技能5中的Redis语义缓存直接衔接--技能5会将Redis用作LLM响应的语义缓存层，用embedding相似度匹配历史问答，避免重复调用LLM API。
+
+**5. 图数据库（Neo4j）**
+
+Neo4j使用属性图模型：节点（Node）表示实体，关系（Relationship）表示实体间的连接，两者都可以有属性。图数据库的核心优势是高效处理多跳关系查询--在关系型数据库中需要多次JOIN的查询，在图数据库中是O(1)的邻居遍历。
+
+- **属性图模型**：节点（如客户、商品、渠道）+ 关系（如"购买"、"浏览"、"推荐给"）+ 属性（如购买金额、浏览时长）
+- **Cypher查询语言**：`MATCH (c:Customer)-[:PURCHASED]->(p:Product) RETURN c, p`
+- **应用场景**：社交网络分析、推荐系统（"购买了此商品的人还购买了..."）、欺诈检测（识别关联账户团伙）
+
+图数据库与后续技能1中的知识图谱直接衔接。技能1会构建营销知识图谱，将客户、商品、渠道、内容、行为等实体及其关系统一建模为图结构，支持基于图结构的推理和推荐。Neo4j是这个知识图谱的存储和查询引擎。
+
+**6. 列式数据库（Cassandra）**
+
+Cassandra是分布式列式数据库，专为海量数据写入和高可用性设计。
+
+- **分区键（Partition Key）**：决定数据存储在哪个节点，用于数据分片
+- **聚类键（Clustering Key）**：决定同一分区内数据的排序方式
+- **宽行模型**：一行可以有数百万列，适合时间序列数据
+
+在营销场景中，Cassandra适合存储海量用户行为日志（如每次页面浏览、点击、滑动事件），支持按用户ID和时间范围高效查询。
+
+**7. SQL vs NoSQL选型矩阵**
+
+| 维度 | SQL（MySQL/PostgreSQL） | 文档（MongoDB） | 键值（Redis） | 图（Neo4j） | 列式（Cassandra） |
+|------|------------------------|-----------------|--------------|------------|-------------------|
+| 数据结构 | 表格，强Schema | JSON文档，灵活Schema | 键值对 | 图（节点+关系） | 宽行列族 |
+| 一致性 | ACID强一致 | 最终一致/可调 | 最终一致 | ACID | 最终一致 |
+| 查询能力 | SQL，复杂JOIN | JSON查询，聚合管道 | 简单KV操作 | Cypher，图遍历 | CQL，分区范围查询 |
+| 扩展方式 | 垂直为主 | 水平分片 | 集群 | 垂直为主 | 水平分片 |
+| 营销场景 | 订单/客户/支付 | 用户画像/内容管理 | 缓存/会话/排行榜 | 推荐系统/知识图谱 | 行为日志/时间序列 |
+
+**选型原则**：没有"最好"的数据库，只有"最合适"的。企业级AI营销系统通常是多数据库混合架构：MySQL存交易数据，MongoDB存用户画像，Redis做缓存，Neo4j做知识图谱，Cassandra存行为日志。
+
+#### 与营销/商业的连接点
+
+1. **多模态数据需要多数据库架构**。AI营销系统的数据包括结构化订单数据（SQL）、半结构化用户画像（MongoDB）、非结构化客服对话（向量数据库，后续技能2）、实时行为流（Redis/Cassandra）。理解每种数据库的适用场景，是设计企业数据架构的基础。
+
+2. **Redis缓存是AI系统性能优化的关键**。LLM API调用延迟高（秒级）、成本高（按Token计费）。用Redis缓存历史问答结果，可以将响应时间从秒级降到毫秒级。技能5中的语义缓存进一步将"精确匹配"升级为"语义匹配"。
+
+3. **图数据库是知识图谱的载体**。技能1将构建营销知识图谱，将企业分散的数据（CRM、产品库、内容库、行为日志）统一为图结构。Neo4j的Cypher查询语言让"找到所有购买了产品A且关注了公众号B的客户推荐的产品C"这种复杂关系查询变得直观高效。
+
+---
+
 ### Day 6：研究方法论入门（v4.0新增）
 
 > 🌐 **英语轨道（i+1）**：Creswell《Research Design: Qualitative, Quantitative, and Mixed Methods Approaches》第五版Chapter 1—— 先读中文摘要（如有），再对照英文原文。能读懂40-50%是正常的，关注核心概念而非细节。
@@ -1440,6 +1848,340 @@ IMRaD（Introduction, Methods, Results, and Discussion）是实证研究论文�
   - 这本书是全球研究方法论课程的标准教材，Oxford、Cambridge、Imperial等校广泛使用
 - 📺 **B站**："研究方法论入门"（找播放量>1万的系列）
 - 🌐 **英语轨道**：读Creswell Chapter 1的前5页，不查全部单词，混个脸熟。关注术语：research paradigm, positivism, interpretivism, pragmatism, IMRaD
+
+---
+
+### Day 7：AI辅助编程与开发工具（v4.0扩展）
+
+> 🌐 **英语轨道（i+1）**：GitHub Copilot官方文档（https://docs.github.com/en/copilot）和Docker官方入门教程（https://docs.docker.com/get-started/）-- 英文技术文档，语言简洁。关注术语：container, image, repository, commit, merge, breakpoint, profiling。
+
+#### 为什么需要专门学习开发工具
+
+在AI原生化时代，编程能力不再仅仅是"写代码"，而是"用AI辅助写代码、调试代码、审查代码"。这套能力组合被称为"AI-Augmented Development"，是后续所有技能中工程实践的效率倍增器。
+
+对于aha.gare这样有应用工程背景的售前解决方案产品经理，掌握AI辅助开发工具链可以显著缩短从"想法"到"原型"的周期。在客户提案中，能快速用Cursor生成原型代码、用Docker容器化部署、用Git管理版本，这些能力直接决定了"能不能在客户面前现场demo"。
+
+本节对标AEFS（AI Engineering from Scratch）Phase 0的核心工具链内容，补充Day 1-6未覆盖的工程基础设施。
+
+#### 核心内容
+
+**1. AI辅助编程工具生态**
+
+2024-2026年，AI辅助编程工具经历了从"代码补全"到"对话式编程"的范式转变。三大主流工具各有侧重：
+
+| 工具 | 核心能力 | 适用场景 | 优势 |
+|------|---------|---------|------|
+| **GitHub Copilot** | 代码行级/函数级补全、Copilot Chat | VS Code / JetBrains内嵌使用 | 与GitHub生态深度集成，PR摘要自动生成 |
+| **Cursor** | 全项目上下文感知、多文件编辑、Agent模式 | 独立IDE（VS Code fork） | 理解整个代码库，支持"用自然语言修改整个项目" |
+| **Codeium** | 代码补全、Chat、免费tier | VS Code / 多IDE插件 | 免费额度大，适合个人学习和小团队 |
+
+**实践建议**：
+- 日常编码用GitHub Copilot（行级补全体验最好）
+- 大规模重构和新项目原型用Cursor（全项目上下文理解最强）
+- 预算有限时用Codeium（免费tier足够学习使用）
+
+**AI辅助编程的最佳实践**：
+1. **写好注释和函数签名**：AI根据注释和签名生成实现。注释越清晰，生成质量越高。
+2. **小步快跑**：不要让AI一次生成100行代码，而是每次生成10-20行，验证后再继续。
+3. **始终审查生成代码**：AI可能生成语法正确但逻辑错误的代码。理解每一行再接受。
+4. **用AI写测试**：让AI根据函数实现生成单元测试，这是AI最擅长的任务之一。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 0 · Lesson 08: [Editor Setup](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/08-editor-setup)
+> 预计时长：~75 min
+
+**2. AI辅助调试技巧**
+
+调试（Debugging）是编程中最耗时的环节。AI辅助调试正在改变传统的工作流：
+
+- **传统流程**：看到报错 -> 读错误信息 -> 搜索Stack Overflow -> 尝试修复 -> 失败 -> 重复
+- **AI辅助流程**：看到报错 -> 将完整错误信息和相关代码粘贴给ChatGPT/Claude -> AI分析根因并给出修复方案 -> 审查并应用
+
+**AI辅助调试的关键技巧**：
+
+1. **提供完整上下文**：不要只粘贴错误信息，还要包括：报错的代码段、相关变量定义、使用的库版本。AI需要上下文才能准确诊断。
+
+2. **让AI解释"为什么"**：不只问"怎么修"，还要问"为什么会出错"。理解根因比修复表面问题更重要。
+
+3. **分步调试复杂问题**：对于复杂bug，让AI帮你写调试代码（如打印中间变量、添加断言），逐步缩小问题范围。
+
+4. **利用AI分析堆栈跟踪**：将完整的堆栈跟踪（stack trace）粘贴给AI，它能快速定位问题所在的文件和行号，并解释调用链。
+
+**示例Prompt**：
+```
+我在运行以下Python代码时遇到了错误。请分析错误原因并给出修复方案。
+
+错误信息：
+[粘贴完整错误信息]
+
+相关代码：
+[粘贴代码段]
+
+环境信息：
+- Python 3.10
+- pandas 2.0+
+- 操作系统：macOS
+```
+
+**3. AI辅助代码审查**
+
+代码审查（Code Review）是保证代码质量的重要环节。AI可以辅助发现：
+
+- **代码异味（Code Smells）**：过长函数、重复代码、过深嵌套、魔法数字
+- **安全漏洞**：SQL注入风险（字符串拼接SQL）、硬编码密钥、不安全的反序列化
+- **性能问题**：N+1查询、不必要的循环内分配、大数据集的全量加载
+- **最佳实践偏离**：未使用上下文管理器（with语句）、未处理异常、缺少类型注解
+
+**实践方式**：在提交PR前，用Claude/ChatGPT对diff进行审查。将git diff输出粘贴给AI，让它检查潜在问题。
+
+**4. Prompt-to-Code实践**
+
+Prompt-to-Code是AI辅助编程的高级形态：用自然语言描述需求，AI生成完整可运行的代码。这不仅是"补全"，而是"从需求到实现"的跨越。
+
+**Prompt-to-Code的工作流**：
+1. **描述需求**：用自然语言描述要实现的功能，包括输入、输出、边界条件
+2. **指定技术栈**：告诉AI用什么库、什么框架
+3. **生成代码**：AI生成初版代码
+4. **迭代优化**：指出问题，让AI修改
+5. **测试验证**：运行代码，用AI生成测试用例
+
+**有效Prompt的关键要素**：
+- **明确输入输出**："输入是一个包含客户消费记录的DataFrame，输出是按客户分组的RFM得分表"
+- **指定约束**："不要使用循环，用向量化操作"或"代码需要在Python 3.10上运行"
+- **提供示例**："例如，输入[['customer_id': 'C001', 'amount': 100]]，输出应该是..."
+- **要求解释**："请在代码中添加注释解释每一步的逻辑"
+
+这种Prompt-to-Code的能力在后续技能5的Agent开发中尤为关键--因为Agent的本质就是将自然语言指令转化为代码执行。
+
+**5. Docker容器化基础**
+
+Docker解决了"在我机器上能跑"的问题。它将应用及其依赖打包成一个标准化的容器（Container），确保在任何环境（开发、测试、生产）中行为一致。
+
+**核心概念**：
+- **镜像（Image）**：只读模板，包含应用运行所需的一切（代码、运行时、库、配置）。类似于面向对象编程中的"类"。
+- **容器（Container）**：镜像的运行实例。类似于"对象"。一个镜像可以启动多个容器。
+- **Dockerfile**：构建镜像的脚本，用一系列指令描述如何从基础镜像构建出目标镜像。
+- **仓库（Registry）**：存储和分发镜像的服务。Docker Hub是公共仓库，企业通常用私有仓库（如Harbor）。
+
+**基本操作**：
+```bash
+# 拉取Python官方镜像
+docker pull python:3.10-slim
+
+# 构建自定义镜像（在Dockerfile所在目录执行）
+docker build -t my-ai-app:1.0 .
+
+# 运行容器
+docker run -d --name ai-service -p 8000:8000 my-ai-app:1.0
+
+# 查看运行中的容器
+docker ps
+
+# 查看容器日志
+docker logs ai-service
+
+# 停止并删除容器
+docker stop ai-service && docker rm ai-service
+```
+
+**Dockerfile示例（AI应用容器化）**：
+```dockerfile
+# 基础镜像：Python 3.10 精简版
+FROM python:3.10-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制依赖文件并安装
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制应用代码
+COPY . .
+
+# 暴露端口
+EXPOSE 8000
+
+# 启动命令
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+在AI营销系统部署中，Docker的核心价值是**环境一致性**：开发环境中的LangChain Agent、向量数据库、LLM API客户端配置，打包成镜像后可以在客户的服务器上一键部署，无需担心环境差异。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 0 · Lesson 07: [Docker for AI](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/07-docker-for-ai)
+> 预计时长：~75 min
+
+**6. Linux基础**
+
+Linux是AI开发的服务器端标准操作系统。即使你在macOS或Windows上开发，AI模型训练和服务部署几乎都在Linux服务器上进行。
+
+**核心知识**：
+
+- **文件系统**：Linux采用单根树结构（/），关键目录包括：
+  - `/home/username`：用户主目录
+  - `/etc`：配置文件
+  - `/var/log`：日志文件
+  - `/opt`：第三方应用安装目录
+  
+- **权限模型**：每个文件有三组权限（所有者/组/其他），每组三种权限（读r/写w/执行x）
+  - `chmod 755 file`：所有者rwx，组r-x，其他r-x
+  - `chown user:group file`：修改文件所有者
+
+- **进程管理**：
+  - `ps aux`：查看所有进程
+  - `top` / `htop`：实时监控进程和资源使用
+  - `kill PID`：终止进程
+  - `nohup python app.py &`：后台运行，终端关闭后继续
+
+- **常用命令组合**：
+  - `grep -r "keyword" /path`：递归搜索文件内容
+  - `find /path -name "*.py"`：按文件名查找
+  - `tail -f /var/log/app.log`：实时查看日志末尾
+  - `df -h`：查看磁盘使用情况
+  - `free -m`：查看内存使用情况
+
+> 🔗 **延伸实践**：详见 AEFS Phase 0 · Lesson 11: [Linux for AI](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/11-linux-for-ai)
+> 预计时长：~45 min
+
+**7. Git版本控制进阶**
+
+Day 1已经提到Git的基本概念。本节补充进阶操作，这些在团队协作和项目管理中必不可少。
+
+**核心进阶操作**：
+
+- **分支策略**：
+  - `git checkout -b feature/customer-segmentation`：创建并切换到功能分支
+  - 主分支（main/master）保持可发布状态，功能在分支上开发，完成后合并
+  - Git Flow / GitHub Flow / Trunk-Based Development是三种常见分支策略
+
+- **合并与冲突解决**：
+  - `git merge feature-branch`：合并分支到当前分支
+  - 冲突发生时，Git会在文件中标记冲突区域（`<<<<<<<`, `=======`, `>>>>>>>`），手动解决后`git add` + `git commit`
+  - `git rebase main`：将当前分支的commit"嫁接"到main最新位置，保持线性历史
+
+- **暂存与恢复**：
+  - `git stash`：临时保存未提交的修改（切换分支前使用）
+  - `git stash pop`：恢复暂存的修改
+
+- **历史查看与回退**：
+  - `git log --oneline --graph`：图形化查看提交历史
+  - `git diff HEAD~3`：查看最近3次提交的变更
+  - `git revert <commit>`：创建一个反向提交来撤销变更（安全，不改写历史）
+  - `git reset --hard <commit>`：回退到指定提交（危险，丢弃之后的修改）
+
+- **远程协作**：
+  - `git remote add origin <url>`：添加远程仓库
+  - `git push -u origin main`：推送并设置上游
+  - `git pull --rebase`：拉取远程更新并rebase（避免多余的merge commit）
+
+**最佳实践**：
+1. 每次commit只做一件事，commit message用"动词+对象"格式（如"Add customer segmentation function"）
+2. 频繁提交，小步 commit
+3. 推送前在本地运行测试
+4. 用`.gitignore`排除不应版本控制的文件（数据文件、密钥、虚拟环境）
+
+> 🔗 **延伸实践**：详见 AEFS Phase 0 · Lesson 02: [Git & Collaboration](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/02-git-and-collaboration)
+> 预计时长：~45 min
+
+**8. 数据仓库概念**
+
+Day 5介绍了数据仓库 vs 数据湖的基本概念。本节补充维度建模和ETL/ELT的细节，这些在后续技能3（因果推断）和技能5（系统落地）中会直接使用。
+
+**维度建模（Dimensional Modeling）**：
+
+维度建模是数据仓库之父Ralph Kimball提出的设计方法，专为分析查询优化。核心思想是将数据分为事实表（Fact Table）和维度表（Dimension Table）：
+
+- **事实表**：记录业务事件，包含度量值（如销售额、数量）和外键指向维度表。事实表通常很长（百万到十亿行）但窄（列少）。
+- **维度表**：描述业务实体，包含丰富的属性（如客户名称、性别、地区、等级）。维度表通常短（几千到几百万行）但宽（列多）。
+
+**两种模式**：
+
+- **星型模型（Star Schema）**：事实表在中心，维度表围绕，维度表不进一步关联。结构简单，查询性能好，是大多数数据仓库的默认选择。
+  
+  ```
+  事实表(orders) --- 维度表(dim_customer)
+      |
+      +--- 维度表(dim_product)
+      |
+      +--- 维度表(dim_date)
+      |
+      +--- 维度表(dim_store)
+  ```
+
+- **雪花模型（Snowflake Schema）**：维度表进一步范式化，关联到子维度表。存储更紧凑，但查询需要更多JOIN，性能略低。
+
+  ```
+  事实表(orders) --- 维度表(dim_customer) --- 子维度表(dim_region) --- 子维度表(dim_country)
+  ```
+
+**ETL vs ELT**：
+
+| 维度 | ETL（Extract-Transform-Load） | ELT（Extract-Load-Transform） |
+|------|-------------------------------|-------------------------------|
+| 流程 | 抽取 -> 转换 -> 加载 | 抽取 -> 加载 -> 转换 |
+| 转换位置 | 独立的ETL引擎中 | 数据仓库内部（用SQL） |
+| 适用场景 | 传统数据仓库 | 现代云数据仓库（Snowflake, BigQuery） |
+| 优势 | 转换逻辑与数据解耦 | 利用数据仓库算力，转换可重复 |
+
+在AI营销系统中，ELT模式更主流：原始数据先全部加载到数据仓库（如Snowflake），然后用SQL做转换和聚合，最后用Python/Spark做ML特征工程。
+
+**9. Python调试与性能分析**
+
+当代码变复杂后，"能跑"不够，还需要"跑得对"和"跑得快"。Python提供了强大的调试和性能分析工具。
+
+**调试工具**：
+
+- **pdb（Python Debugger）**：Python标准库调试器，可以在代码中设置断点，逐行执行，检查变量。
+  ```python
+  import pdb; pdb.set_trace()  # 在代码中插入断点
+  # 常用命令：n(下一行), s(进入函数), c(继续), p 变量名(打印变量), l(查看代码)
+  ```
+  Python 3.7+可以使用更简洁的`breakpoint()`内置函数。
+
+- **VS Code调试器**：图形化断点调试，支持条件断点、Watch变量、调用栈查看。比pdb更直观，是日常开发首选。
+
+**性能分析工具**：
+
+- **cProfile**：Python标准库性能分析器，统计每个函数的调用次数和耗时。
+  ```python
+  import cProfile
+  cProfile.run('your_function()', sort='cumulative')
+  # 输出每个函数的调用次数、总耗时、每次调用平均耗时
+  ```
+
+- **memory_profiler**：分析内存使用，逐行显示内存变化。
+  ```python
+  from memory_profiler import profile
+  
+  @profile
+  def process_large_data():
+      df = pd.read_csv('large_file.csv')  # 行1：内存+X MB
+      result = df.groupby('user_id').sum()  # 行2：内存+Y MB
+      return result
+  ```
+
+**性能优化原则**：
+1. **先测量，后优化**：不要凭直觉优化，用cProfile找出真正的瓶颈。
+2. **向量化优于循环**：用NumPy/Pandas的向量化操作替代Python for循环，通常快10-100倍。
+3. **惰性加载**：大数据集用chunk读取（`pd.read_csv(chunksize=10000)`），不要一次性加载到内存。
+4. **缓存计算结果**：重复使用的中间结果用`functools.lru_cache`缓存。
+
+> 🔗 **延伸实践**：详见 AEFS Phase 0 · Lesson 12: [Debugging & Profiling](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/12-debugging-and-profiling)
+> 预计时长：~75 min
+
+#### 与营销/商业的连接点
+
+1. **AI辅助编程是售前解决方案产品经理的效率倍增器**。在客户提案阶段，用Cursor快速生成原型代码，用Docker打包成可部署的demo，当场展示"AI营销系统"的效果。这种"从想法到demo"的速度，是赢得客户信任的关键。
+
+2. **数据仓库维度建模是营销分析的基础设施**。星型模型的"事实表+维度表"结构，直接服务于营销分析的核心查询：按时间、地区、客户等级、渠道等维度分析销售额、转化率、ROI。理解维度建模，才能与数据团队有效沟通分析需求。
+
+3. **Docker容器化是AI系统部署的标准方式**。后续技能5中的Agent系统、RAG服务、模型推理API，都需要容器化部署。掌握Docker基础，是理解技能5中MLOps和系统部署的前提。
+
+4. **调试与性能分析能力决定了系统能否从"原型"走向"生产"**。原型阶段"能跑就行"，生产阶段需要处理百万级数据、毫秒级响应、并发请求。cProfile和memory_profiler是发现性能瓶颈的第一步。
 
 ---
 
@@ -1779,8 +2521,10 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | Day 2 | 打开MIT OCW 15.071 Unit 1讲义，读第一页（Introduction部分） | 20min |
 | Day 3 | 在Khan Academy看一个统计学视频（开英文字幕），理解大意 | 15min |
 | Day 4 | 在Khan Academy看一个概率论视频（关字幕纯英文听），能听懂多少是多少 | 15min |
+| Day 4.5 | 在scikit-learn官方文档中读SVM或KNN章节的英文概述 | 15min |
 | Day 5 | 在Kaggle Learn完成SQL第一课（英文界面） | 20min |
 | Day 6 | 读Creswell《Research Design》Chapter 1的前5页英文原文 | 15min |
+| Day 7 | 读Docker官方入门教程"Get Started"的前2页英文原文 | 15min |
 
 ### 难度标注说明
 
@@ -1900,8 +2644,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 
 | 项目 | v3.1 | v4.0独立教材 |
 |------|------|-------------|
-| 天数 | 5天 | 6天（+研究方法论入门） |
-| 学时 | 20h | 22h |
+| 天数 | 5天 | 8天（+研究方法论+经典ML补充+AI辅助开发工具） |
+| 学时 | 20h | 29h |
 | 对标大学 | Kaggle + Khan Academy | + MIT OCW 15.071 + Stanford CS229先修 + Imperial + NUS |
 | 代码示例 | 概要性 | 完整可运行的Python脚本（含模拟数据） |
 | 案例分析 | 简要描述 | 详细的真实营销场景分析（RFM、A/B测试、LTV回归、多源数据整合、数据库Schema） |
@@ -1909,18 +2653,23 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | 英语轨道 | 简要列表 | 每日英语微习惯+难度标注+使用方式 |
 | 知识问答 | 6题（无答案） | 13题（含答案要点和难度分级） |
 | 作业设计 | 2个 | 3个（2必做+1挑战，含详细评分量表和参考答案要点） |
+| 经典ML算法 | 无 | Day 4.5（SVM/KNN/决策树/集成学习/朴素贝叶斯/模型评估，含sklearn代码） |
+| NoSQL数据建模 | 无 | Day 5扩展（CAP/ACID vs BASE/MongoDB/Redis/Neo4j/Cassandra/选型矩阵） |
+| AI辅助开发工具 | 无 | Day 7（Copilot/Cursor/Docker/Linux/Git进阶/数据仓库/调试与性能分析） |
+| AEFS实践引用 | 无 | 融入7处AEFS课节引用（Phase 0工具链 + Phase 2 ML基础） |
 
 ### 代码运行环境要求
 
 - Python 3.10+
-- 依赖库：pandas, numpy, scipy, statsmodels, matplotlib, seaborn, sqlite3（标准库）
+- 依赖库：pandas, numpy, scipy, statsmodels, scikit-learn, matplotlib, seaborn, sqlite3（标准库）
 - 推荐使用Jupyter Notebook或VS Code运行
 
 ### 字数统计
 
-本教材正文约18000字（含代码注释），不含代码约15000字。
+本教材正文约25000字（含代码注释），不含代码约20000字。v4.0扩展版新增Day 4.5经典ML算法补充（约2500字）、Day 5 NoSQL数据建模扩展（约1800字）、Day 7 AI辅助编程与开发工具（约3500字），并融入AEFS（AI Engineering from Scratch）实践引用。
 
 ---
 
 *本教材由Claude基于v4.0主教材和升级方案编制，作为"AI原生化商业博士"课程技能0的独立学习材料。*
-*最后更新：2026-07-16*
+*v4.0扩展版新增Day 4.5经典ML算法补充、Day 5 NoSQL数据建模、Day 7 AI辅助编程与开发工具，并融入AEFS实践引用。*
+*最后更新：2026-07-30*

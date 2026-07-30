@@ -579,6 +579,12 @@ decision_maker.initiate_chat(manager, message="我们应该在Q3投放500万营�
 
 3. **专业化深度**：一个Agent的System Prompt如果塞入太多角色定义，会导致每个角色都做不好。分专Agent可以让每个Agent在自己的领域做到深度专业化。
 
+> 🔗 **延伸实践**：Agent基础模式详见 AEFS Phase 14 · Lessons 01-06: Agent Loop / ReWOO / Reflexion / ToT / Self-Refine / Tool Use（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agentic-patterns）
+> 预计时长：~45-75 min/lesson
+
+> 🔗 **延伸实践**：Agent记忆机制详见 AEFS Phase 14 · Lessons 07-10: Memory Blocks / Hybrid Memory / Skill Libraries（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agentic-patterns）
+> 预计时长：~60 min/lesson
+
 #### 二、多Agent协作模式
 
 根据Agent间的交互拓扑结构，多Agent协作可以分为五种基本模式：
@@ -634,6 +640,12 @@ Agent A <-> Agent B <-> Agent C
 
 Agent间可以自由通信，没有固定的拓扑结构。适用于探索性任务，如头脑风暴。AutoGen的GroupChat最接近这种模式。
 
+> 🔗 **延伸实践**：Agent编排模式详见 AEFS Phase 14 · Lessons 12-13: Anthropic Patterns / Stateful Graph（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agentic-patterns）
+> 预计时长：~75 min/lesson
+
+> 🔗 **延伸实践**：多Agent架构模式详见 AEFS Phase 16 · Lessons 05-08: Supervisor / Hierarchical / Society of Mind / Role Specialization（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-systems）
+> 预计时长：~75 min/lesson
+
 #### 三、Agent间通信协议
 
 多Agent系统的核心挑战之一是Agent间如何通信。通信协议定义了Agent间消息的格式、传递方式和语义解释。
@@ -679,6 +691,9 @@ msg = AgentMessage(
 )
 ```
 
+> 🔗 **延伸实践**：Agent间通信协议详见 AEFS Phase 16 · Lesson 12: A2A Protocol（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-systems）
+> 预计时长：~75 min
+
 #### 四、共识机制与冲突解决
 
 当多个Agent对同一问题有不同的看法或产出不同的结果时，需要共识机制来达成统一。
@@ -705,6 +720,9 @@ Step 4: 妥协或升级（在共同目标下找到折中方案，或升级给人
 > 💡 **工程实践**：在售前场景中，客户经常问"AI Agent会不会产生不可控的结果？"。答案取决于你设计了什么样的共识机制和冲突解决流程。一个好的多Agent系统应该有明确的升级路径——当Agent间无法达成共识时，自动升级给人类决策者，而不是无限循环讨论。
 
 #### 五、案例分析：企业级营销多Agent系统设计
+
+> 🔗 **延伸实践**：共识机制与拜占庭容错详见 AEFS Phase 16 · Lesson 14: Consensus and BFT（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-systems）
+> 预计时长：~75 min
 
 **场景**：为一家B2B SaaS企业设计一套AI驱动的营销内容生产系统，从市场洞察到内容发布全流程自动化。
 
@@ -752,6 +770,137 @@ Step 4: 妥协或升级（在共同目标下找到折中方案，或升级给人
 **成本控制**：每个Agent设置最大调用次数（如Content Agent最多重写3次），总Token预算上限，超限自动停止并通知人类。
 
 > 💡 **售前价值**：这个架构可以直接转化为面向客户的解决方案。当客户需要"AI营销内容生产系统"时，你可以展示这个多Agent架构图，解释每个Agent的职责和协作方式，以及关键的设计决策（为什么用LangGraph而不是CrewAI，为什么需要Human Review节点）。这比简单地说"我们用AI帮你写文案"有说服力得多。
+
+---
+
+### 补充章节：RPA vs AI Agent--规则驱动与意图驱动的自动化
+
+#### 一、两种自动化范式的本质区别
+
+在企业自动化领域，RPA（Robotic Process Automation）和AI Agent代表了两种截然不同的范式。理解它们的区别，是解决方案产品经理为客户设计合适自动化方案的前提。
+
+**RPA：规则驱动的自动化**
+
+RPA的本质是"数字工人"--它模拟人类在计算机界面上的操作，按照预定义的规则执行重复性任务。RPA的核心特征是：每一步操作都是预先编程好的，流程是确定性的，输入输出是可预测的。
+
+```
+RPA工作流示例（发票处理）：
+Step 1: 打开邮件系统 -> 搜索"发票"主题
+Step 2: 下载附件到指定文件夹
+Step 3: 打开OCR工具 -> 识别发票金额
+Step 4: 打开ERP系统 -> 录入发票信息
+Step 5: 如果金额 > 10000 -> 标记为"需审批"
+Step 6: 发送确认邮件
+```
+
+每一步都是明确的、固定的、不可偏离的。RPA不会"思考"下一步做什么--它只是忠实地执行预编程的指令。
+
+**AI Agent：意图驱动的自动化**
+
+AI Agent的本质是"数字决策者"--它接收一个目标（意图），自主规划执行路径，使用工具完成任务。Agent的核心特征是：执行路径不是预定义的，而是LLM根据上下文动态决定的，流程是非确定性的，能处理意外情况。
+
+```
+AI Agent工作流示例（发票处理）：
+目标: "处理今天收到的所有发票"
+
+Agent自主规划:
+- Thought: 我需要先找到今天的发票邮件
+- Action: 搜索邮件("发票", 日期=今天)
+- Observation: 找到5封发票邮件
+- Thought: 我需要提取每封邮件的发票信息
+- Action: 批量下载并OCR识别
+- Observation: 识别成功4封，1封扫描模糊
+- Thought: 模糊的发票需要特殊处理，我先处理清晰的4封
+- Action: 录入ERP系统
+- Thought: 模糊的发票我应该通知人工处理
+- Action: 发送通知给财务团队
+```
+
+关键区别：Agent在遇到"OCR识别失败"这一意外情况时，自主决定先处理成功的发票，再通知人工处理失败的--这个决策不是预编程的，而是Agent根据当前情况推理出来的。
+
+#### 二、传统RPA工具生态
+
+| 工具 | 定位 | 核心能力 | 适用场景 | AI融合趋势 |
+|------|------|---------|---------|-----------|
+| **UiPath** | 市场份额领先的RPA平台 | 可视化流程设计器、AI Fabric、Document Understanding | 大型企业全流程自动化 | 引入AI Fabric支持ML模型调用，但核心仍是规则驱动 |
+| **Blue Prism** | 企业级RPA（英国起源） | 强治理、安全审计、数字工作FORCE | 金融、医疗等强合规行业 | 智能自动化（IA）概念，但AI能力有限 |
+| **Automation Anywhere** | 云原生RPA | IQ Bot（智能OCR）、Bot Store | 中型企业、云部署场景 | IQ Bot集成ML能力，但Agent能力弱 |
+| **Microsoft Power Automate** | 低代码自动化平台 | 与Office 365深度集成、RPA+工作流 | Office生态内的自动化 | Copilot集成，向AI Agent方向演进 |
+
+**RPA的核心优势**：稳定性高、可审计性强、ROI可量化、不需要AI基础设施投入。
+
+**RPA的核心局限**：无法处理非结构化输入、流程变更需重新编程、无法自主决策、维护成本随流程数量线性增长。
+
+#### 三、流程挖掘（Process Mining）：RPA的前置步骤
+
+流程挖掘是从企业IT系统的事件日志中自动发现、监控和改进业务流程的技术。它是RPA实施的"导航仪"--告诉你哪里值得自动化。
+
+**流程挖掘的核心原理**：
+
+```
+事件日志（Event Log）格式:
+Case ID | Activity | Timestamp | Resource | Cost
+001     | 提交申请  | 2026-01-15 09:00 | 张三 | ¥0
+001     | 主管审批  | 2026-01-15 14:00 | 李四 | ¥0
+001     | 财务审核  | 2026-01-16 10:00 | 王五 | ¥0
+001     | 打款      | 2026-01-16 15:00 | 赵六 | ¥5000
+002     | 提交申请  | 2026-01-15 10:00 | 钱七 | ¥0
+002     | 主管审批  | 2026-01-17 11:00 | 李四 | ¥0  <- 异常：等待2天
+...
+```
+
+流程挖掘从事件日志中自动构建流程模型，发现：
+- **实际流程**与**设计流程**的偏差（哪里走了弯路）
+- **瓶颈**（哪个步骤耗时最长）
+- **变体**（同一个流程有多少种不同的执行路径）
+- **合规违规**（哪些执行路径违反了规定）
+
+**Celonis简介**：Celonis是流程挖掘领域的市场领导者（德国起源，2011年成立）。它的核心能力包括：
+- 自动从SAP、Oracle等ERP系统提取事件日志
+- 可视化流程变体和瓶颈
+- "Execution Apps"：基于流程挖掘结果自动触发RPA或通知
+- AI增强：用ML预测流程中的异常和延迟
+
+在营销场景中，流程挖掘可以发现：内容审批流程的平均耗时、营销预算审批的瓶颈环节、不同区域的营销流程变体差异。这些洞察直接指导"哪些环节适合RPA、哪些环节适合AI Agent"。
+
+#### 四、RPA vs AI Agent决策矩阵
+
+| 评估维度 | 选RPA | 选AI Agent | 两者结合 |
+|---------|-------|-----------|---------|
+| **输入类型** | 结构化数据（表格、固定格式文档） | 非结构化数据（自然语言、图片、网页） | 结构化用RPA，非结构化用Agent预处理后传给RPA |
+| **流程确定性** | 步骤固定、路径唯一 | 步骤动态、路径多选 | 主流程用RPA，异常处理用Agent |
+| **变更频率** | 低（流程稳定，偶尔调整） | 高（需要适应新场景） | 稳定部分RPA，易变部分Agent |
+| **决策复杂度** | 简单规则（if-then-else） | 需要推理和判断 | 规则用RPA，判断用Agent |
+| **错误容忍度** | 极低（财务、合规场景） | 中等（内容、分析场景） | 低容忍场景RPA执行+Agent审核 |
+| **实施成本** | 中（需要RPA平台+流程分析） | 高（需要LLM+Agent框架+安全防护） | 分阶段实施 |
+| **维护成本** | 随流程数增长（每个流程需单独维护） | 随场景增长但复用性强（一个Agent框架覆盖多场景） | - |
+| **典型营销场景** | 数据搬运、报表生成、邮件发送 | 竞品分析、内容生成、策略制定 | RPA收集数据+Agent分析洞察 |
+
+**营销场景的混合自动化架构示例**：
+
+```
+营销自动化混合架构：
+
+数据层：
+  ├─ RPA: 自动从各平台（CRM、广告后台、Google Analytics）抓取数据
+  └─ RPA: 数据清洗、格式标准化、写入数据仓库
+
+分析层：
+  └─ AI Agent: 分析数据趋势、识别异常、生成洞察文本
+
+决策层：
+  ├─ AI Agent: 生成营销策略建议
+  └─ 人类: 审核策略并批准
+
+执行层：
+  ├─ RPA: 将批准的策略自动配置到广告平台
+  ├─ RPA: 自动生成和发送营销邮件
+  └─ AI Agent: 监控执行效果，动态调整
+```
+
+这个架构的关键洞见是：**RPA负责"确定性执行"（搬数据、配置系统、发邮件），AI Agent负责"非确定性决策"（分析数据、生成策略、动态调整）**。两者互补而非替代。
+
+> 💡 **售前洞察**：当客户说"我们要做营销自动化"时，不要急着推AI Agent。先问三个问题：①你们的流程是否标准化？②输入数据是结构化还是非结构化？③哪些环节需要判断而非执行？如果大部分流程是标准的、输入是结构化的、不需要判断，RPA可能比AI Agent更合适、更便宜、更稳定。最好的方案通常是RPA+AI Agent的混合架构。
 
 ---
 

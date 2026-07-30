@@ -919,6 +919,372 @@ for record in result4:
 
 ---
 
+### Day 3.5：图神经网络、异常检测与联邦学习
+
+> **补充章节**：在知识图谱基础上深化图表示学习，并引入异常检测和联邦学习两个与营销智能密切相关的高级主题。
+
+#### 3.5.1 图神经网络（GNN）基础
+
+知识图谱嵌入（KGE）方法如TransE/RotatE虽然能表示实体和关系，但它们有一个根本局限：**只考虑直接的三元组关系，不利用图的拓扑结构信息**。图神经网络（Graph Neural Network, GNN）通过消息传递机制聚合邻居信息，能捕捉图的高阶结构特征。
+
+**消息传递机制（Message Passing）**
+
+GNN的核心是消息传递框架，每个节点通过三个步骤更新自己的表示：
+
+```
+Step 1: 聚合（Aggregate）--收集邻居节点的信息
+  m_v = AGGREGATE({h_u : u ∈ N(v)})
+  其中 N(v) 是节点v的邻居集合，h_u是邻居u的当前表示
+
+Step 2: 更新（Update）--将聚合的信息与自身表示融合
+  h_v' = UPDATE(h_v, m_v)
+  通常用非线性变换（如MLP + ReLU）
+
+Step 3: 循环（Iterate）--重复K轮，捕捉K-hop邻域信息
+  每轮聚合更远的邻居信息，K轮后每个节点包含K跳邻域的信息
+```
+
+**GCN（Graph Convolutional Network）传播规则**
+
+GCN是GNN最经典的形式，其传播规则为：
+
+```
+H^(l+1) = σ(D̃^(-1/2) Ã D̃^(-1/2) H^(l) W^(l))
+```
+
+其中：
+- `Ã = A + I`：邻接矩阵加上自环（每个节点也聚合自身信息）
+- `D̃`：`Ã`的度矩阵（对角矩阵）
+- `D̃^(-1/2) Ã D̃^(-1/2)`：对称归一化，消除节点度数差异的影响
+- `H^(l)`：第l层的节点特征矩阵
+- `W^(l)`：第l层的可学习权重
+- `σ`：非线性激活函数（如ReLU）
+
+直观理解：每个节点的新表示 = 其自身和所有邻居表示的（归一化）加权平均，再经过线性变换和非线性激活。
+
+**GraphSAGE：邻居采样**
+
+GraphSAGE解决了GCN在大规模图上的计算问题。GCN需要聚合所有邻居，当图很大时计算成本极高。GraphSAGE的创新是对邻居进行**随机采样**：每个节点只采样固定数量的邻居（如S=10），而非聚合全部邻居。
+
+```
+GraphSAGE聚合方式：
+1. 对每个节点v，从其邻居中随机采样S个（如果邻居不足S个，则有放回采样）
+2. 聚合采样邻居的信息：m_v = AGGREGATE({h_u : u ∈ S(v)})
+3. 更新：h_v' = σ(W · [h_v || m_v])  （拼接自身和邻居信息）
+
+聚合函数可选：mean（均值）、max（最大池化）、LSTM
+```
+
+GraphSAGE是**归纳式学习**（inductive learning）的代表--它能处理训练时未见过的节点（新客户、新产品），因为它学的是聚合函数而非节点的固定embedding。这对营销场景至关重要：新客户不断加入，GNN需要能实时生成新客户的表示。
+
+**GAT（Graph Attention Network）：注意力机制**
+
+GAT进一步引入注意力机制，让模型自动学习邻居的重要性权重：
+
+```
+GAT注意力计算：
+1. 计算节点v对邻居u的注意力分数：
+   e_vu = LeakyReLU(a^T [W·h_v || W·h_u])
+
+2. softmax归一化为注意力权重：
+   α_vu = softmax_u(e_vu) = exp(e_vu) / Σ_k exp(e_vk)
+
+3. 加权聚合邻居信息：
+   h_v' = σ(Σ_{u∈N(v)} α_vu · W · h_u)
+```
+
+关键优势：不同邻居对节点的影响不同。在营销场景中，一个客户的购买决策可能更受"意见领袖"型邻居影响，而非所有社交关系同等重要。GAT能自动学习这种差异化权重。
+
+**Python代码：用PyTorch Geometric实现GCN客户分群**
+
+```python
+"""
+基于图神经网络的客户分群
+依赖安装: pip install torch torch-geometric
+场景: 客户社交网络图 + 交易特征 -> GNN分群
+"""
+import torch
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
+from torch_geometric.data import Data
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+import numpy as np
+
+# Step 1: 构建图数据
+# 假设有1000个客户，客户间有社交/推荐关系
+num_customers = 1000
+
+# 边：客户关系（如互相推荐、同一社群）
+# edge_index格式：[2, num_edges]，两行分别是源节点和目标节点
+edge_index = torch.randint(0, num_customers, (2, 5000))  # 5000条边
+
+# 节点特征：每个客户的初始特征（如RFM + 行为特征）
+# 假设每个客户有16维特征
+node_features = torch.randn(num_customers, 16)
+
+# 构建PyG Data对象
+data = Data(x=node_features, edge_index=edge_index)
+
+# Step 2: 定义GCN模型
+class GCNEncoder(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels):
+        super().__init__()
+        self.conv1 = GCNConv(in_channels, hidden_channels)
+        self.conv2 = GCNConv(hidden_channels, out_channels)
+
+    def forward(self, x, edge_index):
+        # 第一层：聚合1-hop邻居
+        h = F.relu(self.conv1(x, edge_index))
+        # 第二层：聚合2-hop邻居
+        h = self.conv2(h, edge_index)
+        return h
+
+# Step 3: 自监督训练（无标签场景）
+# 用图自编码器思路：编码后重建邻接矩阵
+encoder = GCNEncoder(in_channels=16, hidden_channels=64, out_channels=32)
+optimizer = torch.optim.Adam(encoder.parameters(), lr=0.01)
+
+for epoch in range(200):
+    optimizer.zero_grad()
+    # 获取节点embedding
+    z = encoder(data.x, data.edge_index)
+
+    # 重建损失：相邻节点的embedding应该相似
+    # 用内积预测边是否存在
+    src, dst = data.edge_index
+    pos_score = (z[src] * z[dst]).sum(dim=1)
+
+    # 负采样：随机生成不存在的边
+    neg_dst = torch.randint(0, num_customers, (src.size(0),))
+    neg_score = (z[src] * z[neg_dst]).sum(dim=1)
+
+    # 对比损失
+    loss = -F.logsigmoid(pos_score).mean() - F.logsigmoid(-neg_score).mean()
+    loss.backward()
+    optimizer.step()
+
+    if epoch % 50 == 0:
+        print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
+
+# Step 4: 用学到的embedding做客户分群
+with torch.no_grad():
+    customer_embeddings = encoder(data.x, data.edge_index).numpy()
+
+# K-Means分群
+best_k = 0
+best_score = -1
+for k in range(3, 8):
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = kmeans.fit_predict(customer_embeddings)
+    score = silhouette_score(customer_embeddings, labels)
+    print(f"K={k}, Silhouette={score:.4f}")
+    if score > best_score:
+        best_score = score
+        best_k = k
+
+print(f"\n最优K={best_k}, Silhouette={best_score:.4f}")
+# GNN embedding的分群效果通常优于直接在原始特征上做K-Means，
+# 因为GNN聚合了社交关系信息，embedding编码了"社交+行为"的综合特征
+```
+
+> 🔗 **延伸实践**：图论基础详见 AEFS Phase 1 · Lesson 21: Graph Theory for ML（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-foundations）
+> 预计时长：~45 min
+
+#### 3.5.2 异常检测简介
+
+异常检测（Anomaly Detection）是识别数据中"不正常"模式的技术，在营销场景中有广泛应用：欺诈检测（虚假交易、刷单）、异常指标监测（突然的流量下降或飙升）、异常用户行为识别（机器人流量、账号被盗）。
+
+**（1）Isolation Forest**
+
+Isolation Forest的核心思想极其直觉性：**异常点"稀少且不同"，因此更容易被"隔离"**。
+
+```
+Isolation Forest原理：
+1. 随机选择一个特征
+2. 在该特征的取值范围内随机选择一个分割点
+3. 重复步骤1-2，直到每个点被单独隔离（或达到最大深度）
+4. 异常点需要更少的分割步骤就被隔离（路径更短）
+5. 用多棵树的平均路径长度计算异常分数
+
+异常分数：s = 2^(-E(h)/c(n))
+  - h: 样本的路径长度
+  - E(h): 多棵树上的平均路径长度
+  - c(n): 二叉搜索树的平均路径长度（归一化因子）
+  - s越接近1，越可能是异常；越接近0.5，越正常
+```
+
+**（2）One-class SVM**
+
+One-class SVM的核心思想是：学习一个将正常数据"包住"的边界，边界外的就是异常。
+
+```
+One-class SVM原理：
+- 在特征空间中寻找一个超平面，将正常数据与原点最大化分离
+- 目标：min 1/2||w||² + 1/(νn)Σξ_i - ρ
+  约束：w·φ(x_i) ≥ ρ - ξ_i, ξ_i ≥ 0
+- ν（nu）参数控制异常比例的上界和支持向量的下界
+- 新样本如果 w·φ(x) < ρ，则为异常
+```
+
+**（3）自编码器异常检测**
+
+自编码器在Day 1已介绍，其在异常检测中的应用逻辑：
+
+```
+1. 用正常数据训练自编码器（只包含正常样本）
+2. 训练后，自编码器能很好地重建正常数据（重建误差低）
+3. 对新数据，如果重建误差高 -> 异常
+4. 阈值设定：用验证集的重建误差分布的95/99分位数作为阈值
+```
+
+**三种方法对比**：
+
+| 方法 | 优势 | 劣势 | 适用场景 |
+|------|------|------|---------|
+| Isolation Forest | 无需训练正态分布假设、高效率、可处理高维数据 | 对局部异常检测能力弱 | 通用异常检测、大规模数据 |
+| One-class SVM | 可处理非线性边界（核函数） | 计算复杂度高、参数敏感 | 中小规模数据、复杂分布 |
+| 自编码器 | 可捕捉复杂模式、可用于时序数据 | 需要大量正常数据训练、对超参数敏感 | 时序异常、图像异常 |
+
+**营销应用场景**：
+
+```python
+# === 营销指标异常检测示例 ===
+from sklearn.ensemble import IsolationForest
+import pandas as pd
+import numpy as np
+
+# 模拟每日营销指标数据
+metrics_data = pd.DataFrame({
+    'date': pd.date_range('2026-01-01', periods=180),
+    'daily_spend': np.random.lognormal(10, 0.3, 180),
+    'impressions': np.random.lognormal(13, 0.4, 180),
+    'clicks': np.random.lognormal(9, 0.5, 180),
+    'conversions': np.random.lognormal(5, 0.6, 180),
+    'bounce_rate': np.random.beta(5, 15, 180),
+})
+
+# 注入异常（第150-155天，conversions异常飙升）
+metrics_data.loc[150:155, 'conversions'] *= 5
+
+# 用Isolation Forest检测异常
+features = ['daily_spend', 'impressions', 'clicks', 'conversions', 'bounce_rate']
+iso_forest = IsolationForest(contamination=0.05, random_state=42)
+anomaly_labels = iso_forest.fit_predict(metrics_data[features])
+
+# anomaly_labels: 1=正常, -1=异常
+anomalies = metrics_data[anomaly_labels == -1]
+print(f"检测到 {len(anomalies)} 个异常日期:")
+print(anomalies[['date', 'daily_spend', 'conversions']])
+
+# 业务解读：
+# 异常可能是：刷单（conversions飙升但clicks不涨）、
+# 技术故障（数据上报错误）、营销活动爆发（正常但需确认）
+```
+
+> 🔗 **延伸实践**：异常检测方法详见 AEFS Phase 2 · Lesson 16: Anomaly Detection（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-classical-ml）
+> 预计时长：~75 min
+
+#### 3.5.3 联邦学习简介
+
+联邦学习（Federated Learning）是一种分布式机器学习范式，允许多个参与方在不共享原始数据的情况下共同训练模型。在营销场景中，这解决了跨企业数据协作的隐私难题。
+
+**FedAvg算法**
+
+FedAvg（Federated Averaging）是联邦学习的基础算法，由Google在2016年提出：
+
+```
+FedAvg流程：
+1. 中心服务器初始化全局模型 W_0
+2. 每轮训练（round t）：
+   a. 服务器将当前全局模型 W_t 下发给选中的K个客户端
+   b. 每个客户端 k 在本地数据 D_k 上训练，得到本地模型 W_t^k
+      - 本地训练E个epoch
+   c. 客户端将更新后的模型参数 W_t^k 上传给服务器
+   d. 服务器按数据量加权平均：W_(t+1) = Σ (n_k/n) × W_t^k
+      其中 n_k 是客户端k的数据量，n是总数据量
+3. 重复步骤2直到模型收敛
+```
+
+**关键特性**：原始数据永远不离开本地，只有模型参数在服务器和客户端之间传输。
+
+**差分隐私（Differential Privacy）**
+
+联邦学习虽然不共享原始数据，但模型参数本身可能泄露训练数据信息（通过梯度反转攻击）。差分隐私通过在参数更新中添加噪声来提供形式化隐私保证：
+
+```
+差分隐私核心定义：
+一个随机算法M满足(ε, δ)-差分隐私，如果对于任意两个仅差一条记录的数据集D和D'：
+Pr[M(D) ∈ S] ≤ exp(ε) × Pr[M(D') ∈ S] + δ
+
+直观理解：观察输出结果，无法判断任意一条特定记录是否在训练数据中
+- ε越小，隐私保护越强（但模型精度可能下降）
+- δ是一个小的松弛项，允许极小概率的隐私泄露
+```
+
+在联邦学习中，常用的差分隐私方法是**DP-SGD**（差分隐私随机梯度下降）：在每步梯度计算后裁剪梯度（限制单个样本的影响），然后添加高斯噪声。
+
+**跨企业营销数据协作应用**
+
+```python
+# === 联邦学习营销应用场景（概念性架构） ===
+
+"""
+场景：两家非竞争企业（如电商和旅游平台）想联合训练
+客户交叉推荐模型，但不能共享各自客户数据。
+
+传统方案：不可能--数据隐私法规禁止共享客户数据
+联邦学习方案：各自在本地训练，只共享模型参数
+"""
+
+class FederatedMarketingModel:
+    """联邦营销推荐模型"""
+
+    def __init__(self, global_model):
+        self.global_model = global_model  # 共享的全局模型
+        self.local_data = None            # 本地客户数据（不共享）
+
+    def local_train(self, epochs=5):
+        """在本地数据上训练模型"""
+        for epoch in range(epochs):
+            for batch in self.local_data:
+                # 本地前向传播和反向传播
+                loss = self.global_model.train_step(batch)
+        return self.global_model.get_parameters()
+
+    def aggregate(self, local_updates, weights):
+        """联邦聚合：加权平均各方模型参数"""
+        # 差分隐私：在聚合前对参数添加噪声
+        noisy_updates = []
+        for params in local_updates:
+            noise = np.random.normal(0, self.dp_sigma, size=params.shape)
+            noisy_updates.append(params + noise)
+        # 加权平均
+        aggregated = sum(w * u for w, u in zip(weights, noisy_updates))
+        self.global_model.set_parameters(aggregated)
+
+# 联邦学习流程
+# Round 1: 电商平台本地训练 -> 上传参数
+#          旅游平台本地训练 -> 上传参数
+#          服务器聚合（差分隐私噪声）-> 下发新模型
+# Round 2: 各方用新模型继续本地训练...
+# 最终：双方获得一个利用了对方数据模式（但未接触对方原始数据）的推荐模型
+```
+
+**营销场景中的联邦学习价值**：
+
+| 应用场景 | 参与方 | 数据 | 价值 |
+|---------|--------|------|------|
+| 跨平台推荐 | 电商 + 旅游平台 | 各自客户行为数据 | 发现跨平台消费模式，提升推荐精度 |
+| 联合反欺诈 | 多家银行 + 支付平台 | 各自欺诈案例 | 共享欺诈模式识别能力，不泄露客户数据 |
+| 广告效果归因 | 广告主 + 媒体平台 | 各自投放和转化数据 | 跨平台归因分析，不共享用户级数据 |
+| 行业基准分析 | 多家同行业企业 | 各自营销KPI | 生成行业基准，了解自身相对位置 |
+
+> 🔗 **延伸实践**：差分隐私在LLM中的应用详见 AEFS Phase 18 · Lesson 22: Differential Privacy for LLMs（https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ai-safety-alignment）
+> 预计时长：~60 min
+
+---
+
 ### Day 4：多模态融合与跨域对齐
 
 > **英语轨道（i+1）**：LLaVA文档 + CLIP论文（Radford et al., 2021）
