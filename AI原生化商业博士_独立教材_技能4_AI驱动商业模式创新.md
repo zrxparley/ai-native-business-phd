@@ -1208,6 +1208,27 @@ Imperial College Business School的Retail & Marketing Analytics方向将STEM深�
 
 ---
 
+## 核心文献
+
+> 本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。
+
+1. **[arXiv:2303.08774]** - "GPT-4 Technical Report" (OpenAI, 2023)
+   与本教材的关联：GPT-4的多模态能力和推理能力是AI驱动商业模式创新的技术基础，本教材中讨论的AI产品化、多模态商业应用、AI即服务等新型商业模式均以此类模型能力为前提。
+
+2. **[arXiv:2305.18290]** - "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" (Rafailov et al., 2023)
+   与本教材的关联：DPO提供了一种高效的偏好对齐方法，在AI商业模式创新中，如何让AI产品对齐用户需求和业务目标是核心挑战，DPO为降低对齐成本、提升产品体验提供了关键技术路径。
+
+3. **[arXiv:2304.03442]** - "Generative Agents: Interactive Simulacra of Human Behavior" (Park et al., 2023)
+   与本教材的关联：生成式Agent开创了模拟人类行为的AI新范式，直接启发了AI驱动的虚拟员工、数字孪生消费者、自动化市场调研等新型商业模式，是理解Agent经济商业创新的前瞻性文献。
+
+4. **[arXiv:2106.09685]** - "LoRA: Low-Rank Adaptation of Large Language Models" (Hu et al., 2021)
+   与本教材的关联：LoRA通过低秩适配大幅降低大模型微调成本，使中小企业也能定制AI能力，直接影响AI商业模式的经济可行性，是理解"AI民主化"如何重塑商业竞争格局的关键技术。
+
+5. **[arXiv:2203.02155]** - "Training language models to follow instructions with human feedback" (Ouyang et al., 2022)
+   与本教材的关联：InstructGPT/RLHF方法论确立了"AI对齐用户需求"的工程范式，在商业模式创新中，如何让AI产品理解并满足真实业务需求是成败关键，该文献提供了从模型到产品的对齐方法论基础。
+
+---
+
 ## 知识问答
 
 | # | 问题 | 答案要点 | 难度 |

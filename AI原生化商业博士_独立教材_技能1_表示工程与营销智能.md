@@ -2,7 +2,7 @@
 
 > **修读者**：aha.gare
 > **版本**：v4.0 | **日期**：2026-07-16
-> **学时**：8h（核心学习）+ 英语平行轨道 4h
+> **学时**：12h（核心学习，含Day 5-6理论深度模块）+ 英语平行轨道 6h
 > **对标课程**：Foundation of AI + Business Data Management + NLP
 > **对标大学**：Stanford CS224N / CMU 10741 / Imperial Deep Learning & GenAI / NUS Knowledge Systems
 > **英语轨道**：CMU 10741 讲义 + Stanford CS224N 2025版 + Word2Vec论文 + Two-Tower模型论文（i+1难度：⭐⭐⭐）
@@ -50,8 +50,10 @@
 | Day 2 | 营销数据表示实战 + 多模态演进 | 2h | 构建客户/产品/内容的向量化表示 + 理解多模态大模型 | Word2Vec论文 + Two-Tower博客 | - |
 | Day 3 | 企业知识图谱 + GraphRAG | 2h | 设计企业级本体 + 理解GraphRAG增强检索 | Knowledge Graph Survey Intro + GraphRAG文档 | - |
 | Day 4 | 多模态融合与跨域对齐 | 2h | 多模态表示系统架构设计 | LLaVA文档 + CLIP论文 | - |
+| Day 5 | 概率图模型：贝叶斯网络与马尔可夫随机场 | 2h | 理解PGM表示、d-分离、精确推断算法 | Koller & Friedman PGM教材选读 | - |
+| Day 6 | 变分推断与深度生成理论 | 2h | 掌握ELBO推导、重参数化、VAE实现 | VAE论文 (Kingma & Welling, 2013) | - |
 
-**学习节奏建议**：每天2小时核心学习 + 1小时英语平行轨道阅读 + 0.5小时实践代码运行。总计每天约3.5小时，4天完成。
+**学习节奏建议**：每天2小时核心学习 + 1小时英语平行轨道阅读 + 0.5小时实践代码运行。总计每天约3.5小时，6天完成（Day 1-4为核心模块，Day 5-6为理论深度补充模块）。
 
 ---
 
@@ -1699,6 +1701,717 @@ L = -log[ exp(sim(z, z⁺)/τ) / (exp(sim(z, z⁺)/τ) + Σ_i exp(sim(z, z⁻_i)
 
 ---
 
+### Day 5：概率图模型--贝叶斯网络与马尔可夫随机场
+
+> **理论深度模块**：概率图模型（Probabilistic Graphical Models, PGM）是AI理论的重要基石，连接概率论、图论与机器学习。本Day为Dean审计识别的理论gap补充模块，承接Day 1-4的表示学习，为Day 6的变分推断和后续技能3的因果推断奠定基础。
+
+#### 3.7.1 概率图模型概述
+
+概率图模型的核心思想是用图结构来表示随机变量之间的概率依赖关系。图的节点表示随机变量，边表示变量间的依赖关系。根据边的类型，PGM分为两大类：
+
+| 类型 | 图结构 | 依赖方向 | 核心定理 | 代表模型 |
+|------|--------|---------|---------|---------|
+| 贝叶斯网络 | 有向无环图(DAG) | 有方向（因果/条件依赖） | 链式法则分解 | 朴素贝叶斯、HMM、LDA |
+| 马尔可夫随机场 | 无向图 | 无方向（对称关联） | Hammersley-Clifford定理 | Ising模型、CRF、RBM |
+
+**表示能力与推断复杂度的权衡**：有向图擅长表达因果方向和条件依赖（"下雨导致地湿"），无向图擅长表达对称关联（"相邻像素颜色相似"）。但两者的精确推断在最坏情况下都是NP难的，这构成了Day 6变分推断的动机。
+
+**与表示学习的联系**：Day 1-4学习的embedding、GNN等方法本质上是"确定性表示"--给定输入，输出一个固定的向量。PGM引入了"概率表示"--不仅编码变量的值，还编码变量的不确定性及其与其他变量的依赖关系。这种概率视角对于因果推断（技能3）和决策优化至关重要。
+
+#### 3.7.2 贝叶斯网络（Bayesian Networks）
+
+**（1）DAG表示联合分布**
+
+贝叶斯网络用有向无环图（DAG）将联合概率分布分解为局部条件概率的乘积：
+
+$$P(X_1, X_2, \ldots, X_n) = \prod_{i=1}^{n} P(X_i \mid \text{Pa}(X_i))$$
+
+其中 $\text{Pa}(X_i)$ 是节点 $X_i$ 的父节点集合。这个分解不仅减少了参数数量（从指数级降到多项式级），更编码了变量间的条件独立性。
+
+**参数节省示例**：考虑5个二元变量的联合分布，直接表示需要 $2^5 - 1 = 31$ 个参数。如果用贝叶斯网络，每个变量最多有2个父节点，则每个条件概率表需要 $2^2 = 4$ 个参数，总共 $5 \times 4 = 20$ 个参数。
+
+**（2）条件独立性与d-分离（d-separation）**
+
+d-分离是贝叶斯网络中判断条件独立性的图论规则。给定三个互不相交的节点集 $A$、$B$、$C$，若从 $A$ 中任一节点到 $B$ 中任一节点的所有路径都被 $C$ "阻断"，则 $A \perp B \mid C$。
+
+路径被阻断的三种情况：
+
+| 结构 | 图示 | 阻断条件 | 直觉解释 |
+|------|------|---------|---------|
+| 链（Chain） | $X \to Z \to Y$ | $Z \in C$ | 信息通过Z传递，观测Z后X不影响Y |
+| 分叉（Fork） | $X \leftarrow Z \to Y$ | $Z \in C$ | Z是共同原因，控制Z后X和Y独立 |
+| 碰撞（Collider） | $X \to Z \leftarrow Y$ | $Z \notin C$ 且Z的后代都不在C中 | Z是共同结果，未观测Z时X和Y独立 |
+
+碰撞结构的反直觉之处：当 $Z$ 被观测到时，$X$ 和 $Y$ 反而变得**不独立**。例如，"下雨"和"洒水"都能导致"地湿"。如果你不知道地是否湿，下雨和洒水是独立的；但如果你看到地湿了，知道下了雨反而降低了洒水的概率--这叫**解释效应**（explaining away）。这一概念在技能3因果推断中会反复出现。
+
+**（3）经典模型**
+
+| 模型 | 图结构 | 应用场景 |
+|------|--------|---------|
+| 朴素贝叶斯 | 类别节点指向所有特征节点 | 文本分类、垃圾邮件过滤 |
+| 隐马尔可夫模型(HMM) | 隐状态链 + 观测节点 | 语音识别、行为序列建模 |
+| 诊断网络 | 疾病节点指向症状节点 | 医疗诊断系统 |
+
+**HMM详解**：隐状态序列 $z_1 \to z_2 \to \cdots \to z_T$ 构成马尔可夫链，每个隐状态 $z_t$ 生成观测 $x_t$。HMM的联合分布为：
+
+$$P(z_{1:T}, x_{1:T}) = P(z_1) \prod_{t=2}^{T} P(z_t \mid z_{t-1}) \prod_{t=1}^{T} P(x_t \mid z_t)$$
+
+HMM的三个经典问题--评估（前向算法）、解码（Viterbi算法）、学习（Baum-Welch算法）--都是精确推断的实例。前向算法本质上就是贝叶斯网络上的变量消除。
+
+#### 3.7.3 马尔可夫随机场（Markov Random Fields）
+
+**（1）无向图与团**
+
+马尔可夫随机场（MRF）用无向图表示变量间的对称关联关系。在无向图中，**团（clique）**是两两相连的节点子集，**最大团（maximal clique）**是不能通过添加节点变大的团。
+
+MRF的三种马尔可夫性质：
+- **成对马尔可夫性**：若两个节点不直接相连，则它们在给定其他所有节点时条件独立
+- **局部马尔可夫性**：给定一个节点的邻居，该节点与其他所有非邻居节点条件独立
+- **全局马尔可夫性**：若从节点集A到节点集B的所有路径都经过节点集C，则 $A \perp B \mid C$
+
+**（2）Hammersley-Clifford定理**
+
+这是MRF的核心定理，建立了无向图的马尔可夫性质与Gibbs分布之间的等价关系：
+
+> 一个正分布 $P$ 满足MRF的马尔可夫性质，当且仅当 $P$ 可以表示为定义在图的最大团上的Gibbs分布：
+> $$P(\mathbf{X}) = \frac{1}{Z} \prod_{c \in \mathcal{C}} \psi_c(\mathbf{X}_c)$$
+> 其中 $\psi_c$ 是定义在团 $c$ 上的势函数（potential function），$Z$ 是配分函数（partition function）。
+
+**（3）势函数与配分函数**
+
+- **势函数** $\psi_c(\mathbf{X}_c) \geq 0$：度量团 $c$ 中变量组合的"兼容性"。常见的势函数形式是对数线性模型：$\psi_c(\mathbf{X}_c) = \exp\left(\sum_k \theta_{ck} f_{ck}(\mathbf{X}_c)\right)$，其中 $f_{ck}$ 是特征函数，$\theta_{ck}$ 是参数。
+- **配分函数** $Z = \sum_{\mathbf{X}} \prod_{c} \psi_c(\mathbf{X}_c)$：归一化常数，确保概率和为1。$Z$ 的计算需要对所有可能的变量赋值求和，这在变量数量多时是指数级的--这是MRF精确推断困难的核心原因，也是Day 6变分推断的直接动机。
+
+**（4）经典模型**
+
+| 模型 | 图结构 | 应用场景 |
+|------|--------|---------|
+| Ising模型 | 二维网格，二元变量 | 统计物理（铁磁相变）、图像去噪 |
+| 条件随机场(CRF) | 输入节点与输出节点全连接 | NLP序列标注（NER、POS tagging） |
+| 受限玻尔兹曼机(RBM) | 二部图（可见层+隐层） | 协同过滤、特征学习 |
+
+**CRF与HMM的对比**：HMM是生成模型，建模 $P(x, y)$；CRF是判别模型，直接建模 $P(y \mid x)$。CRF不需要对输入 $x$ 建模，因此可以使用任意丰富的输入特征而不用担心特征间的独立性假设。这使得CRF在NLP序列标注任务中长期优于HMM。
+
+$$\text{CRF: } P(y \mid x) = \frac{1}{Z(x)} \prod_{t=1}^{T} \psi_t(y_{t-1}, y_t, x)$$
+
+注意CRF的配分函数 $Z(x)$ 依赖于输入 $x$，但可以通过前向算法高效计算（因为标签序列构成链式结构）。
+
+#### 3.7.4 精确推断算法
+
+推断的目标是计算边缘概率 $P(X_i)$ 或条件概率 $P(X_i \mid \mathbf{e})$（给定证据 $\mathbf{e}$）。
+
+**（1）变量消除（Variable Elimination, VE）**
+
+VE是最基本的精确推断算法。核心思想是利用条件独立性，按特定顺序逐个消除（求和）变量，避免显式计算联合分布。
+
+```
+算法：变量消除
+输入：贝叶斯网络/MRF，查询变量 X_q，证据 e
+输出：P(X_q | e)
+
+1. 初始化：将所有条件概率表/势函数加入因子列表
+2. 对每个非查询、非证据变量 Z（按消除顺序）：
+   a. 收集所有包含 Z 的因子 {φ_1, ..., φ_k}
+   b. 计算乘积 φ = φ_1 × ... × φ_k
+   c. 对 Z 求边缘：φ' = Σ_Z φ
+   d. 用 φ' 替换 {φ_1, ..., φ_k}
+3. 对剩余因子求乘积，归一化，得到 P(X_q | e)
+```
+
+VE的复杂度取决于消除顺序--好的消除顺序可以使复杂度从指数级降到多项式级，但找到最优消除顺序本身是NP难的。
+
+**（2）信念传播（Belief Propagation, BP）**
+
+信念传播（又称和积算法，Sum-Product Algorithm）在树结构图上可以精确计算所有节点的边缘概率。核心思想是节点间传递"消息"：
+
+$$m_{i \to j}(x_j) = \sum_{x_i} \phi_{ij}(x_i, x_j) \prod_{k \in N(i) \setminus j} m_{k \to i}(x_i)$$
+
+其中 $m_{i \to j}(x_j)$ 是节点 $i$ 传给节点 $j$ 的消息，表示"在考虑了 $i$ 的其他邻居后，$j$ 取各值的概率"。在树结构上，消息经过两轮传播（从叶到根、从根到叶）后收敛，每个节点的信念（belief）即为精确边缘概率。
+
+**（3）团树（Junction Tree）算法**
+
+对于含环的图，BP不保证收敛。团树算法通过以下步骤实现精确推断：
+
+| 步骤 | 操作 | 作用 |
+|------|------|------|
+| 1. 道德化（Moralization） | 有向图转无向图：父节点两两相连，去掉方向 | 统一为无向图 |
+| 2. 三角化（Triangulation） | 添加边使图中没有长度≥4的无弦环 | 确保团树性质 |
+| 3. 构建团树 | 最大团作为超级节点，形成树结构 | 降维到树结构 |
+| 4. 信念传播 | 在团树上传递消息 | 精确推断 |
+
+团树算法的复杂度为 $O(n \cdot k^w)$，其中 $k$ 是变量取值数，$w$ 是树宽（treewidth）。树宽是图的固有属性--对于稀疏图 $w$ 较小，算法可行；对于稠密图 $w$ 接近 $n$，算法退化为指数级。
+
+#### 3.7.5 近似推断概述
+
+当精确推断不可行时（图含大量环或树宽很大），需要近似推断。
+
+**（1）MCMC与Gibbs采样**
+
+马尔可夫链蒙特卡洛（MCMC）通过构造一个以目标分布为平稳分布的马尔可夫链来采样。Gibbs采样是MCMC在PGM中的特例：每次固定其他所有变量，只对单个变量按其条件概率采样：
+
+$$x_i^{(t+1)} \sim P(X_i \mid X_{-i}^{(t)})$$
+
+Gibbs采样的优势是简单、通用，但收敛速度可能很慢（特别是当变量间强相关时）。判断收敛通常需要计算自相关时间或使用多重链比较（如Gelman-Rubin $\hat{R}$ 统计量）。
+
+**（2）变分推断预告**
+
+变分推断将推断问题转化为优化问题：用一个参数化的简单分布 $q$ 去逼近真实后验 $p$，通过最小化KL散度来优化。变分推断通常比MCMC快（特别是对大规模数据），但会引入近似偏差。这一方法将在Day 6详细展开。
+
+| 方法 | 类型 | 优势 | 劣势 |
+|------|------|------|------|
+| 精确推断(VE/BP/JT) | 精确 | 结果准确 | 仅适用于小规模/稀疏图 |
+| MCMC/Gibbs | 采样 | 渐近无偏 | 收敛慢、难以判断收敛 |
+| 变分推断 | 优化 | 快速、可扩展 | 有偏（依赖q的选择） |
+
+#### 3.7.6 概率图模型在AI中的应用
+
+| 应用领域 | PGM模型 | 作用 |
+|---------|---------|------|
+| 主题模型 | LDA（Latent Dirichlet Allocation） | 文档-主题-词的层次贝叶斯模型 |
+| NLP序列标注 | CRF | 命名实体识别、词性标注 |
+| 因果发现 | 贝叶斯网络结构学习 | 从数据中学习因果DAG结构 |
+| 深度生成模型 | VAE的图模型视角 | 编码器-解码器作为变分推断 |
+
+**LDA的图模型表示**：LDA（Blei et al., 2003）是一个三层贝叶斯模型：
+- 文档级：$\theta_d \sim \text{Dir}(\alpha)$（文档-主题分布）
+- 主题级：$\phi_k \sim \text{Dir}(\beta)$（主题-词分布）
+- 词级：$z_{d,n} \sim \text{Mult}(\theta_d)$，$w_{d,n} \sim \text{Mult}(\phi_{z_{d,n}})$
+
+LDA的推断（计算后验 $P(\theta, \phi, z \mid w)$）是精确推断不可行的，原始论文使用变分推断，后续工作引入了Gibbs采样。
+
+**PGM与深度学习的融合**：现代深度生成模型（VAE、扩散模型）本质上可以看作概率图模型+变分推断+神经网络参数化。PGM提供了模型结构（哪些变量依赖哪些），变分推断提供了推断方法（如何近似后验），神经网络提供了参数化能力（用深度网络代替简单的条件概率表）。Day 6将深入这一视角。
+
+**贝叶斯网络在因果发现中的应用**：给定观测数据，可以通过评分方法（BIC/BDeu评分+搜索算法）或约束方法（条件独立性检验+PC算法）从数据中学习贝叶斯网络的结构。学到的DAG不仅表示了统计依赖，更在满足因果充分性假设时表示了因果关系。这与技能3的因果推断方法直接交叉。
+
+#### 3.7.7 营销应用
+
+**（1）客户行为序列建模的HMM**
+
+客户的购买行为可以用HMM建模：隐状态代表客户的"购买意图阶段"（如"认知->考虑->决策->购买"），观测序列是客户的浏览、搜索、点击行为。通过Baum-Welch算法学习转移概率和发射概率，可以用Viterbi算法解码客户当前所处的意图阶段，从而精准推送对应阶段的内容。
+
+```
+隐状态: [认知] --0.3--> [考虑] --0.5--> [决策] --0.7--> [购买]
+                      ^                    |
+                      |____回退0.2_________|
+观测:   搜索关键词    浏览详情页      比价/看评价     下单
+```
+
+**（2）营销归因的贝叶斯网络**
+
+多渠道营销归因是一个天然的贝叶斯网络问题：渠道曝光（搜索广告、展示广告、社交媒体）作为父节点，转化作为子节点。通过学习网络结构和参数，可以量化每个渠道对转化的因果贡献。这与技能3的因果推断方法直接交叉。
+
+#### 3.7.8 Python代码示例：用pgmpy构建贝叶斯网络
+
+```python
+"""
+贝叶斯网络构建与推断示例
+依赖安装: pip install pgmpy
+场景: 营销归因 - 渠道曝光对转化的影响建模
+"""
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.inference import VariableElimination
+import numpy as np
+
+# ============================================================
+# 步骤1: 定义贝叶斯网络结构
+# ============================================================
+# 场景: 搜索广告(Search)和展示广告(Display)影响用户转化(Conversion)
+#       季节(Season)影响搜索广告的投放量
+model = BayesianNetwork([
+    ('Season', 'Search'),
+    ('Search', 'Conversion'),
+    ('Display', 'Conversion'),
+])
+
+# ============================================================
+# 步骤2: 定义条件概率表(CPT)
+# ============================================================
+# Season: 0=淡季, 1=旺季
+cpd_season = TabularCPD('Season', 2, [[0.6], [0.4]])
+
+# Search | Season: 淡季时搜索广告曝光概率低
+cpd_search = TabularCPD('Search', 2,
+    [[0.8, 0.3],  # P(Search=0 | Season)
+     [0.2, 0.7]], # P(Search=1 | Season)
+    evidence=['Season'], evidence_card=[2])
+
+# Display: 独立变量, P(Display=1)=0.5
+cpd_display = TabularCPD('Display', 2, [[0.5], [0.5]])
+
+# Conversion | Search, Display
+cpd_conversion = TabularCPD('Conversion', 2,
+    [[0.95, 0.70, 0.75, 0.20],  # P(Conv=0 | Search, Display)
+     [0.05, 0.30, 0.25, 0.80]], # P(Conv=1 | Search, Display)
+    evidence=['Search', 'Display'], evidence_card=[2, 2])
+
+model.add_cpds(cpd_season, cpd_search, cpd_display, cpd_conversion)
+
+# 验证模型
+assert model.check_model()
+print("模型验证通过")
+print(f"节点: {model.nodes()}")
+print(f"边: {model.edges()}")
+
+# ============================================================
+# 步骤3: 精确推断 - 变量消除法
+# ============================================================
+infer = VariableElimination(model)
+
+# 查询1: 转化的先验概率 P(Conversion=1)
+prob_conv = infer.query(['Conversion'])
+print(f"\nP(Conversion):")
+print(prob_conv)
+
+# 查询2: 给定已转化,搜索广告被曝光的概率 P(Search=1 | Conversion=1)
+prob_search_given_conv = infer.query(['Search'], evidence={'Conversion': 1})
+print(f"\nP(Search | Conversion=1):")
+print(prob_search_given_conv)
+
+# 查询3: 给定已转化且旺季,展示广告的效果 P(Display=1 | Conv=1, Season=1)
+prob_display = infer.query(['Display'], evidence={'Conversion': 1, 'Season': 1})
+print(f"\nP(Display | Conv=1, Season=1):")
+print(prob_display)
+
+# ============================================================
+# 步骤4: d-分离分析
+# ============================================================
+# 检查条件独立性: Season 和 Display 在给定 Conversion 时是否独立?
+# 注意: Season -> Search -> Conversion <- Display 形成碰撞结构
+# 当 Conversion 被观测时,碰撞结构打开,Season 和 Display 变得不独立
+is_connected = model.is_dconnected('Season', 'Display', ['Conversion'])
+print(f"\nSeason ⊥ Display | Conversion? {not is_connected}")
+print("(预期: False - 碰撞结构打开,变量不独立)")
+
+is_connected_no_evidence = model.is_dconnected('Season', 'Display', [])
+print(f"Season ⊥ Display (无证据)? {not is_connected_no_evidence}")
+print("(预期: True - 无路径连接Season和Display)")
+```
+
+**代码解读**：
+
+1. **网络结构定义**：`BayesianNetwork`接收边列表，每条边 `(父节点, 子节点)` 定义了依赖关系
+2. **条件概率表**：`TabularCPD`定义每个节点的条件概率，`evidence`参数指定父节点
+3. **变量消除推断**：`VariableElimination`实现了Day 5介绍的VE算法，支持边缘概率和条件概率查询
+4. **d-分离分析**：`is_dconnected`方法判断两个节点在给定证据时是否连通，验证了碰撞结构的条件依赖性
+
+**实践建议**：
+- pgmpy还支持从数据中学习网络结构（`HillClimbSearch`+`BicScore`），适合从营销数据中自动发现渠道间的依赖关系
+- 对于连续变量，可使用`LinearGaussianBayesianNetwork`或离散化后建模
+- 大规模网络推断建议使用近似方法（如`BeliefPropagation`的loopy版本）
+
+#### 3.7.9 练习题
+
+**练习1**（d-分离）：给定贝叶斯网络结构 $A \to B \to C \leftarrow D$，判断以下条件独立性是否成立并解释原因：
+- (a) $A \perp D$（无证据）
+- (b) $A \perp D \mid B$
+- (c) $A \perp D \mid C$
+
+**练习2**（MRF与Gibbs分布）：考虑一个有5个节点的MRF，其最大团为 $\{X_1, X_2, X_3\}$ 和 $\{X_3, X_4, X_5\}$。写出其Gibbs分布的形式，并解释为什么配分函数 $Z$ 的计算在最坏情况下是指数级的。
+
+**练习3**（推断算法比较）：比较变量消除算法和信念传播算法的适用场景。在什么情况下信念传播不保证给出精确结果？此时应该使用什么算法？该算法的复杂度取决于什么参数？
+
+**练习4**（营销应用设计）：设计一个用于客户流失预测的贝叶斯网络。定义至少5个节点、边的结构，并解释每个条件概率表的业务含义。说明如何用这个网络回答"哪些因素最影响客户流失"这个问题。
+
+**练习5**（CRF vs HMM）：解释为什么CRF比HMM更适合NLP序列标注任务。从生成模型vs判别模型的角度分析，并给出一个具体的序列标注例子说明CRF的优势。
+
+#### 本Day小结
+
+概率图模型为AI提供了将领域知识结构与概率推断统一在一起的框架。贝叶斯网络用DAG编码因果方向，适合诊断和因果发现；马尔可夫随机场用无向图编码对称关联，适合空间结构和序列标注。精确推断（VE、BP、Junction Tree）在最坏情况下是NP难的，这直接引出了Day 6的变分推断--将推断转化为优化。在营销场景中，PGM为行为序列建模（HMM）和渠道归因（贝叶斯网络）提供了理论严谨的建模工具。理解PGM也是理解现代深度生成模型（VAE、扩散模型）的必要前置知识，这些将在Day 6深入展开。
+
+---
+
+### Day 6：变分推断与深度生成理论--ELBO、重参数化与VAE
+
+> **理论深度模块**：变分推断（Variational Inference, VI）是现代AI最重要的推断范式之一。当Day 5的精确推断方法在大规模模型中不可行时，变分推断通过将推断转化为优化，使得深度生成模型（VAE、扩散模型）的训练成为可能。本Day承接Day 5的概率图模型，为E8深度学习模块的生成模型数学基础提供理论支撑。
+
+#### 3.8.1 变分推断的动机
+
+**精确推断的困境**
+
+Day 5展示了精确推断（变量消除、信念传播、团树算法）在小规模图上的有效性，但在深度学习时代，模型通常包含大量隐变量：
+
+- VAE的潜变量 $z$ 的维度通常为几十到几千
+- 扩散模型有 $T$ 步（$T$ 通常为1000）的隐变量序列
+- 大语言模型的隐状态维度达到数千
+
+对于这些模型，精确计算后验 $p(z \mid x)$ 需要对所有可能的 $z$ 赋值求和，复杂度是 $O(K^d)$（$K$ 为取值数，$d$ 为维度），完全不可行。即使是MCMC，在大规模深度模型中也面临收敛速度慢的问题。
+
+**变分推断的核心思想**
+
+变分推断将推断问题转化为**优化问题**：用一个参数化的简单分布 $q_\phi(z \mid x)$（称为变分分布或推断网络）去逼近真实的后验分布 $p(z \mid x)$，通过最小化两者之间的KL散度来优化参数 $\phi$。
+
+$$\phi^* = \arg\min_\phi \text{KL}(q_\phi(z \mid x) \| p(z \mid x))$$
+
+关键优势：优化问题可以用梯度下降求解，与深度学习的训练范式完美契合。这是变分推断在深度学习时代取代MCMC成为主流推断方法的根本原因。
+
+#### 3.8.2 证据下界（ELBO）
+
+**（1）对数边缘似然的分解**
+
+我们无法直接最小化 $\text{KL}(q_\phi \| p(z|x))$，因为其中的 $p(z|x)$ 正是我们无法计算的量。变分推断的巧妙之处在于以下等价关系：
+
+$$\log p(x) = \text{ELBO}(\phi) + \text{KL}(q_\phi(z|x) \| p(z|x))$$
+
+由于 $\log p(x)$（证据/边缘似然）不依赖于 $\phi$，**最大化ELBO等价于最小化KL散度**。这就是"证据下界"（Evidence Lower Bound）名称的由来--ELBO是对数证据 $\log p(x)$ 的下界。
+
+**（2）ELBO的推导**
+
+从对数边缘似然出发：
+
+$$\log p(x) = \log \int p(x, z) dz = \log \int \frac{p(x, z) q_\phi(z|x)}{q_\phi(z|x)} dz$$
+
+利用Jensen不等式（$\log \mathbb{E}[\cdot] \geq \mathbb{E}[\log \cdot]$，因为对数函数是凹函数）：
+
+$$\log p(x) \geq \int q_\phi(z|x) \log \frac{p(x, z)}{q_\phi(z|x)} dz = \mathbb{E}_{q_\phi}[\log p(x, z)] - \mathbb{E}_{q_\phi}[\log q_\phi(z|x)]$$
+
+因此ELBO定义为：
+
+$$\text{ELBO}(\phi) = \mathbb{E}_{q_\phi(z|x)}[\log p(x, z)] - \mathbb{E}_{q_\phi(z|x)}[\log q_\phi(z|x)]$$
+
+**（3）ELBO的两种等价形式**
+
+| 形式 | 公式 | 直觉 |
+|------|------|------|
+| 联合分布形式 | $\text{ELBO} = \mathbb{E}_{q_\phi}[\log p(x, z)] - \mathbb{E}_{q_\phi}[\log q_\phi(z\|x)]$ | 联合似然减去变分分布的熵 |
+| 重构+正则化形式 | $\text{ELBO} = \mathbb{E}_{q_\phi}[\log p(x\|z)] - \text{KL}(q_\phi(z\|x) \| p(z))$ | 重构质量减去与先验的偏离 |
+
+形式二的直觉更清晰：
+- 第一项 $\mathbb{E}_{q_\phi}[\log p(x|z)]$：**重构项**，要求从 $q_\phi$ 采样的 $z$ 能很好地重构 $x$
+- 第二项 $\text{KL}(q_\phi(z|x) \| p(z))$：**正则化项**，要求变分后验不要偏离先验太远
+
+两项之间的张力构成了VAE的核心：重构项想要让每个样本的 $z$ 尽量独特（后验收窄），正则化项想要让所有样本的 $z$ 都接近先验（后验放平）。这种张力正是生成模型能够学到有意义的潜空间的原因。
+
+#### 3.8.3 平均场变分推断（Mean-Field VI）
+
+**平均场假设**：变分分布完全分解为各独立变量的乘积：
+
+$$q_\phi(z_1, z_2, \ldots, z_d) = \prod_{i=1}^{d} q_\phi(z_i)$$
+
+这个假设牺牲了表达能力（无法建模变量间的依赖），但大幅简化了优化。
+
+**坐标上升变分推断（CAVI）**：在平均场假设下，交替优化每个 $q(z_i)$：
+
+$$q^*(z_i) \propto \exp\left(\mathbb{E}_{q_{-i}}[\log p(z_i, z_{-i}, x)]\right)$$
+
+其中 $q_{-i}$ 表示除 $z_i$ 外其他所有变量的变分分布。CAVI类似于EM算法的E步，但用变分分布代替精确后验。
+
+**局限性**：平均场假设会低估后验的不确定性。如果真实后验中 $z_1$ 和 $z_2$ 负相关（知道 $z_1$ 大就能推断 $z_2$ 小），平均场假设会忽略这种相关性，导致过自信的估计。这一问题在LDA主题模型中尤为明显--平均场VI倾向于给出过于尖锐的主题分布。
+
+#### 3.8.4 随机梯度变分推断（SGVI）与重参数化技巧
+
+**（1）为什么需要重参数化？**
+
+ELBO的梯度 $\nabla_\phi \text{ELBO}$ 包含 $\nabla_\phi \mathbb{E}_{q_\phi(z|x)}[\log p(x, z)]$。如果直接对 $z \sim q_\phi(z|x)$ 采样，梯度无法通过采样操作反向传播--采样是一个不可微的随机操作。
+
+**（2）重参数化技巧（Reparameterization Trick）**
+
+核心思想：将随机性从计算路径中"移出"，使得梯度可以通过确定性变换传播。
+
+对于高斯变分分布 $q_\phi(z|x) = \mathcal{N}(\mu_\phi(x), \sigma_\phi^2(x))$：
+
+$$z = \mu_\phi(x) + \sigma_\phi(x) \cdot \epsilon, \quad \epsilon \sim \mathcal{N}(0, 1)$$
+
+这样，$z$ 仍然是从 $q_\phi$ 采样的，但随机性被转移到 $\epsilon$ 上（$\epsilon$ 不依赖于 $\phi$），而 $\mu_\phi$ 和 $\sigma_\phi$ 是确定性函数，梯度可以正常反向传播。
+
+**为什么这有效？** 因为 $\mathbb{E}_{q_\phi}[f(z)]$ 现在可以重写为 $\mathbb{E}_{\epsilon \sim \mathcal{N}(0,1)}[f(\mu_\phi + \sigma_\phi \cdot \epsilon)]$，后者的梯度 $\nabla_\phi$ 可以直接传入 $f$ 内部。
+
+**（3）SGVI算法**
+
+```
+算法：随机梯度变分推断（SGVI）
+输入：数据 {x_1, ..., x_N}, 模型 p(x, z), 变分族 q_φ(z|x)
+1. 初始化参数 φ
+2. 重复：
+   a. 采样小批量 {x_1, ..., x_M}
+   b. 对每个 x_i：
+      - 计算 μ = μ_φ(x_i), σ = σ_φ(x_i)
+      - 采样 ε ~ N(0, I)
+      - 计算 z = μ + σ · ε  （重参数化）
+      - 估计 ELBO ≈ log p(x_i|z) - KL(q_φ(z|x_i) || p(z))
+   c. 计算 ∇_φ ELBO（通过自动微分/反向传播）
+   d. 更新 φ ← φ + lr · ∇_φ ELBO
+3. 直到收敛
+```
+
+SGVI将变分推断从传统的批处理坐标上升（CAVI）转变为小批量随机梯度下降，使其能够扩展到大规模数据集。这是变分推断在深度学习时代复兴的关键技术突破。
+
+#### 3.8.5 变分自编码器（VAE）
+
+VAE（Kingma & Welling, 2013; Rezende et al., 2014）将SGVI与神经网络结合，是深度生成模型的里程碑。
+
+**（1）模型结构**
+
+| 组件 | 函数 | 参数 | 作用 |
+|------|------|------|------|
+| 编码器（推断网络） | $q_\phi(z\|x)$ | $\phi$ | 近似后验：将数据 $x$ 映射到潜变量分布的参数 $(\mu, \sigma)$ |
+| 解码器（生成网络） | $p_\theta(x\|z)$ | $\theta$ | 似然：从潜变量 $z$ 重构数据 $x$ |
+| 先验 | $p(z)$ | - | 通常为标准正态 $\mathcal{N}(0, I)$ |
+
+**（2）VAE的损失函数**
+
+$$\mathcal{L}_{\text{VAE}} = \underbrace{\mathbb{E}_{q_\phi(z|x)}[\log p_\theta(x|z)]}_{\text{重构项}} - \underbrace{\text{KL}(q_\phi(z|x) \| p(z))}_{\text{KL正则项}}$$
+
+当 $q_\phi(z|x)$ 和 $p(z)$ 都是高斯分布时，KL散度有解析解：
+
+$$\text{KL}(\mathcal{N}(\mu, \sigma^2) \| \mathcal{N}(0, 1)) = \frac{1}{2}\sum_{i=1}^{d}\left(\mu_i^2 + \sigma_i^2 - \log \sigma_i^2 - 1\right)$$
+
+这使得KL项可以精确计算（不需要采样），只有重构项需要通过采样估计。
+
+**（3）β-VAE与解耦表示**
+
+β-VAE（Higgins et al., 2017）引入一个权重 $\beta$ 控制KL项的强度：
+
+$$\mathcal{L}_{\beta\text{-VAE}} = \mathbb{E}_{q_\phi}[\log p_\theta(x|z)] - \beta \cdot \text{KL}(q_\phi(z|x) \| p(z))$$
+
+| $\beta$ 值 | 效果 | 潜空间特征 |
+|:---:|------|---------|
+| $\beta = 1$ | 标准VAE | 平衡重构与正则化 |
+| $\beta > 1$ | 更强正则化 | 促进解耦（disentanglement），每个维度编码独立语义因素 |
+| $\beta < 1$ | 重构优先 | 更好的重构质量，但潜空间结构可能不够规整 |
+
+**后验坍缩（Posterior Collapse）问题**：当解码器足够强大时（如使用自回归模型），它可能忽略潜变量 $z$，使得 $q_\phi(z|x) \approx p(z)$（后验坍缩为先验）。此时KL项为0，VAE退化为普通自编码器+先验采样。解决方案包括：削弱解码器、KL退火（训练初期降低$\beta$）、使用跳跃连接等。
+
+#### 3.8.6 变分推断在现代AI中的扩展
+
+**（1）扩散模型的变分视角**
+
+DDPM（Ho et al., 2020）可以理解为一种层级VAE：扩散过程 $x_0 \to x_1 \to \cdots \to x_T$ 是一个马尔可夫链，反向去噪过程 $x_T \to \cdots \to x_0$ 是变分近似。DDPM的ELBO可以分解为各步的去噪损失之和：
+
+$$\mathcal{L}_{\text{DDPM}} = \sum_{t=1}^{T} \mathbb{E}_{q}\left[\text{KL}(q(x_{t-1}|x_t, x_0) \| p_\theta(x_{t-1}|x_t))\right]$$
+
+这解释了为什么扩散模型的训练目标是"预测每一步添加的噪声"--每一步的去噪对应ELBO中的一项KL散度。扩散模型是迄今变分推断最成功的应用之一。
+
+**（2）大语言模型中的变分思想**
+
+RLHF（Reinforcement Learning from Human Feedback）可以被视为一种变分推断：人类反馈定义了一个"后验"分布（什么是好的回答），而策略优化过程是在用参数化的策略分布去逼近这个后验。KL正则化的RLHF目标：
+
+$$\max_\theta \mathbb{E}_{\pi_\theta}[r(x, y)] - \beta \cdot \text{KL}(\pi_\theta \| \pi_{\text{ref}})$$
+
+与ELBO的形式高度相似：奖励项对应重构项（"生成高奖励的回答"），KL正则项对应先验项（"不要偏离参考策略太远"）。这不是巧合--两者都是变分原理的不同实例。
+
+**（3）正则化流（Normalizing Flows）作为更灵活的变分分布**
+
+平均场假设和简单高斯变分分布的表达能力有限。正则化流通过一系列可逆变换将简单分布变为复杂分布：
+
+$$z_0 \sim \mathcal{N}(0, I), \quad z_k = f_k \circ \cdots \circ f_1(z_0)$$
+
+$$\log q(z_k) = \log p(z_0) - \sum_{i=1}^{k} \log \left|\det \frac{\partial f_i}{\partial z_{i-1}}\right|$$
+
+使用正则化流作为变分分布 $q_\phi$ 可以得到更精确的后验逼近，代价是更高的计算开销。Day 1介绍Normalizing Flow时提到了Jacobian行列式，这里给出了其在变分推断中的角色。
+
+#### 3.8.7 与其他课程模块的联系
+
+| 关联模块 | 联系内容 |
+|---------|---------|
+| Day 5 概率图模型 | Day 5的精确推断方法在大模型中不可行，引出Day 6的变分推断 |
+| E8 深度学习 | 扩散模型的变分视角（DDPM作为层级VAE）为E8的生成模型数学基础提供前置 |
+| 技能0 Day 8 信息论 | KL散度的定义和性质直接来自信息论，ELBO的推导依赖Jensen不等式 |
+| 技能3 因果推断 | 贝叶斯网络的结构学习（Day 5）与因果发现交叉；变分推断用于因果效应估计中的后验近似 |
+| Day 1 表示学习 | VAE是Day 1介绍的方法之一，本Day从变分推断角度提供了其完整理论推导 |
+
+**知识链路图**：
+
+```
+技能0 Day 8 (信息论: KL散度, Jensen不等式)
+        ↓
+Day 5 (概率图模型: 精确推断的局限)
+        ↓
+Day 6 (变分推断: ELBO, 重参数化, VAE)  ←-- Day 1 (VAE概览)
+        ↓                              ←-- Day 1 (Normalizing Flow概览)
+E8 深度学习 (扩散模型, 生成模型数学基础)
+        ↓
+技能3 (因果推断: 后验近似, 贝叶斯网络结构学习)
+```
+
+#### 3.8.8 Python代码示例：从零实现VAE
+
+```python
+"""
+变分自编码器(VAE)从零实现
+依赖安装: pip install torch torchvision matplotlib
+场景: 客户行为表示学习 - 将高维行为数据压缩为低维潜变量
+"""
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
+import numpy as np
+
+# ============================================================
+# 步骤1: 定义VAE模型
+# ============================================================
+class VAE(nn.Module):
+    def __init__(self, input_dim, hidden_dim, latent_dim):
+        super().__init__()
+        self.latent_dim = latent_dim
+        
+        # 编码器 q_φ(z|x): x -> [μ, log σ²]
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim // 2),
+            nn.ReLU(),
+        )
+        self.fc_mu = nn.Linear(hidden_dim // 2, latent_dim)
+        self.fc_logvar = nn.Linear(hidden_dim // 2, latent_dim)
+        
+        # 解码器 p_θ(x|z): z -> x'
+        self.decoder = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim // 2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim // 2, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, input_dim),
+            nn.Sigmoid()  # 假设输入在[0,1]范围
+        )
+    
+    def encode(self, x):
+        """编码: 计算变分后验参数 μ 和 log σ²"""
+        h = self.encoder(x)
+        mu = self.fc_mu(h)
+        logvar = self.fc_logvar(h)
+        return mu, logvar
+    
+    def reparameterize(self, mu, logvar):
+        """重参数化技巧: z = μ + σ · ε, ε~N(0,I)"""
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)  # ε ~ N(0, I)
+        return mu + std * eps
+    
+    def decode(self, z):
+        """解码: 从潜变量重构数据"""
+        return self.decoder(z)
+    
+    def forward(self, x):
+        mu, logvar = self.encode(x)
+        z = self.reparameterize(mu, logvar)
+        x_recon = self.decode(z)
+        return x_recon, mu, logvar
+
+# ============================================================
+# 步骤2: 定义ELBO损失函数（最小化负ELBO）
+# ============================================================
+def vae_loss(x_recon, x, mu, logvar, beta=1.0):
+    """
+    VAE损失 = 重构损失 + β * KL散度
+    注意: 最小化此损失 = 最大化ELBO
+    """
+    # 重构项: -E_q[log p(x|z)] ≈ BCE (负对数似然)
+    recon_loss = F.binary_cross_entropy(x_recon, x, reduction='sum')
+    
+    # KL散度: KL(N(μ,σ²) || N(0,1)) 的解析解
+    kl_div = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+    
+    return recon_loss + beta * kl_div, recon_loss, kl_div
+
+# ============================================================
+# 步骤3: 生成模拟客户行为数据
+# ============================================================
+np.random.seed(42)
+num_customers = 2000
+input_dim = 50  # 50维行为特征(如各品类浏览次数、停留时长等)
+
+# 模拟3类客户群体: 低活跃/中活跃/高活跃
+group1 = np.random.binomial(1, 0.3, (700, input_dim)).astype(np.float32)
+group2 = np.random.binomial(1, 0.6, (700, input_dim)).astype(np.float32)
+group3 = np.random.binomial(1, 0.85, (600, input_dim)).astype(np.float32)
+X = np.vstack([group1, group2, group3])
+
+dataset = TensorDataset(torch.from_numpy(X))
+dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
+
+# ============================================================
+# 步骤4: 训练VAE
+# ============================================================
+model = VAE(input_dim=50, hidden_dim=128, latent_dim=16)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+print("开始训练VAE...")
+for epoch in range(50):
+    total_loss = total_recon = total_kl = 0
+    num_batches = 0
+    
+    for batch in dataloader:
+        x = batch[0]
+        x_recon, mu, logvar = model(x)
+        loss, recon, kl = vae_loss(x_recon, x, mu, logvar, beta=1.0)
+        
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        total_loss += loss.item()
+        total_recon += recon.item()
+        total_kl += kl.item()
+        num_batches += 1
+    
+    if epoch % 10 == 0:
+        print(f"Epoch {epoch:3d} | ELBO={-total_loss/num_batches:.2f} | "
+              f"Recon={total_recon/num_batches:.2f} | KL={total_kl/num_batches:.2f}")
+
+# ============================================================
+# 步骤5: 使用学到的潜变量做客户分群
+# ============================================================
+model.eval()
+with torch.no_grad():
+    X_tensor = torch.from_numpy(X)
+    mu, logvar = model.encode(X_tensor)
+    z = mu.numpy()  # 使用μ作为潜变量表示
+
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+labels = kmeans.fit_predict(z)
+score = silhouette_score(z, labels)
+print(f"\nVAE潜变量空间分群: K=3, Silhouette={score:.4f}")
+print("(预期: 接近原始3类客户群体结构)")
+
+# ============================================================
+# 步骤6: 从先验采样生成新客户画像
+# ============================================================
+with torch.no_grad():
+    z_sample = torch.randn(5, 16)  # 从N(0,I)采样
+    generated = model.decode(z_sample)
+    print(f"\n生成的5个新客户画像:")
+    for i in range(5):
+        active_dims = (generated[i] > 0.5).sum().item()
+        print(f"  客户{i+1}: {active_dims}个活跃特征维度 (活跃度: {active_dims/50:.0%})")
+```
+
+**代码解读**：
+
+1. **编码器**：两层MLP输出 $\mu$ 和 $\log\sigma^2$，定义高斯变分后验 $q_\phi(z|x)$
+2. **重参数化**：`z = mu + std * eps` 使得梯度能通过随机采样传播，这是SGVI的核心
+3. **ELBO损失**：重构项用BCE（适合二元数据），KL项有解析解（高斯-高斯KL散度）
+4. **训练监控**：分别输出重构损失和KL散度，便于诊断（KL过高->重构差，KL接近0->后验坍缩）
+5. **潜变量分群**：VAE学到的潜空间天然适合聚类，因为它将相似输入映射到相近的 $\mu$
+6. **生成能力**：从先验 $\mathcal{N}(0, I)$ 采样 $z$，通过解码器生成新样本--这是VAE区别于普通自编码器的核心能力
+
+**实践建议**：
+- 潜变量维度 `latent_dim` 的选择影响重构质量和解耦程度，通常从数据的有效维度出发（如先用PCA确定主成分数）
+- `beta` 的调参：从1.0开始，如果重构质量差则降低beta，如果潜空间不够规整则提高beta
+- 对于连续型行为数据（如停留时长），将BCE替换为MSE（均方误差），解码器最后一层去掉Sigmoid
+
+#### 3.8.9 练习题
+
+**练习1**（KL散度推导）：推导 $\text{KL}(\mathcal{N}(\mu, \sigma^2) \| \mathcal{N}(0, 1))$ 的解析解。提示：展开KL散度定义 $\text{KL}(q\|p) = \int q(x) \log \frac{q(x)}{p(x)} dx$，利用高斯分布的对数密度公式。
+
+**练习2**（重参数化 vs Score Function）：解释为什么不用重参数化技巧时，ELBO的梯度无法通过反向传播计算。如果改用score function estimator（REINFORCE），相比重参数化有什么优缺点？
+
+**练习3**（β-VAE分析）：当 $\beta \to \infty$ 时，β-VAE的潜变量分布会发生什么变化？这种现象叫什么？它对生成质量和解耦表示分别有什么影响？
+
+**练习4**（扩散模型的变分视角）：从变分推断的角度解释DDPM（扩散模型）的训练目标。为什么"预测噪声"等价于最大化ELBO？提示：将扩散过程视为层级VAE，每一步去噪对应ELBO中的一项。
+
+**练习5**（营销应用设计）：设计一个使用VAE的营销应用场景。描述输入数据、潜变量的语义期望（如"价格敏感度""品牌偏好"等）、以及如何利用VAE的生成能力为营销策略提供支持。至少给出一个具体的应用创意。
+
+#### 本Day小结
+
+变分推断将概率推断从积分问题转化为优化问题，使深度生成模型的训练成为可能。ELBO是连接概率推断与优化的核心桥梁：最大化ELBO等价于最小化变分后验与真实后验的KL散度。重参数化技巧解决了采样操作的梯度传播问题，使VAE可以通过标准反向传播训练。VAE的理论框架延伸到扩散模型（层级变分推断）和大语言模型的RLHF（KL正则化的策略优化），构成了现代AI生成范式的理论基础。对于营销应用，VAE的潜空间提供了数据压缩、客户分群和画像生成的统一框架，其生成能力为模拟营销策略提供了新工具。Day 5和Day 6共同构成了从概率图模型到深度生成模型的理论链路，为后续技能3（因果推断）和E8（深度学习）的生成模型模块奠定了坚实基础。
+
+---
+
 ## 四、全球七校对标
 
 ### 4.1 Stanford CS224N（NLP与深度学习）
@@ -1979,7 +2692,7 @@ L = -log[ exp(sim(z, z⁺)/τ) / (exp(sim(z, z⁺)/τ) + Σ_i exp(sim(z, z⁻_i)
 
 | 完成度 | 建议下一步 |
 |-------|----------|
-| 完成Day 1-4全部学习 | 开始技能2（AI原生企业架构） |
+| 完成Day 1-6全部学习（含Day 5-6理论深度模块） | 开始技能2（AI原生企业架构） |
 | 完成作业1.1和1.2 | 把代码保存到GitHub，作为Capstone的基础组件 |
 | 完成作业1.3（DSR计划） | 把研究计划保存下来，在技能5的IMRaD写作中会用 |
 | 英语轨道完成至少1篇阅读 | 在英语笔记中记录5个核心术语的英文表述 |

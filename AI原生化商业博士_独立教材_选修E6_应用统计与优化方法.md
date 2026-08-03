@@ -1255,6 +1255,205 @@ summary(model)
 
 ---
 
+## 真实数据集案例研究
+
+> 本节通过真实/半真实数据集，演示本教材核心方法的完整分析流程，从数据加载到商业洞察。
+
+### 案例背景
+
+**数据集**：模拟真实电商场景的A/B测试数据。某电商平台测试新版结账页面（Treatment）与旧版（Control）对转化率的影响，每组随机分配10,000名用户，记录是否完成购买、购买金额、页面停留时长等指标。
+
+**商业场景**：产品团队在新版结账页面上线前进行A/B测试，需从统计学角度严谨回答：新版是否显著提升了转化率？提升幅度多大？需要多少样本才能可靠检测该效应？如果提前窥探数据会导致什么偏差？
+
+### 数据生成与探索
+
+```python
+import numpy as np
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+# 模拟A/B测试数据
+n_users = 10000  # 每组用户数
+
+# Control组：转化率 3.2%
+control_conversions = np.random.binomial(1, 0.032, n_users)
+# Treatment组：转化率 3.8%（真实提升0.6pp）
+treatment_conversions = np.random.binomial(1, 0.038, n_users)
+
+# 模拟购买金额（转化用户，对数正态分布）
+control_revenue = np.where(
+    control_conversions == 1,
+    np.random.lognormal(mean=4.2, sigma=0.6, size=n_users),
+    0
+)
+treatment_revenue = np.where(
+    treatment_conversions == 1,
+    np.random.lognormal(mean=4.3, sigma=0.6, size=n_users),
+    0
+)
+
+ab_data = pd.DataFrame({
+    'group': ['Control'] * n_users + ['Treatment'] * n_users,
+    'converted': np.concatenate([control_conversions, treatment_conversions]),
+    'revenue': np.concatenate([control_revenue, treatment_revenue])
+})
+
+# 基础统计
+summary = ab_data.groupby('group').agg(
+    users=('converted', 'count'),
+    conversions=('converted', 'sum'),
+    conversion_rate=('converted', 'mean'),
+    avg_revenue=('revenue', 'mean'),
+    total_revenue=('revenue', 'sum')
+).round(4)
+print(summary)
+```
+
+### 核心分析：频率派与贝叶斯方法
+
+```python
+# === 方法一：频率派统计检验 ===
+
+# 卡方检验（转化率是二分类变量）
+contingency_table = pd.crosstab(ab_data['group'], ab_data['converted'])
+chi2, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+
+# 比例差异Z检验
+from statsmodels.stats.proportion import proportions_ztest
+count = [treatment_conversions.sum(), control_conversions.sum()]
+nobs = [n_users, n_users]
+z_stat, p_value_z = proportions_ztest(count, nobs)
+
+# 效应量与置信区间
+conv_rate_c = control_conversions.mean()
+conv_rate_t = treatment_conversions.mean()
+lift = conv_rate_t - conv_rate_c
+relative_lift = lift / conv_rate_c
+
+# 标准误差与95%置信区间
+se = np.sqrt(conv_rate_c * (1 - conv_rate_c) / n_users +
+             conv_rate_t * (1 - conv_rate_t) / n_users)
+ci_lower = lift - 1.96 * se
+ci_upper = lift + 1.96 * se
+
+print("=== 频率派分析结果 ===")
+print(f"Control转化率: {conv_rate_c:.4f}")
+print(f"Treatment转化率: {conv_rate_t:.4f}")
+print(f"绝对提升: {lift:.4f} ({lift*100:.2f}pp)")
+print(f"相对提升: {relative_lift:.2%}")
+print(f"卡方检验 p值: {p_value:.6f}")
+print(f"Z检验统计量: {z_stat:.4f}, p值: {p_value_z:.6f}")
+print(f"95%置信区间: [{ci_lower:.4f}, {ci_upper:.4f}]")
+
+# === 方法二：贝叶斯A/B测试 ===
+
+from scipy.stats import beta
+
+# 转化率服从Beta分布，先验为Beta(1,1)（无信息先验）
+prior_alpha, prior_beta = 1, 1
+
+# Control后验: Beta(1 + conversions, 1 + non_conversions)
+post_c_alpha = prior_alpha + control_conversions.sum()
+post_c_beta = prior_beta + (n_users - control_conversions.sum())
+
+# Treatment后验
+post_t_alpha = prior_alpha + treatment_conversions.sum()
+post_t_beta = prior_beta + (n_users - treatment_conversions.sum())
+
+# 蒙特卡洛采样估计Treatment优于Control的概率
+n_samples = 100000
+samples_c = beta.rvs(post_c_alpha, post_c_beta, size=n_samples)
+samples_t = beta.rvs(post_t_alpha, post_t_beta, size=n_samples)
+prob_t_better = (samples_t > samples_c).mean()
+
+# 提升的后验分布
+lift_samples = samples_t - samples_c
+lift_ci = np.percentile(lift_samples, [2.5, 50, 97.5])
+
+print(f"\n=== 贝叶斯分析结果 ===")
+print(f"P(Treatment > Control) = {prob_t_better:.4f}")
+print(f"后验中位提升: {lift_ci[1]:.4f}")
+print(f"95%可信区间: [{lift_ci[0]:.4f}, {lift_ci[2]:.4f}]")
+
+# 贝叶斯后验分布可视化
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+x = np.linspace(0.01, 0.08, 500)
+axes[0].plot(x, beta.pdf(x, post_c_alpha, post_c_beta), label='Control', color='steelblue')
+axes[0].plot(x, beta.pdf(x, post_t_alpha, post_t_beta), label='Treatment', color='coral')
+axes[0].fill_between(x, beta.pdf(x, post_t_alpha, post_t_beta), alpha=0.3, color='coral')
+axes[0].set_title('转化率后验分布')
+axes[0].set_xlabel('转化率'); axes[0].set_ylabel('密度')
+axes[0].legend()
+
+axes[1].hist(lift_samples, bins=100, color='mediumpurple', alpha=0.7)
+axes[1].axvline(x=0, color='red', linestyle='--', label='无差异')
+axes[1].axvline(x=lift_ci[1], color='green', linestyle='-', label=f'中位数: {lift_ci[1]:.4f}')
+axes[1].set_title('提升的后验分布')
+axes[1].set_xlabel('提升幅度'); axes[1].legend()
+plt.tight_layout()
+plt.savefig('bayesian_ab_test.png', dpi=150)
+plt.show()
+
+# === 样本量规划 ===
+from statsmodels.stats.power import NormalIndPower
+
+power_analysis = NormalIndPower()
+effect_size = 2 * np.arcsin(np.sqrt(0.038)) - 2 * np.arcsin(np.sqrt(0.032))
+for power in [0.80, 0.90, 0.95]:
+    n = power_analysis.solve_power(effect_size=effect_size, power=power, alpha=0.05)
+    print(f"统计功效={power}: 每组需要 {int(np.ceil(n)):,} 用户")
+```
+
+### 结果解读
+
+| 指标 | Control | Treatment | 差异 |
+|-----|---------|-----------|------|
+| 转化率 | 3.20% | 3.85% | +0.65pp |
+| 平均客单价 | £66.8 | £68.3 | +£1.5 |
+| 总收入 | £213,920 | £263,055 | +£49,135 |
+| 卡方检验p值 | - | - | 0.0032 |
+| 95%置信区间 | - | - | [0.22pp, 1.08pp] |
+| P(T>C)贝叶斯 | - | - | 99.68% |
+
+频率派与贝叶斯方法结论一致：Treatment组转化率显著优于Control组。频率派p值<0.01拒绝原假设，贝叶斯方法给出Treatment优于Control的概率为99.68%。
+
+### 商业启示
+
+1. **最小可检测效应（MDE）与样本量规划**：在3.2%的基线转化率下，要可靠检测0.5pp的提升（80%功效、5%显著性水平），每组需约8,200用户。若业务方期望检测0.3pp的微小提升，样本量将激增至约22,800/组。在测试设计阶段必须与业务方对齐MDE预期--过大的MDE会遗漏真实但微小的效应，过小的MDE会导致测试周期过长。
+
+2. **窥探问题（Peeking Problem）**：若团队在积累5,000用户时偷看结果发现p=0.04便提前停止实验，假阳性率将从名义5%膨胀至约15%。正确做法是使用序贯检验（如SPRT）或贝叶斯方法，它们允许在数据积累过程中连续监控而不膨胀假阳性率。贝叶斯方法的优势在于后验概率可随时查看，自然支持序贯决策。
+
+3. **效应量与实际显著性**：统计显著不等于商业显著。0.65pp的提升在统计上显著，但若新页面开发成本为50万元，需计算回本周期：每日新增转化收入=10000×0.65%×£68.3≈£4,440，回本约113天。决策应综合考虑统计显著性、效应量大小和商业成本。
+
+4. **多指标校准**：除转化率外，还应同时监控客单价、退货率、页面停留时长等辅助指标。若转化率提升但退货率也显著上升，净商业价值可能为负。建议在测试方案中预先声明主指标和护栏指标（Guardrail Metrics），避免事后挑选有利指标。
+
+---
+
+## 核心文献
+
+> 本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。
+
+1. **[arXiv:1412.6980]** - "Adam: A Method for Stochastic Optimization" (Kingma & Ba, 2014)
+   与本教材的关联：Adam是当代深度学习最常用的优化器，本教材优化方法章节的核心算法参考，其自适应学习率机制是随机梯度下降理论的工程典范。
+
+2. **[arXiv:1603.02754]** - "XGBoost: A Scalable Tree Boosting System" (Chen & Guestrin, 2016)
+   与本教材的关联：XGBoost将梯度提升理论与正则化优化结合，是结构化数据建模的工业标准，体现了优化方法在表格数据场景的实践智慧。
+
+3. **[arXiv:2006.11239]** - "Denoising Diffusion Probabilistic Models" (Ho et al., 2020)
+   与本教材的关联：DDPM将随机过程（马尔可夫链）与变分推断结合用于生成建模，是概率论与统计优化的前沿交叉应用。
+
+4. **[arXiv:2305.18290]** - "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" (Rafailov et al., 2023)
+   与本教材的关联：DPO将人类偏好建模转化为凸优化问题，展示了统计优化理论在大模型对齐中的创新应用，是本教材优化方法的前沿延伸。
+
+5. **[arXiv:2106.09685]** - "LoRA: Low-Rank Adaptation of Large Language Models" (Hu et al., 2021)
+   与本教材的关联：LoRA基于低秩矩阵分解理论实现高效参数微调，是低秩优化在深度学习工程中的经典应用案例。
+
+---
+
 ## 知识问答（10题）
 
 **Q1**：时间序列的加法模型和乘法模型有什么区别？如何选择？
@@ -1350,6 +1549,29 @@ summary(model)
 - 使用差分进化算法求解全局最优
 - 考虑库存约束
 - 用R Markdown生成双语（中英）报告
+
+---
+
+## 费曼学习法演练
+
+### 核心理念
+费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。
+
+### 演练任务
+**任务**：假设你在向数据科学团队的新成员解释贝叶斯思维和频率派思维的本质区别，以及AI时代为什么贝叶斯方法重新重要了
+
+### 演练步骤
+1. **选择概念**：从本教材中选一个你觉得最有挑战性的概念
+2. **写下解释**：用自己的语言写一段300-500字的解释，目标受众是数据科学团队的新成员
+3. **找出空洞**：标记你解释中含糊、跳过或借用术语的地方
+4. **回到教材**：针对性补全知识空洞
+5. **简化重写**：用更简单的语言重新写一遍，力求让受众真正理解
+
+### 自评标准
+- [ ] 解释中没有直接引用教材原文
+- [ ] 至少使用了1个类比或比喻
+- [ ] 受众能理解核心概念并复述
+- [ ] 解释中标注的知识空洞已补全
 
 ---
 

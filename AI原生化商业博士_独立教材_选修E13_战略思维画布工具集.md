@@ -1484,6 +1484,247 @@ Agent的不做清单需要三层防护：
 
 ---
 
+## 真实数据集案例研究
+
+> 本节通过一家模拟但真实的AI创业公司案例，演示BLM框架、战略画布工具和OKR设计的完整分析流程，从公司诊断到战略建议。
+
+### 案例背景
+
+**公司概况**：智荐科技（化名），一家AI营销内容生成SaaS创业公司。
+
+- **成立时间**：2024年1月，已运营18个月
+- **团队规模**：35人（技术20人，销售8人，运营7人）
+- **产品**：AI营销内容生成平台，支持文案、海报、短视频脚本的一键生成
+- **商业模式**：SaaS订阅制，定价 999-9,999元/月
+- **当前状态**：月活企业客户 120 家，月营收 80 万元，毛利率 65%，尚未盈利
+- **融资状态**：天使轮 500 万已花完，正在寻求 Pre-A 轮融资
+
+**面临的战略挑战**：通用大模型（GPT-4o/Claude）的能力快速提升，客户开始质疑"为什么不直接用ChatGPT"。公司需要重新定义差异化价值主张，并在融资路演中展示清晰的战略路径。
+
+**数据来源说明**：本案例的公司财务数据、客户数据和市场竞争数据为模拟数据，但基于2024-2026年中国AI SaaS市场的真实行业趋势构建，具有现实参考价值。
+
+### 数据加载与探索
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import numpy as np
+import pandas as pd
+
+# ===== 公司18个月经营数据 =====
+company_data = {
+    'months': [f'2024-{m:02d}' for m in range(1, 13)] +
+               [f'2025-{m:02d}' for m in range(1, 7)],
+    'mrr': [12, 18, 25, 32, 38, 42, 48, 52, 55, 58, 62, 65,  # 2024年
+            68, 72, 74, 76, 78, 80],                          # 2025 H1
+    'customers': [20, 30, 42, 55, 65, 72, 80, 88, 95, 100, 108, 112,
+                  115, 118, 119, 120, 120, 120],
+    'churn_rate': [0.08, 0.07, 0.06, 0.06, 0.05, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.10,
+                   0.11, 0.12, 0.12, 0.13, 0.13, 0.14],
+    'cac': [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3, 2.5,
+            2.7, 2.9, 3.0, 3.1, 3.2, 3.3],  # 获客成本（万元/客户）
+    'ltv': [3.5, 3.5, 3.5, 3.4, 3.3, 3.2, 3.0, 2.8, 2.7, 2.5, 2.4, 2.3,
+            2.2, 2.1, 2.0, 1.9, 1.9, 1.8],  # 客户生命周期价值（万元）
+}
+df = pd.DataFrame(company_data)
+
+# ===== 关键指标趋势可视化 =====
+fig, axes = plt.subplots(2, 2, figsize=(16, 10))
+
+# MRR增长趋势
+axes[0, 0].plot(df['months'], df['mrr'], 'o-', color='#2E86AB', linewidth=2)
+axes[0, 0].set_title('月度经常性收入 MRR (万元)', fontweight='bold')
+axes[0, 0].axvline(x=11, color='red', linestyle='--', alpha=0.5, label='增长放缓')
+axes[0, 0].legend(); axes[0, 0].tick_params(axis='x', rotation=45)
+
+# 客户流失率
+axes[0, 1].plot(df['months'], df['churn_rate'], 'o-', color='#E63946', linewidth=2)
+axes[0, 1].axhline(y=0.05, color='green', linestyle='--', alpha=0.5, label='健康阈值5%')
+axes[0, 1].set_title('月度客户流失率', fontweight='bold')
+axes[0, 1].legend(); axes[0, 1].tick_params(axis='x', rotation=45)
+
+# CAC vs LTV
+axes[1, 0].plot(df['months'], df['cac'], 'o-', color='#E63946', linewidth=2, label='CAC获客成本')
+axes[1, 0].plot(df['months'], df['ltv'], 's-', color='#2A9D8F', linewidth=2, label='LTV生命周期价值')
+axes[1, 0].fill_between(range(len(df)), df['cac'], df['ltv'],
+                         where=df['ltv'] > df['cac'], alpha=0.15, color='green')
+axes[1, 0].fill_between(range(len(df)), df['cac'], df['ltv'],
+                         where=df['ltv'] <= df['cac'], alpha=0.15, color='red')
+axes[1, 0].set_title('CAC vs LTV (绿色=健康, 红色=亏损)', fontweight='bold')
+axes[1, 0].legend(); axes[1, 0].tick_params(axis='x', rotation=45)
+
+# LTV/CAC比率
+ratio = df['ltv'] / df['cac']
+axes[1, 1].bar(range(len(df)), ratio,
+               color=['#2A9D8F' if r >= 3 else '#E63946' for r in ratio])
+axes[1, 1].axhline(y=3, color='blue', linestyle='--', alpha=0.5, label='健康线 LTV/CAC=3')
+axes[1, 1].axhline(y=1, color='red', linestyle='--', alpha=0.5, label='生死线 LTV/CAC=1')
+axes[1, 1].set_title('LTV/CAC 比率 (健康标准>=3)', fontweight='bold')
+axes[1, 1].legend()
+axes[1, 1].set_xticks(range(len(df)))
+axes[1, 1].set_xticklabels(df['months'], rotation=45, fontsize=7)
+
+plt.tight_layout()
+plt.savefig('company_metrics.png', dpi=150)
+plt.show()
+
+# ===== 输出关键诊断指标 =====
+print("=" * 60)
+print("公司经营诊断摘要")
+print("=" * 60)
+print(f"当前MRR: {df['mrr'].iloc[-1]}万元/月")
+print(f"近6月MRR增长率: {((df['mrr'].iloc[-1]/df['mrr'].iloc[-7])-1)*100:.1f}%")
+print(f"当前客户流失率: {df['churn_rate'].iloc[-1]:.1%} (健康线<5%)")
+print(f"当前LTV/CAC: {df['ltv'].iloc[-1]/df['cac'].iloc[-1]:.2f} (健康线>=3)")
+print(f"趋势: CAC持续上升, LTV持续下降, LTV/CAC即将跌破1")
+```
+
+### 核心分析
+
+```python
+# ===== BLM 四类差距诊断 =====
+gap_analysis = {
+    '业绩差距': {
+        '诊断': 'MRR增长从月增15%放缓至月增2.5%，客户流失率从5%升至14%',
+        '根因': '客户留存问题，非获客问题',
+        '战略动作': '优先修复留存，而非加大获客投入'
+    },
+    '机会差距': {
+        '诊断': '未布局行业垂直模型，通用GPT-4o正在替代产品核心功能',
+        '根因': '产品定位为"通用AI内容生成"，缺乏行业深度',
+        '战略动作': '必须换业务设计，从通用工具转向行业垂直方案'
+    },
+    '认知差距': {
+        '诊断': '复盘归因分析：70%归因于"市场环境"和"竞品价格战"',
+        '信号检查': '动作完成率高但结果不动 + 复盘反复指向外部归因',
+        '战略动作': '重新做市场洞察，质疑"通用AI工具"的产品定位'
+    },
+    '合规差距': {
+        '诊断': 'AI生成内容未标注，客户数据用于prompt优化未获明确授权',
+        '战略动作': '立即完成数据合规改造，这是融资的前提条件'
+    }
+}
+
+for gap_type, analysis in gap_analysis.items():
+    print(f"\n【{gap_type}】")
+    for key, value in analysis.items():
+        print(f"  {key}: {value}")
+
+# ===== 竞争态势分析（Strategy Canvas 价值曲线） =====
+factors = ['价格\n(低=好)', '行业\n深度', '生成\n质量', '定制化\n程度',
+           '数据\n安全', '响应\n速度', '集成\n能力', '品牌\n信任']
+
+chatgpt =     [1, 2, 5, 2, 2, 5, 2, 4]     # ChatGPT通用工具
+competitor =  [3, 3, 3, 3, 3, 3, 3, 3]     # 同质化竞品
+vertical_ai = [3, 5, 4, 5, 5, 4, 5, 4]     # 行业垂直AI（蓝海方向）
+
+x = np.arange(len(factors))
+fig, ax = plt.subplots(figsize=(14, 7))
+
+ax.plot(x, chatgpt, 'o-', linewidth=2.5, label='ChatGPT (通用)', color='#2E86AB')
+ax.plot(x, competitor, 's-', linewidth=2.5, label='同质化竞品', color='#E63946')
+ax.plot(x, vertical_ai, 'D-', linewidth=3, label='行业垂直AI (蓝海方向)', color='#2A9D8F')
+ax.fill_between(x, vertical_ai, alpha=0.1, color='#2A9D8F')
+
+ax.set_xticks(x)
+ax.set_xticklabels(factors, fontsize=9)
+ax.set_ylabel('投入/能力水平', fontsize=11)
+ax.set_title('Strategy Canvas - AI营销内容生成赛道\n蓝海策略：从通用工具转向行业垂直方案',
+             fontsize=13, fontweight='bold')
+ax.set_ylim(0, 6); ax.legend(fontsize=10); ax.grid(True, alpha=0.3, axis='y')
+
+plt.tight_layout()
+plt.savefig('strategy_canvas_case.png', dpi=150)
+plt.show()
+
+# ===== OKR 设计（BLM战略意图的执行转化） =====
+okr = {
+    'O1: 完成产品向行业垂直方向的转型': [
+        'KR1: Q1签约3个行业标杆客户（零售/金融/教育）',
+        'KR2: Q1完成零售行业AI内容模型微调，生成质量人工评测得分>=4.2/5',
+        'KR3: Q1客户流失率降至8%以下',
+    ],
+    'O2: 建立数据合规护城河': [
+        'KR1: Q1完成数据采集授权流程改造，100%客户签署数据使用协议',
+        'KR2: Q1 AI生成内容标注功能上线，合规审计通过率100%',
+        'KR3: Q2获得ISO 27001信息安全认证',
+    ],
+    'O3: 达成Pre-A轮融资目标': [
+        'KR1: Q2月营收达到150万元（MRR增长87.5%）',
+        'KR2: Q2 LTV/CAC比率恢复至2.5以上',
+        'KR3: Q2完成Pre-A轮TS签署，估值>=8000万元',
+    ]
+}
+
+print("\n" + "=" * 60)
+print("2026 Q1-Q2 OKR 设计")
+print("=" * 60)
+for o, krs in okr.items():
+    print(f"\n{o}")
+    for kr in krs:
+        print(f"  {kr}")
+
+# ===== 可审计四件套 =====
+audit_set = {
+    '判定依据': '数据来源：公司CRM 18个月数据 + 20家客户深度访谈；AI辅助：GPT-4用于客户反馈文本聚类',
+    '置信区间': '行业垂直转型成功的置信区间60%: ARR从960万增至1800万(1000-2500万范围)',
+    '停手线': 'Q1签约标杆客户<2家 -> 暂停行业扩展，回到PMF验证；流失率未降至8% -> 冻结新功能开发',
+    '复盘口径': '事前假设：行业垂直模型客户留存率比通用模型高30%；零售行业客户愿为垂直方案支付2倍溢价'
+}
+
+print("\n" + "=" * 60)
+print("可审计四件套")
+print("=" * 60)
+for component, content in audit_set.items():
+    print(f"\n{component}:")
+    print(f"  {content}")
+```
+
+### 结果解读
+
+**BLM差距诊断结论**：主要矛盾是机会差距（产品定位被通用AI消解）叠加认知差距（复盘归因指向外部）。LTV/CAC从4.4降至0.55，单位经济模型已不成立，继续获客等于烧钱。
+
+**战略画布分析结论**：与ChatGPT相比，通用AI内容生成工具在"价格"和"生成质量"上无法竞争（ChatGPT更便宜且质量更高）。蓝海方向是"行业深度+数据安全+定制化"--做ChatGPT做不到的行业垂直方案。
+
+**OKR设计逻辑**：三个O分别对应"产品转型（解决机会差距）""合规建设（解决合规差距）""融资目标（解决生存问题）"，每个O都有可量化的KR和明确的停手线。
+
+**战略成色评分**：硬指标清晰度(5) x 不做清单条数(5) x 节拍可执行度(4) = 100分（满分125分），"不做清单"和"硬指标"是强项，"节拍可执行度"因转型不确定性扣1分。
+
+### 商业启示
+
+1. **AI创业公司的核心战略风险**：当通用大模型的能力边界不断扩展，"基于API封装的薄应用"随时可能被消解。战略控制点必须建立在通用模型难以复制的能力上：行业垂直数据、工作流深度集成、合规资质
+
+2. **LTV/CAC是AI SaaS的生死线**：LTV/CAC<1意味着每获一个客户都在亏损。本案例中CAC从0.8万升至3.3万（获客成本随竞争加剧上升），LTV从3.5万降至1.8万（流失率上升导致生命周期缩短）。必须先修复留存再加大获客，否则越增长越亏损
+
+3. **售前场景的战略画布应用**：当你向客户（特别是企业高管）展示方案时，用BLM差距诊断框架帮助客户识别"你面临的是业绩差距还是认知差距"，用Strategy Canvas展示"你的方案在哪个维度上优于竞品和通用AI"。这种战略语言比功能对比表更能建立高管信任
+
+4. **可审计四件套在融资路演中的价值**：投资人最反感的是"不可证伪的故事"。在BP中加入可审计四件套--特别是量化的停手线和事前假设--传递的信号是"这个团队知道何时该调整方向，不会无限烧钱"。这在Pre-A/A轮阶段特别重要
+
+5. **OKR与战略意图的对齐验证**：检查每个KR是否直接服务于BLM的北极星卡。如果KR无法追溯到战略意图，说明OKR与战略脱节。本案例中每个KR都对应差距诊断中的具体问题，形成了"诊断-战略-执行-审计"的完整闭环
+
+---
+
+## 核心文献
+
+> 本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。
+
+1. **[arXiv:2304.03442]** - "Generative Agents: Interactive Simulacra of Human Behavior" (Park et al., 2023)
+   与本教材的关联：生成式Agent为战略主体仿真提供了技术基础，使战略画布从静态分析工具进化为可动态推演的Agent仿真系统。
+
+2. **[arXiv:2303.08774]** - "GPT-4 Technical Report" (OpenAI, 2023)
+   与本教材的关联：GPT-4定义了当前AI战略规划的技术能力边界，是制定AI原生战略时评估技术可行性的核心参考。
+
+3. **[arXiv:2203.02155]** - "Training language models to follow instructions with human feedback" (Ouyang et al., 2022)
+   与本教材的关联：RLHF提供了将人类战略意图对齐到AI系统的方法论，是"战略目标到AI执行"链路对齐的理论基础。
+
+4. **[arXiv:2305.18290]** - "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" (Rafailov et al., 2023)
+   与本教材的关联：DPO为战略决策中的偏好建模提供了数学框架，使战略选择可以从隐式偏好中直接优化。
+
+5. **[arXiv:2210.03629]** - "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al., 2022)
+   与本教材的关联：ReAct定义了Agent"推理+行动"的范式，是战略画布从分析工具转向Agent执行框架的关键参考。
+
+---
+
 ## 知识问答
 
 | # | 问题 | 参考答案要点 | 难度 |
@@ -1541,6 +1782,29 @@ Agent的不做清单需要三层防护：
 **交付物**：价值曲线图（PNG）+ ERRC分析表 + 战略成色评分 + 500字战略说明
 
 **评分标准**：重点考察价值曲线的差异化是否真实（而非为差异化而差异化）、ERRC动作是否自洽（Eliminate/Reduce释放的资源是否覆盖Raise/Create的投入）、战略成色评分是否诚实。
+
+---
+
+## 费曼学习法演练
+
+### 核心理念
+费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。
+
+### 演练任务
+**任务**：假设你在向企业战略VP解释BLM战略框架在AI Agent时代需要怎样演进，以及'Agent战略人才画像'为什么是新的战略要素
+
+### 演练步骤
+1. **选择概念**：从本教材中选一个你觉得最有挑战性的概念
+2. **写下解释**：用自己的语言写一段300-500字的解释，目标受众是企业战略VP
+3. **找出空洞**：标记你解释中含糊、跳过或借用术语的地方
+4. **回到教材**：针对性补全知识空洞
+5. **简化重写**：用更简单的语言重新写一遍，力求让受众真正理解
+
+### 自评标准
+- [ ] 解释中没有直接引用教材原文
+- [ ] 至少使用了1个类比或比喻
+- [ ] 受众能理解核心概念并复述
+- [ ] 解释中标注的知识空洞已补全
 
 ---
 

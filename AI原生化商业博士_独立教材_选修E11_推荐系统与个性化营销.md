@@ -1179,6 +1179,204 @@ def ips_weighted_loss(predictions, labels, propensities):
 
 ---
 
+## 真实数据集案例研究
+
+> 本节通过真实数据集 MovieLens 100K，演示推荐系统核心方法的完整分析流程，从数据加载到商业洞察。
+
+### 案例背景
+
+**数据集**：MovieLens 100K，由明尼苏达大学 GroupLens 研究小组发布，是推荐系统领域最经典的基准数据集。
+
+- **规模**：100,000 条评分记录，来自 943 位用户对 1,682 部电影的评分（1-5分）
+- **稀疏度**：99.6%（用户-物品矩阵中仅 0.4% 的格子有评分）
+- **附加信息**：用户人口统计信息（年龄、性别、职业、邮编）、电影类型标签
+- **商业对应**：Netflix、爱奇艺等流媒体平台的推荐场景
+
+**业务场景模拟**：假设你是一家视频流媒体平台（类似爱奇艺）的售前解决方案产品经理，客户希望构建个性化推荐系统。你用 MovieLens 100K 作为概念验证（POC）数据集，向客户演示协同过滤和矩阵分解的完整流程及效果。
+
+### 数据加载与探索
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from surprise import Dataset, KNNBasic, SVD, accuracy, Reader
+from surprise.model_selection import train_test_split, cross_validate
+
+# ===== 加载 MovieLens 100K 数据集 =====
+# Surprise库内置了MovieLens 100K，首次运行会自动下载
+data = Dataset.load_builtin('ml-100k')
+
+# 转换为DataFrame进行EDA
+raw_ratings = data.raw_ratings
+df = pd.DataFrame(raw_ratings, columns=['user_id', 'item_id', 'rating', 'timestamp'])
+
+print(f"=== 数据集概览 ===")
+print(f"评分总数: {len(df):,}")
+print(f"用户数: {df['user_id'].nunique()}")
+print(f"电影数: {df['item_id'].nunique()}")
+print(f"评分范围: {df['rating'].min()} - {df['rating'].max()}")
+print(f"平均评分: {df['rating'].mean():.2f}")
+print(f"稀疏度: {1 - len(df) / (df['user_id'].nunique() * df['item_id'].nunique()):.4f}")
+
+# ===== EDA: 评分分布、用户活跃度、电影热度 =====
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+# 评分值分布
+rating_counts = df['rating'].value_counts().sort_index()
+axes[0].bar(rating_counts.index, rating_counts.values, color='#2E86AB')
+axes[0].set_title('评分值分布')
+axes[0].set_xlabel('评分'); axes[0].set_ylabel('数量')
+
+# 用户活跃度分布（每用户评分数）
+user_activity = df.groupby('user_id').size()
+axes[1].hist(user_activity, bins=50, color='#2A9D8F', edgecolor='white')
+axes[1].set_title('用户活跃度分布')
+axes[1].set_xlabel('评分数量'); axes[1].set_ylabel('用户数')
+
+# 电影热度分布（每电影被评分数）
+movie_popularity = df.groupby('item_id').size()
+axes[2].hist(movie_popularity, bins=50, color='#E63946', edgecolor='white')
+axes[2].set_title('电影热度分布')
+axes[2].set_xlabel('被评分数'); axes[2].set_ylabel('电影数')
+
+plt.tight_layout()
+plt.savefig('movielens_eda.png', dpi=150)
+plt.show()
+
+print(f"\n用户评分数中位数: {user_activity.median():.0f}")
+print(f"电影被评分数中位数: {movie_popularity.median():.0f}")
+```
+
+### 核心分析
+
+```python
+# ===== 方法对比：User-CF / Item-CF / SVD =====
+reader = Reader(rating_scale=(1, 5))
+data = Dataset.load_from_df(df[['user_id', 'item_id', 'rating']], reader)
+trainset, testset = train_test_split(data, test_size=0.25, random_state=42)
+
+results = {}
+
+# 方法1: User-based CF
+sim_options_user = {'name': 'cosine', 'user_based': True, 'k': 30}
+user_cf = KNNBasic(sim_options=sim_options_user)
+user_cf.fit(trainset)
+user_pred = user_cf.test(testset)
+results['User-CF'] = {
+    'RMSE': accuracy.rmse(user_pred, verbose=False),
+    'MAE': accuracy.mae(user_pred, verbose=False)
+}
+
+# 方法2: Item-based CF
+sim_options_item = {'name': 'cosine', 'user_based': False, 'k': 30}
+item_cf = KNNBasic(sim_options=sim_options_item)
+item_cf.fit(trainset)
+item_pred = item_cf.test(testset)
+results['Item-CF'] = {
+    'RMSE': accuracy.rmse(item_pred, verbose=False),
+    'MAE': accuracy.mae(item_pred, verbose=False)
+}
+
+# 方法3: SVD 矩阵分解
+svd = SVD(n_factors=50, n_epochs=30, lr_all=0.005, reg_all=0.02, random_state=42)
+svd.fit(trainset)
+svd_pred = svd.test(testset)
+results['SVD'] = {
+    'RMSE': accuracy.rmse(svd_pred, verbose=False),
+    'MAE': accuracy.mae(svd_pred, verbose=False)
+}
+
+# ===== 结果对比表 =====
+print("=" * 50)
+print(f"{'方法':<15} {'RMSE':>10} {'MAE':>10}")
+print("=" * 50)
+for method, metrics in results.items():
+    print(f"{method:<15} {metrics['RMSE']:>10.4f} {metrics['MAE']:>10.4f}")
+print("=" * 50)
+
+# ===== 为指定用户生成 Top-N 推荐 =====
+def get_top_n(algo, user_id, trainset, n=10):
+    """生成Top-N推荐：预测用户未评分物品的评分并排序"""
+    inner_uid = trainset.to_inner_uid(user_id)
+    rated_inner_iids = set([iid for (iid, _) in trainset.ur[inner_uid]])
+    rated_items = set([trainset.to_raw_iid(iid) for iid in rated_inner_iids])
+    all_items = set([trainset.to_raw_iid(iid) for iid in trainset.all_items()])
+    unrated = all_items - rated_items
+
+    predictions = [(iid, algo.predict(user_id, iid).est) for iid in unrated]
+    predictions.sort(key=lambda x: x[1], reverse=True)
+    return predictions[:n]
+
+# 为用户 '196' 生成推荐
+top10 = get_top_n(svd, '196', trainset, n=10)
+print(f"\n用户 196 的 Top-10 推荐（SVD）:")
+print(f"{'排名':<6} {'电影ID':<12} {'预测评分':>10}")
+print("-" * 30)
+for rank, (movie_id, score) in enumerate(top10, 1):
+    print(f"{rank:<6} {movie_id:<12} {score:>10.2f}")
+
+# ===== 推荐多样性分析（流行度偏差检测） =====
+top10_movie_ids = [mid for mid, _ in top10]
+top10_popularity = [movie_popularity.get(mid, 0) for mid in top10_movie_ids]
+avg_popularity = np.mean(top10_popularity)
+global_avg_popularity = movie_popularity.mean()
+
+print(f"\n推荐电影平均热度（被评分数）: {avg_popularity:.1f}")
+print(f"全局电影平均热度: {global_avg_popularity:.1f}")
+print(f"热度比: {avg_popularity / global_avg_popularity:.2f}x （>1说明偏向热门）")
+```
+
+### 结果解读
+
+三种方法在 MovieLens 100K 上的表现对比：
+
+| 方法 | RMSE | MAE | 特点 |
+|------|:----:|:----:|------|
+| User-CF | ~0.98 | ~0.77 | 基于用户相似度，适合用户数少的场景 |
+| Item-CF | ~0.97 | ~0.76 | 基于物品相似度，Amazon经典方案 |
+| SVD | ~0.94 | ~0.74 | 矩阵分解，精度最高 |
+
+**关键发现**：
+1. **SVD优于CF方法**：SVD的RMSE比CF低约3-4%，因为隐因子能捕捉评分矩阵的潜在结构
+2. **长尾效应显著**：推荐电影的平均热度远高于全局平均，说明推荐系统倾向于推荐热门电影（流行度偏差）
+3. **稀疏度影响**：99.6%的稀疏度下，CF方法仍能工作，但依赖每用户至少20条评分的最低门槛
+
+### 商业启示
+
+1. **模型选择策略**：POC阶段优先用SVD（精度最高），生产环境可结合Item-CF（可解释性强、离线预计算高效）和SVD（排序精度），形成多路召回+排序的架构
+
+2. **流行度偏差的治理**：推荐列表偏向热门电影是推荐系统的通病。生产环境必须在重排阶段加入多样性约束（如MMR），否则用户会陷入"信息茧房"，长期留存率下降
+
+3. **冷启动的工程方案**：MovieLens要求每用户至少20条评分才能有效推荐。生产环境对新用户应采用"兴趣标签选择 -> 热门兜底 -> 快速积累行为数据 -> 切换个性化推荐"的分阶段策略
+
+4. **A/B测试的必要性**：离线指标（RMSE/MAE）提升3%不等于业务指标提升3%。必须通过A/B测试验证推荐算法对点击率、转化率、留存率的实际影响。建议测试周期至少2周，覆盖足够多的用户（>10,000）以获得统计显著性
+
+5. **售前场景应用**：用MovieLens做POC有两个优势：数据公开可信、结果可复现。现场展示"为某个用户生成推荐"的过程，让客户直观感受个性化推荐的效果，比任何PPT都有说服力
+
+---
+
+## 核心文献
+
+> 本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。
+
+1. **[arXiv:1708.05031]** - "Neural Collaborative Filtering" (He et al., 2017)
+   与本教材的关联：NCF神经协同过滤论文，是本教材Day 2"神经协同过滤（NCF）"部分的核心文献，用神经网络替代矩阵分解内积的奠基性工作。
+
+2. **[arXiv:1904.06690]** - "BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer" (Sun et al., 2019)
+   与本教材的关联：BERT4Rec序列推荐论文，是本教材Day 2"序列推荐：SASRec/BERT4Rec"的直接文献来源，Transformer在推荐系统中的经典应用。
+
+3. **[arXiv:2005.14165]** - "Language Models are Few-Shot Learners" (Brown et al., 2020)
+   与本教材的关联：GPT-3大语言模型论文，是本教材Day 2"LLM驱动的推荐"部分的理论基础，大语言模型的零样本/少样本能力开创了推荐系统新范式。
+
+4. **[arXiv:2304.03442]** - "Generative Agents: Interactive Simulacra of Human Behavior" (Park et al., 2023)
+   与本教材的关联：生成式Agent论文，与本教材Day 2"对话式推荐系统"和用户仿真的前沿参考，生成式Agent为推荐系统用户模拟提供了新方法。
+
+5. **[arXiv:2210.03629]** - "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al., 2022)
+   与本教材的关联：ReAct推理-行动框架论文，是本教材Day 2"对话式推荐Agent"的框架基础，推理-行动协同机制是构建对话式推荐Agent的核心范式。
+
+---
+
 ## 知识问答
 
 | # | 问题 | 参考答案要点 | 难度 |
@@ -1231,6 +1429,29 @@ def ips_weighted_loss(predictions, labels, propensities):
 6. 写一份500字的系统设计文档，包含架构图、特征说明和预期效果
 
 **评分标准**：重点考察特征设计的合理性（是否有业务含义）、模型实现的正确性（Two-Tower架构是否标准）、推荐流程的完整性（是否有离线+在线流程）、以及冷启动策略的实用性。
+
+---
+
+## 费曼学习法演练
+
+### 核心理念
+费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。
+
+### 演练任务
+**任务**：假设你在向电商平台CEO解释为什么传统推荐系统在LLM时代需要升级，以及'对话式推荐'如何改变用户体验
+
+### 演练步骤
+1. **选择概念**：从本教材中选一个你觉得最有挑战性的概念
+2. **写下解释**：用自己的语言写一段300-500字的解释，目标受众是电商平台CEO
+3. **找出空洞**：标记你解释中含糊、跳过或借用术语的地方
+4. **回到教材**：针对性补全知识空洞
+5. **简化重写**：用更简单的语言重新写一遍，力求让受众真正理解
+
+### 自评标准
+- [ ] 解释中没有直接引用教材原文
+- [ ] 至少使用了1个类比或比喻
+- [ ] 受众能理解核心概念并复述
+- [ ] 解释中标注的知识空洞已补全
 
 ---
 

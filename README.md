@@ -6,10 +6,10 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-zrxparley/ai--native--business--phd-blue?logo=github)](https://github.com/zrxparley/ai-native-business-phd)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
-![Version](https://img.shields.io/badge/version-v13.0-orange)
-![Days](https://img.shields.io/badge/days-58-blue)
+![Version](https://img.shields.io/badge/version-v14.0-orange)
+![Days](https://img.shields.io/badge/days-66-blue)
 ![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
-![Papers](https://img.shields.io/badge/arXiv%20papers-185_(124%2B61)-9cf)
+![Papers](https://img.shields.io/badge/arXiv%20papers-252_(124%2B61%2B67)-9cf)
 
 ---
 
@@ -128,7 +128,7 @@ Doctoral thesis direction: *"An AI-Native Enterprise Marketing Agent System: A C
 
 ## Versions
 
-Eleven iterations + dual-benchmark fusion + content quality upgrade. v8.0 deliberately skipped. Latest = **v13.0**.
+Thirteen iterations + dual-benchmark fusion + content quality upgrade + PhD structural audit. v8.0 deliberately skipped. Latest = **v14.0**.
 
 | Date | Version | Name | Highlight |
 |---|:---:|---|---|
@@ -147,8 +147,9 @@ Eleven iterations + dual-benchmark fusion + content quality upgrade. v8.0 delibe
 | 2026-07-30 | v12.0 | Dual-benchmark fusion ⭐ | + 7 new standalone textbooks (E4-E8, E11, E12) aligning to Fairfield AIBA + MSc Applied AI + AEFS 503-lesson integration + 8 existing textbook extensions with AEFS cross-references, 20 standalone textbooks total (~1.55 MB) |
 | 2026-07-30 | v12.1 | Strategic canvas | + E13 战略思维画布工具集 (BLM/DSTE/五看三定/Lean Canvas/Strategy Canvas/VPC/Porter/OKR/Hoshin/North Star) + 技能4/技能2/Capstone extensions |
 | 2026-08-03 | v13.0 | Content quality upgrade ⭐ | All 22 textbooks upgraded: 2026 frontier patches (CoT/reasoning models, function calling/MCP, flow matching/Sora, VLA, RaaS) + interdisciplinary bridges (AI+Law, AI+Medicine, AI+Policy) + research pipeline (reproducibility standards, publication pipeline, registered reports) |
+| 2026-08-03 | v14.0 | PhD structural audit ⭐ | Dean-level audit & loop engineering: P0 +67 arXiv citations across 13 textbooks · P1 费曼学习法演练 unified across all 23 textbooks + 3 textbooks get full 知识问答/作业/费曼 · P2 theory depth modules (信息论/凸优化/概率图模型/变分推断, +1,285 lines) · P3 new elective E14 边缘AI与端侧智能 (2,366 lines) · P4 real dataset case studies in 9 textbooks · 23 textbooks total (~2.3 MB) |
 
-> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges.
+> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges. v14.0 adds PhD structural elements (arXiv citations, Feynman method, theory depth, real datasets) + new E14 Edge AI textbook.
 
 ---
 
@@ -168,7 +169,7 @@ ai-native-business-phd/
 ├── AI原生化商业博士_v4.2_融合方案_AEFS.md                   (v4.2 AEFS fusion plan)
 ├── AI原生化商业博士_v5.0_升级方案.md                        (v5.0 upgrade plan)
 │
-│  ── Standalone textbooks (research-grade, 21 + 1 capstone) ──
+│  ── Standalone textbooks (research-grade, 22 + 1 capstone) ──
 │
 ├── AI原生化商业博士_独立教材_技能0_AI商业分析基础.md          (29h · prep · +Day 4.5 ML/Day 7 AI编程/NoSQL)
 ├── AI原生化商业博士_独立教材_模块R_博士研究方法论.md          (10h · research methods)
@@ -190,6 +191,7 @@ ai-native-business-phd/
 ├── AI原生化商业博士_独立教材_选修E11_推荐系统与个性化营销.md  (6h · elective ⭐ Applied AI: RecSys)
 ├── AI原生化商业博士_独立教材_选修E12_语音AI与音频处理.md     (6h · elective ⭐ Applied AI: Speech)
 ├── AI原生化商业博士_独立教材_选修E13_战略思维画布工具集.md  (6h · elective ⭐ BLM/DSTE/Canvas)
+├── AI原生化商业博士_独立教材_选修E14_边缘AI与端侧智能.md   (12h · elective ⭐ Edge AI/FL/Privacy)
 ├── AI原生化商业博士_独立教材_AI工程从零构建.md              (v11.0 · from-scratch engineering · 12 ch / 5 flagship)
 └── AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md    (capstone · +AEFS P19项目库)
 ```
@@ -198,7 +200,7 @@ ai-native-business-phd/
 
 ## Teaching Materials (v5 -> v11)
 
-Six layered upgrades, all converged. **58 Days × 19/19.**
+Six layered upgrades, all converged. **66 Days × 19/19.**
 
 | Layer | Version | Files / Day | Verifier | Status |
 |---|:---:|---|---|:---:|

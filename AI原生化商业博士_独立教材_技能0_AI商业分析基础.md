@@ -3,7 +3,7 @@
 > **修读者**：aha.gare
 > **导师系统**：Claude / 天道推演 + 系统觉醒 + 学位对标融合 + 牛津自然学习法 + 全球七校对标
 > **版本**：v4.0 | **日期**：2026-07-16
-> **学时**：29小时 + 英语平行轨道4小时（含Day 4.5经典ML算法补充3h + Day 7 AI辅助开发工具4h）
+> **学时**：35小时 + 英语平行轨道5小时（含Day 4.5经典ML算法补充3h + Day 7 AI辅助开发工具4h + Day 8-9理论深度模块6h）
 > **对标课程**：Introduction to Computing + Statistics + Business Data Management + Principle of Data Analytics and Programming
 > **对标大学**：MIT OCW 15.071 The Analytics Edge / Stanford CS229先修要求 / Imperial Maths & Stats Foundations / NUS CS6101研究导论
 > **英语轨道材料**：Kaggle英文教程 + Khan Academy Statistics + MIT OCW 15.071英文讲义 + Python Official Tutorial（i+1难度：⭐⭐）
@@ -55,7 +55,7 @@ aha.gare的背景是售前解决方案产品经理，聚焦AI+企业营销，具
 
 ---
 
-## 学习计划表（8天 · v4.0扩展）
+## 学习计划表（10天 · v4.0扩展）
 
 | 天次 | 主题 | 时长 | 核心产出 | 对标课程 | 英语轨道材料 |
 |:---:|------|:----:|---------|:------:|-------------|
@@ -67,8 +67,10 @@ aha.gare的背景是售前解决方案产品经理，聚焦AI+企业营销，具
 | Day 5 | 商业数据管理：数据治理与SQL+NoSQL | 4h | 能设计企业数据Schema，理解NoSQL选型 | 商业数据管理 | Kaggle Learn: SQL（⭐） |
 | Day 6 | 研究方法论入门（v4.0新增） | 2h | 理解学术研究的基本流程和IMRaD格式 | 对标Imperial MRes入门 / NUS CS6101 | Creswell《Research Design》Ch.1（⭐⭐⭐） |
 | Day 7 | AI辅助编程与开发工具（扩展） | 4h | 掌握AI辅助编程/Docker/Git/数据仓库 | 对标AEFS Phase 0工具链 | GitHub Copilot文档 + Docker入门（⭐⭐） |
+| Day 8 | 信息论基础：熵、互信息与KL散度（理论深度） | 3h | 理解信息熵/互信息/KL散度/交叉熵的理论与应用 | 对标Stanford CS229信息论基础 | Cover & Thomas Ch.2（⭐⭐⭐） |
+| Day 9 | 凸优化理论：拉格朗日、KKT与对偶（理论深度） | 3h | 理解凸优化/KKT条件/对偶理论及在ML中的应用 | 对标Stanford EE364a核心概念 | Boyd & Vandenberghe Ch.4-5（⭐⭐⭐） |
 
-> **英语轨道总时长**：4小时，分散在8天中，每天约30分钟。不单独安排大块时间，而是在学习对应内容时同步阅读英文材料。
+> **英语轨道总时长**：5小时，分散在10天中，每天约30分钟。不单独安排大块时间，而是在学习对应内容时同步阅读英文材料。
 
 ---
 
@@ -2341,6 +2343,583 @@ o1（慢思考）：
 
 ---
 
+### Day 8：信息论基础--熵、互信息与KL散度
+
+> 🌐 **英语轨道（i+1）**：Cover & Thomas《Elements of Information Theory》Chapter 2 -- 读Entropy和Mutual Information的定义部分。这是信息论领域的标准教材，MIT/Stanford的博士课程广泛使用。关注术语：entropy, mutual information, Kullback-Leibler divergence, cross-entropy。
+
+#### 为什么信息论是AI的数学基石
+
+信息论由Claude Shannon在1948年创立，最初解决通信中的数据压缩和传输问题。但它的核心概念--熵、互信息、KL散度--已经成为现代AI的理论基石：
+
+- **交叉熵损失函数**是分类任务的默认损失函数，理解交叉熵就是理解深度学习训练的本质
+- **互信息最大化**是对比学习（InfoNCE、MoCo、SimCLR）的理论基础
+- **信息瓶颈理论**（Tishby）为理解深度学习的泛化能力提供了信息论视角
+- **KL散度**是变分推断、VAE、GAN等生成模型的数学工具
+
+对于博士级研究者，不掌握信息论就无法真正理解为什么深度学习有效，也无法阅读NeurIPS/ICML上的理论分析论文。
+
+#### 核心概念
+
+**1. 信息熵（Shannon Entropy）--不确定性的数学度量**
+
+信息熵度量随机变量的不确定性。一个随机变量越"不可预测"，它的熵越大。
+
+定义：对于离散随机变量 $X$，其概率分布为 $p(x)$，信息熵为：
+
+$$H(X) = -\sum_{x \in \mathcal{X}} p(x) \log p(x)$$
+
+其中对数底通常取2（单位为比特）或 $e$（单位为奈特/nat）。在机器学习中默认用自然对数（$e$），因为导数形式最简洁。
+
+**直觉理解**：
+- 公平硬币：$H(X) = -(0.5 \log 0.5 + 0.5 \log 0.5) = \log 2 \approx 0.693$ nat。不确定性最大。
+- 双面相同的硬币：$H(X) = -1 \log 1 = 0$。没有不确定性，熵为零。
+- 熵越大，表示信息量越大，也意味着"意外程度"越高。
+
+**Python代码示例**：
+
+```python
+import numpy as np
+
+def entropy(p):
+    """计算离散分布的信息熵（自然对数）"""
+    p = np.array(p)
+    p = p[p > 0]  # 去除零概率项（0*log0按约定为0）
+    return -np.sum(p * np.log(p))
+
+# 示例：不同分布的熵
+distributions = {
+    '均匀分布(2类)': [0.5, 0.5],
+    '偏斜分布(0.9/0.1)': [0.9, 0.1],
+    '确定分布(1.0)': [1.0],
+    '均匀分布(4类)': [0.25, 0.25, 0.25, 0.25],
+    '偏斜分布(0.7/0.2/0.1)': [0.7, 0.2, 0.1],
+}
+
+print("信息熵比较：")
+print("-" * 40)
+for name, p in distributions.items():
+    print(f"  {name}: H = {entropy(p):.4f} nat")
+```
+
+输出：
+```
+信息熵比较：
+----------------------------------------
+  均匀分布(2类): H = 0.6931 nat
+  偏斜分布(0.9/0.1): H = 0.3251 nat
+  确定分布(1.0): H = 0.0000 nat
+  均匀分布(4类): H = 1.3863 nat
+  偏斜分布(0.7/0.2/0.1): H = 0.8018 nat
+```
+
+**关键性质**：
+- $H(X) \geq 0$（非负性）
+- $H(X) \leq \log|\mathcal{X}|$（最大熵原理：均匀分布熵最大）
+- 熵是分布的凹函数
+
+**2. 联合熵与条件熵**
+
+联合熵衡量两个随机变量一起的不确定性：
+
+$$H(X, Y) = -\sum_{x, y} p(x, y) \log p(x, y)$$
+
+条件熵衡量在已知 $Y$ 的条件下 $X$ 的剩余不确定性：
+
+$$H(X|Y) = \sum_y p(y) H(X|Y=y) = -\sum_{x, y} p(x, y) \log p(x|y)$$
+
+**链式法则**（信息论的核心恒等式之一）：
+
+$$H(X, Y) = H(X) + H(Y|X) = H(Y) + H(X|Y)$$
+
+直觉：$(X, Y)$ 的总不确定性 = $X$ 的不确定性 + 已知 $X$ 后 $Y$ 的剩余不确定性。
+
+**条件降低熵**：$H(X|Y) \leq H(X)$，等号成立当且仅当 $X$ 和 $Y$ 独立。知道更多不会增加不确定性。
+
+**3. 互信息（Mutual Information）**
+
+互信息衡量两个随机变量之间共享的信息量：
+
+$$I(X; Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) = H(X) + H(Y) - H(X, Y)$$
+
+**直觉**：知道 $Y$ 之后，$X$ 的不确定性减少了多少。减少得越多，$X$ 和 $Y$ 的互信息越大。
+
+**互信息 vs 相关系数**：
+
+| 维度 | 相关系数（Pearson $\rho$） | 互信息 $I(X;Y)$ |
+|------|--------------------------|-----------------|
+| 捕捉的关系 | 线性关系 | 任意关系（线性和非线性） |
+| 取值范围 | $[-1, 1]$ | $[0, \min(H(X), H(Y))]$ |
+| 对称性 | 对称 | 对称 |
+| 零值含义 | 线性不相关（可能有非线性关系） | 完全独立 |
+| 适用场景 | 连续变量、线性关系检测 | 通用、特征选择、非线性关系检测 |
+
+在特征选择中，互信息比相关系数更强大--它能捕捉非线性依赖关系。scikit-learn的 `mutual_info_classif` 和 `mutual_info_regression` 基于此实现。例如，$Y = X^2$ 在 $X \sim N(0,1)$ 时Pearson相关系数为零，但互信息严格大于零--互信息能发现这种非线性依赖。
+
+**4. KL散度（Kullback-Leibler Divergence）**
+
+KL散度衡量两个概率分布 $P$ 和 $Q$ 之间的差异：
+
+$$D_{KL}(P \| Q) = \sum_x p(x) \log \frac{p(x)}{q(x)} = \mathbb{E}_{x \sim P}\left[\log \frac{p(x)}{q(x)}\right]$$
+
+对于连续分布，求和变为积分：$D_{KL}(P \| Q) = \int p(x) \log \frac{p(x)}{q(x)} dx$
+
+**关键性质**：
+- **非负性**：$D_{KL}(P \| Q) \geq 0$，当且仅当 $P = Q$ 时取等号（Gibbs不等式）
+- **非对称性**：$D_{KL}(P \| Q) \neq D_{KL}(Q \| P)$，因此KL散度不是度量（metric）
+- **非负性的直觉**：用 $Q$ 去"近似" $P$，总是会有信息损失
+
+**非对称性的实际影响**：
+- $D_{KL}(P \| Q)$（前向KL）：要求 $Q$ 在 $P$ 高概率的地方也高概率，倾向于"覆盖" $P$ 的所有模式（mode-seeking的反面，即mean-seeking）
+- $D_{KL}(Q \| P)$（反向KL）：要求 $Q$ 在 $P$ 低概率的地方也低概率，倾向于"聚集"在 $P$ 的某个模式上（mode-seeking）
+
+VAE最小化的是反向KL（mode-seeking，倾向生成模糊图像），GAN最小化的是前向KL的变体（mean-seeking，更真实但可能不覆盖所有模式）。
+
+**Python代码示例**：
+
+```python
+import numpy as np
+
+def kl_divergence(p, q):
+    """计算离散分布P和Q之间的KL散度"""
+    p = np.array(p, dtype=float)
+    q = np.array(q, dtype=float)
+    p = p / p.sum()  # 确保概率归一化
+    q = q / q.sum()
+    # 处理q=0的情况：如果q(x)=0且p(x)>0，KL散度为无穷大
+    mask = p > 0
+    return np.sum(p[mask] * np.log(p[mask] / q[mask]))
+
+# 示例：比较三个分布与真实分布的KL散度
+P_true = [0.2, 0.3, 0.15, 0.35]  # 真实分布
+
+Q1_good = [0.22, 0.28, 0.16, 0.34]   # 接近真实
+Q2_medi = [0.1, 0.4, 0.2, 0.3]       # 中等偏差
+Q3_bad  = [0.5, 0.2, 0.2, 0.1]       # 偏差较大
+
+print("KL散度比较（与真实分布P的差异）：")
+print(f"  D_KL(P || Q1) = {kl_divergence(P_true, Q1_good):.6f}")
+print(f"  D_KL(P || Q2) = {kl_divergence(P_true, Q2_medi):.6f}")
+print(f"  D_KL(P || Q3) = {kl_divergence(P_true, Q3_bad):.6f}")
+
+# 验证非对称性
+print(f"\n非对称性验证：")
+print(f"  D_KL(P || Q3) = {kl_divergence(P_true, Q3_bad):.6f}")
+print(f"  D_KL(Q3 || P) = {kl_divergence(Q3_bad, P_true):.6f}")
+print(f"  两者不相等，说明KL散度是非对称的")
+```
+
+**5. 交叉熵（Cross-Entropy）**
+
+交叉熵衡量用分布 $Q$ 编码来自分布 $P$ 的数据所需的平均信息量：
+
+$$H(P, Q) = -\sum_x p(x) \log q(x) = H(P) + D_{KL}(P \| Q)$$
+
+这个分解极其重要：交叉熵 = 真实分布的熵 + KL散度。当 $P$ 固定时（训练数据标签），$H(P)$ 是常数，因此**最小化交叉熵等价于最小化KL散度**。
+
+**与深度学习损失函数的联系**：
+
+在分类任务中，真实标签分布 $P$ 是one-hot编码（如 $[0, 0, 1, 0]$），模型预测分布 $Q$ 是softmax输出（如 $[0.1, 0.2, 0.6, 0.1]$）。交叉熵损失为：
+
+$$\mathcal{L}_{CE} = -\sum_i y_i \log \hat{y}_i$$
+
+其中 $y_i$ 是one-hot标签，$\hat{y}_i$ 是softmax输出。当 $y$ 是one-hot时，这简化为 $-\log \hat{y}_{true}$，即正确类别的对数似然的负值。因此，**交叉熵损失就是最大似然估计的负对数似然**。
+
+**6. JS散度（Jensen-Shannon Divergence）**
+
+JS散度是KL散度的对称化版本：
+
+$$D_{JS}(P \| Q) = \frac{1}{2} D_{KL}(P \| M) + \frac{1}{2} D_{KL}(Q \| M)$$
+
+其中 $M = \frac{1}{2}(P + Q)$ 是两个分布的平均。
+
+| 散度度量 | 对称性 | 有界性 | 应用场景 |
+|---------|--------|--------|---------|
+| KL散度 | 非对称 | 无界（$[0, +\infty)$） | 变分推断、VAE、信息论 |
+| JS散度 | 对称 | 有界（$[0, \log 2]$） | GAN训练、分布比较 |
+| Wasserstein距离 | 对称 | 有界 | WGAN、最优传输 |
+
+**GAN中的JS散度**：原始GAN（Goodfellow, 2014）的判别器目标函数本质上是最大化真实分布与生成分布之间的JS散度。当两个分布不重叠时，JS散度恒为 $\log 2$（常数），导致梯度消失--这是原始GAN训练不稳定的根本原因。WGAN用Wasserstein距离替代JS散度解决了这个问题。
+
+#### 信息论在AI中的核心应用
+
+**1. 交叉熵损失函数的推导**
+
+从最大似然估计出发：给定数据集 $\{(x_i, y_i)\}$，模型参数 $\theta$ 的似然为：
+
+$$L(\theta) = \prod_i p_\theta(y_i | x_i)$$
+
+取负对数似然：
+
+$$\mathcal{L}(\theta) = -\sum_i \log p_\theta(y_i | x_i) = -\sum_i \sum_c y_{ic} \log p_\theta(c | x_i)$$
+
+这正是交叉熵。因此，**训练分类模型就是最小化模型预测分布与真实标签分布之间的交叉熵**，等价于最大似然估计，也等价于最小化KL散度。这三者的统一是信息论给机器学习带来的最深刻洞见之一。
+
+**2. 信息瓶颈理论（Information Bottleneck）**
+
+Tishby等人提出：深度神经网络在训练过程中经历"压缩阶段"--网络先拟合输入 $X$，然后逐步丢弃与任务标签 $Y$ 无关的信息。
+
+信息瓶颈目标函数：
+
+$$\mathcal{L}_{IB} = I(X; T) - \beta \cdot I(T; Y)$$
+
+其中 $T$ 是中间层表示，目标是：最小化 $I(X; T)$（压缩输入信息）同时最大化 $I(T; Y)$（保留任务相关信息）。这为理解深度学习的泛化能力提供了信息论视角--好的表示应该是"充分但不过量"的。
+
+**3. 互信息最大化在表示学习中的应用**
+
+对比学习（SimCLR、MoCo、InfoNCE）的核心思想：通过最大化同一样本不同视图之间的互信息来学习表示。
+
+InfoNCE损失：
+
+$$\mathcal{L}_{NCE} = -\mathbb{E}\left[\log \frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{sim}(z_i, z_k)/\tau)}\right]$$
+
+Oord等人证明：InfoNCE损失的下界与互信息 $I(z_i; z_j)$ 相关。因此，对比学习本质上是在**最大化互信息的下界**。这就是为什么对比学习能学到好的表示--它在信息论意义上最大化了不同视图之间的共享信息。
+
+**4. 模型压缩中的率失真理论**
+
+率失真理论（Rate-Distortion Theory）研究在给定信息传输率 $R$ 下，最小可达失真 $D$ 的问题。在模型压缩（量化、剪枝）中，这指导了在模型大小和性能损失之间寻找最优权衡。Shannon的下界给出了任何压缩方案的理论极限。
+
+#### 商业应用
+
+**1. 客户分群中的信息增益**
+
+决策树（如Day 4.5所述）使用信息增益选择分裂特征：
+
+$$\text{Information Gain}(X, A) = H(X) - H(X|A) = I(X; A)$$
+
+信息增益就是互信息。选择信息增益最大的特征进行分裂，等价于选择与目标变量互信息最大的特征。在客户分群中，选择"哪个客户特征（年龄/消费/等级）与'是否流失'的互信息最大"，就是信息论的直接应用。
+
+**2. A/B测试中的贝叶斯信息量**
+
+在贝叶斯A/B测试中，KL散度用于衡量后验分布与先验分布的差异--即实验数据带来的"信息更新量"。贝叶斯实验设计的目标是选择能最大化预期信息增益的实验方案。这在多臂老虎机（Multi-Armed Bandit）和自适应实验设计中是核心概念。
+
+#### 练习题
+
+1. **信息熵计算**：给定一个6面骰子（公平）和一个4面骰子（公平），哪个的熵更大？计算两者的信息熵（以nat为单位）。
+
+2. **交叉熵与KL散度**：证明 $H(P, Q) = H(P) + D_{KL}(P \| Q)$。由此解释为什么在训练分类模型时，交叉熵损失的最小值等于真实标签分布的熵 $H(P)$。
+
+3. **互信息与特征选择**：给定一个分类任务，特征 $X_1$ 与标签 $Y$ 的Pearson相关系数为0.3但互信息为0.8，特征 $X_2$ 的Pearson相关系数为0.5但互信息为0.2。你会选择哪个特征？为什么？
+
+4. **GAN与JS散度**：解释为什么当真实数据分布和生成数据分布完全不重叠时，原始GAN的梯度会消失。Wasserstein距离如何解决这个问题？
+
+5. **信息瓶颈**：信息瓶颈理论如何解释深度学习中"压缩即泛化"的现象？这对模型设计有什么启示？
+
+#### 本Day小结
+
+信息论为AI提供了度量信息和不确定性的数学语言。掌握信息熵、互信息、KL散度和交叉熵，你就掌握了理解深度学习损失函数设计、对比学习理论、生成模型训练的理论钥匙。在后续技能1（表示工程）和技能2（模型工程）中，这些概念会反复出现--从embedding相似度计算到对比学习损失，从变分推断到模型压缩，信息论的影子无处不在。
+
+---
+
+### Day 9：凸优化理论--拉格朗日、KKT与对偶
+
+> 🌐 **英语轨道（i+1）**：Boyd & Vandenberghe《Convex Optimization》Chapter 4-5 -- 读Lagrangian Duality和KKT条件部分。这是凸优化领域的标准教材，Stanford EE364a的课程教材。关注术语：convex set, convex function, Lagrangian, KKT conditions, duality gap, Slater's condition。
+
+#### 为什么凸优化是机器学习的数学骨架
+
+机器学习的核心是优化：找到使损失函数最小的参数。当损失函数是凸函数时，优化理论提供了强大的保证--任何局部最优就是全局最优，收敛性可以被严格证明。即使深度学习的损失景观是非凸的，凸优化的概念和工具（拉格朗日乘子、KKT条件、对偶理论）仍然是理解正则化、SVM、约束训练的理论基础。
+
+对于博士级研究者，凸优化理论是阅读ICML/NeurIPS优化相关论文的先决条件，也是理解大模型训练算法（Adam、LoRA、DPO）的理论视角。
+
+#### 核心概念
+
+**1. 凸集与凸函数**
+
+**凸集**：集合 $\mathcal{C}$ 是凸集，当且仅当对任意 $x_1, x_2 \in \mathcal{C}$ 和 $\theta \in [0, 1]$：
+
+$$\theta x_1 + (1-\theta) x_2 \in \mathcal{C}$$
+
+直觉：集合中任意两点的连线仍在集合内。
+
+**凸函数**：函数 $f: \mathbb{R}^n \to \mathbb{R}$ 是凸函数，当且仅当其定义域是凸集，且对任意 $x_1, x_2$ 和 $\theta \in [0, 1]$：
+
+$$f(\theta x_1 + (1-\theta) x_2) \leq \theta f(x_1) + (1-\theta) f(x_2)$$
+
+**判定条件（二阶条件）**：若 $f$ 二阶可微，则 $f$ 是凸函数当且仅当其Hessian矩阵半正定：
+
+$$\nabla^2 f(x) \succeq 0 \quad \forall x$$
+
+即Hessian的所有特征值非负。
+
+**常见凸函数族**：
+
+| 函数 | 形式 | 条件 |
+|------|------|------|
+| 线性函数 | $f(x) = a^T x + b$ | 既凸又凹 |
+| 二次函数 | $f(x) = x^T P x + q^T x + r$ | $P \succeq 0$（半正定） |
+| 范数 | $\|x\|_p$ | $p \geq 1$ |
+| 指数函数 | $e^{ax}$ | 任意 $a$ |
+| 负熵 | $x \log x$（$x > 0$） | 凸 |
+| max函数 | $\max\{f_1(x), \ldots, f_k(x)\}$ | 所有 $f_i$ 为凸 |
+
+**凸优化的核心优势**：对于凸优化问题 $\min_{x} f(x)$，任何局部最优就是全局最优，且最优解集合是凸集。这是凸优化"好求解"的根本原因。
+
+**2. 无约束优化与梯度下降收敛性**
+
+对于无约束凸优化问题 $\min_x f(x)$，梯度下降的更新规则为：
+
+$$x_{t+1} = x_t - \eta_t \nabla f(x_t)$$
+
+**收敛性分析（Lipschitz连续梯度条件）**：
+
+假设 $f$ 是凸函数且梯度满足Lipschitz连续条件：$\|\nabla f(x) - \nabla f(y)\| \leq L \|x - y\|$。
+
+取固定步长 $\eta = \frac{1}{L}$，梯度下降的收敛率为：
+
+$$f(x_t) - f^* \leq \frac{L \|x_0 - x^*\|^2}{2t}$$
+
+即收敛率为 $O(1/t)$。这意味着要达到精度 $\epsilon$，需要 $O(1/\epsilon)$ 次迭代。
+
+**强凸条件下的线性收敛**：若 $f$ 进一步满足 $\mu$-强凸（$f(x) - \frac{\mu}{2}\|x\|^2$ 仍为凸），则收敛率提升为线性收敛：
+
+$$f(x_t) - f^* \leq \left(1 - \frac{\mu}{L}\right)^t \frac{L \|x_0 - x^*\|^2}{2}$$
+
+即 $O(\log(1/\epsilon))$ 次迭代达到精度 $\epsilon$，速度大幅提升。强凸性来自L2正则化--这就是为什么正则化不仅防止过拟合，还加速优化收敛。
+
+**动量法（Momentum）**：
+
+标准梯度下降在病态条件（condition number $L/\mu$ 大）的函数上振荡严重。动量法引入历史梯度方向：
+
+$$v_t = \beta v_{t-1} + (1-\beta) \nabla f(x_t)$$
+$$x_{t+1} = x_t - \eta v_t$$
+
+动量法在凸优化中的收敛率为 $O(1/t^2)$（Nesterov加速梯度），比标准梯度下降快一个量级。
+
+**Adam优化器的理论性质**：
+
+Adam结合了动量（一阶矩估计）和RMSProp（二阶矩估计）：
+
+$$m_t = \beta_1 m_{t-1} + (1-\beta_1) g_t$$
+$$v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t^2$$
+$$\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1-\beta_2^t}$$
+$$x_{t+1} = x_t - \eta \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}$$
+
+Adam在凸优化框架下有 $O(\sqrt{T})$ 的regret bound。但在非凸深度学习场景中，Adam的理论保证较弱，其成功更多是经验性的。Reddi等人（2018）指出Adam在某些简单凸问题上可能不收敛，并提出了AdamW修正。
+
+**3. 约束优化与拉格朗日乘子法**
+
+考虑等式约束优化问题：
+
+$$\min_x f(x) \quad \text{s.t.} \quad h_i(x) = 0, \quad i = 1, \ldots, m$$
+
+**拉格朗日函数**：
+
+$$\mathcal{L}(x, \lambda) = f(x) + \sum_i \lambda_i h_i(x)$$
+
+其中 $\lambda_i$ 是拉格朗日乘子。最优解的必要条件（拉格朗日条件）：
+
+$$\nabla_x \mathcal{L} = \nabla f(x^*) + \sum_i \lambda_i^* \nabla h_i(x^*) = 0$$
+$$h_i(x^*) = 0 \quad \forall i$$
+
+**几何直觉**：在最优点 $x^*$，目标函数的梯度 $\nabla f(x^*)$ 必须与约束曲面的法向量（即 $\nabla h_i(x^*)$ 的线性组合）对齐。如果不对齐，就可以沿着约束曲面移动来进一步降低 $f$。
+
+**4. KKT条件--不等式约束的核心工具**
+
+考虑一般约束优化问题：
+
+$$\min_x f(x) \quad \text{s.t.} \quad g_i(x) \leq 0, \quad h_j(x) = 0$$
+
+广义拉格朗日函数：
+
+$$\mathcal{L}(x, \lambda, \mu) = f(x) + \sum_i \lambda_i g_i(x) + \sum_j \mu_j h_j(x)$$
+
+**KKT条件**（Karush-Kuhn-Tucker）是最优解的必要条件：
+
+1. **平稳性（Stationarity）**：$\nabla_x \mathcal{L} = \nabla f(x^*) + \sum_i \lambda_i^* \nabla g_i(x^*) + \sum_j \mu_j^* \nabla h_j(x^*) = 0$
+
+2. **原始可行性（Primal Feasibility）**：$g_i(x^*) \leq 0$，$h_j(x^*) = 0$
+
+3. **对偶可行性（Dual Feasibility）**：$\lambda_i^* \geq 0$
+
+4. **互补松弛（Complementary Slackness）**：$\lambda_i^* g_i(x^*) = 0 \quad \forall i$
+
+**互补松弛的直觉**：如果约束 $g_i(x^*) < 0$（约束不活跃，即不在边界上），则 $\lambda_i^* = 0$（该约束对最优解没有影响）。反之如果 $\lambda_i^* > 0$（约束起作用），则 $g_i(x^*) = 0$（最优解在约束边界上）。
+
+对于凸优化问题，KKT条件是**充要条件**（在Slater条件下）--满足KKT条件的点就是全局最优解。这是凸优化比非凸优化"好"的根本原因。
+
+**SVM中的经典应用**：
+
+SVM的原问题：
+
+$$\min_{w, b} \frac{1}{2} \|w\|^2 \quad \text{s.t.} \quad y_i(w^T x_i + b) \geq 1 \quad \forall i$$
+
+转化为标准形式 $g_i = 1 - y_i(w^T x_i + b) \leq 0$，构造拉格朗日函数：
+
+$$\mathcal{L}(w, b, \lambda) = \frac{1}{2}\|w\|^2 + \sum_i \lambda_i (1 - y_i(w^T x_i + b))$$
+
+KKT条件给出：$w^* = \sum_i \lambda_i^* y_i x_i$，且只有支持向量（$y_i(w^T x_i + b) = 1$）对应的 $\lambda_i^* > 0$。这就是SVM稀疏性的来源--决策只依赖于支持向量。
+
+**5. 拉格朗日对偶**
+
+对偶函数：
+
+$$g(\lambda, \mu) = \inf_x \mathcal{L}(x, \lambda, \mu)$$
+
+对偶问题：
+
+$$\max_{\lambda \geq 0, \mu} g(\lambda, \mu)$$
+
+**弱对偶**：对偶问题的最优值 $d^*$ 总是小于等于原问题最优值 $p^*$：
+
+$$d^* \leq p^*$$
+
+差值 $p^* - d^*$ 称为**对偶间隙（Duality Gap）**。
+
+**强对偶**：如果 $d^* = p^*$，则称强对偶成立。对于凸优化问题，在Slater条件下强对偶成立。
+
+**Slater条件**：存在一个严格可行点 $x$，使得 $g_i(x) < 0$（不等式约束严格满足）且 $h_j(x) = 0$。这是凸优化问题强对偶成立的充分条件。
+
+**对偶的理论价值**：
+- 对偶问题总是凸的（即使原问题非凸），因为对偶函数是一族线性函数的下确界
+- 对偶问题可能比原问题更容易求解（如SVM对偶引入了核函数）
+- 对偶变量有明确的经济/物理意义（如影子价格、边际成本）
+
+**6. 对偶理论在机器学习中的应用**
+
+**SVM的对偶推导**：
+
+SVM的对偶问题：
+
+$$\max_\lambda \sum_i \lambda_i - \frac{1}{2} \sum_{i,j} \lambda_i \lambda_j y_i y_j x_i^T x_j$$
+$$\text{s.t.} \quad \lambda_i \geq 0, \quad \sum_i \lambda_i y_i = 0$$
+
+对偶形式的关键优势：数据只以内积 $x_i^T x_j$ 的形式出现。用核函数 $K(x_i, x_j)$ 替换内积，就可以在无穷维特征空间中高效计算--这就是**核技巧（Kernel Trick）**的理论基础。
+
+**正则化作为约束优化**：
+
+L2正则化的原始形式：$\min_w \frac{1}{N}\sum_i \ell(y_i, w^T x_i) + \frac{\lambda}{2}\|w\|^2$
+
+等价的约束形式：$\min_w \frac{1}{N}\sum_i \ell(y_i, w^T x_i) \quad \text{s.t.} \quad \|w\|^2 \leq t$
+
+拉格朗日乘子 $\lambda$ 就是正则化系数。L1正则化对应约束 $\|w\|_1 \leq t$，由于L1球的几何特性（在顶点处有"尖角"），最优解倾向于稀疏--这就是LASSO稀疏性的几何解释。
+
+**对偶上升法与ADMM**：
+
+对偶上升法（Dual Ascent）交替更新原始变量和对偶变量：
+
+$$x^{k+1} = \arg\min_x \mathcal{L}(x, \lambda^k)$$
+$$\lambda^{k+1} = \lambda^k + \eta^k g(x^{k+1})$$
+
+ADMM（Alternating Direction Method of Multipliers）将问题分解为两个子问题交替求解，适用于分布式优化和大规模式合优化。在AI中，ADMM用于联邦学习、图像恢复、稀疏编码等场景。
+
+#### 凸优化的AI前沿应用
+
+**1. LoRA低秩适配的优化视角**
+
+LoRA（Low-Rank Adaptation）将预训练权重更新约束为低秩：$W = W_0 + BA$，其中 $B \in \mathbb{R}^{d \times r}$，$A \in \mathbb{R}^{r \times k}$，$r \ll \min(d, k)$。
+
+从优化视角看，LoRA是将全参数优化问题投影到低秩子空间上--这是一个带约束的优化问题。低秩约束使得可训练参数从 $d \times k$ 减少到 $r \times (d + k)$，在大模型微调中实现了显著的效率提升。理解LoRA的优化本质，需要回到约束优化和低秩近似的理论基础。
+
+**2. DPO中的偏好优化与凸性**
+
+DPO（Direct Preference Optimization）避免了显式的奖励模型训练，直接从偏好数据优化策略。DPO的目标函数：
+
+$$\mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]$$
+
+虽然DPO的目标函数整体非凸，但在策略比值 $\log \frac{\pi_\theta}{\pi_{ref}}$ 的参数化下，损失函数具有更好的优化景观。理解这一点需要凸优化中关于变量替换改变优化景观的知识。
+
+**3. 大模型训练中的优化挑战**
+
+大模型训练的损失景观是高度非凸的，面临鞍点（saddle points）、平坦区域、梯度爆炸/消失等挑战：
+
+- **鞍点问题**：在高维空间中，鞍点比局部最小值更常见。Dauphin等人（2014）指出高维优化中鞍点是主要障碍。Adam等自适应优化器能帮助逃离鞍点。
+- **批量大小与泛化的权衡**：大batch训练收敛更快但泛化能力可能下降。这与损失景观的flatness有关（Keskar et al., 2017）。
+- **学习率调度**：Warmup + Cosine Decay的理论动机与优化景观的初期不稳定性有关。
+
+#### Python代码示例
+
+**用cvxpy解凸优化问题**：
+
+```python
+import cvxpy as cp
+import numpy as np
+
+# ============================================================
+# 凸优化示例：带约束的资产配置优化
+# 场景：在风险约束下最大化预期收益
+# ============================================================
+
+np.random.seed(42)
+
+# 3种资产的预期收益和协方差矩阵
+n_assets = 3
+returns = np.array([0.08, 0.12, 0.15])  # 年化预期收益率
+cov = np.array([[0.04, 0.002, 0.005],
+                [0.002, 0.09, 0.01],
+                [0.005, 0.01, 0.16]])  # 协方差矩阵
+
+# 决策变量：各资产权重
+w = cp.Variable(n_assets)
+
+# 目标：最大化预期收益
+objective = cp.Maximize(returns @ w)
+
+# 约束条件
+constraints = [
+    cp.quad_form(w, cov) <= 0.04,  # 投资组合方差 <= 0.04（风险约束）
+    cp.sum(w) == 1,                 # 权重之和 = 1（满仓）
+    w >= 0,                          # 不允许卖空
+]
+
+# 求解
+problem = cp.Problem(objective, constraints)
+problem.solve()
+
+print("=" * 50)
+print("凸优化求解结果：带风险约束的资产配置")
+print("=" * 50)
+print(f"求解状态: {problem.status}")
+print(f"最优目标值（预期收益率）: {problem.value:.4f}")
+print(f"最优权重: {w.value}")
+print(f"投资组合风险（标准差）: {np.sqrt(w.value @ cov @ w.value):.4f}")
+print(f"拉格朗日乘子（风险约束的对偶变量）: {constraints[0].dual_value:.4f}")
+print(f"  -> 含义：放宽风险约束1个单位，收益可增加约{constraints[0].dual_value:.4f}")
+```
+
+**拉格朗日乘子法数值示例**：
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+
+# ============================================================
+# 拉格朗日乘子法示例：最小化 f(x,y) = x^2 + y^2
+# 约束：x + y = 1（等式约束）
+# 解析解：x = y = 0.5, f = 0.5
+# ============================================================
+
+def objective(x):
+    return x[0]**2 + x[1]**2
+
+# 等式约束：x + y - 1 = 0
+constraint = {'type': 'eq', 'fun': lambda x: x[0] + x[1] - 1}
+
+# 从(0, 0)开始优化
+result = minimize(objective, [0, 0], constraints=constraint)
+
+print("拉格朗日乘子法数值示例：")
+print(f"  min x^2 + y^2  s.t. x + y = 1")
+print(f"  解析解: x = 0.5, y = 0.5, f = 0.5")
+print(f"  数值解: x = {result.x[0]:.4f}, y = {result.x[1]:.4f}, f = {result.fun:.4f}")
+```
+
+#### 练习题
+
+1. **凸函数判定**：判断以下函数是否为凸函数，并说明理由：(a) $f(x) = x^4$；(b) $f(x) = |x|$；(c) $f(x) = x \log x$（$x > 0$）；(d) $f(x) = \sin(x)$。
+
+2. **KKT条件应用**：考虑问题 $\min x^2$ s.t. $x \geq 1$。写出KKT条件并求解。验证互补松弛条件。
+
+3. **SVM对偶推导**：从SVM的原问题出发，推导出对偶问题。解释为什么对偶形式使得核技巧成为可能。
+
+4. **正则化的优化视角**：L1正则化（LASSO）和L2正则化（Ridge）分别对应什么样的约束优化问题？为什么L1正则化产生稀疏解？用几何直觉解释。
+
+5. **梯度下降收敛**：对于 $L$-平滑的凸函数，证明固定步长 $\eta = 1/L$ 的梯度下降收敛率为 $O(1/t)$。讨论强凸条件如何改善收敛率。
+
+#### 本Day小结
+
+凸优化理论为机器学习提供了数学保证和算法设计的理论框架。拉格朗日乘子法和KKT条件是理解约束优化的核心工具--从SVM的最大间隔到正则化的稀疏性，从对偶理论到核技巧，凸优化的概念贯穿了经典机器学习的方方面面。在大模型时代，虽然深度学习的损失景观是非凸的，但凸优化的工具（对偶理论、约束优化、收敛性分析）仍然是分析优化算法性质的理论基石。理解LoRA、DPO等前沿方法，也需要回到凸优化的基本视角。
+
+---
+
 ## 全球七校对标
 
 本预科模块对标全球七所顶尖大学的博士/硕士基础课程要求。
@@ -2409,6 +2988,33 @@ National University of Singapore的CS6101（Research Methods in Computing）是P
 
 ---
 
+## 核心文献
+
+> 本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。
+
+1. **[arXiv:1603.02754]** - "XGBoost: A Scalable Tree Boosting System" (Chen & Guestrin, 2016)
+   与本教材的关联：XGBoost是商业分析中最广泛使用的梯度提升树算法，在客户流失预测、信用评分、销售预测等结构化数据场景中仍是基准方法，是理解现代商业分析ML工具链的起点。
+
+2. **[arXiv:1201.0490]** - "Scikit-learn: Machine Learning in Python" (Pedregosa et al., 2011)
+   与本教材的关联：Scikit-learn是商业分析实践中最核心的ML工具库，本教材中涉及的分类、回归、聚类等基础分析方法的实操均以此为基础，是商业分析师必备工具的学术根基。
+
+3. **[arXiv:1412.6980]** - "Adam: A Method for Stochastic Optimization" (Kingma & Ba, 2014)
+   与本教材的关联：Adam优化器是深度学习训练的事实标准，在商业分析中涉及神经网络模型（如预测模型、推荐系统）时不可或缺，理解其自适应学习率机制有助于优化商业模型的训练效果。
+
+4. **[arXiv:1706.03762]** - "Attention Is All You Need" (Vaswani et al., 2017)
+   与本教材的关联：Transformer架构是当代AI基础设施的核心，从NLP到商业分析的跨领域应用（如客户评论分析、市场趋势预测）均建立在注意力机制之上，是理解AI驱动商业分析的技术底层。
+
+5. **[arXiv:1810.04805]** - "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" (Devlin et al., 2019)
+   与本教材的关联：BERT预训练模型开创了文本理解的新范式，在商业分析中广泛应用于客户反馈分析、情感分析、智能客服等场景，是理解预训练模型如何赋能商业文本分析的关键文献。
+
+6. **[Bell System Technical Journal]** - "A Mathematical Theory of Communication" (Shannon, 1948)
+   与本教材的关联：信息论的开山之作，定义了信息熵、互信息、信道容量等核心概念。Day 8的全部内容--从交叉熵损失函数到信息瓶颈理论--都根植于这篇论文。对于理解深度学习损失函数的设计原理和信息论视角的模型分析，这是不可绕过的原始文献。
+
+7. **[arXiv:2106.09685]** - "LoRA: Low-Rank Adaptation of Large Language Models" (Hu et al., 2021)
+   与本教材的关联：LoRA通过低秩约束将大模型微调的参数量降低数个数量级，是Day 9凸优化理论中约束优化在AI前沿的直接应用。理解LoRA的优化视角--将全参数优化投影到低秩子空间--需要掌握约束优化和低秩近似的理论基础。
+
+---
+
 ## 知识问答（预科自测 · v4.0）
 
 > 🌐 **英语轨道融合**：试着用英文回答Q1、Q2和Q8（不纠错，能表达意思就行）。这就是Natural Approach的"输出自然发生"——输入量够了，输出不需要强迫。
@@ -2428,6 +3034,9 @@ National University of Singapore的CS6101（Research Methods in Computing）是P
 | Q11 | 什么是研究的三种范式？在AI商业研究中各适用于什么场景？ | ⭐⭐ | 实证主义（客观真实，定量实验，如A/B测试验证AI效果）；解释主义（社会建构的真实，定性研究，如访谈理解AI如何改变决策流程）；实用主义（根据问题选择方法，混合方法，如定量测效果+定性理解过程）。 | `positivism`, `interpretivism`, `pragmatism`, `mixed methods` |
 | Q12 | 正态分布、二项分布、泊松分布在营销数据中各有什么应用场景？ | ⭐⭐ | 正态分布：消费金额（对数变换后）、A/B测试中转化率差的分布。二项分布：广告点击（点/不点）、转化（买/不买）。泊松分布：单位时间内的购买次数、客服来电次数、网站访问次数。 | `normal distribution`, `binomial distribution`, `Poisson distribution` |
 | Q13 | 因果关系和相关关系有什么区别？回归分析揭示的是哪种关系？ | ⭐⭐⭐ | 相关关系是指两个变量同步变化，因果关系是指一个变量的变化导致另一个变量变化。回归分析揭示的是相关关系（在满足严格外生性假设时可以解释为因果，但这个假设在观察数据中很难满足）。从相关到因果需要额外的方法——A/B测试、工具变量、双重差分等（后续技能3深入）。 | `correlation vs causation`, `endogeneity`, `confounding` |
+| Q14 | 信息熵 $H(X)$ 的数学定义是什么？为什么交叉熵损失等价于最大似然估计？ | ⭐⭐⭐ | $H(X) = -\sum p(x) \log p(x)$。交叉熵 $H(P,Q) = H(P) + D_{KL}(P\|Q)$。当P固定（标签），最小化交叉熵等价于最小化KL散度，等价于最大化似然 $-\sum \log p_\theta(y_i\|x_i)$。三者统一是信息论给ML的核心洞见。 | `Shannon entropy`, `cross-entropy`, `maximum likelihood` |
+| Q15 | KL散度和JS散度有什么核心区别？原始GAN为什么用JS散度会梯度消失？ | ⭐⭐⭐ | KL散度非对称且无界，JS散度对称且有界($[0,\log 2]$)。当真实分布和生成分布不重叠时，JS散度恒为$\log 2$（常数），梯度为零，判别器无法提供有用梯度。WGAN用Wasserstein距离解决此问题。 | `KL divergence`, `JS divergence`, `GAN`, `Wasserstein` |
+| Q16 | KKT条件的四个组成部分是什么？互补松弛条件在SVM中如何体现？ | ⭐⭐⭐ | 四个条件：平稳性、原始可行性、对偶可行性、互补松弛（$\lambda_i g_i(x^*)=0$）。SVM中，非支持向量对应的$\lambda_i=0$（约束不活跃），只有支持向量对应的$\lambda_i>0$（$y_i(w^Tx_i+b)=1$），这就是SVM稀疏性的来源。 | `KKT conditions`, `complementary slackness`, `SVM`, `support vector` |
 
 ---
 
@@ -2591,6 +3200,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | 我能否独立完成一个多元回归分析并解释结果？ | 回到Day 4，用statsmodels库做一次完整的回归分析。关键是理解R²、回归系数p值和VIF的含义。 |
 | 我能否区分相关关系和因果关系？ | 这是本预科最重要的认知之一。回到Day 4最后部分的"从相关到因果"段落。后续技能3会深入这个话题。 |
 | 我能否用IMRaD格式写一个研究计划大纲？ | 回到Day 6，参考作业0.3的示例大纲。关键是理解学术研究的四个核心问题：为什么做、怎么做、发现了什么、意味着什么。 |
+| 我能否解释信息熵、互信息、KL散度的定义和它们在深度学习中的应用？ | 回到Day 8，重点理解交叉熵损失=真实分布的熵+KL散度这个分解。它统一了最大似然、交叉熵损失和KL散度三个概念。 |
+| 我能否写出KKT条件并解释互补松弛的直觉？ | 回到Day 9，从SVM的例子入手：只有支持向量对应的拉格朗日乘子大于零，这就是互补松弛。理解这一点才能理解SVM的稀疏性。 |
 | 我是否觉得"太基础了，可以跳过"？ | 用真实业务数据做一遍作业0.1。很多人在"基础"中发现自己的知识盲区。如果你的分析确实完美，直接进入技能1。 |
 | **英语轨道**：我能否读懂Python官方教程的核心段落？ | 先读中文版，再对照英文版。不背单词，混个脸熟。能读懂60%就继续，不要追求100%理解。 |
 | **英语轨道**：我能否读懂MIT OCW 15.071的英文讲义？ | 如果Python官方教程读得太轻松，升级到MIT OCW。读不懂的段落跳过，关注案例和图表。 |
@@ -2601,6 +3212,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 - 如果统计学让你兴奋 -> 建议选修"Artificial Intelligence based Optimization"
 - 如果数据治理让你兴奋 -> 建议选修"Data Visualization" + "Cloud Computing"
 - 如果研究方法论让你兴奋 -> 模块R的六个子模块会让你深入DSR、行动研究、混合方法、PRISMA、IMRaD和研究伦理
+- 如果信息论让你兴奋 -> 深入阅读Cover & Thomas全书，关注信息瓶颈理论和对比学习的最新论文
+- 如果凸优化让你兴奋 -> 建议选修Stanford EE364a完整课程，关注优化理论在大模型训练中的应用
 - **英语轨道**：如果Python官方教程读得太轻松 -> 升级到Kaggle英文Discussions（中等难度）；如果MIT OCW讲义能读懂70% -> 升级到Stanford CS229先修材料（高难度）
 
 ---
@@ -2616,6 +3229,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | 《Designing Data-Intensive Applications》 | Martin Kleppmann | Day 5 数据管理 | ⭐⭐⭐ |
 | 《Research Design》第五版 | John W. Creswell | Day 6 研究方法论 | ⭐⭐⭐ |
 | 《The Book of Why》 | Judea Pearl | 因果推断入门（技能3预备） | ⭐⭐⭐ |
+| 《Elements of Information Theory》 | Cover & Thomas | Day 8 信息论基础 | ⭐⭐⭐ |
+| 《Convex Optimization》 | Boyd & Vandenberghe | Day 9 凸优化理论 | ⭐⭐⭐ |
 
 ### 课程
 
@@ -2626,6 +3241,7 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | Kaggle Learn: Python + Pandas + SQL | Kaggle | https://www.kaggle.com/learn | Day 1-2, Day 5 |
 | CS50's Introduction to Programming with Python | Harvard | https://cs50.harvard.edu/python/ | Day 1-2 |
 | Python Official Tutorial | Python.org | https://docs.python.org/3/tutorial/ | Day 1-2（英语轨道） |
+| Stanford EE364a: Convex Optimization | Stanford | https://web.stanford.edu/class/ee364a/ | Day 9 凸优化 |
 
 ### 视频
 
@@ -2645,6 +3261,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | Statsmodels文档 | https://www.statsmodels.org/stable/ | Day 4 |
 | SQLite教程 | https://www.sqlitetutorial.net/ | Day 5 |
 | Creswell研究方法论资源 | SAGE出版 | Day 6 |
+| cvxpy官方文档 | https://www.cvxpy.org/ | Day 9 凸优化实践 |
+| scikit-learn互信息文档 | https://scikit-learn.org/stable/modules/classes.html#module-sklearn.feature_selection | Day 8 信息论应用 |
 
 ---
 
@@ -2666,6 +3284,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | Khan Academy Statistics（有字幕） | ⭐⭐ | Day 3-4 | 先开中文字幕理解概念，再关字幕纯英文听一遍。 | 1.5h |
 | MIT OCW 15.071 Unit 1-2 讲义 | ⭐⭐ | Day 1-4 | 读英文讲义，重点关注案例和图表。读不懂的段落跳过。 | 1h |
 | Kaggle Learn: SQL | ⭐ | Day 5 | 英文界面互动练习，SQL是通用语言，语言障碍小。 | 0.5h |
+| Cover & Thomas《Elements of Information Theory》Ch.2 | ⭐⭐⭐ | Day 8 | 读Entropy和Mutual Information定义部分，关注公式直觉。 | 0.5h |
+| Boyd & Vandenberghe《Convex Optimization》Ch.4-5 | ⭐⭐⭐ | Day 9 | 读Lagrangian Duality和KKT条件部分，关注几何直觉。 | 0.5h |
 
 ### v4.0新增：每日英语微习惯
 
@@ -2681,6 +3301,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 | Day 5 | 在Kaggle Learn完成SQL第一课（英文界面） | 20min |
 | Day 6 | 读Creswell《Research Design》Chapter 1的前5页英文原文 | 15min |
 | Day 7 | 读Docker官方入门教程"Get Started"的前2页英文原文 | 15min |
+| Day 8 | 读Cover & Thomas《Elements of Information Theory》Ch.2前3页 | 15min |
+| Day 9 | 读Boyd & Vandenberghe《Convex Optimization》Ch.4前3页 | 15min |
 
 ### 难度标注说明
 
@@ -2800,8 +3422,8 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 
 | 项目 | v3.1 | v4.0独立教材 |
 |------|------|-------------|
-| 天数 | 5天 | 8天（+研究方法论+经典ML补充+AI辅助开发工具） |
-| 学时 | 20h | 29h |
+| 天数 | 5天 | 10天（+研究方法论+经典ML补充+AI辅助开发工具+理论深度模块） |
+| 学时 | 20h | 35h |
 | 对标大学 | Kaggle + Khan Academy | + MIT OCW 15.071 + Stanford CS229先修 + Imperial + NUS |
 | 代码示例 | 概要性 | 完整可运行的Python脚本（含模拟数据） |
 | 案例分析 | 简要描述 | 详细的真实营销场景分析（RFM、A/B测试、LTV回归、多源数据整合、数据库Schema） |
@@ -2822,10 +3444,10 @@ p值=0.04。如果当时直接全量上线，可能浪费了3万月度预算在�
 
 ### 字数统计
 
-本教材正文约25000字（含代码注释），不含代码约20000字。v4.0扩展版新增Day 4.5经典ML算法补充（约2500字）、Day 5 NoSQL数据建模扩展（约1800字）、Day 7 AI辅助编程与开发工具（约3500字），并融入AEFS（AI Engineering from Scratch）实践引用。
+本教材正文约32000字（含代码注释），不含代码约26000字。v4.0扩展版新增Day 4.5经典ML算法补充（约2500字）、Day 5 NoSQL数据建模扩展（约1800字）、Day 7 AI辅助编程与开发工具（约3500字）、Day 8信息论基础（约3000字）、Day 9凸优化理论（约3000字），并融入AEFS（AI Engineering from Scratch）实践引用。
 
 ---
 
 *本教材由Claude基于v4.0主教材和升级方案编制，作为"AI原生化商业博士"课程技能0的独立学习材料。*
 *v4.0扩展版新增Day 4.5经典ML算法补充、Day 5 NoSQL数据建模、Day 7 AI辅助编程与开发工具，并融入AEFS实践引用。*
-*最后更新：2026-07-30*
+*最后更新：2026-08-03*
