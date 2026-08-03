@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI原生化商业博士 · 教材导航图</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --card: #1a1d29;
+  --card-hover: #232735;
+  --border: #2d3142;
+  --text: #e4e6eb;
+  --text-dim: #8b8fa3;
+  --accent: #6c8aff;
+  --green: #4ade80;
+  --orange: #fb923c;
+  --purple: #c084fc;
+  --blue: #60a5fa;
+  --yellow: #fbbf24;
+  --red: #f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 0;
+}
+.header {
+  background: linear-gradient(135deg, #1a1d29 0%, #0f1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 24px 24px;
+  text-align: center;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.header h1 span { color: var(--accent); }
+.header .subtitle {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-item .num {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-item .label {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text-dim);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--text); }
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  padding-left: 12px;
+  border-left: 4px solid var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .count {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.tier-label {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.tier-prep { background: rgba(96,165,250,0.15); color: var(--blue); }
+.tier-core { background: rgba(74,222,128,0.15); color: var(--green); }
+.tier-elective { background: rgba(251,146,60,0.15); color: var(--orange); }
+.tier-capstone { background: rgba(192,132,252,0.15); color: var(--purple); }
+.tier-eng { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.tier-research { background: rgba(248,113,113,0.15); color: var(--red); }
+
+.flow-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.flow-node {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.flow-node:hover { border-color: var(--accent); background: var(--card-hover); transform: translateY(-2px); }
+.flow-node .fn-title { font-weight: 600; }
+.flow-node .fn-hours { font-size: 11px; color: var(--text-dim); }
+.flow-arrow { color: var(--text-dim); font-size: 18px; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.textbook-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.textbook-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.textbook-card.tier-prep::before { background: var(--blue); }
+.textbook-card.tier-core::before { background: var(--green); }
+.textbook-card.tier-elective::before { background: var(--orange); }
+.textbook-card.tier-capstone::before { background: var(--purple); }
+.textbook-card.tier-eng::before { background: var(--yellow); }
+.textbook-card.tier-research::before { background: var(--red); }
+.textbook-card:hover {
+  border-color: var(--accent);
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.card-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: right;
+  white-space: nowrap;
+}
+.card-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.card-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.card-stats span { display: flex; align-items: center; gap: 3px; }
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.badge-feynman { background: rgba(192,132,252,0.12); color: var(--purple); }
+.badge-arxiv { background: rgba(251,191,36,0.12); color: var(--yellow); }
+.badge-case { background: rgba(74,222,128,0.12); color: var(--green); }
+.badge-qa { background: rgba(96,165,250,0.12); color: var(--blue); }
+.badge-hw { background: rgba(251,146,60,0.12); color: var(--orange); }
+
+.card-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 0;
+}
+.textbook-card.expanded .card-detail {
+  max-height: 500px;
+  margin-top: 12px;
+}
+.card-detail-inner {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.detail-row:last-child { border: none; }
+.detail-label { color: var(--text-dim); }
+.detail-value { color: var(--text); font-weight: 500; }
+.detail-topics {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.combo-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.combo-card {
+  padding: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.combo-card:hover { border-color: var(--accent); }
+.combo-card .combo-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.combo-card .combo-desc { font-size: 12px; color: var(--text-dim); }
+.combo-card .combo-pick { font-size: 11px; color: var(--accent); margin-top: 6px; }
+
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--text-dim);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .flow-chart { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>AI原生化商业博士 · <span>教材导航图</span></h1>
+  <div class="subtitle">v14.0 · 23份独立教材 · 43,241行 · 2.3MB · GitHub: zrxparley/ai-native-business-phd</div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">23</div><div class="label">独立教材</div></div>
+    <div class="stat-item"><div class="num">66</div><div class="label">教学Days</div></div>
+    <div class="stat-item"><div class="num">~120h</div><div class="label">总学时</div></div>
+    <div class="stat-item"><div class="num">73</div><div class="label">arXiv引用</div></div>
+    <div class="stat-item"><div class="num">9</div><div class="label">数据集案例</div></div>
+    <div class="stat-item"><div class="num">23/23</div><div class="label">费曼覆盖</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all')">全部</button>
+    <button class="filter-btn" onclick="filterCards('tier-prep')">预科</button>
+    <button class="filter-btn" onclick="filterCards('tier-research')">研究方法论</button>
+    <button class="filter-btn" onclick="filterCards('tier-core')">核心技能</button>
+    <button class="filter-btn" onclick="filterCards('tier-elective')">选修</button>
+    <button class="filter-btn" onclick="filterCards('tier-eng')">工程</button>
+    <button class="filter-btn" onclick="filterCards('tier-capstone')">Capstone</button>
+  </div>
+
+  <!-- 学习路径 -->
+  <div class="section-title">学习路径 <span class="count">五层技能树，逐层解锁</span></div>
+  <div class="flow-chart" id="flowChart"></div>
+
+  <!-- 选修组合推荐 -->
+  <div class="section-title">选修组合推荐 <span class="count">14门选3，5种推荐路线</span></div>
+  <div class="combo-section">
+    <div class="combo-grid" id="comboGrid"></div>
+  </div>
+
+  <!-- 预科 -->
+  <div class="section-title">预科层 <span class="count">1份教材</span><span class="tier-label tier-prep">Foundation</span></div>
+  <div class="card-grid" id="grid-prep"></div>
+
+  <!-- 研究方法论 -->
+  <div class="section-title">研究方法论 <span class="count">1份教材</span><span class="tier-label tier-research">Methodology</span></div>
+  <div class="card-grid" id="grid-research"></div>
+
+  <!-- 核心技能 -->
+  <div class="section-title">核心层 <span class="count">5份教材</span><span class="tier-label tier-core">Core Skills 1-5</span></div>
+  <div class="card-grid" id="grid-core"></div>
+
+  <!-- 选修 -->
+  <div class="section-title">选修层 <span class="count">14份教材，选3</span><span class="tier-label tier-elective">Electives</span></div>
+  <div class="card-grid" id="grid-elective"></div>
+
+  <!-- 工程 + Capstone -->
+  <div class="section-title">工程实践与毕业项目 <span class="count">2份教材</span><span class="tier-label tier-eng">Engineering + Capstone</span></div>
+  <div class="card-grid" id="grid-capstone"></div>
+
+</div>
+
+<div class="footer">
+  <p>AI原生化商业博士 · 天赋技能树课程体系 · <a href="https://github.com/zrxparley/ai-native-business-phd" target="_blank">GitHub Repository</a></p>
+  <p style="margin-top:8px;">系统觉醒 × 天道推演 × WorkBuddy × Claude 生成 · v14.0 · 2026-08-03</p>
+</div>
+
+<script>
+const textbooks = [
+  // 预科
+  { id:"skill0", tier:"tier-prep", name:"技能0：AI商业分析基础", short:"Skill 0", hours:"35h", size:"190KB", lines:3453, days:10,
+    desc:"Python编程基础、数据结构、统计学、回归分析、经典ML算法、SQL数据治理、AI辅助编程、信息论、凸优化",
+    feynman:true, arxiv:true, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 Python编程 · Day 2 数据结构 · Day 3 描述统计 · Day 4 回归分析 · Day 4.5 经典ML算法 · Day 5 SQL数据治理 · Day 6 研究方法论 · Day 7 AI编程 · Day 8 信息论(熵/KL散度/互信息) · Day 9 凸优化(拉格朗日/KKT/对偶)",
+    prereq:"无（起点）", unlocks:"技能1", combo:"全部"
+  },
+  // 研究方法论
+  { id:"moduleR", tier:"tier-research", name:"模块R：博士研究方法论", short:"Module R", hours:"10h", size:"95KB", lines:1139, days:0,
+    desc:"文献综述、假设设计、实验设计、统计检验、IMRaD写作、可复现性标准、跨学科研究方法",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"R1 DSR框架 · R2 假设与实验设计 · R3 统计检验 · R4 IMRaD写作 · R5 预注册与注册报告 · R6 数据卡与模型卡 · R7 可复现性与跨学科方法",
+    prereq:"技能0", unlocks:"Capstone", combo:"全部"
+  },
+  // 核心技能
+  { id:"skill1", tier:"tier-core", name:"技能1：表示工程与营销智能", short:"Skill 1", hours:"12h", size:"159KB", lines:2820, days:8,
+    desc:"表示学习理论基础、营销数据表示、企业知识图谱、GraphRAG、GNN、联邦学习、概率图模型、变分推断",
+    feynman:true, arxiv:false, caseStudy:false, qa:false, hw:true,
+    topics:"Day 1 表示学习+DSR · Day 2 营销数据+多模态 · Day 3 知识图谱+GraphRAG · Day 3.5 GNN/异常检测/联邦学习 · Day 3.6 推理增强表示 · Day 4 多模态融合 · Day 5 概率图模型(贝叶斯网络/MRF) · Day 6 变分推断(ELBO/VAE)",
+    prereq:"技能0", unlocks:"技能2", combo:"全部"
+  },
+  { id:"skill2", tier:"tier-core", name:"技能2：AI原生企业架构", short:"Skill 2", hours:"8h", size:"162KB", lines:2675, days:8,
+    desc:"企业AI架构、RAG系统、Agent工作流、跨学科AI应用架构（AI+法律/医疗/公共政策）",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 AI原生架构 · Day 2 RAG与知识引擎 · Day 3 跨学科AI架构 · Day 4 LangGraph Agent · Day 5 MLOps基础 · Day 6 治理与合规 · Day 7 架构评估 · Day 8 实战",
+    prereq:"技能1", unlocks:"技能3", combo:"全部"
+  },
+  { id:"skill3", tier:"tier-core", name:"技能3：因果推断与规模实验", short:"Skill 3", hours:"10h", size:"104KB", lines:2149, days:0,
+    desc:"因果推断、DID、合成控制、A/B测试、LLM时代因果研究、跨学科因果分析",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"因果图 · DID · 合成控制 · 倾向得分 · A/B测试 · CUPED · LLM因果推断 · 跨学科因果研究",
+    prereq:"技能2", unlocks:"技能4", combo:"全部"
+  },
+  { id:"skill4", tier:"tier-core", name:"技能4：AI驱动商业模式创新", short:"Skill 4", hours:"10h", size:"112KB", lines:1597, days:7,
+    desc:"AI商业模式类型学、平台战略、Agent经济、AI+法律/公共政策、推理模型时代商业模式",
+    feynman:true, arxiv:true, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 AI商业模式类型 · Day 2 PRISMA文献 · Day 3 Agent经济 · Day 4 平台战略 · Day 5 BMC · Day 5.5 推理模型时代 · Day 6 投资 · Day 7 AI+法律/公共政策",
+    prereq:"技能3", unlocks:"技能5", combo:"全部"
+  },
+  { id:"skill5", tier:"tier-core", name:"技能5：Agentic系统工程与落地", short:"Skill 5", hours:"14h", size:"158KB", lines:3760, days:0,
+    desc:"MLOps、Agent工程、Function Calling/MCP、模型部署、推理优化、系统评估",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"MLOps · Agent架构 · Function Calling/MCP · 模型部署 · 推理优化 · 评估体系 · 安全 · 3个实战作业",
+    prereq:"技能4", unlocks:"Capstone/选修", combo:"全部"
+  },
+  // 选修
+  { id:"e1", tier:"tier-elective", name:"选修E1：Agentic AI", short:"E1", hours:"6h", size:"66KB", lines:1194, days:3,
+    desc:"Agent架构、ReAct/CoT/ToT推理、工具使用、多Agent系统、MCP协议生态",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 Agent架构 · Day 2 ReAct/CoT推理 · Day 3 MCP生态+多Agent",
+    prereq:"技能5", unlocks:"-", combo:"C E"
+  },
+  { id:"e2", tier:"tier-elective", name:"选修E2：Marketing Analytics", short:"E2", hours:"6h", size:"77KB", lines:1579, days:3,
+    desc:"营销混合模型、归因分析、A/B测试、LLM消费者洞察、数据叙事",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 MMM归因 · Day 2 A/B测试 · Day 3 LLM消费者洞察+数据叙事",
+    prereq:"技能1+3", unlocks:"-", combo:"C D"
+  },
+  { id:"e3", tier:"tier-elective", name:"选修E3：LLM导论", short:"E3", hours:"6h", size:"81KB", lines:1654, days:3,
+    desc:"Transformer架构、预训练、微调、RLHF、Prompt工程、推理模型与CoT范式",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 Transformer+预训练 · Day 2 微调+RLHF · Day 3 Prompt+推理模型CoT",
+    prereq:"技能2+5", unlocks:"-", combo:"C"
+  },
+  { id:"e4", tier:"tier-elective", name:"选修E4：商业智能与数据可视化", short:"E4", hours:"6h", size:"65KB", lines:1304, days:3,
+    desc:"数据仓库、OLAP、仪表盘、NL2SQL/NL2Chart、AI增强分析",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 数仓+OLAP · Day 2 可视化+仪表盘 · Day 3 NL2SQL+AI增强分析 · 案例: Online Retail II RFM分析",
+    prereq:"技能0+1", unlocks:"-", combo:"E G"
+  },
+  { id:"e5", tier:"tier-elective", name:"选修E5：商业生成式AI应用与流程自动化", short:"E5", hours:"6h", size:"63KB", lines:1362, days:3,
+    desc:"生成式AI应用、RAG、Function Calling自动化、智能文档处理",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 GenAI应用 · Day 2 RAG+Function Calling · Day 3 流程自动化 · 案例: 客服工单RAG分类",
+    prereq:"技能5+2", unlocks:"-", combo:"D E"
+  },
+  { id:"e6", tier:"tier-elective", name:"选修E6：应用统计与优化方法", short:"E6", hours:"6h", size:"73KB", lines:1622, days:3,
+    desc:"假设检验、回归、贝叶斯方法、优化算法、LLM辅助统计推断",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 假设检验+回归 · Day 2 贝叶斯+优化 · Day 3 LLM统计推断 · 案例: A/B测试贝叶斯分析",
+    prereq:"技能0+3", unlocks:"-", combo:"D G"
+  },
+  { id:"e7", tier:"tier-elective", name:"选修E7：计算机视觉与多模态感知", short:"E7", hours:"6h", size:"79KB", lines:1507, days:3,
+    desc:"CNN、ViT、CLIP、扩散模型视觉理解、VLA模型、实时感知",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 CNN+ViT · Day 2 CLIP+扩散模型 · Day 3 VLA+实时感知 · 案例: 零售商品识别",
+    prereq:"技能1", unlocks:"-", combo:"F"
+  },
+  { id:"e8", tier:"tier-elective", name:"选修E8：深度学习与生成模型进阶", short:"E8", hours:"6h", size:"100KB", lines:1909, days:3,
+    desc:"Transformer深度、扩散模型DDPM/LDM、Flow Matching、Sora视频生成、LoRA",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 Transformer+Attention · Day 2 DDPM+LDM+Flow Matching · Day 3 Sora+LoRA · 案例: Fashion-MNIST扩散模型",
+    prereq:"技能1+E3", unlocks:"-", combo:"F"
+  },
+  { id:"e9", tier:"tier-elective", name:"选修E9：AI安全与对齐", short:"E9", hours:"6h", size:"56KB", lines:1036, days:4,
+    desc:"AI对齐、RLHF、DPO、Constitutional AI、红队测试、2026对齐前沿",
+    feynman:true, arxiv:false, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 对齐问题 · Day 2 RLHF+DPO · Day 3 红队+安全 · Day 4 2026对齐前沿+跨学科伦理",
+    prereq:"技能5+2", unlocks:"-", combo:"-"
+  },
+  { id:"e10", tier:"tier-elective", name:"选修E10：Agent经济与商业模式", short:"E10", hours:"6h", size:"69KB", lines:1285, days:3,
+    desc:"Agent经济、A2A交易协议、市场出清、多Agent博弈定价、RaaS",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 Agent经济 · Day 2 A2A协议+定价 · Day 3 RaaS · 案例: Agent市场仿真",
+    prereq:"技能4+5", unlocks:"-", combo:"E F"
+  },
+  { id:"e11", tier:"tier-elective", name:"选修E11：推荐系统与个性化营销", short:"E11", hours:"6h", size:"76KB", lines:1490, days:3,
+    desc:"协同过滤、深度学习推荐、序列推荐、LLM驱动推荐、对话式推荐",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 协同过滤+MF · Day 2 深度推荐+BERT4Rec · Day 3 LLM推荐+对话式 · 案例: MovieLens",
+    prereq:"技能1+3", unlocks:"-", combo:"F G"
+  },
+  { id:"e12", tier:"tier-elective", name:"选修E12：语音AI与音频处理", short:"E12", hours:"6h", size:"72KB", lines:1451, days:3,
+    desc:"ASR、TTS、Whisper模型、实时语音Agent、语音翻译、语音情感",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 ASR+TTS · Day 2 Whisper+语音翻译 · Day 3 实时语音Agent · 案例: LibriSpeech ASR",
+    prereq:"技能1+5", unlocks:"-", combo:"-"
+  },
+  { id:"e13", tier:"tier-elective", name:"选修E13：战略思维画布工具集", short:"E13", hours:"6h", size:"124KB", lines:1876, days:3,
+    desc:"BLM战略框架、DSTE执行、Canvas家族(BMC/VPC/OKR)、AI Agent时代战略演变",
+    feynman:true, arxiv:true, caseStudy:true, qa:true, hw:true,
+    topics:"Day 1 BLM+DSTE · Day 2 Canvas家族+OKR · Day 3 跨行业画布+AI Agent战略 · 案例: AI SaaS战略画布",
+    prereq:"技能4+2", unlocks:"-", combo:"-"
+  },
+  { id:"e14", tier:"tier-elective", name:"选修E14：边缘AI与端侧智能", short:"E14", hours:"12h", size:"108KB", lines:2414, days:4,
+    desc:"端侧模型压缩(量化/蒸馏/剪枝)、联邦学习、隐私计算、移动端实时推理",
+    feynman:true, arxiv:true, caseStudy:false, qa:true, hw:true,
+    topics:"Day 1 模型压缩(PTQ/QAT/剪枝/蒸馏) · Day 2 联邦学习+差分隐私+同态加密 · Day 3 移动端部署(llama.cpp/TFLite) · Day 4 边缘AI商业模式",
+    prereq:"技能1+5", unlocks:"-", combo:"-"
+  },
+  // 工程 + Capstone
+  { id:"aieng", tier:"tier-eng", name:"AI工程从零构建", short:"AI Eng", hours:"12章", size:"106KB", lines:2034, days:12,
+    desc:"手写numpy实现Attention/BERT/GPT/DDPM/LoRA/CoT推理/Function Calling，5个旗舰项目",
+    feynman:true, arxiv:true, caseStudy:false, qa:true, hw:true,
+    topics:"第1-3章 numpy/backprop/attention · 第4-6章 BERT/GPT/DDPM · 第7-9章 LoRA/CoT/Function Calling · 第10-12章 5旗舰项目",
+    prereq:"技能1+5", unlocks:"Capstone", combo:"全部"
+  },
+  { id:"capstone", tier:"tier-capstone", name:"Capstone：AI和商业分析项目", short:"Capstone", hours:"6阶段", size:"107KB", lines:1931, days:0,
+    desc:"双路径(研究型/工程型)、跨学科论文方向、发表管道、IMRaD结构、同行评审",
+    feynman:true, arxiv:true, caseStudy:false, qa:true, hw:true,
+    topics:"Phase 1 问题定义+文献 · Phase 2 数据+知识图谱 · Phase 3 Agent架构 · Phase 4 因果实验 · Phase 5 实施 · Phase 6 论文写作",
+    prereq:"全部核心技能", unlocks:"毕业", combo:"全部"
+  },
+];
+
+const combos = [
+  { name:"Combo C", pick:"E1 + E2 + E3", desc:"Agentic AI + Marketing + LLM（原版推荐）", electives:["e1","e2","e3"] },
+  { name:"Combo D", pick:"E2 + E5 + E6", desc:"Marketing + GenAI Apps + Statistics（AIBA方向）", electives:["e2","e5","e6"] },
+  { name:"Combo E", pick:"E1 + E4 + E5", desc:"Agentic AI + BI + GenAI Apps（企业部署）", electives:["e1","e4","e5"] },
+  { name:"Combo F", pick:"E7 + E8 + E11", desc:"CV + DL + RecSys（Applied AI技术）", electives:["e7","e8","e11"] },
+  { name:"Combo G", pick:"E4 + E6 + E11", desc:"BI + Statistics + RecSys（营销数据科学）", electives:["e4","e6","e11"] },
+];
+
+// 渲染学习路径
+const flowPath = [
+  {id:"skill0", label:"Skill 0", hours:"35h", tier:"tier-prep"},
+  {id:"moduleR", label:"Module R", hours:"10h", tier:"tier-research"},
+  {id:"skill1", label:"Skill 1", hours:"12h", tier:"tier-core"},
+  {id:"skill2", label:"Skill 2", hours:"8h", tier:"tier-core"},
+  {id:"skill3", label:"Skill 3", hours:"10h", tier:"tier-core"},
+  {id:"skill4", label:"Skill 4", hours:"10h", tier:"tier-core"},
+  {id:"skill5", label:"Skill 5", hours:"14h", tier:"tier-core"},
+  {id:"capstone", label:"Capstone", hours:"6阶段", tier:"tier-capstone"},
+];
+const flowChart = document.getElementById("flowChart");
+flowPath.forEach((node, i) => {
+  const div = document.createElement("div");
+  div.className = `flow-node ${node.tier}`;
+  div.innerHTML = `<div class="fn-title">${node.label}</div><div class="fn-hours">${node.hours}</div>`;
+  div.onclick = () => scrollToCard(node.id);
+  flowChart.appendChild(div);
+  if (i < flowPath.length - 1) {
+    const arrow = document.createElement("span");
+    arrow.className = "flow-arrow";
+    arrow.textContent = "→";
+    flowChart.appendChild(arrow);
+  }
+});
+
+// 渲染选修组合
+const comboGrid = document.getElementById("comboGrid");
+combos.forEach(c => {
+  const div = document.createElement("div");
+  div.className = "combo-card";
+  div.innerHTML = `<div class="combo-name">${c.name}</div><div class="combo-desc">${c.desc}</div><div class="combo-pick">${c.pick}</div>`;
+  div.onclick = () => {
+    c.electives.forEach(eid => {
+      const card = document.getElementById("card-" + eid);
+      if (card) { card.style.boxShadow = "0 0 0 2px var(--accent)"; setTimeout(() => card.style.boxShadow = "", 2000); }
+    });
+    scrollToCard(c.electives[0]);
+  };
+  comboGrid.appendChild(div);
+});
+
+// 渲染教材卡片
+function createCard(tb) {
+  const card = document.createElement("div");
+  card.className = `textbook-card ${tb.tier}`;
+  card.id = "card-" + tb.id;
+
+  let badges = "";
+  if (tb.feynman) badges += '<span class="badge badge-feynman">费曼</span>';
+  if (tb.arxiv) badges += '<span class="badge badge-arxiv">arXiv</span>';
+  if (tb.caseStudy) badges += '<span class="badge badge-case">数据集案例</span>';
+  if (tb.qa) badges += '<span class="badge badge-qa">知识问答</span>';
+  if (tb.hw) badges += '<span class="badge badge-hw">作业</span>';
+
+  const sizePercent = Math.min(100, (tb.size.replace("KB","") / 200 * 100)).toFixed(0);
+  const tierColor = tb.tier === "tier-prep" ? "var(--blue)" : tb.tier === "tier-core" ? "var(--green)" : tb.tier === "tier-elective" ? "var(--orange)" : tb.tier === "tier-capstone" ? "var(--purple)" : tb.tier === "tier-eng" ? "var(--yellow)" : "var(--red)";
+
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-title">${tb.name}</div>
+      <div class="card-meta">${tb.hours}<br>${tb.size}</div>
+    </div>
+    <div class="card-desc">${tb.desc}</div>
+    <div class="card-stats">
+      <span>📄 ${tb.lines}行</span>
+      <span>📅 ${tb.days > 0 ? tb.days + " Days" : "专题"}</span>
+      <span>📊 ${tb.size}</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${sizePercent}%;background:${tierColor}"></div></div>
+    <div class="badges" style="margin-top:8px">${badges}</div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-row"><span class="detail-label">先修</span><span class="detail-value">${tb.prereq}</span></div>
+        <div class="detail-row"><span class="detail-label">解锁</span><span class="detail-value">${tb.unlocks}</span></div>
+        <div class="detail-row"><span class="detail-label">推荐组合</span><span class="detail-value">${tb.combo}</span></div>
+        <div class="detail-topics"><strong>内容概要：</strong>${tb.topics}</div>
+      </div>
+    </div>
+  `;
+  card.onclick = (e) => {
+    if (e.target.closest('a')) return;
+    card.classList.toggle("expanded");
+  };
+  return card;
+}
+
+const grids = {
+  "tier-prep": document.getElementById("grid-prep"),
+  "tier-research": document.getElementById("grid-research"),
+  "tier-core": document.getElementById("grid-core"),
+  "tier-elective": document.getElementById("grid-elective"),
+  "tier-eng": document.getElementById("grid-capstone"),
+  "tier-capstone": document.getElementById("grid-capstone"),
+};
+
+textbooks.forEach(tb => {
+  const grid = grids[tb.tier];
+  if (grid) grid.appendChild(createCard(tb));
+});
+
+// 过滤
+function filterCards(tier) {
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  if (tier === "all") {
+    document.querySelectorAll(".textbook-card").forEach(c => c.style.display = "");
+    document.querySelectorAll(".section-title").forEach(s => s.style.display = "");
+    document.querySelectorAll(".card-grid").forEach(g => g.style.display = "");
+    return;
+  }
+
+  document.querySelectorAll(".textbook-card").forEach(c => {
+    c.style.display = c.classList.contains(tier) ? "" : "none";
+  });
+  // 隐藏没有可见卡片的grid
+  document.querySelectorAll(".card-grid").forEach(g => {
+    const hasVisible = Array.from(g.children).some(c => c.style.display !== "none");
+    g.style.display = hasVisible ? "" : "none";
+  });
+  // 隐藏对应的section title
+  const gridToSection = {
+    "grid-prep": document.querySelectorAll(".section-title")[1],
+    "grid-research": document.querySelectorAll(".section-title")[2],
+    "grid-core": document.querySelectorAll(".section-title")[3],
+    "grid-elective": document.querySelectorAll(".section-title")[4],
+    "grid-capstone": document.querySelectorAll(".section-title")[5],
+  };
+  Object.entries(gridToSection).forEach(([gid, title]) => {
+    const grid = document.getElementById(gid);
+    const hasVisible = grid && Array.from(grid.children).some(c => c.style.display !== "none");
+    if (title) title.style.display = hasVisible ? "" : "none";
+  });
+}
+
+// 滚动到卡片
+function scrollToCard(id) {
+  const card = document.getElementById("card-" + id);
+  if (card) {
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    card.style.boxShadow = "0 0 0 2px var(--accent)";
+    setTimeout(() => card.style.boxShadow = "", 2000);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI原生化商业博士 · 选修E3_LLM导论</title>
+<link rel="stylesheet" href="textbook_style.css">
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-logo">📚 AI原生化商业博士</a>
+    <span class="sidebar-version">v14.0</span>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="tocSearch" placeholder="搜索目录..." oninput="filterTOC()">
+  </div>
+  <div class="sidebar-toc" id="sidebarTOC">
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#AI原生化商业博士独立教材选修E3IntroductiontoLargeLanguageModels" onclick="navTo(event,'AI原生化商业博士独立教材选修E3IntroductiontoLargeLanguageModels')">AI原生化商业博士 · 独立教材：选修E3 Introduction to Large Language Models</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#课程概述" onclick="navTo(event,'课程概述')">课程概述</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心命题" onclick="navTo(event,'核心命题')">核心命题</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#学习目标" onclick="navTo(event,'学习目标')">学习目标</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#前置条件" onclick="navTo(event,'前置条件')">前置条件</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#学习计划表3天" onclick="navTo(event,'学习计划表3天')">学习计划表（3天）</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#详细学习内容" onclick="navTo(event,'详细学习内容')">详细学习内容</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day1LLM基础Transformer架构与训练流程" onclick="navTo(event,'Day1LLM基础Transformer架构与训练流程')">Day 1：LLM基础：Transformer架构与训练流程</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练" onclick="navTo(event,'训练')">训练</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#展示学到的策略" onclick="navTo(event,'展示学到的策略')">展示学到的策略</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Tokenization示例" onclick="navTo(event,'Tokenization示例')">Tokenization示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#GPT-2的tokenizer注意GPT-2对中文支持不好" onclick="navTo(event,'GPT-2的tokenizer注意GPT-2对中文支持不好')">GPT-2的tokenizer（注意GPT-2对中文支持不好）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#中文往往被拆成更多Token因为BPE主要在英文数据上训练" onclick="navTo(event,'中文往往被拆成更多Token因为BPE主要在英文数据上训练')">中文往往被拆成更多Token，因为BPE主要在英文数据上训练</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用支持多语言的tokenizer" onclick="navTo(event,'使用支持多语言的tokenizer')">使用支持多语言的tokenizer</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Llama系列的tokenizer对中文支持更好" onclick="navTo(event,'Llama系列的tokenizer对中文支持更好')">Llama系列的tokenizer对中文支持更好</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day2LLM应用工程" onclick="navTo(event,'Day2LLM应用工程')">Day 2：LLM应用工程</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#结构化输出示例" onclick="navTo(event,'结构化输出示例')">结构化输出示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用示例" onclick="navTo(event,'使用示例')">使用示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#摄入营销知识文档" onclick="navTo(event,'摄入营销知识文档')">摄入营销知识文档</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#提问" onclick="navTo(event,'提问')">提问</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#LoRAFine-tuning示例使用HuggingFacePEFT" onclick="navTo(event,'LoRAFine-tuning示例使用HuggingFacePEFT')">LoRA Fine-tuning示例（使用HuggingFace PEFT）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#加载基础模型" onclick="navTo(event,'加载基础模型')">加载基础模型</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#配置LoRA" onclick="navTo(event,'配置LoRA')">配置LoRA</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#准备训练数据指令-回答对" onclick="navTo(event,'准备训练数据指令-回答对')">准备训练数据（指令-回答对）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练" onclick="navTo(event,'训练')">训练</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#保存LoRA适配器只有几十MB而非基础模型的几十GB" onclick="navTo(event,'保存LoRA适配器只有几十MB而非基础模型的几十GB')">保存LoRA适配器（只有几十MB，而非基础模型的几十GB）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#FunctionCalling完整示例" onclick="navTo(event,'FunctionCalling完整示例')">Function Calling完整示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#定义可用工具" onclick="navTo(event,'定义可用工具')">定义可用工具</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#工具实现" onclick="navTo(event,'工具实现')">工具实现</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#对话循环" onclick="navTo(event,'对话循环')">对话循环</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Step1LLM决定调用什么工具" onclick="navTo(event,'Step1LLM决定调用什么工具')">Step 1: LLM决定调用什么工具</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Step2执行工具调用" onclick="navTo(event,'Step2执行工具调用')">Step 2: 执行工具调用</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#初始化LLM" onclick="navTo(event,'初始化LLM')">初始化LLM</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#营销决策任务" onclick="navTo(event,'营销决策任务')">=== 营销决策任务 ===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案1直接Prompt无CoT" onclick="navTo(event,'方案1直接Prompt无CoT')">=== 方案1：直接Prompt（无CoT）===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案2Few-shotCoTPrompt" onclick="navTo(event,'方案2Few-shotCoTPrompt')">=== 方案2：Few-shot CoT Prompt ===</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#示例" onclick="navTo(event,'示例')">示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案3Self-Consistency多路径采样投票" onclick="navTo(event,'方案3Self-Consistency多路径采样投票')">=== 方案3：Self-Consistency（多路径采样+投票）===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#执行对比实验" onclick="navTo(event,'执行对比实验')">=== 执行对比实验 ===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案1直接Prompt" onclick="navTo(event,'方案1直接Prompt')">方案1：直接Prompt</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案2CoTPrompt" onclick="navTo(event,'方案2CoTPrompt')">方案2：CoT Prompt</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方案3Self-Consistency" onclick="navTo(event,'方案3Self-Consistency')">方案3：Self-Consistency</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#分析对比" onclick="navTo(event,'分析对比')">=== 分析对比 ===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用推理模型的对比" onclick="navTo(event,'使用推理模型的对比')">=== 使用推理模型的对比 ===</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#如果有o1模型访问权限可以直接对比" onclick="navTo(event,'如果有o1模型访问权限可以直接对比')">如果有o1模型访问权限，可以直接对比：</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#reasoning_llmChatOpenAImodelo1-previewopenai_api_k" onclick="navTo(event,'reasoning_llmChatOpenAImodelo1-previewopenai_api_k')">reasoning_llm = ChatOpenAI(model=&quot;o1-preview&quot;, openai_api_key=&quot;your-key&quot;)</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#reasoning_resultreasoning_llminvokemarketing_probl" onclick="navTo(event,'reasoning_resultreasoning_llminvokemarketing_probl')">reasoning_result = reasoning_llm.invoke(marketing_problem)</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#推理模型会自动进行深度推理无需CoTprompt" onclick="navTo(event,'推理模型会自动进行深度推理无需CoTprompt')">推理模型会自动进行深度推理，无需CoT prompt</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day3LLM评估与部署" onclick="navTo(event,'Day3LLM评估与部署')">Day 3：LLM评估与部署</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#营销领域评测集构建示例" onclick="navTo(event,'营销领域评测集构建示例')">营销领域评测集构建示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#营销评测集示例" onclick="navTo(event,'营销评测集示例')">营销评测集示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#LLM-as-Judge评估" onclick="navTo(event,'LLM-as-Judge评估')">LLM-as-Judge评估</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#示例营销内容生成场景" onclick="navTo(event,'示例营销内容生成场景')">示例：营销内容生成场景</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#假设每天1000次调用平均输入2000Token输出500Token" onclick="navTo(event,'假设每天1000次调用平均输入2000Token输出500Token')">假设每天1000次调用，平均输入2000 Token，输出500 Token</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#输出类似" onclick="navTo(event,'输出类似')">输出类似：</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#GPT-4o300月" onclick="navTo(event,'GPT-4o300月')">GPT-4o: $300/月</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#GPT-4o-mini18月" onclick="navTo(event,'GPT-4o-mini18月')">GPT-4o-mini: $18/月</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Claude35Sonnet375月" onclick="navTo(event,'Claude35Sonnet375月')">Claude 3.5 Sonnet: $375/月</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Claude3Haiku31月" onclick="navTo(event,'Claude3Haiku31月')">Claude 3 Haiku: $31/月</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Llama370B本地2000月但有隐私优势和无Token限制" onclick="navTo(event,'Llama370B本地2000月但有隐私优势和无Token限制')">Llama 3 70B 本地: $2000/月（但有隐私优势和无Token限制）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#vLLM是当前最流行的开源LLM推理引擎" onclick="navTo(event,'vLLM是当前最流行的开源LLM推理引擎')">vLLM是当前最流行的开源LLM推理引擎</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#安装pipinstallvllm" onclick="navTo(event,'安装pipinstallvllm')">安装：pip install vllm</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#命令行启动vLLM服务" onclick="navTo(event,'命令行启动vLLM服务')">命令行启动vLLM服务</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#vllmservemeta-llamaLlama-2-7b-chat" onclick="navTo(event,'vllmservemeta-llamaLlama-2-7b-chat')">vllm serve meta-llama/Llama-2-7b-chat \</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#--tensor-parallel-size1" onclick="navTo(event,'--tensor-parallel-size1')">--tensor-parallel-size 1 \</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#--quantizationawq" onclick="navTo(event,'--quantizationawq')">--quantization awq \</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#--max-model-len4096" onclick="navTo(event,'--max-model-len4096')">--max-model-len 4096 \</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#--port8000" onclick="navTo(event,'--port8000')">--port 8000</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Python中使用vLLM" onclick="navTo(event,'Python中使用vLLM')">Python中使用vLLM</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#批量推理vLLM的强项" onclick="navTo(event,'批量推理vLLM的强项')">批量推理（vLLM的强项）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Langfuse集成示例" onclick="navTo(event,'Langfuse集成示例')">Langfuse集成示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#LangfuseDashboard自动展示" onclick="navTo(event,'LangfuseDashboard自动展示')">Langfuse Dashboard自动展示：</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#-每次调用的完整Trace输入-中间步骤-输出" onclick="navTo(event,'-每次调用的完整Trace输入-中间步骤-输出')">- 每次调用的完整Trace（输入-&gt;中间步骤-&gt;输出）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#-Token消耗和成本" onclick="navTo(event,'-Token消耗和成本')">- Token消耗和成本</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#-延迟分布" onclick="navTo(event,'-延迟分布')">- 延迟分布</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#-质量评分趋势" onclick="navTo(event,'-质量评分趋势')">- 质量评分趋势</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#知识问答" onclick="navTo(event,'知识问答')">知识问答</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#作业设计" onclick="navTo(event,'作业设计')">作业设计</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#必做作业构建营销知识库RAG系统" onclick="navTo(event,'必做作业构建营销知识库RAG系统')">必做作业：构建营销知识库RAG系统</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#挑战作业LLM模型选型与部署方案设计" onclick="navTo(event,'挑战作业LLM模型选型与部署方案设计')">挑战作业：LLM模型选型与部署方案设计</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#费曼学习法演练" onclick="navTo(event,'费曼学习法演练')">费曼学习法演练</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心理念" onclick="navTo(event,'核心理念')">核心理念</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练任务" onclick="navTo(event,'演练任务')">演练任务</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练步骤" onclick="navTo(event,'演练步骤')">演练步骤</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#自评标准" onclick="navTo(event,'自评标准')">自评标准</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#推荐资源清单" onclick="navTo(event,'推荐资源清单')">推荐资源清单</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心论文与文档必读" onclick="navTo(event,'核心论文与文档必读')">核心论文与文档（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#开源工具必读" onclick="navTo(event,'开源工具必读')">开源工具（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#对标课程" onclick="navTo(event,'对标课程')">对标课程</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#模型与基准推荐" onclick="navTo(event,'模型与基准推荐')">模型与基准（推荐）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#进阶阅读可选" onclick="navTo(event,'进阶阅读可选')">进阶阅读（可选）</a></div>
+
+  </div>
+  <div class="sidebar-footer">
+    <a href="index.html" class="back-to-index">← 返回教材总览</a>
+  </div>
+</div>
+
+<div class="main-content" id="mainContent">
+  <div class="top-bar">
+    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+    <span class="breadcrumb">
+      <a href="index.html">教材总览</a> /
+      <span class="tier-badge" style="background:#fb923c22;color:#fb923c">选修</span>
+      选修E3_LLM导论
+    </span>
+    <div class="top-bar-stats">
+      <span>1654行</span>
+      <span>79KB</span>
+      <span>6h</span>
+    </div>
+  </div>
+
+  <div class="content-body">
+<h1 id="ai-e3-introduction-to-large-language-models">AI原生化商业博士 · 独立教材：选修E3 Introduction to Large Language Models</h1>
+<blockquote>
+<p><strong>修读者</strong>：aha.gare<br />
+<strong>导师系统</strong>：Claude / 天道推演 + 系统觉醒 + 学位对标融合 + 牛津自然学习法 + 全球七校对标<br />
+<strong>版本</strong>：v4.0 | <strong>日期</strong>：2026-07-16<br />
+<strong>学时</strong>：6h + 英语平行轨道2h = 8h | 建议节奏：3天集中学习<br />
+<strong>对标课程</strong>：Stanford CS224N NLP与深度学习（2025 LLM更新版）+ Imperial College London Deep Learning &amp; Generative AI + Princeton COS 597G Understanding LLMs + Berkeley CS182 Deep Learning<br />
+<strong>对应技能</strong>：技能2（AI原生企业架构）+ 技能5（Agentic系统工程）基础<br />
+<strong>英语轨道</strong>：Stanford CS224N 2025版讲义（Lecture 17-20 LLM应用层）+ Anthropic官方文档 + HuggingFace Course（i+1难度：⭐⭐⭐）<br />
+<strong>前置条件</strong>：完成技能2核心课程（AI原生企业架构），具备基本Python编程能力<br />
+<strong>定位</strong>：为非CS背景的AI商业博士提供LLM的技术底座理解，从"会用LLM API"升级到"理解LLM原理并能做架构决策"</p>
+</blockquote>
+<hr />
+<h2 id="_1">课程概述</h2>
+<h3 id="_2">核心命题</h3>
+<p><strong>LLM是如何从"统计语言模型"进化为"通用推理引擎"的？理解LLM的内部机制如何指导我们做出更好的应用工程决策？</strong></p>
+<p>Large Language Models是AI原生时代的核心基础设施。技能2让你理解了"企业如何被AI重写"（原生架构），技能5让你掌握了"如何用Agent编排业务流程"。但这些能力都建立在一个前提上：你对LLM本身有足够深入的理解。本选修课补齐这个技术底座。</p>
+<p>这不是一门纯粹的NLP理论课--我们不推导Transformer的数学公式，不实现反向传播算法。这是一门面向AI商业分析师的LLM工程课：理解LLM的工作原理到足够做出架构决策的程度，理解LLM的能力边界到足够避免"幻觉式方案设计"的程度，理解LLM的评估方法到足够科学选择模型的程度。</p>
+<p>对于售前解决方案产品经理而言，LLM理解力直接决定了方案的技术可信度。当客户问"为什么用GPT而不是开源模型"、"RAG和Fine-tuning该选哪个"、"这个应用场景需要多大的模型"时，你需要能给出基于原理的分析，而不是"因为大家都这么做"。</p>
+<h3 id="_3">学习目标</h3>
+<p>完成本课程后，你将能够：</p>
+<ol>
+<li><strong>原理层</strong>：解释Transformer架构的核心机制（Self-Attention、Multi-Head Attention、Positional Encoding），理解预训练-微调-对齐三阶段训练流程</li>
+<li><strong>应用层</strong>：掌握Prompt Engineering、RAG、Fine-tuning、Function Calling四种LLM应用模式，理解各自的适用场景和工程实现</li>
+<li><strong>评估层</strong>：使用主流评估基准（MMLU、HumanEval、BLEU、ROUGE等）评估LLM能力，设计特定场景的评估方案</li>
+<li><strong>部署层</strong>：理解LLM部署的关键架构选择（API vs 本地、量化、蒸馏、推理优化），能做成本-性能权衡分析</li>
+<li><strong>研究层</strong>：阅读Stanford CS224N讲义和LLM论文，跟踪LLM前沿发展趋势</li>
+</ol>
+<h3 id="_4">前置条件</h3>
+<p>学习本选修课前，你应当已经：
+- 完成技能2核心课程，理解AI原生企业架构的三层模型
+- 具备Python编程能力（能阅读和编写基本脚本）
+- 理解基本的机器学习概念（训练、测试、过拟合）
+- 使用过至少一个LLM API（OpenAI、Anthropic或其他）</p>
+<hr />
+<h2 id="3">学习计划表（3天）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">天次</th>
+<th>主题</th>
+<th style="text-align: center;">时长</th>
+<th>核心产出</th>
+<th>英语轨道材料</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Day 1</strong></td>
+<td>LLM基础：Transformer架构与训练流程</td>
+<td style="text-align: center;">2h</td>
+<td>Transformer架构图解 + 三阶段训练流程文档</td>
+<td>CS224N Lecture 1 &amp; 17 讲义 + "Attention is All You Need"论文摘要</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 2</strong></td>
+<td>LLM应用工程：Prompt/RAG/Fine-tuning/Function Calling</td>
+<td style="text-align: center;">2h</td>
+<td>RAG系统完整代码 + 四种应用模式对比矩阵</td>
+<td>HuggingFace RAG教程 + Anthropic Prompt Engineering文档</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 3</strong></td>
+<td>LLM评估与部署：评估基准、模型选择、部署架构</td>
+<td style="text-align: center;">2h</td>
+<td>模型选择决策矩阵 + 部署架构设计文档</td>
+<td>CS224N Lecture 18-19讲义 + HuggingFace Model Hub浏览</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>英语轨道（2h）</strong>：分散在3天中。核心材料为Stanford CS224N 2025版讲义（重点Lecture 1, 17-19）。遵循牛津自然学习法：先读中文概念讲解，再对照英文讲义，目标理解70%即可。</p>
+</blockquote>
+<hr />
+<h2 id="_5">详细学习内容</h2>
+<hr />
+<h3 id="day-1llmtransformer">Day 1：LLM基础：Transformer架构与训练流程</h3>
+<blockquote>
+<p>🌐 <strong>英语轨道（i+1）</strong>：读Stanford CS224N 2025版Lecture 1讲义（https://web.stanford.edu/class/cs224n/）。这是课程导论，用英文解释了NLP和深度学习的基本概念。先快速浏览，遇到专业术语标注但不查字典。同时读"Attention is All You Need"论文（arXiv 1706.03762）的摘要和引言。</p>
+</blockquote>
+<h4 id="large-language-model">一、从语言模型到Large Language Model</h4>
+<p><strong>语言模型的本质</strong>非常简单：给定前面的词，预测下一个词的概率分布。</p>
+<div class="highlight"><pre><span></span><code>P(w_t | w_1, w_2, ..., w_{t-1})
+</code></pre></div>
+
+<p>这个看似简单的任务蕴含了深刻的能力。要准确预测下一个词，模型必须理解语法、语义、常识、推理、世界知识。这就是为什么"预测下一个词"这个简单目标能训练出如此强大的模型。</p>
+<p><strong>语言模型的三代演进</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">代际</th>
+<th>代表模型</th>
+<th>核心架构</th>
+<th style="text-align: center;">参数规模</th>
+<th>能力特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">第一代</td>
+<td>N-gram模型</td>
+<td>统计计数</td>
+<td style="text-align: center;">&lt;1M</td>
+<td>仅能捕获局部n-1个词的上下文</td>
+</tr>
+<tr>
+<td style="text-align: center;">第二代</td>
+<td>Word2Vec/LSTM</td>
+<td>神经网络</td>
+<td style="text-align: center;">1M-1B</td>
+<td>连续表示+序列建模，但长程依赖弱</td>
+</tr>
+<tr>
+<td style="text-align: center;">第三代</td>
+<td>GPT/BERT/Llama</td>
+<td>Transformer</td>
+<td style="text-align: center;">1B-1T+</td>
+<td>并行计算+长程依赖+涌现能力</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scale Law（规模法则）</strong>是理解LLM的关键。OpenAI在2020年发现（Kaplan et al.），模型性能随参数量、数据量和计算量的增加而可预测地提升。更重要的是，DeepMind在2022年（Hoffmann et al., "Chinchilla"论文）发现，<strong>模型规模和数据量需要按比例增长</strong>才能达到最优性能--之前业界过度关注模型变大而忽视了数据量的同步增长。</p>
+<blockquote>
+<p>💡 <strong>商业洞察</strong>：Scale Law意味着LLM的能力提升是可预测的。这对商业决策有直接影响：如果你知道某个能力需要多大的模型规模才能达到，你就可以提前规划基础设施和成本。反之，如果一个能力即使在最大规模下仍未出现（如真正的逻辑推理），可能需要架构创新而非单纯放大。</p>
+</blockquote>
+<h4 id="transformer">二、Transformer架构核心解析</h4>
+<p>Transformer是2017年Google在"Attention is All You Need"论文中提出的架构，是所有现代LLM的基础。理解Transformer不需要深入每个数学细节，但需要掌握三个核心机制。</p>
+<p><strong>机制1：Self-Attention（自注意力）</strong></p>
+<p>Self-Attention是Transformer的灵魂。它的核心思想是：<strong>对于序列中的每个词，计算它与其他所有词的关联程度，用这个关联程度加权聚合信息。</strong></p>
+<p>用三个角色来理解Self-Attention：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>符号</th>
+<th>功能</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query（查询）</strong></td>
+<td>Q</td>
+<td>"我在找什么信息？"</td>
+<td>搜索查询词</td>
+</tr>
+<tr>
+<td><strong>Key（键）</strong></td>
+<td>K</td>
+<td>"我有什么信息？"</td>
+<td>网页标题/关键词</td>
+</tr>
+<tr>
+<td><strong>Value（值）</strong></td>
+<td>V</td>
+<td>"我的实际内容是什么？"</td>
+<td>网页正文内容</td>
+</tr>
+</tbody>
+</table>
+<p>Self-Attention的计算过程：</p>
+<div class="highlight"><pre><span></span><code>Attention(Q, K, V) = softmax(Q × K^T / √d_k) × V
+</code></pre></div>
+
+<p>用语言解释这个公式：
+1. <strong>Q × K^T</strong>：计算每个词的Query与所有词的Key的点积，得到"关联度矩阵"
+2. <strong>/ √d_k</strong>：缩放，防止点积值过大导致softmax梯度消失
+3. <strong>softmax</strong>：将关联度归一化为概率分布（加和为1）
+4. <strong>× V</strong>：用归一化的关联度加权聚合所有词的Value</p>
+<p><strong>为什么Self-Attention比RNN/LSTM强大？</strong></p>
+<p>RNN/LSTM按顺序处理词，信息需要经过每一步的传递，长距离信息会逐渐衰减。Self-Attention让每个词直接与所有其他词交互，无论距离多远，信息传递路径长度始终为O(1)。这解决了长程依赖问题，也使模型可以并行计算（不需要等待前一步完成）。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 7 · Lesson 02: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/02-self-attention">Self-Attention from Scratch</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>机制2：Multi-Head Attention（多头注意力）</strong></p>
+<p>一个Attention Head只能学习一种关联模式。Multi-Head Attention将Q/K/V分成多组，每组独立计算Attention，然后拼接结果。</p>
+<div class="highlight"><pre><span></span><code>Multi-Head(Q, K, V) = Concat(head_1, head_2, ..., head_h) × W_O
+
+其中 head_i = Attention(Q × W_Q^i, K × W_K^i, V × W_V^i)
+</code></pre></div>
+
+<p>不同的Head可以学习不同的关联模式：有的Head关注语法关系（主谓一致），有的关注语义关系（同义词），有的关注位置关系（相邻词）。这让模型能同时从多个角度理解语言。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 7 · Lesson 03: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/03-multi-head-attention">Multi-Head Attention</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>机制3：Positional Encoding（位置编码）</strong></p>
+<p>Self-Attention本身没有顺序概念--它把输入看作"词的集合"而非"词的序列"。为了让模型知道词的顺序，需要加入位置编码。</p>
+<div class="highlight"><pre><span></span><code>输入表示 = 词嵌入（Word Embedding） + 位置编码（Positional Encoding）
+</code></pre></div>
+
+<p>原始Transformer使用正弦/余弦函数生成位置编码。现代LLM使用了更先进的位置编码方案，如RoPE（Rotary Position Embedding，旋转位置编码），它对长文本的外推性更好。</p>
+<blockquote>
+<p>💡 <strong>实践意义</strong>：理解Positional Encoding有助于理解LLM的Context Window限制。LLM的"记忆"不是无限的--位置编码和Attention计算复杂度都随序列长度增长。这就是为什么Context Window是LLM的关键指标，以及为什么需要RAG（将外部信息检索到Context Window内）而非简单地把所有信息塞进Prompt。</p>
+</blockquote>
+<p><strong>Transformer Block的完整结构</strong>：</p>
+<div class="highlight"><pre><span></span><code>输入
+  |
+  ├─ Multi-Head Self-Attention
+  |      |
+  |      └─ 残差连接 + Layer Normalization
+  |
+  ├─ Feed-Forward Network (FFN)
+  |      |
+  |      └─ 残差连接 + Layer Normalization
+  |
+输出
+
+（N个这样的Block堆叠 = Transformer Encoder或Decoder）
+</code></pre></div>
+
+<p>两个关键设计：
+- <strong>残差连接（Residual Connection）</strong>：将输入直接加到输出上（output = input + f(input)），解决深层网络的梯度消失问题
+- <strong>Layer Normalization</strong>：对每一层的输出做归一化，稳定训练</p>
+<p><strong>Encoder vs Decoder</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功能</th>
+<th>代表模型</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Encoder-only</strong></td>
+<td>理解输入，输出上下文化表示</td>
+<td>BERT</td>
+<td>文本分类、NER、语义搜索</td>
+</tr>
+<tr>
+<td><strong>Decoder-only</strong></td>
+<td>自回归生成下一个Token</td>
+<td>GPT系列、Llama</td>
+<td>文本生成、对话、推理</td>
+</tr>
+<tr>
+<td><strong>Encoder-Decoder</strong></td>
+<td>先编码输入，再解码输出</td>
+<td>T5、BART</td>
+<td>翻译、摘要</td>
+</tr>
+</tbody>
+</table>
+<p>当前主流LLM（GPT-4、Claude、Llama）几乎都是Decoder-only架构。原因是Decoder-only的生成能力和Scale Law表现更好。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 7 · Lesson 14: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers/14-build-transformer">Build a Transformer from Scratch</a>
+预计时长：~120 min</p>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 10 · Lesson 04: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/10-pre-training/04-mini-gpt">Pre-Training a Mini GPT (124M)</a>
+预计时长：~120 min</p>
+</blockquote>
+<h4 id="mdpppo">三、传统强化学习基础：从MDP到PPO</h4>
+<p>在深入LLM的对齐训练（特别是RLHF）之前，理解传统强化学习（Reinforcement Learning, RL）的理论基础至关重要。RLHF中的"RL"指的就是强化学习，而RLHF最核心的优化算法PPO（Proximal Policy Optimization）正是传统RL的经典方法。本节建立从MDP到PPO的完整知识链路，为理解下一节的RLHF做好理论准备。</p>
+<p><strong>1. 马尔可夫决策过程（MDP）</strong></p>
+<p>强化学习的形式化基础是马尔可夫决策过程（Markov Decision Process, MDP）。MDP用一个五元组 (S, A, P, R, γ) 描述决策问题：</p>
+<ul>
+<li><strong>S（States，状态集合）</strong>：环境可能处于的所有情况。例如，在营销投放优化中，状态可以是当前的预算剩余、各渠道的转化率、市场竞品动态等。</li>
+<li><strong>A（Actions，动作集合）</strong>：Agent可以采取的所有行动。例如，增加某个渠道的投放、调整出价、暂停某个广告组。</li>
+<li><strong>P（Transition Probability，转移概率）</strong>：在状态s下采取动作a后，转移到状态s'的概率 P(s'|s,a)。"马尔可夫"性质意味着转移只依赖当前状态和动作，与历史无关。</li>
+<li><strong>R（Reward，奖励函数）</strong>：在状态s下采取动作a后获得的即时奖励 R(s,a)。例如，转化率提升带来正奖励，预算超支带来负奖励。</li>
+<li><strong>γ（Discount Factor，折扣因子）</strong>：未来奖励的折扣系数，取值[0,1]。γ越接近1，Agent越重视长期回报；γ越接近0，Agent越短视。</li>
+</ul>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 01: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/01-mdp">MDPs, States, Actions &amp; Rewards</a>
+预计时长：~45 min</p>
+</blockquote>
+<p><strong>2. 值函数与贝尔曼方程</strong></p>
+<p>Agent的目标是找到一个策略 π（policy，从状态到动作的映射），使得长期累积奖励的期望最大化。为了评估策略的好坏，引入值函数：</p>
+<ul>
+<li><strong>状态值函数 V(s)</strong>：在状态s下，遵循策略π所能获得的期望累积奖励。V(s)回答"当前状态有多好？"</li>
+<li><strong>动作值函数 Q(s,a)</strong>：在状态s下采取动作a后，遵循策略π所能获得的期望累积奖励。Q(s,a)回答"在这个状态下采取这个动作有多好？"</li>
+</ul>
+<p>V(s)和Q(s,a)通过<strong>贝尔曼方程（Bellman Equation）</strong>联系在一起：</p>
+<div class="highlight"><pre><span></span><code>V(s) = Σ_a π(a|s) × [R(s,a) + γ × Σ_s&#39; P(s&#39;|s,a) × V(s&#39;)]
+
+Q(s,a) = R(s,a) + γ × Σ_s&#39; P(s&#39;|s,a) × V(s&#39;)
+</code></pre></div>
+
+<p>贝尔曼方程的核心思想是：当前状态的价值 = 即时奖励 + 折扣后的下一状态价值。这是一个递归关系，是几乎所有RL算法的基础。</p>
+<p><strong>3. 值迭代与策略迭代：动态规划方法</strong></p>
+<p>当MDP的转移概率P和奖励函数R已知时，可以用动态规划方法求解最优策略：</p>
+<ul>
+<li><strong>值迭代（Value Iteration）</strong>：反复用贝尔曼方程更新状态值，直到收敛，然后从最优值函数导出最优策略。</li>
+<li><strong>策略迭代（Policy Iteration）</strong>：交替进行"策略评估"（计算当前策略的值函数）和"策略改进"（基于值函数找到更好的策略），直到策略不再变化。</li>
+</ul>
+<p>这两种方法要求已知环境的完整模型（P和R），这在实际问题中很少满足。因此实际应用中更多使用model-free方法（如Q-learning）。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 02: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/02-dynamic-programming">Dynamic Programming</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>4. Q-learning：时序差分学习</strong></p>
+<p>Q-learning是最经典的model-free RL算法。它不需要知道环境的转移概率，而是通过与环境交互的经验来学习Q值函数。</p>
+<p>Q-learning的更新规则：</p>
+<div class="highlight"><pre><span></span><code>Q(s,a) ← Q(s,a) + α × [r + γ × max_a&#39; Q(s&#39;,a&#39;) - Q(s,a)]
+</code></pre></div>
+
+<p>其中α是学习率。这个更新规则的核心是<strong>时序差分（Temporal Difference, TD）</strong>：用新的估计（r + γ × max Q(s',a')）来修正旧的估计 Q(s,a)。</p>
+<p><strong>ε-greedy探索</strong>：Q-learning使用ε-greedy策略平衡探索与利用--以ε的概率随机选择动作（探索），以1-ε的概率选择Q值最大的动作（利用）。ε通常从1.0逐渐衰减到0.1。</p>
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Q-learning网格世界示例</span>
+<span class="sd">Agent在4x4网格中学习从起点(0,0)到目标(3,3)的最短路径</span>
+<span class="sd">依赖安装：pip install numpy</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">GridWorld</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;4x4网格世界环境&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;执行动作，返回 (next_state, reward, done)&quot;&quot;&quot;</span>
+        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>    <span class="c1"># 上</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 下</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># 左</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># 右</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal</span><span class="p">)</span>
+        <span class="n">reward</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">done</span> <span class="k">else</span> <span class="o">-</span><span class="mf">0.01</span>  <span class="c1"># 到达目标得1，每步小惩罚</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span>
+
+
+<span class="k">def</span> <span class="nf">q_learning_train</span><span class="p">(</span><span class="n">episodes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+                     <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">epsilon_min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon_decay</span><span class="o">=</span><span class="mf">0.995</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Q-learning训练&quot;&quot;&quot;</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">GridWorld</span><span class="p">()</span>
+    <span class="n">n_states</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">env</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">n_actions</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_actions</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">episodes</span><span class="p">):</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">state_idx</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">env</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+            <span class="c1"># ε-greedy选择动作</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">n_actions</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">state_idx</span><span class="p">])</span>
+
+            <span class="c1"># 执行动作</span>
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="n">next_state_idx</span> <span class="o">=</span> <span class="n">next_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">env</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">next_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># Q-learning更新</span>
+            <span class="n">best_next</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">next_state_idx</span><span class="p">])</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">done</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">td_target</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">best_next</span>
+            <span class="n">td_error</span> <span class="o">=</span> <span class="n">td_target</span> <span class="o">-</span> <span class="n">Q</span><span class="p">[</span><span class="n">state_idx</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span>
+            <span class="n">Q</span><span class="p">[</span><span class="n">state_idx</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">td_error</span>
+
+            <span class="n">state_idx</span> <span class="o">=</span> <span class="n">next_state_idx</span>
+
+        <span class="c1"># 衰减探索率</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">epsilon_min</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="n">epsilon_decay</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Q</span>
+
+<span class="c1"># 训练</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">q_learning_train</span><span class="p">(</span><span class="n">episodes</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+
+<span class="c1"># 展示学到的策略</span>
+<span class="n">action_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;上&quot;</span><span class="p">,</span> <span class="s2">&quot;下&quot;</span><span class="p">,</span> <span class="s2">&quot;左&quot;</span><span class="p">,</span> <span class="s2">&quot;右&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;学到的策略（每个位置的最优动作）：&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">state_idx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">col</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; 目标 &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">best_action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">state_idx</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">action_names</span><span class="p">[</span><span class="n">best_action</span><span class="p">]</span><span class="si">}</span><span class="s2">  &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 04: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/04-td-q-learning">Temporal Difference - Q-Learning, SARSA</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>5. DQN（Deep Q-Network）</strong></p>
+<p>当状态空间非常大或连续时（如棋盘游戏的10^170种状态），表格法存储Q值不可行。DQN（Deep Q-Network, DeepMind 2015）用神经网络来近似Q值函数 Q(s,a;θ)，输入状态s，输出每个动作的Q值。</p>
+<p>DQN的两个关键创新：</p>
+<ul>
+<li><strong>经验回放（Experience Replay）</strong>：将Agent与环境交互的转移 (s, a, r, s') 存入回放缓冲区，训练时从中随机采样mini-batch。这打破了数据间的相关性，使训练更稳定。</li>
+<li><strong>目标网络（Target Network）</strong>：使用一个独立的"目标网络"计算TD目标，目标网络的参数定期从主网络同步。这避免了"追着自己尾巴跑"的不稳定性。</li>
+</ul>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 05: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/05-dqn">Deep Q-Networks (DQN)</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>6. 策略梯度：REINFORCE</strong></p>
+<p>Q-learning和DQN属于"基于值"的方法--先学习Q值，再从Q值导出策略。"策略梯度"方法直接优化策略本身，用参数化的策略网络 π(a|s;θ) 直接输出动作的概率分布。</p>
+<p>REINFORCE算法（Williams, 1992）是最基本的策略梯度方法。它的目标函数是：</p>
+<div class="highlight"><pre><span></span><code>J(θ) = E_τ [Σ_t γ^t × R_t]
+</code></pre></div>
+
+<p>其中τ是轨迹（一整条状态-动作-奖励序列）。梯度为：</p>
+<div class="highlight"><pre><span></span><code>∇J(θ) = E_τ [Σ_t ∇log π(a_t|s_t;θ) × G_t]
+</code></pre></div>
+
+<p>其中G_t是从时刻t开始的累积奖励。直觉理解：如果某个动作导致了高回报，就增大该动作的出现概率；如果导致了低回报，就降低其概率。</p>
+<p>策略梯度的优势是可以处理连续动作空间（基于值的方法难以处理），且能学习随机策略。劣势是方差大、训练不稳定。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 06: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/06-policy-gradient">Policy Gradient Methods - REINFORCE</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>7. Actor-Critic：A2C/A3C</strong></p>
+<p>策略梯度的方差问题可以通过引入"评论家"（Critic）来缓解。Actor-Critic架构包含两个网络：</p>
+<ul>
+<li><strong>Actor（演员）</strong>：策略网络 π(a|s;θ)，负责选择动作</li>
+<li><strong>Critic（评论家）</strong>：值函数网络 V(s;φ)，负责评估Actor的选择好不好</li>
+</ul>
+<p>Critic用"优势函数" A(s,a) = Q(s,a) - V(s) 来指导Actor的更新。优势函数衡量"动作a比平均水平好多少"，比直接用绝对回报的方差小得多。</p>
+<ul>
+<li><strong>A2C（Advantage Actor-Critic）</strong>：同步更新Actor和Critic，使用多个worker收集经验后统一更新。</li>
+<li><strong>A3C（Asynchronous Advantage Actor-Critic）</strong>：多个worker异步更新共享参数，不需要经验回放，训练效率更高。</li>
+</ul>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 07: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/07-actor-critic">Actor-Critic - A2C, A3C</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>8. PPO（Proximal Policy Optimization）</strong></p>
+<p>PPO（OpenAI, 2017）是目前最广泛使用的策略梯度算法，也是RLHF的核心优化算法。PPO解决了策略梯度中"步长过大导致策略崩溃"的问题。</p>
+<p>PPO的核心思想是<strong>截断目标函数</strong>：限制每次更新时策略的变化幅度，防止"一步走太远"。</p>
+<div class="highlight"><pre><span></span><code>L_CLIP(θ) = E_t [min(r_t(θ) × A_t, clip(r_t(θ), 1-ε, 1+ε) × A_t)]
+
+其中 r_t(θ) = π(a_t|s_t;θ) / π(a_t|s_t;θ_old)
+</code></pre></div>
+
+<p>r_t(θ) 是新旧策略的概率比。clip操作将这个比值限制在 [1-ε, 1+ε] 范围内（通常ε=0.2），确保每次更新策略不会偏离太远。</p>
+<p>PPO的优势：
+- 训练稳定（截断机制防止策略崩溃）
+- 样本效率高于REINFORCE（可以多次重用经验）
+- 实现相对简单
+- 适用于大规模并行训练</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 08: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/08-ppo">PPO</a>
+预计时长：~75 min</p>
+</blockquote>
+<p><strong>9. 从传统RL到RLHF：理论桥梁</strong></p>
+<p>理解了以上传统RL的概念后，RLHF（Reinforcement Learning from Human Feedback）的逻辑就清晰了：</p>
+<ol>
+<li><strong>MDP映射</strong>：在RLHF中，"状态"是当前的prompt和已生成的文本，"动作"是生成下一个token，"奖励"来自人类训练的Reward Model。</li>
+<li><strong>Reward Model</strong>：相当于传统RL中的奖励函数R(s,a)，但RLHF中奖励不是预定义的，而是从人类偏好数据中学习出来的。</li>
+<li><strong>PPO优化</strong>：RLHF使用PPO算法优化LLM（作为策略网络π），使LLM生成的文本最大化Reward Model的分数。Actor是LLM，Critic是值函数网络，两者协同训练。</li>
+<li><strong>KL散度约束</strong>：RLHF在PPO目标中加入KL惩罚项，防止LLM偏离预训练模型太远（避免"奖励黑客"--模型找到Reward Model的漏洞而非真正提升质量）。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>RLHF目标 = PPO目标 - β × KL(π_new || π_reference)
+</code></pre></div>
+
+<p>其中β是KL惩罚系数，π_reference是SFT后的参考模型。</p>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 9 · Lesson 09: <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/09-reward-modeling-rlhf">Reward Modeling &amp; RLHF</a>
+预计时长：~45 min</p>
+<p>💡 <strong>学习建议</strong>：传统RL的概念较多，对于AI商业分析师而言，重点理解三件事即可：(1) MDP的形式化框架--它是RLHF的理论基础；(2) PPO的核心思想--截断目标函数防止策略崩溃，这是RLHF直接使用的算法；(3) Actor-Critic架构--RLHF中LLM是Actor，值函数网络是Critic。其他细节（如Q-learning的具体实现）可以在需要时再深入。</p>
+</blockquote>
+<h4 id="llm">四、LLM训练三阶段</h4>
+<p>LLM的训练不是一步到位的，而是经历三个阶段，每个阶段有不同的目标和数据。</p>
+<p><strong>阶段1：Pre-training（预训练）</strong></p>
+<p>预训练是LLM能力的根基。在这个阶段，模型在海量文本数据（通常数万亿Token）上训练"预测下一个Token"任务。</p>
+<div class="highlight"><pre><span></span><code>输入：The cat sat on the
+目标：mat
+</code></pre></div>
+
+<p>预训练的关键特征：
+- <strong>数据</strong>：互联网爬取的网页、书籍、论文、代码等（Common Crawl、Wikipedia、GitHub等）
+- <strong>规模</strong>：数千亿到数万亿Token，数百亿到数千亿参数
+- <strong>成本</strong>：极其昂贵（GPT-4预训练估计成本超过1亿美元）
+- <strong>产出</strong>：一个具有语言理解、世界知识、基础推理能力的Base Model</p>
+<p>预训练后，模型已经"知道"了很多东西，但它还不会"对话"--给它一个问题，它可能继续补全问题而非回答。这就是为什么需要下一阶段。</p>
+<p><strong>阶段2：Supervised Fine-Tuning（SFT，监督微调）</strong></p>
+<p>SFT让模型学会"遵循指令"。在预训练模型的基础上，用高质量的"指令-回答"对来微调。</p>
+<div class="highlight"><pre><span></span><code>输入（指令）：请解释什么是营销归因。
+输出（回答）：营销归因是指...
+</code></pre></div>
+
+<p>SFT的关键特征：
+- <strong>数据</strong>：人工编写或筛选的高质量指令-回答对（数万到数十万条）
+- <strong>规模</strong>：比预训练小得多
+- <strong>成本</strong>：远低于预训练
+- <strong>产出</strong>：一个能遵循指令、进行对话的Chat Model</p>
+<p><strong>阶段3：Alignment（对齐）</strong></p>
+<p>对齐让模型的回答更符合人类价值观和偏好。即使SFT后的模型能回答问题，它的回答可能不准确、有害或不符合用户期望。对齐阶段通过人类反馈来"矫正"模型行为。</p>
+<p>主流对齐方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>全称</th>
+<th>核心思想</th>
+<th>代表应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RLHF</strong></td>
+<td>Reinforcement Learning from Human Feedback</td>
+<td>训练奖励模型，用RL优化模型输出</td>
+<td>GPT-3.5/4</td>
+</tr>
+<tr>
+<td><strong>DPO</strong></td>
+<td>Direct Preference Optimization</td>
+<td>直接从偏好对优化模型，不需要奖励模型</td>
+<td>Llama 3, Zephyr</td>
+</tr>
+<tr>
+<td><strong>RLAIF</strong></td>
+<td>Reinforcement Learning from AI Feedback</td>
+<td>用AI代替人类提供反馈</td>
+<td>Constitutional AI (Anthropic)</td>
+</tr>
+<tr>
+<td><strong>Constitutional AI</strong></td>
+<td>-</td>
+<td>让模型根据"宪法"原则自我批评和改进</td>
+<td>Claude</td>
+</tr>
+</tbody>
+</table>
+<p>RLHF的三步流程：
+1. 训练Reward Model：人类标注员对模型输出的多个版本进行排序，训练一个能预测人类偏好的Reward Model
+2. 强化学习优化：用PPO算法优化LLM，使其输出最大化Reward Model的分数
+3. 迭代：重复以上过程</p>
+<p>DPO是2023年出现的简化方案，它绕过了Reward Model训练和RL优化，直接从偏好数据对中优化LLM。DPO更简单、更稳定，在开源社区中比RLHF更受欢迎。</p>
+<blockquote>
+<p>💡 <strong>实践意义</strong>：理解训练三阶段有助于理解LLM的行为特征。预训练决定了模型的"知识上限"，SFT决定了模型的"交互风格"，对齐决定了模型的"安全边界"。当模型在某个任务上表现不好时，需要判断是知识不足（需要RAG或Fine-tuning）、还是交互风格不对（需要更好的Prompt）、还是安全限制过严（需要调整系统Prompt或换模型）。</p>
+</blockquote>
+<h4 id="tokenizationllm">五、Tokenization：LLM看到的不是"词"</h4>
+<p>LLM处理的不是人类理解的"词"，而是Token。Tokenization是将文本切分为Token的过程。</p>
+<div class="highlight"><pre><span></span><code>文本：Marketing analytics is important
+Token化：[Marketing] [ analytics] [ is] [ important]
+Token ID：[48329] [ 91284] [ 318] [ 1292]
+</code></pre></div>
+
+<p>主流Tokenization方法是BPE（Byte Pair Encoding），它根据频率将文本切分为子词单元。高频词是一个完整的Token，低频词被拆分为多个子词Token。</p>
+<p><strong>Tokenization的实践影响</strong>：</p>
+<ol>
+<li><strong>成本计算</strong>：LLM API按Token计费，不是按词或字符。英文约1 Token ≈ 0.75个单词，中文约1个汉字 ≈ 1-2个Token。</li>
+<li><strong>Context Window</strong>：Context Window以Token为单位。128K Context Window约能容纳10万英文单词或6-8万中文字。</li>
+<li><strong>多语言差异</strong>：同一个意思，中文比英文消耗更多Token，这直接影响成本和响应速度。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tokenization示例</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span>
+
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
+<span class="c1"># GPT-2的tokenizer（注意GPT-2对中文支持不好）</span>
+
+<span class="n">text_en</span> <span class="o">=</span> <span class="s2">&quot;Marketing analytics is important&quot;</span>
+<span class="n">text_zh</span> <span class="o">=</span> <span class="s2">&quot;营销分析很重要&quot;</span>
+
+<span class="n">tokens_en</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text_en</span><span class="p">)</span>
+<span class="n">tokens_zh</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text_zh</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;英文: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens_en</span><span class="p">)</span><span class="si">}</span><span class="s2"> tokens -&gt; </span><span class="si">{</span><span class="n">tokens_en</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;中文: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens_zh</span><span class="p">)</span><span class="si">}</span><span class="s2"> tokens -&gt; </span><span class="si">{</span><span class="n">tokens_zh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 中文往往被拆成更多Token，因为BPE主要在英文数据上训练</span>
+
+<span class="c1"># 使用支持多语言的tokenizer</span>
+<span class="n">tokenizer_multi</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;meta-llama/Llama-2-7b&quot;</span><span class="p">)</span>
+<span class="c1"># Llama系列的tokenizer对中文支持更好</span>
+</code></pre></div>
+
+<hr />
+<h3 id="day-2llm">Day 2：LLM应用工程</h3>
+<blockquote>
+<p>🌐 <strong>英语轨道（i+1）</strong>：读HuggingFace的RAG教程（https://huggingface.co/learn/nlp-course）和Anthropic的Prompt Engineering文档（https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview）。这些是LLM应用工程的实践指南，用简洁的英文写成。</p>
+</blockquote>
+<h4 id="llm_1">一、LLM应用的四种模式</h4>
+<p>构建LLM应用有四种核心模式，它们不是互斥的，而是可以根据场景组合使用。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>核心思想</th>
+<th>适用场景</th>
+<th>成本</th>
+<th>灵活性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prompt Engineering</strong></td>
+<td>通过设计Prompt引导LLM行为</td>
+<td>快速原型、简单任务</td>
+<td>极低</td>
+<td>极高</td>
+</tr>
+<tr>
+<td><strong>RAG</strong></td>
+<td>检索外部知识增强LLM</td>
+<td>知识密集型问答</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>Fine-tuning</strong></td>
+<td>用领域数据微调LLM</td>
+<td>特定领域、风格统一</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>Function Calling</strong></td>
+<td>让LLM调用外部工具</td>
+<td>需要与外部系统交互</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>决策框架</strong>：</p>
+<div class="highlight"><pre><span></span><code>问题是否需要最新知识或私有知识？
+├── 是 -&gt; 用 RAG
+│   └── 还需要特定输出格式/风格？
+│       └── 是 -&gt; RAG + Fine-tuning
+└── 否 -&gt; 用 Prompt Engineering
+    └── 需要调用外部工具/API？
+        ├── 是 -&gt; Function Calling
+        └── 否 -&gt; 纯Prompt Engineering
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>关键原则</strong>：先尝试Prompt Engineering，不够再上RAG，还不够才考虑Fine-tuning。Fine-tuning应该是最后手段，因为它成本高、灵活性低、且可能"遗忘"预训练知识（灾难性遗忘）。</p>
+</blockquote>
+<h4 id="prompt-engineering">二、Prompt Engineering进阶</h4>
+<p>Prompt Engineering不是"写一句话"，而是一套系统化的Prompt设计方法论。</p>
+<p><strong>Prompt的层次结构</strong>：</p>
+<div class="highlight"><pre><span></span><code>System Prompt（系统提示）
+├── 角色定义：你是一个营销分析专家...
+├── 行为约束：只基于提供的数据回答，不要编造...
+├── 输出格式：以JSON格式返回，包含以下字段...
+└── 示例（Few-shot）：输入-&gt;输出示例
+
+User Prompt（用户提示）
+└── 具体任务和上下文
+</code></pre></div>
+
+<p><strong>五种核心Prompt技术</strong>：</p>
+<ol>
+<li><strong>Zero-shot</strong>：直接给任务描述，不提供示例。适用于LLM已有能力的任务。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>请将以下营销文案翻译成英文：[文案]
+</code></pre></div>
+
+<ol start="2">
+<li><strong>Few-shot</strong>：提供少量示例，引导LLM的输出模式。适用于需要特定格式或风格的任务。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>示例1：
+输入：这款手机续航很强
+输出：{&quot;sentiment&quot;: &quot;positive&quot;, &quot;aspect&quot;: &quot;battery&quot;}
+
+示例2：
+输入：屏幕太暗了
+输出：{&quot;sentiment&quot;: &quot;negative&quot;, &quot;aspect&quot;: &quot;screen&quot;}
+
+现在请分析：
+输入：[用户输入]
+输出：
+</code></pre></div>
+
+<ol start="3">
+<li><strong>Chain-of-Thought (CoT)</strong>：要求LLM展示推理过程，提升复杂推理任务的准确性。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>问题：某品牌上月投放了10万元广告，获得500个线索，转化率为20%，
+客单价为2000元。请计算ROAS。
+
+请一步一步思考：
+Step 1: 计算转化客户数 = 500 × 20% = 100人
+Step 2: 计算总收入 = 100 × 2000 = 20万元
+Step 3: 计算ROAS = 20万 / 10万 = 2.0
+</code></pre></div>
+
+<ol start="4">
+<li>
+<p><strong>Self-Consistency</strong>：让LLM对同一问题生成多个回答，取多数结果。减少随机性影响。</p>
+</li>
+<li>
+<p><strong>Structured Output</strong>：要求LLM输出结构化格式（JSON/XML），便于程序解析。</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 结构化输出示例</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">分析以下营销文案的情感和关键要素，以JSON格式返回：</span>
+
+<span class="s2">文案：</span><span class="si">{content}</span><span class="s2"></span>
+
+<span class="s2">返回格式：</span>
+<span class="s2">{{</span>
+<span class="s2">    &quot;sentiment&quot;: &quot;positive/negative/neutral&quot;,</span>
+<span class="s2">    &quot;key_elements&quot;: [&quot;要素1&quot;, &quot;要素2&quot;, ...],</span>
+<span class="s2">    &quot;target_audience&quot;: &quot;目标受众描述&quot;,</span>
+<span class="s2">    &quot;call_to_action&quot;: &quot;CTA描述或null&quot;,</span>
+<span class="s2">    &quot;confidence&quot;: 0.0-1.0</span>
+<span class="s2">}}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<h4 id="rag">三、RAG系统详解</h4>
+<p>RAG（Retrieval-Augmented Generation）是LLM应用工程中最核心的技术。它解决了一个根本问题：<strong>LLM的知识是静态的（训练数据截止日期），且无法访问企业私有数据。</strong></p>
+<p><strong>RAG的工作流程</strong>：</p>
+<div class="highlight"><pre><span></span><code>用户提问
+    |
+    v
+[Query处理] -&gt; 将问题转化为检索query
+    |
+    v
+[检索] -&gt; 从向量数据库中检索相关文档
+    |
+    v
+[重排序] -&gt; 对检索结果按相关性重排序
+    |
+    v
+[生成] -&gt; 将检索到的文档和问题一起送入LLM生成回答
+    |
+    v
+回答
+</code></pre></div>
+
+<p><strong>RAG系统的完整实现</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">RetrievalQA</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+
+<span class="k">class</span> <span class="nc">MarketingKnowledgeRAG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;企业营销知识库RAG系统&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">openai_api_key</span><span class="p">):</span>
+        <span class="c1"># 初始化组件</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;text-embedding-3-small&quot;</span><span class="p">,</span>
+            <span class="n">openai_api_key</span><span class="o">=</span><span class="n">openai_api_key</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># RAG场景用低temperature保证准确性</span>
+            <span class="n">openai_api_key</span><span class="o">=</span><span class="n">openai_api_key</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vectorstore</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qa_chain</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">ingest_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;文档摄入和处理&quot;&quot;&quot;</span>
+        <span class="c1"># Step 1: 文档分块（Chunking）</span>
+        <span class="c1"># 分块策略对RAG质量影响极大</span>
+        <span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+            <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>        <span class="c1"># 每块约500字符</span>
+            <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>      <span class="c1"># 块间重叠50字符（保证上下文连续性）</span>
+            <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;。&quot;</span><span class="p">,</span> <span class="s2">&quot;！&quot;</span><span class="p">,</span> <span class="s2">&quot;？&quot;</span><span class="p">,</span> <span class="s2">&quot;，&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+            <span class="c1"># 中文友好的分隔符</span>
+        <span class="p">)</span>
+        <span class="n">chunks</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+        <span class="c1"># Step 2: 向量化并存储</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+            <span class="n">documents</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+            <span class="n">embedding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="p">,</span>
+            <span class="n">persist_directory</span><span class="o">=</span><span class="s2">&quot;./chroma_db&quot;</span>  <span class="c1"># 持久化存储</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Step 3: 构建QA链</span>
+        <span class="c1"># 自定义Prompt模板</span>
+        <span class="n">prompt_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        你是一个营销知识助手。请基于以下检索到的上下文回答问题。</span>
+<span class="s2">        如果上下文中没有相关信息，请明确说&quot;根据现有资料，我无法回答这个问题&quot;。</span>
+<span class="s2">        不要编造信息。</span>
+
+<span class="s2">        上下文：</span>
+<span class="s2">        </span><span class="si">{context}</span><span class="s2"></span>
+
+<span class="s2">        问题：</span><span class="si">{question}</span><span class="s2"></span>
+
+<span class="s2">        回答（请引用上下文中的具体内容）：</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="p">(</span>
+            <span class="n">template</span><span class="o">=</span><span class="n">prompt_template</span><span class="p">,</span>
+            <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">,</span> <span class="s2">&quot;question&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">qa_chain</span> <span class="o">=</span> <span class="n">RetrievalQA</span><span class="o">.</span><span class="n">from_chain_type</span><span class="p">(</span>
+            <span class="n">llm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="p">,</span>
+            <span class="n">chain_type</span><span class="o">=</span><span class="s2">&quot;stuff&quot;</span><span class="p">,</span>  <span class="c1"># 将所有检索结果&quot;塞入&quot;Prompt</span>
+            <span class="n">retriever</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span>
+                <span class="n">search_type</span><span class="o">=</span><span class="s2">&quot;similarity&quot;</span><span class="p">,</span>
+                <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>  <span class="c1"># 检索top-5相关文档</span>
+            <span class="p">),</span>
+            <span class="n">chain_type_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">},</span>
+            <span class="n">return_source_documents</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># 返回来源文档（可溯源）</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">ask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;提问&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qa_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span>
+                    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;source_documents&quot;</span><span class="p">]</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+
+<span class="c1"># 使用示例</span>
+<span class="n">rag</span> <span class="o">=</span> <span class="n">MarketingKnowledgeRAG</span><span class="p">(</span><span class="n">openai_api_key</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># 摄入营销知识文档</span>
+<span class="kn">from</span> <span class="nn">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">DirectoryLoader</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">DirectoryLoader</span><span class="p">(</span><span class="s2">&quot;./marketing_docs&quot;</span><span class="p">,</span> <span class="n">glob</span><span class="o">=</span><span class="s2">&quot;**/*.md&quot;</span><span class="p">)</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">rag</span><span class="o">.</span><span class="n">ingest_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="c1"># 提问</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rag</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;我们品牌在2025年Q4的社媒投放策略是什么？&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;回答: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;来源: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>RAG质量优化的关键维度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>问题</th>
+<th>优化方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分块策略</strong></td>
+<td>块太大：检索不精确；太小：丢失上下文</td>
+<td>语义分块（按段落/主题分），重叠窗口</td>
+</tr>
+<tr>
+<td><strong>Embedding模型</strong></td>
+<td>通用embedding对垂直领域效果差</td>
+<td>领域微调embedding或选择多语言embedding</td>
+</tr>
+<tr>
+<td><strong>检索策略</strong></td>
+<td>纯向量检索可能遗漏关键词匹配</td>
+<td>混合检索：向量检索 + BM25关键词检索</td>
+</tr>
+<tr>
+<td><strong>重排序</strong></td>
+<td>检索top-k中相关度排序不准</td>
+<td>Cross-encoder重排序模型</td>
+</tr>
+<tr>
+<td><strong>Prompt设计</strong></td>
+<td>LLM可能忽略检索结果或编造信息</td>
+<td>强约束Prompt + Few-shot引导</td>
+</tr>
+<tr>
+<td><strong>评估</strong></td>
+<td>难以量化RAG质量</td>
+<td>RAGAS框架：检索准确率+生成准确率+忠实度</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>工程实践</strong>：RAG不是"搭起来就行"的。一个可用的RAG系统需要持续的评估和优化。最常见的RAG质量问题是：检索不到相关文档（检索召回率低）、检索到了但LLM没用（生成忠实度低）、LLM编造了检索结果中没有的信息（幻觉）。每个问题都有对应的优化手段，但首先需要能度量这些问题。</p>
+</blockquote>
+<h4 id="fine-tuning">四、Fine-tuning：何时用，怎么用</h4>
+<p>Fine-tuning是用领域数据进一步训练LLM，使其在特定任务上表现更好。</p>
+<p><strong>Fine-tuning的三种方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>数据需求</th>
+<th>计算成本</th>
+<th>效果</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full Fine-tuning</strong></td>
+<td>大量标注数据</td>
+<td>极高</td>
+<td>最好，但有过拟合风险</td>
+<td>大企业、有GPU集群</td>
+</tr>
+<tr>
+<td><strong>LoRA（Low-Rank Adaptation）</strong></td>
+<td>中等数据</td>
+<td>中低</td>
+<td>接近Full FT</td>
+<td>最流行的PEFT方法</td>
+</tr>
+<tr>
+<td><strong>QLoRA</strong></td>
+<td>中等数据</td>
+<td>低</td>
+<td>略低于LoRA</td>
+<td>消费级GPU可用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LoRA的原理</strong>（直觉理解）：不全量更新模型的所有参数，而是冻结原始模型，只训练一个小的"低秩适配器"。这个适配器只有原始参数量的0.1%-1%，但能达到接近Full Fine-tuning的效果。</p>
+<p><strong>什么时候需要Fine-tuning？</strong></p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th style="text-align: center;">需要Fine-tuning吗？</th>
+<th>替代方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需要最新知识</td>
+<td style="text-align: center;">❌</td>
+<td>RAG</td>
+</tr>
+<tr>
+<td>需要私有数据</td>
+<td style="text-align: center;">❌</td>
+<td>RAG</td>
+</tr>
+<tr>
+<td>需要特定输出格式</td>
+<td style="text-align: center;">❌</td>
+<td>Prompt Engineering</td>
+</tr>
+<tr>
+<td>需要特定写作风格</td>
+<td style="text-align: center;">✅</td>
+<td>Few-shot可能够用</td>
+</tr>
+<tr>
+<td>需要特定领域推理能力</td>
+<td style="text-align: center;">✅</td>
+<td>大模型+Prompt可能够用</td>
+</tr>
+<tr>
+<td>需要降低成本（用小模型替代大模型）</td>
+<td style="text-align: center;">✅</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># LoRA Fine-tuning示例（使用HuggingFace PEFT）</span>
+<span class="kn">from</span> <span class="nn">peft</span> <span class="kn">import</span> <span class="n">LoraConfig</span><span class="p">,</span> <span class="n">get_peft_model</span><span class="p">,</span> <span class="n">TaskType</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">TrainingArguments</span>
+<span class="kn">from</span> <span class="nn">trl</span> <span class="kn">import</span> <span class="n">SFTTrainer</span>
+
+<span class="c1"># 加载基础模型</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="s2">&quot;meta-llama/Llama-2-7b-chat&quot;</span><span class="p">,</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 4-bit量化，降低显存需求</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># 配置LoRA</span>
+<span class="n">lora_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="n">TaskType</span><span class="o">.</span><span class="n">CAUSAL_LM</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>              <span class="c1"># LoRA秩（常用4-16）</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>    <span class="c1"># 缩放因子</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;q_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;v_proj&quot;</span><span class="p">]</span>  <span class="c1"># 只对Attention的Q和V做LoRA</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lora_config</span><span class="p">)</span>
+
+<span class="c1"># 准备训练数据（指令-回答对）</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;instruction&quot;</span><span class="p">:</span> <span class="s2">&quot;分析这款产品的目标用户&quot;</span><span class="p">,</span> <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="s2">&quot;产品描述...&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="s2">&quot;分析结果...&quot;</span><span class="p">},</span>
+    <span class="c1"># ... 更多营销领域数据</span>
+<span class="p">]</span>
+
+<span class="c1"># 训练</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">SFTTrainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">TrainingArguments</span><span class="p">(</span>
+        <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./lora_marketing&quot;</span><span class="p">,</span>
+        <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span>
+        <span class="n">save_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">peft_config</span><span class="o">=</span><span class="n">lora_config</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="c1"># 保存LoRA适配器（只有几十MB，而非基础模型的几十GB）</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="s2">&quot;./lora_marketing_adapter&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>成本对比</strong>：Fine-tuning一个7B模型用LoRA，单GPU（A100 80G）约需4-8小时，成本约50-100美元。而使用GPT-4 API做同样任务的推理成本可能在每次调用0.01-0.06美元。如果任务量大（如每天10万次调用），Fine-tuning小模型可能更经济。但如果任务量小，直接用API更划算。</p>
+</blockquote>
+<h4 id="function-callingllm">五、Function Calling：LLM与外部世界的桥梁</h4>
+<p>Function Calling让LLM能调用外部工具（API、数据库、计算器等），是Agent系统的基础能力。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Function Calling完整示例</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># 定义可用工具</span>
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_marketing_metrics&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;获取指定渠道的营销指标数据&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;social&quot;</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;display&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;营销渠道名称&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;date_range&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;日期范围，格式：YYYY-MM-DD到YYYY-MM-DD&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;要查询的指标列表，如impressions, clicks, conversions&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;date_range&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calculate_roas&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;计算ROAS（广告支出回报率）&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;revenue&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;总收入&quot;</span><span class="p">},</span>
+                    <span class="s2">&quot;spend&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;总广告支出&quot;</span><span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;revenue&quot;</span><span class="p">,</span> <span class="s2">&quot;spend&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># 工具实现</span>
+<span class="k">def</span> <span class="nf">execute_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;执行工具调用&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tool_name</span> <span class="o">==</span> <span class="s2">&quot;get_marketing_metrics&quot;</span><span class="p">:</span>
+        <span class="c1"># 实际场景中查询数据库或API</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;channel&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;impressions&quot;</span><span class="p">:</span> <span class="mi">1500000</span><span class="p">,</span>
+            <span class="s2">&quot;clicks&quot;</span><span class="p">:</span> <span class="mi">45000</span><span class="p">,</span>
+            <span class="s2">&quot;conversions&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+            <span class="s2">&quot;spend&quot;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">,</span>
+            <span class="s2">&quot;revenue&quot;</span><span class="p">:</span> <span class="mi">120000</span>
+        <span class="p">})</span>
+    <span class="k">elif</span> <span class="n">tool_name</span> <span class="o">==</span> <span class="s2">&quot;calculate_roas&quot;</span><span class="p">:</span>
+        <span class="n">roas</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;revenue&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;spend&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;roas&quot;</span><span class="p">:</span> <span class="n">roas</span><span class="p">})</span>
+
+<span class="c1"># 对话循环</span>
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;你是一个营销数据分析助手。你可以查询营销数据并进行分析。&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;帮我查看搜索广告渠道上个月的营销数据，并计算ROAS。&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># Step 1: LLM决定调用什么工具</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+    <span class="n">tool_choice</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Step 2: 执行工具调用</span>
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">tool_call</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+        <span class="n">function_name</span> <span class="o">=</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
+
+        <span class="c1"># 执行工具</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">execute_tool</span><span class="p">(</span><span class="n">function_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+
+        <span class="c1"># 将结果返回给LLM</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">result</span>
+        <span class="p">})</span>
+
+    <span class="c1"># Step 3: LLM基于工具结果生成最终回答</span>
+    <span class="n">final_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+        <span class="n">tools</span><span class="o">=</span><span class="n">tools</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">final_response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="c1"># 输出类似：&quot;搜索广告渠道上月的数据如下：</span>
+    <span class="c1"># 曝光量150万，点击量4.5万，转化量1200，广告支出5万元，收入12万元。</span>
+    <span class="c1"># ROAS为2.4，表现良好。&quot;</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>Function Calling vs RAG的协作</strong>：Function Calling和RAG不是竞争关系，而是互补。RAG适合"检索知识"（文档、FAQ、案例），Function Calling适合"执行操作"（查询数据库、调用API、发送邮件）。在实际Agent系统中，两者经常同时使用：RAG提供知识背景，Function Calling提供操作能力。</p>
+</blockquote>
+<h4 id="_6">六、推理模型与思维链范式</h4>
+<blockquote>
+<p>🌐 <strong>2026前沿补丁</strong>：本节覆盖2022-2026年间LLM推理能力研究的最重要进展。从Chain-of-Thought到OpenAI o1/o3和DeepSeek-R1，LLM正在从"快思考"（System 1）进化出"慢思考"（System 2）能力。对于售前解决方案产品经理，理解推理模型意味着能在复杂决策分析、多步营销策略规划等高价值场景中提供差异化方案。</p>
+</blockquote>
+<p><strong>1. Chain-of-Thought (CoT)：思维链提示</strong></p>
+<p>Wei et al. (2022) 发现，在Prompt中加入"Let's think step by step"（让我们一步一步思考），能显著提升LLM在数学推理、逻辑推断等复杂任务上的表现。这就是Chain-of-Thought（CoT）的起源。</p>
+<p>CoT的核心思想是：<strong>让LLM显式地展示中间推理步骤，而非直接输出答案</strong>。这类似于人类解决复杂问题时"打草稿"的过程--逐步推理比直接猜答案更准确。</p>
+<p>CoT的两种基本形式：</p>
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th>做法</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Few-shot CoT</strong></td>
+<td>在Prompt中提供带推理过程的示例（输入-&gt;推理步骤-&gt;答案）</td>
+<td>需要特定推理格式的任务</td>
+</tr>
+<tr>
+<td><strong>Zero-shot CoT</strong></td>
+<td>直接在Prompt末尾加"Let's think step by step"</td>
+<td>通用推理增强，无需构造示例</td>
+</tr>
+</tbody>
+</table>
+<p>CoT为什么有效？直觉解释：LLM的推理能力受限于输出长度。直接输出答案时，模型只有"一个Token的距离"来处理复杂推理；而CoT将推理过程展开为多个Token，给模型更多"计算空间"来逐步推导。这本质上是一种<strong>计算资源的重新分配</strong>--用更多的输出Token换取更准确的推理。</p>
+<p><strong>2. Tree-of-Thoughts (ToT)：树搜索式推理</strong></p>
+<p>Yao et al. (2023) 提出Tree-of-Thoughts，将CoT的线性推理扩展为树形搜索。ToT的核心思想是：</p>
+<ul>
+<li>在每个推理步骤生成多个候选"思维分支"（Thought）</li>
+<li>用评估函数（Evaluator）对每个分支打分</li>
+<li>通过BFS（广度优先）或DFS（深度优先）搜索最优推理路径</li>
+<li>支持回溯--当某条路径走入死胡同时可以退回尝试其他路径</li>
+</ul>
+<p>ToT适用于需要<strong>规划和搜索</strong>的任务，如24点游戏、创意写作、多步决策。其代价是推理成本大幅增加（需要多次LLM调用进行分支生成和评估）。</p>
+<p><strong>3. Graph-of-Thoughts (GoT)：图结构推理</strong></p>
+<p>Besta et al. (2023) 进一步将ToT的树结构推广为图结构。GoT的核心创新是支持<strong>思维合并</strong>（Merge）和<strong>思维回溯</strong>（Backtrack）：</p>
+<ul>
+<li><strong>合并</strong>：将多条推理路径的中间结果合并为一个更全面的结论</li>
+<li><strong>回溯</strong>：从任意节点回退到之前的某个推理状态</li>
+<li><strong>循环</strong>：允许推理过程在节点间形成环路，支持迭代精化</li>
+</ul>
+<p>GoT比ToT更灵活，适用于需要综合多维度信息的复杂推理任务（如多源数据综合分析、复杂因果推断）。</p>
+<p><strong>4. Self-Consistency：多路径采样投票</strong></p>
+<p>Wang et al. (2022) 提出Self-Consistency，一种简单而有效的推理增强方法：</p>
+<ol>
+<li>对同一问题用CoT生成多个推理路径（通过设置较高temperature增加多样性）</li>
+<li>从每个推理路径提取最终答案</li>
+<li>对所有答案进行多数投票（Majority Vote），选择出现次数最多的答案</li>
+</ol>
+<p>Self-Consistency的核心直觉是：<strong>正确的推理路径可能不同，但它们倾向于得到相同的正确答案；而错误路径的答案则更加分散</strong>。通过投票可以过滤掉偶发错误，提升推理鲁棒性。代价是需要多次推理（通常5-40次），适用于对准确性要求高但对延迟不敏感的场景。</p>
+<p><strong>5. OpenAI o1/o3：隐式CoT与test-time compute scaling</strong></p>
+<p>2024年9月，OpenAI发布o1模型（后续推出o3系列），标志着LLM推理进入新阶段。o1的核心突破是<strong>通过强化学习（RL）让模型隐式学会思维链</strong>，而非依赖显式的Prompt引导。</p>
+<p><strong>Test-time compute scaling law</strong>：传统LLM的能力主要由训练时的计算量（train-time compute）决定。o1引入了一个新的维度--<strong>推理时的计算量（test-time compute）</strong>。o1在推理时生成大量的"内部思考Token"（reasoning tokens），这些Token对用户不可见，但模型通过它们进行深度推理。推理Token越多，推理质量越高--这就是test-time compute scaling law。</p>
+<p><strong>隐式CoT</strong>：o1不要求用户在Prompt中写"Let's think step by step"，模型在训练阶段已经通过RL学会了何时、如何进行多步推理。训练方法的核心是：对正确的推理过程给予正奖励，对错误的推理过程给予负奖励，模型逐渐学会生成高质量的推理链。</p>
+<p><strong>推理Token的经济学</strong>：o1的推理Token消耗远超普通LLM（可能生成数千个推理Token才输出一个答案），这意味着更高的API成本和更长的响应延迟。使用o1时需要在推理质量和成本之间做权衡--简单任务用普通模型，复杂推理任务才用o1。</p>
+<p><strong>6. DeepSeek-R1：RL驱动的推理能力涌现</strong></p>
+<p>DeepSeek-R1（2025年1月发布）是开源推理模型的里程碑。它证明了<strong>纯强化学习（不依赖人类标注的推理数据）也能让LLM涌现出强大的推理能力</strong>。</p>
+<p>DeepSeek-R1的关键技术：</p>
+<ul>
+<li><strong>GRPO（Group Relative Policy Optimization）算法</strong>：PPO的简化变体，不需要独立的Critic网络，而是用组内相对奖励来估计优势函数。这大幅降低了RL训练的显存需求和工程复杂度。</li>
+<li><strong>推理能力涌现</strong>：在RL训练过程中，模型自发地学会了反思（self-reflection）、验证（verification）、探索多种解法等高级推理策略，这些行为并未在训练数据中显式标注。</li>
+<li><strong>完全开源</strong>：DeepSeek-R1的模型权重和训练方法完全开源，使开源社区也能获得o1级别的推理能力。</li>
+</ul>
+<p><strong>7. 推理模型 vs 传统LLM：快思考与慢思考</strong></p>
+<p>借用Kahneman的"快与慢"框架，可以将LLM分为两类：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统LLM（GPT-4o等）</th>
+<th>推理模型（o1/o3/DeepSeek-R1）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>思考模式</strong></td>
+<td>System 1：快思考，直觉式响应</td>
+<td>System 2：慢思考，深度推理</td>
+</tr>
+<tr>
+<td><strong>响应速度</strong></td>
+<td>快（数百毫秒到几秒）</td>
+<td>慢（几秒到几十秒）</td>
+</tr>
+<tr>
+<td><strong>Token消耗</strong></td>
+<td>输入+输出Token</td>
+<td>输入+推理Token+输出Token</td>
+</tr>
+<tr>
+<td><strong>适用任务</strong></td>
+<td>分类、摘要、翻译、对话</td>
+<td>数学证明、代码调试、复杂决策</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>低</td>
+<td>高（推理Token额外计费）</td>
+</tr>
+<tr>
+<td><strong>可控性</strong></td>
+<td>用户可见全部输出</td>
+<td>推理过程不可见，只看最终答案</td>
+</tr>
+</tbody>
+</table>
+<p><strong>推理模型的商业应用场景</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>传统LLM的局限</th>
+<th>推理模型的价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>复杂决策分析</strong></td>
+<td>多因素权衡时容易遗漏关键变量</td>
+<td>逐步推理每个因素，系统化权衡</td>
+</tr>
+<tr>
+<td><strong>多步营销策略规划</strong></td>
+<td>规划缺乏深度，常给出泛化建议</td>
+<td>模拟市场反应链，推导策略影响路径</td>
+</tr>
+<tr>
+<td><strong>因果推理任务</strong></td>
+<td>混淆相关与因果</td>
+<td>显式构建因果图，逐步排除混淆变量</td>
+</tr>
+<tr>
+<td><strong>ROI归因分析</strong></td>
+<td>直接给数字缺乏推理过程</td>
+<td>展示归因推导链，支持审计和验证</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：当客户的需求涉及"分析""规划""推理""诊断"等关键词时，推荐使用推理模型而非传统LLM。例如，"分析为什么Q3华东区ROI下降"这样的因果诊断问题，推理模型能展示完整的推理链（数据异常检测-&gt;假设生成-&gt;验证-&gt;结论），比传统LLM直接给出答案更有说服力，也更容易被客户审计团队接受。</p>
+</blockquote>
+<p><strong>8. Python实战：用LangChain实现CoT提示模板</strong></p>
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CoT推理对比实验：直接Prompt vs CoT Prompt在营销决策任务上的效果</span>
+<span class="sd">依赖: pip install langchain langchain-openai</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">SystemMessage</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c1"># 初始化LLM</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">openai_api_key</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># === 营销决策任务 ===</span>
+<span class="n">marketing_problem</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">某DTC美妆品牌月度数据如下：</span>
+<span class="s2">- 广告投放：小红书8万元（获客2000人），抖音12万元（获客3500人）</span>
+<span class="s2">- 转化率：小红书获客转化率15%，抖音获客转化率10%</span>
+<span class="s2">- 客单价：小红书用户280元，抖音用户220元</span>
+<span class="s2">- 复购率：小红书用户35%，抖音用户20%</span>
+
+<span class="s2">问题：下月预算30万元，应如何分配两个渠道的预算以最大化ROAS？</span>
+<span class="s2">请给出具体的预算分配方案和预期ROAS计算。</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># === 方案1：直接Prompt（无CoT）===</span>
+<span class="n">direct_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;你是一个营销分析专家。请基于数据给出分析和建议。&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{problem}</span><span class="se">\n\n</span><span class="s2">请直接给出你的分析和建议。&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># === 方案2：Few-shot CoT Prompt ===</span>
+<span class="n">cot_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;你是一个营销分析专家。解决问题时请严格遵循以下步骤：</span>
+
+<span class="s2">## 示例</span>
+<span class="s2">问题：A渠道花费5万元获客1000人，转化率20%，客单价300元。B渠道花费3万元获客800人，转化率12%，宥单价200元。预算8万元如何分配？</span>
+
+<span class="s2">推理过程：</span>
+<span class="s2">Step 1 - 计算各渠道单位获客成本</span>
+<span class="s2">  A: 50000/1000 = 50元/人</span>
+<span class="s2">  B: 30000/800 = 37.5元/人</span>
+
+<span class="s2">Step 2 - 计算各渠道ROAS</span>
+<span class="s2">  A: (1000×20%×300) / 50000 = 60000/50000 = 1.2</span>
+<span class="s2">  B: (800×12%×200) / 30000 = 19200/30000 = 0.64</span>
+
+<span class="s2">Step 3 - 分析边际效益，A的ROAS更高，应优先分配预算</span>
+
+<span class="s2">Step 4 - 分配方案：A渠道8万元，B渠道0万元（A效率远高于B）</span>
+<span class="s2">  预期ROAS = (8万/5万)×1000人×20%×300元 / 8万 = 48000/80000 = 0.6</span>
+<span class="s2">  注意：边际递减效应，实际ROAS可能低于历史均值</span>
+
+<span class="s2">结论：全投A渠道，预期首单ROAS约0.6（考虑复购后LTV更高）</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{problem}</span><span class="se">\n\n</span><span class="s2">请按照上述步骤格式，一步一步推理后给出结论。&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># === 方案3：Self-Consistency（多路径采样+投票）===</span>
+<span class="k">def</span> <span class="nf">self_consistency_solve</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;多路径采样+多数投票&quot;&quot;&quot;</span>
+    <span class="n">sc_llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">openai_api_key</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span><span class="p">)</span>
+    <span class="n">sc_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;你是营销分析专家。请逐步推理后给出最终预算分配方案。&quot;</span>
+                   <span class="s2">&quot;在方案开头标注[方案X]，结尾给出&#39;最终ROAS: X.XX&#39;。&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{problem}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="n">answers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">sc_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">sc_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="n">problem</span><span class="p">))</span>
+        <span class="n">answers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="c1"># 提取每个方案的ROAS数值</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="n">roas_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ans</span> <span class="ow">in</span> <span class="n">answers</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;最终ROAS:\s*([\d.]+)&#39;</span><span class="p">,</span> <span class="n">ans</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">roas_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Self-Consistency采样</span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">次:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">roas</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">answers</span><span class="p">,</span> <span class="n">roas_values</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  方案</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: ROAS = </span><span class="si">{</span><span class="n">roas</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">roas_values</span><span class="p">:</span>
+        <span class="c1"># 取中位数作为最终结果（比均值更鲁棒）</span>
+        <span class="n">final_roas</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">roas_values</span><span class="p">)[</span><span class="nb">len</span><span class="p">(</span><span class="n">roas_values</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">最终ROAS（中位数）: </span><span class="si">{</span><span class="n">final_roas</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">answers</span>
+
+<span class="c1"># === 执行对比实验 ===</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;营销决策推理对比实验&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># 方案1：直接Prompt</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">【方案1：直接Prompt】&quot;</span><span class="p">)</span>
+<span class="n">direct_result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">direct_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="n">marketing_problem</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">direct_result</span><span class="o">.</span><span class="n">content</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
+
+<span class="c1"># 方案2：CoT Prompt</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">【方案2：Chain-of-Thought Prompt】&quot;</span><span class="p">)</span>
+<span class="n">cot_result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cot_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="n">marketing_problem</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cot_result</span><span class="o">.</span><span class="n">content</span><span class="p">[:</span><span class="mi">800</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
+
+<span class="c1"># 方案3：Self-Consistency</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">【方案3：Self-Consistency（5次采样）】&quot;</span><span class="p">)</span>
+<span class="n">sc_results</span> <span class="o">=</span> <span class="n">self_consistency_solve</span><span class="p">(</span><span class="n">marketing_problem</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># === 分析对比 ===</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对比分析&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">| 维度 | 直接Prompt | CoT Prompt | Self-Consistency |</span>
+<span class="s2">|------|-----------|------------|-----------------|</span>
+<span class="s2">| 推理深度 | 浅，容易遗漏步骤 | 深，显式展示每步 | 深+鲁棒，多路径验证 |</span>
+<span class="s2">| 成本 | 1次LLM调用 | 1次LLM调用 | N次LLM调用 |</span>
+<span class="s2">| 延迟 | 低 | 低（输出稍长） | 高（N倍延迟） |</span>
+<span class="s2">| 适用场景 | 简单分析 | 复杂推理 | 高准确性要求 |</span>
+
+<span class="s2">关键发现：</span>
+<span class="s2">- CoT让LLM的计算&quot;预算&quot;从1个答案扩展到完整推理链</span>
+<span class="s2">- Self-Consistency通过多样性采样过滤偶发错误</span>
+<span class="s2">- 推理模型(o1/R1)将CoT内化为模型能力，无需Prompt工程</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># === 使用推理模型的对比 ===</span>
+<span class="c1"># 如果有o1模型访问权限，可以直接对比：</span>
+<span class="c1"># reasoning_llm = ChatOpenAI(model=&quot;o1-preview&quot;, openai_api_key=&quot;your-key&quot;)</span>
+<span class="c1"># reasoning_result = reasoning_llm.invoke(marketing_problem)</span>
+<span class="c1"># 推理模型会自动进行深度推理，无需CoT prompt</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>实践建议</strong>：在日常营销分析中，对简单任务（文案生成、情感分类）使用传统LLM即可；对复杂推理任务（ROAS归因分析、预算分配优化、竞品策略推演），优先尝试CoT prompt或Self-Consistency。如果准确性要求极高且预算允许，使用o1/o3或DeepSeek-R1等推理模型。推理模型的关键价值不在于"更聪明"，而在于推理过程可审计--客户可以看到完整的推理链，而非黑箱答案。</p>
+</blockquote>
+<hr />
+<h3 id="day-3llm">Day 3：LLM评估与部署</h3>
+<blockquote>
+<p>🌐 <strong>英语轨道（i+1）</strong>：浏览HuggingFace Model Hub（https://huggingface.co/models）和Open LLM Leaderboard（https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard）。这些是LLM生态的核心入口。先浏览模型排名，理解评估基准的含义。</p>
+</blockquote>
+<h4 id="llm_2">一、LLM评估基准</h4>
+<p>LLM评估是当前AI工程中最具挑战性的问题之一。传统软件有明确的输入输出，可以精确测试。LLM的输出是非确定性的，同一输入可能产生不同输出，且"好坏"往往是主观的。</p>
+<p><strong>主流评估基准</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>基准</th>
+<th>评估维度</th>
+<th>测试方法</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MMLU</strong></td>
+<td>多领域知识</td>
+<td>多选题</td>
+<td>评估模型的知识广度</td>
+</tr>
+<tr>
+<td><strong>HumanEval</strong></td>
+<td>代码生成</td>
+<td>函数级编程题</td>
+<td>评估代码能力</td>
+</tr>
+<tr>
+<td><strong>GSM8K</strong></td>
+<td>数学推理</td>
+<td>小学数学应用题</td>
+<td>评估推理能力</td>
+</tr>
+<tr>
+<td><strong>MT-Bench</strong></td>
+<td>多轮对话</td>
+<td>人工+LLM评分</td>
+<td>评估对话质量</td>
+</tr>
+<tr>
+<td><strong>AlpacaEval</strong></td>
+<td>指令遵循</td>
+<td>LLM自动评分</td>
+<td>评估输出质量</td>
+</tr>
+<tr>
+<td><strong>LLM-as-Judge</strong></td>
+<td>通用</td>
+<td>用强LLM评判弱LLM输出</td>
+<td>快速自动评估</td>
+</tr>
+<tr>
+<td><strong>RAGAS</strong></td>
+<td>RAG系统</td>
+<td>检索准确率+生成忠实度</td>
+<td>RAG专用评估</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评估的三层框架</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">层次</th>
+<th>评估对象</th>
+<th>方法</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>通用能力</strong></td>
+<td>模型基础能力</td>
+<td>MMLU、HumanEval等标准基准</td>
+<td>模型选型初筛</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>任务能力</strong></td>
+<td>特定任务表现</td>
+<td>自建评测集 + 人工/LLM评分</td>
+<td>确认模型适合具体任务</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>系统效果</strong></td>
+<td>端到端应用效果</td>
+<td>A/B测试 + 用户反馈</td>
+<td>验证业务价值</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>实践建议</strong>：标准基准（MMLU等）用于模型选型初筛，但不要过度依赖。一个模型在MMLU上高5分，不代表它在你的营销任务上更好。最终评估必须在你的实际任务数据上进行。构建一个包含100-500条标注数据的领域评测集，比任何标准基准都有参考价值。</p>
+</blockquote>
+<p><strong>构建领域评测集的方法</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 营销领域评测集构建示例</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">EvalExample</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;评估样本&quot;&quot;&quot;</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span>           <span class="c1"># 输入</span>
+    <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span>       <span class="c1"># 参考答案（标准答案）</span>
+    <span class="n">criteria</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>  <span class="c1"># 评估标准</span>
+    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span>        <span class="c1"># 任务类别</span>
+
+<span class="c1"># 营销评测集示例</span>
+<span class="n">marketing_eval_set</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">EvalExample</span><span class="p">(</span>
+        <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;分析以下竞品信息并生成SWOT分析：[竞品数据]&quot;</span><span class="p">,</span>
+        <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;[参考SWOT分析]&quot;</span><span class="p">,</span>
+        <span class="n">criteria</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;结构完整&quot;</span><span class="p">,</span> <span class="s2">&quot;分析有数据支撑&quot;</span><span class="p">,</span> <span class="s2">&quot;建议可操作&quot;</span><span class="p">],</span>
+        <span class="n">category</span><span class="o">=</span><span class="s2">&quot;竞品分析&quot;</span>
+    <span class="p">),</span>
+    <span class="n">EvalExample</span><span class="p">(</span>
+        <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;为以下产品撰写小红书种草文案：[产品信息]&quot;</span><span class="p">,</span>
+        <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;[参考文案]&quot;</span><span class="p">,</span>
+        <span class="n">criteria</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;符合小红书风格&quot;</span><span class="p">,</span> <span class="s2">&quot;包含产品卖点&quot;</span><span class="p">,</span> <span class="s2">&quot;有CTA&quot;</span><span class="p">],</span>
+        <span class="n">category</span><span class="o">=</span><span class="s2">&quot;内容生成&quot;</span>
+    <span class="p">),</span>
+    <span class="c1"># ... 100-500条样本</span>
+<span class="p">]</span>
+
+<span class="c1"># LLM-as-Judge评估</span>
+<span class="k">def</span> <span class="nf">evaluate_with_llm_judge</span><span class="p">(</span><span class="n">model_output</span><span class="p">,</span> <span class="n">eval_example</span><span class="p">,</span> <span class="n">judge_model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;用LLM作为评判者&quot;&quot;&quot;</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    请评估以下AI生成的营销内容的质量。</span>
+
+<span class="s2">    任务类别：</span><span class="si">{</span><span class="n">eval_example</span><span class="o">.</span><span class="n">category</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    输入：</span><span class="si">{</span><span class="n">eval_example</span><span class="o">.</span><span class="n">input</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    参考答案：</span><span class="si">{</span><span class="n">eval_example</span><span class="o">.</span><span class="n">reference</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    AI输出：</span><span class="si">{</span><span class="n">model_output</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">    评估标准：</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_example</span><span class="o">.</span><span class="n">criteria</span><span class="p">)</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">    请对每个标准打分（1-5分），并给出理由。</span>
+<span class="s2">    最后给出总分和是否通过（总分&gt;=12分为通过）。</span>
+
+<span class="s2">    返回JSON格式：</span>
+<span class="s2">    </span><span class="se">{{</span><span class="s2"></span>
+<span class="s2">        &quot;scores&quot;: </span><span class="se">{{</span><span class="s2">&quot;标准1&quot;: 分数, &quot;标准2&quot;: 分数, ...</span><span class="se">}}</span><span class="s2">,</span>
+<span class="s2">        &quot;total_score&quot;: 总分,</span>
+<span class="s2">        &quot;passed&quot;: true/false,</span>
+<span class="s2">        &quot;reasoning&quot;: &quot;评价理由&quot;</span>
+<span class="s2">    </span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="c1"># 调用评判模型</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
+
+<h4 id="_7">二、模型选择决策框架</h4>
+<p>面对数百个开源和闭源LLM，如何选择适合自己场景的模型？</p>
+<p><strong>模型选择的核心维度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>考量因素</th>
+<th>权重建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>能力</strong></td>
+<td>在目标任务上的表现</td>
+<td>最高</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>API调用成本或部署成本</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>延迟</strong></td>
+<td>响应速度</td>
+<td>中（取决于实时性要求）</td>
+</tr>
+<tr>
+<td><strong>Context Window</strong></td>
+<td>能处理的上下文长度</td>
+<td>中（取决于文档长度）</td>
+</tr>
+<tr>
+<td><strong>隐私/合规</strong></td>
+<td>数据是否可出域</td>
+<td>高（企业场景必须考虑）</td>
+</tr>
+<tr>
+<td><strong>生态</strong></td>
+<td>工具链、社区支持</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>许可</strong></td>
+<td>开源协议是否允许商用</td>
+<td>高（商用必须确认）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2026年模型选择决策树</strong>：</p>
+<div class="highlight"><pre><span></span><code>数据能否出域（发送到API）？
+├── 不能 -&gt; 开源模型本地部署
+│   ├── 有GPU服务器（&gt;=2张A100）-&gt; Llama 3 70B / Qwen 2.5 72B
+│   ├── 有限GPU（1张A100/4090）-&gt; Llama 3 8B / Qwen 2.5 7B + 量化
+│   └── 无GPU -&gt; 小模型（1-3B）或API方案重新评估
+└── 可以 -&gt; API模型
+    ├── 任务复杂度高（推理/代码/多步分析）-&gt; Claude 3.5 Sonnet / GPT-4o
+    ├── 任务简单（分类/摘要/翻译）-&gt; Claude 3 Haiku / GPT-4o-mini
+    └── 超长文档处理 -&gt; 长Context Window模型（Gemini 1.5 Pro 2M）
+</code></pre></div>
+
+<p><strong>成本估算模型</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_llm_cost</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avg_input_tokens</span><span class="p">,</span> <span class="n">avg_output_tokens</span><span class="p">,</span> 
+                      <span class="n">daily_calls</span><span class="p">,</span> <span class="n">days_per_month</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;估算LLM月度成本&quot;&quot;&quot;</span>
+    <span class="c1"># 2026年主流模型定价（美元/百万Token）</span>
+    <span class="n">pricing</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;gpt-4o&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">2.50</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">10.00</span><span class="p">},</span>
+        <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">0.60</span><span class="p">},</span>
+        <span class="s2">&quot;claude-3.5-sonnet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">3.00</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">15.00</span><span class="p">},</span>
+        <span class="s2">&quot;claude-3-haiku&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">},</span>
+        <span class="s2">&quot;llama-3-70b-local&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">},</span>  <span class="c1"># GPU月租</span>
+        <span class="s2">&quot;llama-3-8b-local&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pricing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="s2">&quot;local&quot;</span> <span class="ow">in</span> <span class="n">model</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 本地部署只算基础设施成本</span>
+
+    <span class="n">monthly_input</span> <span class="o">=</span> <span class="n">avg_input_tokens</span> <span class="o">*</span> <span class="n">daily_calls</span> <span class="o">*</span> <span class="n">days_per_month</span>
+    <span class="n">monthly_output</span> <span class="o">=</span> <span class="n">avg_output_tokens</span> <span class="o">*</span> <span class="n">daily_calls</span> <span class="o">*</span> <span class="n">days_per_month</span>
+
+    <span class="n">cost</span> <span class="o">=</span> <span class="p">(</span><span class="n">monthly_input</span> <span class="o">/</span> <span class="mi">1_000_000</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span> <span class="o">+</span> 
+            <span class="n">monthly_output</span> <span class="o">/</span> <span class="mi">1_000_000</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">cost</span>
+
+<span class="c1"># 示例：营销内容生成场景</span>
+<span class="c1"># 假设每天1000次调用，平均输入2000 Token，输出500 Token</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;GPT-4o&quot;</span><span class="p">,</span> <span class="n">estimate_llm_cost</span><span class="p">(</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;GPT-4o-mini&quot;</span><span class="p">,</span> <span class="n">estimate_llm_cost</span><span class="p">(</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;Claude 3.5 Sonnet&quot;</span><span class="p">,</span> <span class="n">estimate_llm_cost</span><span class="p">(</span><span class="s2">&quot;claude-3.5-sonnet&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;Claude 3 Haiku&quot;</span><span class="p">,</span> <span class="n">estimate_llm_cost</span><span class="p">(</span><span class="s2">&quot;claude-3-haiku&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;Llama 3 70B 本地&quot;</span><span class="p">,</span> <span class="n">estimate_llm_cost</span><span class="p">(</span><span class="s2">&quot;llama-3-70b-local&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cost</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">/月&quot;</span><span class="p">)</span>
+
+<span class="c1"># 输出类似：</span>
+<span class="c1"># GPT-4o: $300/月</span>
+<span class="c1"># GPT-4o-mini: $18/月</span>
+<span class="c1"># Claude 3.5 Sonnet: $375/月</span>
+<span class="c1"># Claude 3 Haiku: $31/月</span>
+<span class="c1"># Llama 3 70B 本地: $2000/月（但有隐私优势和无Token限制）</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>选型策略</strong>：先用最强模型（如Claude 3.5 Sonnet）做原型开发和评测集建立。然后在评测集上测试更便宜的模型（如Haiku或GPT-4o-mini），如果质量差距在可接受范围内（如总分差&lt;10%），切换到便宜模型。这是"先求质量，再降成本"的策略。</p>
+</blockquote>
+<h4 id="llm_3">三、LLM部署架构</h4>
+<p>当选择本地部署开源LLM时，需要设计部署架构。</p>
+<p><strong>部署架构的核心组件</strong>：</p>
+<div class="highlight"><pre><span></span><code>┌───────────────────────────────────────────────────┐
+│                  用户请求                          │
+│                    │                               │
+│           ┌────────▼────────┐                      │
+│           │  API Gateway    │  (FastAPI / vLLM)   │
+│           │  负载均衡 + 认证 │                      │
+│           └────────┬────────┘                      │
+│                    │                               │
+│           ┌────────▼────────┐                      │
+│           │  推理引擎        │                      │
+│           │  (vLLM/TGI)     │  GPU推理             │
+│           └────────┬────────┘                      │
+│                    │                               │
+│    ┌───────────────┼───────────────┐              │
+│    │               │               │              │
+│ ┌──▼──┐      ┌────▼────┐    ┌────▼────┐         │
+│ │模型1 │      │模型2    │    │模型3    │         │
+│ │7B   │      │13B     │    │70B量化  │         │
+│ └─────┘      └─────────┘    └─────────┘         │
+│                                                  │
+│ ┌──────────────────────────────────────────────┐ │
+│ │           可观测性层                          │ │
+│ │  Langfuse (Tracing + Cost + Quality)        │ │
+│ └──────────────────────────────────────────────┘ │
+└───────────────────────────────────────────────────┘
+</code></pre></div>
+
+<p><strong>推理优化技术</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>原理</th>
+<th>效果</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quantization（量化）</strong></td>
+<td>将FP16权重压缩为INT8/INT4</td>
+<td>显存减少50-75%，速度提升</td>
+<td>几乎所有场景</td>
+</tr>
+<tr>
+<td><strong>KV Cache</strong></td>
+<td>缓存已计算的Key-Value对</td>
+<td>减少重复计算</td>
+<td>对话场景</td>
+</tr>
+<tr>
+<td><strong>PagedAttention</strong></td>
+<td>分页管理KV Cache显存</td>
+<td>提高显存利用率，支持更多并发</td>
+<td>vLLM的核心技术</td>
+</tr>
+<tr>
+<td><strong>Speculative Decoding</strong></td>
+<td>小模型先生成草稿，大模型验证</td>
+<td>2-3倍推理加速</td>
+<td>有配对大小模型时</td>
+</tr>
+<tr>
+<td><strong>Batching</strong></td>
+<td>合并多个请求批量处理</td>
+<td>提高吞吐量</td>
+<td>高并发场景</td>
+</tr>
+</tbody>
+</table>
+<p><strong>vLLM部署示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># vLLM是当前最流行的开源LLM推理引擎</span>
+<span class="c1"># 安装：pip install vllm</span>
+
+<span class="c1"># 命令行启动vLLM服务</span>
+<span class="c1"># vllm serve meta-llama/Llama-2-7b-chat \</span>
+<span class="c1">#   --tensor-parallel-size 1 \</span>
+<span class="c1">#   --quantization awq \</span>
+<span class="c1">#   --max-model-len 4096 \</span>
+<span class="c1">#   --port 8000</span>
+
+<span class="c1"># Python中使用vLLM</span>
+<span class="kn">from</span> <span class="nn">vllm</span> <span class="kn">import</span> <span class="n">LLM</span><span class="p">,</span> <span class="n">SamplingParams</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">LLM</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;meta-llama/Llama-2-7b-chat&quot;</span><span class="p">,</span>
+    <span class="n">quantization</span><span class="o">=</span><span class="s2">&quot;awq&quot;</span><span class="p">,</span>              <span class="c1"># AWQ量化</span>
+    <span class="n">tensor_parallel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># GPU数量</span>
+    <span class="n">max_model_len</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span>              <span class="c1"># 最大上下文长度</span>
+    <span class="n">gpu_memory_utilization</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>      <span class="c1"># GPU显存利用率</span>
+<span class="p">)</span>
+
+<span class="n">sampling_params</span> <span class="o">=</span> <span class="n">SamplingParams</span><span class="p">(</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">top_p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 批量推理（vLLM的强项）</span>
+<span class="n">prompts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;为以下产品撰写营销文案：[产品A]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;分析以下竞品的定价策略：[竞品B]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;生成5个社媒广告标题：[主题C]&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">sampling_params</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="llm_4">四、LLM应用的可观测性</h4>
+<p>生产级LLM应用需要完整的可观测性体系。Langfuse是当前最流行的开源LLM可观测性工具。</p>
+<p><strong>可观测性的三个维度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>监控内容</th>
+<th>工具</th>
+<th>告警阈值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>性能</strong></td>
+<td>延迟、吞吐量、错误率</td>
+<td>Langfuse + Prometheus</td>
+<td>P99延迟&gt;5s</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>Token消耗、API费用</td>
+<td>Langfuse Cost Tracking</td>
+<td>日成本超预算120%</td>
+</tr>
+<tr>
+<td><strong>质量</strong></td>
+<td>输出质量评分、用户反馈</td>
+<td>LLM-as-Judge + 用户评分</td>
+<td>质量分&lt;阈值</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># Langfuse集成示例</span>
+<span class="kn">from</span> <span class="nn">langfuse</span> <span class="kn">import</span> <span class="n">Langfuse</span>
+<span class="kn">from</span> <span class="nn">langfuse.decorators</span> <span class="kn">import</span> <span class="n">observe</span>
+
+<span class="n">langfuse</span> <span class="o">=</span> <span class="n">Langfuse</span><span class="p">()</span>
+
+<span class="nd">@observe</span><span class="p">()</span>  <span class="c1"># 自动记录Tracing</span>
+<span class="k">def</span> <span class="nf">marketing_content_agent</span><span class="p">(</span><span class="n">brief</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;营销内容Agent，自动追踪每一步&quot;&quot;&quot;</span>
+
+    <span class="c1"># 记录输入</span>
+    <span class="n">langfuse</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;marketing_content_generation&quot;</span><span class="p">,</span>
+        <span class="nb">input</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;brief&quot;</span><span class="p">:</span> <span class="n">brief</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Step 1: 分析Brief</span>
+    <span class="n">analysis</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;分析以下营销Brief的关键要素：</span><span class="si">{</span><span class="n">brief</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Step 2: 生成内容</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;基于以下分析生成营销文案：</span><span class="si">{</span><span class="n">analysis</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Step 3: 质量检查</span>
+    <span class="n">quality_check</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;评估以下文案的质量：</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">,</span>
+        <span class="s2">&quot;quality_score&quot;</span><span class="p">:</span> <span class="n">quality_check</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+        <span class="s2">&quot;analysis&quot;</span><span class="p">:</span> <span class="n">analysis</span>
+    <span class="p">}</span>
+
+<span class="c1"># Langfuse Dashboard自动展示：</span>
+<span class="c1"># - 每次调用的完整Trace（输入-&gt;中间步骤-&gt;输出）</span>
+<span class="c1"># - Token消耗和成本</span>
+<span class="c1"># - 延迟分布</span>
+<span class="c1"># - 质量评分趋势</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：可观测性是区分"Demo级AI系统"和"生产级AI系统"的关键。当客户问"你们的AI系统怎么保证质量"时，展示Langfuse的Tracing和质量监控Dashboard，比任何口头承诺都有说服力。可观测性也是持续优化的基础--没有度量就没有优化。</p>
+</blockquote>
+<hr />
+<h2 id="_8">知识问答</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th>问题</th>
+<th>参考答案要点</th>
+<th style="text-align: center;">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Q1</td>
+<td>Self-Attention中Q、K、V分别代表什么？为什么需要三个而不是一个？</td>
+<td>Q=查询（我在找什么），K=键（我有什么），V=值（我的内容）。三个角色让模型能区分"我想知道的"和"我能提供的"，实现更灵活的信息匹配。如果只有一个，模型无法区分查询意图和被查询内容。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q2</td>
+<td>Decoder-only架构为什么在生成任务上比Encoder-only更受欢迎？</td>
+<td>Decoder-only通过自回归方式生成文本，天然适合开放式生成任务。Encoder-only（如BERT）擅长理解任务但生成能力弱。Scale Law表明Decoder-only在规模放大时生成能力提升更显著。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q3</td>
+<td>LLM训练三阶段（预训练-SFT-对齐）各自解决什么问题？如果跳过对齐阶段会怎样？</td>
+<td>预训练建立知识和语言能力，SFT学会遵循指令，对齐使输出符合人类偏好。跳过对齐会导致模型输出可能有害、不准确或不符合用户期望，虽然有知识但"不会好好说话"。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q4</td>
+<td>RAG和Fine-tuning的核心区别是什么？什么时候应该选哪个？</td>
+<td>RAG是推理时注入外部知识（动态、可更新、无遗忘），Fine-tuning是训练时注入领域能力（静态、需重训、有遗忘风险）。需要最新/私有知识选RAG，需要特定风格/推理模式选Fine-tuning。两者可组合。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q5</td>
+<td>为什么RAG的文档分块策略对系统质量影响很大？过大和过小各有什么问题？</td>
+<td>分块过大：检索不精确（一个块包含太多主题，向量化后语义模糊）；过小：丢失上下文（一个块可能只有半句话，LLM无法理解）。需要根据文档类型选择合适的chunk_size和overlap。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q6</td>
+<td>Tokenization为什么影响LLM的成本和多语言能力？中文和英文在Token效率上的差异是什么？</td>
+<td>LLM按Token计费和计算。英文约1 Token=0.75词，中文1字=1-2 Token。同样内容中文消耗更多Token，成本更高、Context Window消耗更快。选择多语言优化好的tokenizer可缓解。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q7</td>
+<td>MMLU等标准评估基准的局限是什么？为什么需要构建领域评测集？</td>
+<td>MMLU测试通用知识，不反映特定任务表现。模型在MMLU高5分不代表在营销任务上更好。领域评测集使用真实业务数据，评估模型在具体场景的实际能力，更有参考价值。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q8</td>
+<td>量化（Quantization）如何减少LLM的显存需求？有什么代价？</td>
+<td>将FP16权重压缩为INT8/INT4，显存减少50-75%。代价是精度损失（通常质量下降1-3%）。AWQ和GPTQ是当前主流量化方法，在4-bit量化下仍能保持接近原模型的性能。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q9</td>
+<td>Function Calling和RAG在LLM应用中分别扮演什么角色？它们如何协作？</td>
+<td>Function Calling是"执行操作"（调用API、查询数据库），RAG是"检索知识"（查找文档）。协作方式：RAG提供知识背景和上下文，Function Calling执行基于知识的操作。Agent系统通常同时使用两者。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q10</td>
+<td>如果你为一个企业客户设计LLM部署方案，需要考虑哪些关键因素？如何平衡成本和质量？</td>
+<td>核心因素：数据隐私（能否出域）、任务复杂度、调用量、延迟要求、预算。策略：先用强API模型建原型和评测集，在评测集上测试更便宜模型，如质量可接受则切换。高隐私需求用本地部署+量化。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">作业设计</h2>
+<h3 id="rag_1">必做作业：构建营销知识库RAG系统</h3>
+<p><strong>任务</strong>：使用LangChain和OpenAI API（或开源替代），构建一个营销知识库RAG系统：</p>
+<ol>
+<li>准备至少10个营销相关文档（可以是产品文档、营销策略、竞品分析等）</li>
+<li>实现文档摄入（分块、向量化、存储）</li>
+<li>实现检索和生成（含自定义Prompt模板）</li>
+<li>实现5个测试问答，记录RAG的回答和来源</li>
+<li>写一份500字的系统设计说明，包含架构选择理由和优化方向</li>
+</ol>
+<p><strong>评分标准</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>优秀（9-10分）</th>
+<th>良好（7-8分）</th>
+<th>合格（5-6分）</th>
+<th>不合格（&lt;5分）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功能完整性</td>
+<td>系统可运行、回答准确、来源可追溯</td>
+<td>基本可运行</td>
+<td>部分功能可用</td>
+<td>无法运行</td>
+</tr>
+<tr>
+<td>代码质量</td>
+<td>结构清晰、有注释、有错误处理</td>
+<td>基本清晰</td>
+<td>可读但粗糙</td>
+<td>混乱</td>
+</tr>
+<tr>
+<td>设计说明</td>
+<td>深入分析架构选择和优化方向</td>
+<td>说明基本合理</td>
+<td>表面描述</td>
+<td>缺失</td>
+</tr>
+</tbody>
+</table>
+<h3 id="llm_5">挑战作业：LLM模型选型与部署方案设计</h3>
+<p><strong>任务</strong>：为一个虚拟企业场景设计LLM部署方案：</p>
+<p><strong>场景</strong>：一家中型电商企业，日均10万次营销内容生成请求，数据不可出域（隐私合规要求），需要支持中文营销文案生成和客服对话。</p>
+<ol>
+<li>比较至少3个候选模型（含开源和闭源）</li>
+<li>分析每个模型在成本、能力、合规、延迟上的表现</li>
+<li>推荐最终方案并给出理由</li>
+<li>设计部署架构（含推理优化策略）</li>
+<li>设计可观测性方案</li>
+<li>总字数1500-2000字</li>
+</ol>
+<p><strong>评分标准</strong>：重点考察选型分析的全面性（是否覆盖所有关键维度）、推荐的合理性（理由是否充分）、部署架构的可行性（是否考虑了推理优化和可观测性）。</p>
+<hr />
+<h2 id="_10">费曼学习法演练</h2>
+<h3 id="_11">核心理念</h3>
+<p>费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。</p>
+<h3 id="_12">演练任务</h3>
+<p><strong>任务</strong>：假设你在向公司高管解释大语言模型的"涌现能力"是什么，以及为什么这让人既兴奋又担忧</p>
+<h3 id="_13">演练步骤</h3>
+<ol>
+<li><strong>选择概念</strong>：从本教材中选一个你觉得最有挑战性的概念</li>
+<li><strong>写下解释</strong>：用自己的语言写一段300-500字的解释，目标受众是公司高管</li>
+<li><strong>找出空洞</strong>：标记你解释中含糊、跳过或借用术语的地方</li>
+<li><strong>回到教材</strong>：针对性补全知识空洞</li>
+<li><strong>简化重写</strong>：用更简单的语言重新写一遍，力求让受众真正理解</li>
+</ol>
+<h3 id="_14">自评标准</h3>
+<ul>
+<li>[ ] 解释中没有直接引用教材原文</li>
+<li>[ ] 至少使用了1个类比或比喻</li>
+<li>[ ] 受众能理解核心概念并复述</li>
+<li>[ ] 解释中标注的知识空洞已补全</li>
+</ul>
+<hr />
+<h2 id="_15">推荐资源清单</h2>
+<h3 id="_16">核心论文与文档（必读）</h3>
+<ul>
+<li>📄 <strong>"Attention is All You Need"</strong>（Transformer原论文, arXiv 1706.03762）: https://arxiv.org/abs/1706.03762</li>
+<li>📄 <strong>"Language Models are Few-Shot Learners"</strong>（GPT-3论文, arXiv 2005.14165）: https://arxiv.org/abs/2005.14165</li>
+<li>📄 <strong>LoRA论文</strong>（arXiv 2106.09685）: https://arxiv.org/abs/2106.09685</li>
+<li>📄 <strong>DPO论文</strong>（arXiv 2305.18290）: https://arxiv.org/abs/2305.18290</li>
+<li>🌐 <strong>Anthropic Prompt Engineering文档</strong>: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview</li>
+</ul>
+<h3 id="_17">开源工具（必读）</h3>
+<ul>
+<li>🌐 <strong>HuggingFace Transformers</strong>: https://huggingface.co/docs/transformers</li>
+<li>🌐 <strong>HuggingFace Course（免费）</strong>: https://huggingface.co/learn/nlp-course</li>
+<li>🌐 <strong>LangChain文档</strong>: https://python.langchain.com/docs/</li>
+<li>🌐 <strong>vLLM（推理引擎）</strong>: https://github.com/vllm-project/vllm</li>
+<li>🌐 <strong>PEFT（参数高效微调）</strong>: https://github.com/huggingface/peft</li>
+<li>🌐 <strong>Langfuse（可观测性）</strong>: https://langfuse.com/docs/</li>
+</ul>
+<h3 id="_18">对标课程</h3>
+<ul>
+<li>🌐 <strong>Stanford CS224N NLP与深度学习</strong>: https://web.stanford.edu/class/cs224n/</li>
+<li>🌐 <strong>Imperial Deep Learning &amp; GenAI</strong>: https://www.imperial.ac.uk/business-school/programmes/msc-business-analytics/</li>
+<li>🌐 <strong>Princeton COS 597G Understanding LLMs</strong>: https://www.cs.princeton.edu/courses/archive/fall23/cos597G/</li>
+<li>🌐 <strong>Berkeley CS182 Deep Learning</strong>: https://cs182sp24.github.io/</li>
+<li>🌐 <strong>Andrej Karpathy "Let's build GPT" 视频</strong>: https://www.youtube.com/watch?v=kCc8FmEb1nY</li>
+</ul>
+<h3 id="_19">模型与基准（推荐）</h3>
+<ul>
+<li>🌐 <strong>Open LLM Leaderboard</strong>: https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard</li>
+<li>🌐 <strong>HuggingFace Model Hub</strong>: https://huggingface.co/models</li>
+<li>🌐 <strong>MMLU基准</strong>: https://github.com/hendrycks/test</li>
+<li>🌐 <strong>HumanEval基准</strong>: https://github.com/openai/human-eval</li>
+<li>🌐 <strong>RAGAS（RAG评估框架）</strong>: https://github.com/explodinggradients/ragas</li>
+</ul>
+<h3 id="_20">进阶阅读（可选）</h3>
+<ul>
+<li>📄 <strong>RAG综述论文</strong>（arXiv 2401.15884）: https://arxiv.org/abs/2401.15884</li>
+<li>📄 <strong>Constitutional AI论文</strong>（Anthropic）: https://arxiv.org/abs/2212.08073</li>
+<li>📄 <strong>Scaling Laws论文</strong>（OpenAI）: https://arxiv.org/abs/2001.08361</li>
+<li>📄 <strong>Chinchilla论文</strong>（DeepMind）: https://arxiv.org/abs/2203.15556</li>
+<li>🌐 <strong>The Illustrated Transformer</strong>（Jay Alammar可视化教程）: https://jalammar.github.io/illustrated-transformer/</li>
+</ul>
+<hr />
+<blockquote>
+<p>💡 <strong>英语轨道总结</strong>：本选修课的英语轨道核心材料是Stanford CS224N 2025版讲义。建议在Day 1读Lecture 1（课程导论）和Lecture 17（LLM应用层RAG），Day 2读HuggingFace RAG教程和Anthropic Prompt Engineering文档，Day 3读Lecture 18-19（LLM评估与安全）。遵循i+1原则：先读中文概念讲解建立框架，再对照英文讲义深化理解，目标是能用自己的话解释LLM的核心概念和工程决策。</p>
+</blockquote>
+  </div>
+
+  <div class="page-nav">
+    <a href="选修E2_Marketing_Analytics.html" class="nav-btn nav-prev">← 选修E2_Marketing_Analy</a>
+    <a href="index.html" class="nav-btn nav-home">🏠 教材总览</a>
+    <a href="选修E4_商业智能与数据可视化.html" class="nav-btn nav-next">选修E4_商业智能与数据可视化 →</a>
+  </div>
+</div>
+
+<script src="textbook_nav.js"></script>
+</body>
+</html>

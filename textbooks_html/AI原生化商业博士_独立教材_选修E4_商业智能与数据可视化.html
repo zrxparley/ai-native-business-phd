@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI原生化商业博士 · 选修E4_商业智能与数据可视化</title>
+<link rel="stylesheet" href="textbook_style.css">
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-logo">📚 AI原生化商业博士</a>
+    <span class="sidebar-version">v14.0</span>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="tocSearch" placeholder="搜索目录..." oninput="filterTOC()">
+  </div>
+  <div class="sidebar-toc" id="sidebarTOC">
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#AI原生化商业博士独立教材选修E4商业智能与数据可视化" onclick="navTo(event,'AI原生化商业博士独立教材选修E4商业智能与数据可视化')">AI原生化商业博士 · 独立教材：选修E4 商业智能与数据可视化</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#课程概述" onclick="navTo(event,'课程概述')">课程概述</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心命题" onclick="navTo(event,'核心命题')">核心命题</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#学习目标" onclick="navTo(event,'学习目标')">学习目标</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#学习计划表3天" onclick="navTo(event,'学习计划表3天')">学习计划表（3天）</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#详细学习内容" onclick="navTo(event,'详细学习内容')">详细学习内容</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day1数据可视化原理与工具" onclick="navTo(event,'Day1数据可视化原理与工具')">Day 1：数据可视化原理与工具</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#模拟营销渠道数据" onclick="navTo(event,'模拟营销渠道数据')">模拟营销渠道数据</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#pairplot对角线为分布图非对角线为散点图按渠道类型着色" onclick="navTo(event,'pairplot对角线为分布图非对角线为散点图按渠道类型着色')">pairplot：对角线为分布图，非对角线为散点图，按渠道类型着色</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#jointplot搜索花费与转化的关系附带边际分布" onclick="navTo(event,'jointplot搜索花费与转化的关系附带边际分布')">jointplot：搜索花费与转化的关系，附带边际分布</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#FacetGrid按渠道类型分面展示花费-转化关系" onclick="navTo(event,'FacetGrid按渠道类型分面展示花费-转化关系')">FacetGrid：按渠道类型分面展示花费-转化关系</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#全局样式配置" onclick="navTo(event,'全局样式配置')">全局样式配置</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#自定义调色板品牌色系" onclick="navTo(event,'自定义调色板品牌色系')">自定义调色板（品牌色系）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用示例营销渠道效果对比" onclick="navTo(event,'使用示例营销渠道效果对比')">使用示例：营销渠道效果对比</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#交互式营销KPI仪表盘图表" onclick="navTo(event,'交互式营销KPI仪表盘图表')">===== 交互式营销KPI仪表盘图表 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#模拟30天营销KPI数据" onclick="navTo(event,'模拟30天营销KPI数据')">模拟30天营销KPI数据</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#图表1双轴趋势图花费与ROAS" onclick="navTo(event,'图表1双轴趋势图花费与ROAS')">图表1：双轴趋势图——花费与ROAS</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#图表2渠道效果气泡图四维数据可视化" onclick="navTo(event,'图表2渠道效果气泡图四维数据可视化')">图表2：渠道效果气泡图（四维数据可视化）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#图表3漏斗图营销转化漏斗" onclick="navTo(event,'图表3漏斗图营销转化漏斗')">图表3：漏斗图——营销转化漏斗</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day2交互式仪表盘设计" onclick="navTo(event,'Day2交互式仪表盘设计')">Day 2：交互式仪表盘设计</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#生成模拟营销数据" onclick="navTo(event,'生成模拟营销数据')">===== 生成模拟营销数据 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#初始化Dash应用" onclick="navTo(event,'初始化Dash应用')">===== 初始化Dash应用 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#布局定义" onclick="navTo(event,'布局定义')">===== 布局定义 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调函数筛选数据" onclick="navTo(event,'回调函数筛选数据')">===== 回调函数：筛选数据 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调1更新KPI卡片" onclick="navTo(event,'回调1更新KPI卡片')">===== 回调1：更新KPI卡片 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调2趋势图" onclick="navTo(event,'回调2趋势图')">===== 回调2：趋势图 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调3渠道效果图" onclick="navTo(event,'回调3渠道效果图')">===== 回调3：渠道效果图 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调4地区热力图" onclick="navTo(event,'回调4地区热力图')">===== 回调4：地区热力图 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#回调5漏斗图" onclick="navTo(event,'回调5漏斗图')">===== 回调5：漏斗图 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#启动应用" onclick="navTo(event,'启动应用')">===== 启动应用 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#示例使用" onclick="navTo(event,'示例使用')">===== 示例使用 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#生成模拟营销数据" onclick="navTo(event,'生成模拟营销数据')">生成模拟营销数据</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#初始化Pipeline" onclick="navTo(event,'初始化Pipeline')">初始化Pipeline</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#自然语言提问" onclick="navTo(event,'自然语言提问')">自然语言提问</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day3数据叙事与UIUX设计" onclick="navTo(event,'Day3数据叙事与UIUX设计')">Day 3：数据叙事与UI/UX设计</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#真实数据集案例研究" onclick="navTo(event,'真实数据集案例研究')">真实数据集案例研究</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#案例背景" onclick="navTo(event,'案例背景')">案例背景</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#数据加载与探索" onclick="navTo(event,'数据加载与探索')">数据加载与探索</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#加载数据集从UCI下载xlsx文件" onclick="navTo(event,'加载数据集从UCI下载xlsx文件')">加载数据集（从UCI下载xlsx文件）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#数据集地址httpsarchiveicsuciedudataset502onlineretailii" onclick="navTo(event,'数据集地址httpsarchiveicsuciedudataset502onlineretailii')">数据集地址: https://archive.ics.uci.edu/dataset/502/online+retail+ii</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#基础数据探索" onclick="navTo(event,'基础数据探索')">基础数据探索</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#数据清洗移除取消订单InvoiceNo以C开头负数数量空客户ID" onclick="navTo(event,'数据清洗移除取消订单InvoiceNo以C开头负数数量空客户ID')">数据清洗：移除取消订单（InvoiceNo以C开头）、负数数量、空客户ID</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#计算每笔交易金额" onclick="navTo(event,'计算每笔交易金额')">计算每笔交易金额</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心分析RFM客户分层" onclick="navTo(event,'核心分析RFM客户分层')">核心分析：RFM客户分层</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#设定分析基准日期数据集最后日期1天" onclick="navTo(event,'设定分析基准日期数据集最后日期1天')">设定分析基准日期（数据集最后日期 + 1天）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#计算RFM指标" onclick="navTo(event,'计算RFM指标')">计算RFM指标</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#RFM打分1-5分5为最优" onclick="navTo(event,'RFM打分1-5分5为最优')">RFM打分（1-5分，5为最优）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#客户价值分层" onclick="navTo(event,'客户价值分层')">客户价值分层</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#各分层客户数量与价值分布" onclick="navTo(event,'各分层客户数量与价值分布')">各分层客户数量与价值分布</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#同期群分析CohortAnalysis" onclick="navTo(event,'同期群分析CohortAnalysis')">同期群分析（Cohort Analysis）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#定义客户首次购买月份为同期群" onclick="navTo(event,'定义客户首次购买月份为同期群')">定义客户首次购买月份为同期群</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#计算同期群索引第N个月" onclick="navTo(event,'计算同期群索引第N个月')">计算同期群索引（第N个月）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#构建留存矩阵" onclick="navTo(event,'构建留存矩阵')">构建留存矩阵</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#转换为留存率" onclick="navTo(event,'转换为留存率')">转换为留存率</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#留存热力图可视化" onclick="navTo(event,'留存热力图可视化')">留存热力图可视化</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#结果解读" onclick="navTo(event,'结果解读')">结果解读</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#商业启示" onclick="navTo(event,'商业启示')">商业启示</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#核心文献" onclick="navTo(event,'核心文献')">核心文献</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#知识问答" onclick="navTo(event,'知识问答')">知识问答</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#作业设计" onclick="navTo(event,'作业设计')">作业设计</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#必做作业用Plotly构建交互式营销KPI仪表盘" onclick="navTo(event,'必做作业用Plotly构建交互式营销KPI仪表盘')">必做作业：用Plotly构建交互式营销KPI仪表盘</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#挑战作业用Dash构建完整的营销分析仪表盘数据叙事" onclick="navTo(event,'挑战作业用Dash构建完整的营销分析仪表盘数据叙事')">挑战作业：用Dash构建完整的营销分析仪表盘 + 数据叙事</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#费曼学习法演练" onclick="navTo(event,'费曼学习法演练')">费曼学习法演练</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心理念" onclick="navTo(event,'核心理念')">核心理念</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练任务" onclick="navTo(event,'演练任务')">演练任务</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练步骤" onclick="navTo(event,'演练步骤')">演练步骤</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#自评标准" onclick="navTo(event,'自评标准')">自评标准</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#推荐资源清单" onclick="navTo(event,'推荐资源清单')">推荐资源清单</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心书籍必读" onclick="navTo(event,'核心书籍必读')">核心书籍（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#在线资源必读" onclick="navTo(event,'在线资源必读')">在线资源（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#设计工具" onclick="navTo(event,'设计工具')">设计工具</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#对标课程" onclick="navTo(event,'对标课程')">对标课程</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#进阶阅读可选" onclick="navTo(event,'进阶阅读可选')">进阶阅读（可选）</a></div>
+
+  </div>
+  <div class="sidebar-footer">
+    <a href="index.html" class="back-to-index">← 返回教材总览</a>
+  </div>
+</div>
+
+<div class="main-content" id="mainContent">
+  <div class="top-bar">
+    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+    <span class="breadcrumb">
+      <a href="index.html">教材总览</a> /
+      <span class="tier-badge" style="background:#fb923c22;color:#fb923c">选修</span>
+      选修E4_商业智能与数据可视化
+    </span>
+    <div class="top-bar-stats">
+      <span>1304行</span>
+      <span>63KB</span>
+      <span>6h</span>
+    </div>
+  </div>
+
+  <div class="content-body">
+<h1 id="ai-e4">AI原生化商业博士 · 独立教材：选修E4 商业智能与数据可视化</h1>
+<blockquote>
+<p><strong>修读者</strong>：aha.gare<br />
+<strong>导师系统</strong>：Claude / 天道推演 + 系统觉醒 + 学位对标融合 + 牛津自然学习法 + 全球七校对标<br />
+<strong>版本</strong>：v4.0 | <strong>日期</strong>：2026-07-30<br />
+<strong>学时</strong>：6h | 建议节奏：3天集中学习<br />
+<strong>对标课程</strong>：MIT Sloan 15.071 The Analytics Edge + Harvard HBS DDA + Stanford GSB Data Visualization + Imperial Business Analytics + Wharton Customer Analytics<br />
+<strong>对应技能</strong>：技能0（AI商业分析基础）+ 技能1（表示工程与营销智能）可视化深化<br />
+<strong>前置条件</strong>：完成技能0核心课程，具备Python数据分析基础（pandas、matplotlib基本使用）<br />
+<strong>定位</strong>：从"能画图"升级到"能设计有商业影响力的数据产品"，掌握从可视化原理到交互式仪表盘到数据叙事的完整能力链</p>
+</blockquote>
+<hr />
+<h2 id="_1">课程概述</h2>
+<h3 id="_2">核心命题</h3>
+<p><strong>如何让数据从"被看见"走向"被理解"，再走向"驱动行动"？</strong></p>
+<p>商业智能（Business Intelligence, BI）是企业数据价值的最后一公里。一个精准的预测模型如果不能被决策者理解，就等于没有预测；一个深刻的客户洞察如果不能被可视化呈现，就无法影响营销策略。数据可视化不是"美化图表"的技术活，而是一门将信息编码为视觉语言、将视觉语言组织为叙事结构、将叙事结构转化为决策行动的系统工程。</p>
+<p>对于售前解决方案产品经理而言，BI能力直接决定了方案提案的"最后一击"。当客户的高管在评审会上只给你10分钟时，一个设计精良的交互式仪表盘比100页PPT更有说服力。你能用数据可视化讲清楚"问题在哪里、原因是什么、应该怎么做"，比你能跑通一个模型更重要。</p>
+<h3 id="_3">学习目标</h3>
+<p>完成本课程后，你将能够：</p>
+<ol>
+<li><strong>原理层</strong>：掌握Wilkinson可视化语法（Grammar of Graphics），理解图表选择背后的认知科学原理</li>
+<li><strong>工具层</strong>：熟练使用matplotlib/seaborn进行统计分析可视化，使用Plotly构建交互式图表，掌握Tableau和Power BI的基本操作</li>
+<li><strong>设计层</strong>：运用仪表盘设计五原则构建专业的交互式商业仪表盘，用Dash构建Python Web仪表盘</li>
+<li><strong>叙事层</strong>：掌握数据叙事三幕结构，能用数据讲故事，将分析结果转化为行动建议</li>
+<li><strong>产品层</strong>：理解UI/UX设计流程，能用Figma设计数据产品原型，具备从需求到原型的设计能力</li>
+</ol>
+<hr />
+<h2 id="3">学习计划表（3天）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">天次</th>
+<th>主题</th>
+<th style="text-align: center;">时长</th>
+<th>核心产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Day 1</strong></td>
+<td>数据可视化原理与工具</td>
+<td style="text-align: center;">2h</td>
+<td>可视化语法笔记 + Plotly交互式营销KPI图表代码</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 2</strong></td>
+<td>交互式仪表盘设计</td>
+<td style="text-align: center;">2h</td>
+<td>Dash营销分析仪表盘代码 + 仪表盘设计文档</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 3</strong></td>
+<td>数据叙事与UI/UX设计</td>
+<td style="text-align: center;">2h</td>
+<td>数据叙事案例重构文档 + Figma数据产品原型</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">详细学习内容</h2>
+<hr />
+<h3 id="day-1">Day 1：数据可视化原理与工具</h3>
+<h4 id="grammar-of-graphics">一、可视化语法（Grammar of Graphics）</h4>
+<p>数据可视化的底层逻辑不是"选一个图表类型然后填数据"，而是一套将数据映射到视觉元素的语法系统。Leland Wilkinson在1999年提出的<strong>Grammar of Graphics</strong>（可视化语法）是这个领域的理论基石，后来被Hadley Wickham实现为R语言的ggplot2，也被Python的plotnine库所借鉴。</p>
+<p><strong>可视化语法的七个层次</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">层次</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Data</strong></td>
+<td>原始数据</td>
+<td>营销渠道的日花费和转化数据</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Aesthetics</strong></td>
+<td>数据到视觉属性的映射</td>
+<td>x=日期, y=花费, color=渠道</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Geometries</strong></td>
+<td>几何对象（图表类型）</td>
+<td>点、线、柱、面</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Facets</strong></td>
+<td>分面（子图拆分）</td>
+<td>按渠道分面展示</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Statistics</strong></td>
+<td>统计变换</td>
+<td>均值、平滑、分位数</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Coordinates</strong></td>
+<td>坐标系</td>
+<td>笛卡尔、极坐标、地理坐标</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Themes</strong></td>
+<td>视觉主题</td>
+<td>字体、颜色、网格线样式</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么理解可视化语法比记住图表类型更重要？</strong></p>
+<p>传统思维是"我要画一个柱状图"，可视化语法思维是"我要用柱这种几何对象来表示数据的聚合统计量，用x轴映射渠道类别，用y轴映射花费均值"。前者的局限在于：当你遇到一个新型数据关系时，你不知道该用什么图表。后者的优势在于：你可以自由组合几何对象、统计变换和坐标系，创造出最适合数据的可视化形式。</p>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：理解可视化语法的实际价值在于"能向客户解释为什么选这种图表"。当客户质疑"为什么不用饼图"时，你能从视觉编码效率的角度解释"柱状图在长度比较上比饼图的角度比较更精确"，这比"因为柱状图更好看"有说服力得多。</p>
+</blockquote>
+<h4 id="_5">二、图表选择决策树</h4>
+<p>选择图表的核心原则是<strong>匹配数据关系类型与视觉编码方式</strong>。以下是基于数据关系的图表选择决策树：</p>
+<p><strong>Step 1：判断数据关系类型</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据关系</th>
+<th>核心问题</th>
+<th>推荐图表</th>
+<th>不推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>比较</strong></td>
+<td>A和B哪个大？</td>
+<td>柱状图、条形图</td>
+<td>饼图（超过3类时）</td>
+</tr>
+<tr>
+<td><strong>趋势</strong></td>
+<td>随时间如何变化？</td>
+<td>折线图、面积图</td>
+<td>柱状图（时间点少时可用）</td>
+</tr>
+<tr>
+<td><strong>分布</strong></td>
+<td>数据如何分散？</td>
+<td>直方图、箱线图、小提琴图</td>
+<td>折线图</td>
+</tr>
+<tr>
+<td><strong>关系</strong></td>
+<td>两个变量如何关联？</td>
+<td>散点图、气泡图</td>
+<td>柱状图</td>
+</tr>
+<tr>
+<td><strong>构成</strong></td>
+<td>整体由什么组成？</td>
+<td>堆叠柱状图、树状图</td>
+<td>饼图（超过5类时）</td>
+</tr>
+<tr>
+<td><strong>流向</strong></td>
+<td>数据如何流动？</td>
+<td>桑基图、漏斗图</td>
+<td>折线图</td>
+</tr>
+<tr>
+<td><strong>地理</strong></td>
+<td>空间分布如何？</td>
+<td>地图、六边形地图</td>
+<td>散点图（无地理信息）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 2：判断数据维度数量</strong></p>
+<ul>
+<li><strong>单变量</strong>：直方图、箱线图、密度图</li>
+<li><strong>双变量</strong>：散点图、折线图、柱状图</li>
+<li><strong>三变量</strong>：气泡图（第三维用大小）、热力图（第三维用颜色）</li>
+<li><strong>多变量</strong>：平行坐标图、雷达图、分面图</li>
+</ul>
+<p><strong>Step 3：判断数据规模</strong></p>
+<ul>
+<li><strong>少量类别（&lt;10）</strong>：柱状图、饼图</li>
+<li><strong>中等类别（10-100）</strong>：热力图、树状图</li>
+<li><strong>大量数据点（&gt;100）</strong>：散点图、密度图、六边形分箱图</li>
+</ul>
+<p><strong>营销场景中的常见误区</strong>：</p>
+<ol>
+<li><strong>饼图滥用</strong>：饼图适合2-3个类别的构成展示。当类别超过5个时，人眼难以准确比较角度差异，应改用堆叠柱状图或树状图。</li>
+<li><strong>双轴折线图</strong>：左右双Y轴的折线图极易误导，因为两条线的相对高度取决于轴的缩放比例。建议改用分面图或组合图。</li>
+<li><strong>3D图表</strong>：3D柱状图、3D饼图会引入透视失真，使数据比较变得困难。除非数据本身有三維空间含义，否则避免使用3D。</li>
+</ol>
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 2 · Lesson 09: Model Evaluation（模型评估中的可视化方法——混淆矩阵热力图、ROC曲线、PR曲线等评估可视化）</p>
+</blockquote>
+<h4 id="matplotlibseaborn">三、matplotlib/seaborn进阶</h4>
+<p>matplotlib是Python可视化的基石，seaborn在其上提供了统计可视化的高层接口。掌握进阶用法能让你在数据分析阶段快速产出专业图表。</p>
+<p><strong>seaborn四大进阶图表</strong>：</p>
+<p><strong>1. pairplot——多变量关系矩阵</strong></p>
+<p>pairplot同时对所有数值变量两两绘制散点图和分布图，是探索性数据分析（EDA）的核心工具。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># 模拟营销渠道数据</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">marketing_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;search_spend&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="s1">&#39;social_spend&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="s1">&#39;email_spend&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="s1">&#39;conversions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="s1">&#39;channel_type&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;B2B&#39;</span><span class="p">,</span> <span class="s1">&#39;B2C&#39;</span><span class="p">,</span> <span class="s1">&#39;DTC&#39;</span><span class="p">],</span> <span class="mi">200</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># pairplot：对角线为分布图，非对角线为散点图，按渠道类型着色</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span>
+    <span class="n">marketing_data</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;channel_type&#39;</span><span class="p">,</span>
+    <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;search_spend&#39;</span><span class="p">,</span> <span class="s1">&#39;social_spend&#39;</span><span class="p">,</span> <span class="s1">&#39;email_spend&#39;</span><span class="p">,</span> <span class="s1">&#39;conversions&#39;</span><span class="p">],</span>
+    <span class="n">diag_kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>        <span class="c1"># 对角线用核密度图</span>
+    <span class="n">plot_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">2.5</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Marketing Channel Spend vs Conversions&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;pairplot_marketing.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>2. jointplot——双变量关系+边际分布</strong></p>
+<p>jointplot在展示两个变量关系的同时，分别展示各自的边际分布，比单独的散点图信息量更大。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># jointplot：搜索花费与转化的关系，附带边际分布</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">marketing_data</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;search_spend&#39;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;conversions&#39;</span><span class="p">,</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;reg&#39;</span><span class="p">,</span>          <span class="c1"># 回归线+散点</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span>
+    <span class="n">marginal_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;kde&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#A23B72&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s1">&#39;Search Ad Spend (¥)&#39;</span><span class="p">,</span> <span class="s1">&#39;Conversions&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>3. FacetGrid——分面绘图</strong></p>
+<p>FacetGrid将数据按一个或多个分类变量拆分到多个子图，是处理多维度数据的核心工具。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># FacetGrid：按渠道类型分面展示花费-转化关系</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span>
+    <span class="n">marketing_data</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="s1">&#39;channel_type&#39;</span><span class="p">,</span>
+    <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;search_spend&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;conversions&#39;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;search_spend&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;conversions&#39;</span><span class="p">,</span>
+                <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A23B72&#39;</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;linewidth&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s1">&#39;Search Spend (¥)&#39;</span><span class="p">,</span> <span class="s1">&#39;Conversions&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Spend-Conversion Relationship by Channel Type&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.03</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>4. 自定义样式系统</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 全局样式配置</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;savefig.dpi&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>      <span class="c1"># 去掉上边框</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># 去掉右边框</span>
+    <span class="s1">&#39;axes.grid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;grid.alpha&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="c1"># 自定义调色板（品牌色系）</span>
+<span class="n">BRAND_PALETTE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="s1">&#39;#A23B72&#39;</span><span class="p">,</span> <span class="s1">&#39;#F18F01&#39;</span><span class="p">,</span> <span class="s1">&#39;#C73E1D&#39;</span><span class="p">,</span> <span class="s1">&#39;#3B1F2B&#39;</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="n">BRAND_PALETTE</span><span class="p">)</span>
+
+<span class="c1"># 使用示例：营销渠道效果对比</span>
+<span class="n">channel_performance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Search&#39;</span><span class="p">,</span> <span class="s1">&#39;Social&#39;</span><span class="p">,</span> <span class="s1">&#39;Email&#39;</span><span class="p">,</span> <span class="s1">&#39;Display&#39;</span><span class="p">,</span> <span class="s1">&#39;Video&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Q1&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Q2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Q3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Q4&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;roas&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span>
+             <span class="mf">3.5</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span>
+             <span class="mf">3.1</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span>
+             <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">channel_performance</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;roas&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;quarter&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Marketing Channel ROAS by Quarter&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Return on Ad Spend (ROAS)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Break-even ROAS&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h4 id="plotly">四、Plotly交互式图表</h4>
+<p>Plotly是Python生态中最成熟的交互式可视化库。与matplotlib不同，Plotly生成的图表原生支持悬停提示、缩放、平移、选择等交互操作，是构建数据产品前端的首选。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+
+<span class="c1"># ===== 交互式营销KPI仪表盘图表 =====</span>
+
+<span class="c1"># 模拟30天营销KPI数据</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2026-06-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">kpi_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">dates</span><span class="p">,</span>
+    <span class="s1">&#39;impressions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="s1">&#39;clicks&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="s1">&#39;conversions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="s1">&#39;spend&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;Search&#39;</span><span class="p">,</span> <span class="s1">&#39;Social&#39;</span><span class="p">,</span> <span class="s1">&#39;Display&#39;</span><span class="p">],</span> <span class="mi">30</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;ctr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;impressions&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;cpa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;roas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 图表1：双轴趋势图——花费与ROAS</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="p">[[{</span><span class="s2">&quot;secondary_y&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ad Spend (¥)&#39;</span><span class="p">,</span>
+           <span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
+    <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;roas&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ROAS&#39;</span><span class="p">,</span>
+               <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A23B72&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+               <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)),</span>
+    <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Daily Ad Spend vs ROAS (June 2026)&#39;</span><span class="p">,</span>
+    <span class="n">title_font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;x unified&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">),</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s1">&#39;Ad Spend (¥)&#39;</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s1">&#39;ROAS&#39;</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 图表2：渠道效果气泡图（四维数据可视化）</span>
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">kpi_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;cpa&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;roas&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;spend&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span>
+    <span class="n">hover_data</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;impressions&#39;</span><span class="p">,</span> <span class="s1">&#39;clicks&#39;</span><span class="p">,</span> <span class="s1">&#39;conversions&#39;</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Channel Performance: CPA vs ROAS (bubble size = spend)&#39;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cpa&#39;</span><span class="p">:</span> <span class="s1">&#39;Cost Per Acquisition (¥)&#39;</span><span class="p">,</span> <span class="s1">&#39;roas&#39;</span><span class="p">:</span> <span class="s1">&#39;Return on Ad Spend&#39;</span><span class="p">},</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">500</span>
+<span class="p">)</span>
+<span class="n">fig2</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">fig2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 图表3：漏斗图——营销转化漏斗</span>
+<span class="n">funnel_stages</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Impressions&#39;</span><span class="p">,</span> <span class="s1">&#39;Clicks&#39;</span><span class="p">,</span> <span class="s1">&#39;Visits&#39;</span><span class="p">,</span> <span class="s1">&#39;Signups&#39;</span><span class="p">,</span> <span class="s1">&#39;Purchases&#39;</span><span class="p">]</span>
+<span class="n">funnel_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;impressions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                 <span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                 <span class="nb">int</span><span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.75</span><span class="p">),</span>
+                 <span class="nb">int</span><span class="p">(</span><span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">),</span>
+                 <span class="n">kpi_data</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
+
+<span class="n">fig3</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Funnel</span><span class="p">(</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">funnel_stages</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">funnel_values</span><span class="p">,</span>
+    <span class="n">textinfo</span><span class="o">=</span><span class="s1">&#39;value+percent initial+percent previous&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="s1">&#39;#5DA5DA&#39;</span><span class="p">,</span> <span class="s1">&#39;#F18F01&#39;</span><span class="p">,</span> <span class="s1">&#39;#FAA43A&#39;</span><span class="p">,</span> <span class="s1">&#39;#A23B72&#39;</span><span class="p">])</span>
+<span class="p">))</span>
+<span class="n">fig3</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Marketing Conversion Funnel (June 2026)&#39;</span><span class="p">,</span>
+    <span class="n">title_font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
+<span class="p">)</span>
+<span class="n">fig3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h4 id="tableau-public">五、Tableau Public实操</h4>
+<p>Tableau是全球使用最广泛的商业智能平台之一。Tableau Public是免费版本，足以学习核心功能。</p>
+<p><strong>Tableau核心操作流程</strong>：</p>
+<ol>
+<li><strong>数据连接</strong>：支持Excel、CSV、SQL数据库、云端数据源。连接后进入Data Source页面，可以定义关系（Join/Union）、修改字段类型、创建计算字段。</li>
+<li><strong>计算字段（Calculated Field）</strong>：用Tableau表达式创建派生字段。例如：
+   - <code>ROAS = SUM([Revenue]) / SUM([Spend])</code>
+   - <code>CTR = SUM([Clicks]) / SUM([Impressions])</code>
+   - <code>Profit Tier = IF [Profit] &gt; 1000 THEN 'High' ELSEIF [Profit] &gt; 100 THEN 'Medium' ELSE 'Low' END</code></li>
+<li><strong>参数（Parameters）</strong>：创建可交互的动态变量。例如创建一个"日期范围"参数，让用户选择查看不同时间段的数据。</li>
+<li><strong>筛选器（Filters）</strong>：控制数据可见性。可以将筛选器显示在视图中，让用户交互式选择（如按渠道、地区、产品线筛选）。</li>
+</ol>
+<p><strong>Tableau vs Power BI选择指南</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Tableau</th>
+<th>Power BI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可视化能力</strong></td>
+<td>更灵活，图表更美观</td>
+<td>够用，但自定义程度略低</td>
+</tr>
+<tr>
+<td><strong>数据处理</strong></td>
+<td>Tableau Prep（额外工具）</td>
+<td>Power Query内置，更强</td>
+</tr>
+<tr>
+<td><strong>计算语言</strong></td>
+<td>Tableau Calculation</td>
+<td>DAX（功能强大但学习曲线陡）</td>
+</tr>
+<tr>
+<td><strong>协作分享</strong></td>
+<td>Tableau Server/Cloud（收费）</td>
+<td>Power BI Service（免费额度）</td>
+</tr>
+<tr>
+<td><strong>生态集成</strong></td>
+<td>独立生态</td>
+<td>与Office 365/Azure深度集成</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>数据可视化为重点</td>
+<td>微软生态企业、性价比高</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：国内客户如果已用Office 365，Power BI几乎是无缝选择。如果客户强调可视化效果和交互体验，Tableau更有优势。对于快速POC，Plotly Dash（Python原生）最灵活——不需要额外License，直接嵌入已有系统。</p>
+</blockquote>
+<h4 id="power-bi-service">六、Power BI Service入门</h4>
+<p><strong>Power Query</strong>：Power BI内置的ETL工具，用类似Excel公式的方式做数据清洗。核心操作包括：删除列、更改类型、替换值、分列、合并查询（Join）、追加查询（Union）、透视/逆透视。</p>
+<p><strong>DAX（Data Analysis Expressions）基础</strong>：</p>
+<p>DAX是Power BI的公式语言，与Excel公式相似但功能更强大。关键概念是<strong>计算列</strong>（在每行上计算）vs <strong>度量值</strong>（在聚合上下文中计算）。</p>
+<div class="highlight"><pre><span></span><code>// 度量值示例
+Total Revenue = SUM(Sales[Revenue])
+Total Spend = SUM(Sales[Spend])
+ROAS = DIVIDE([Total Revenue], [Total Spend], 0)
+
+// 时间智能：环比
+Revenue Last Month = CALCULATE([Total Revenue], DATEADD(Calendar[Date], -1, MONTH))
+Revenue MoM Growth = DIVIDE([Total Revenue] - [Revenue Last Month], [Revenue Last Month], 0)
+
+// 条件计算
+High Value Customers = CALCULATE(COUNTROWS(Customers), Customers[CLV] &gt; 5000)
+</code></pre></div>
+
+<hr />
+<h3 id="day-2">Day 2：交互式仪表盘设计</h3>
+<h4 id="_6">一、仪表盘设计五原则</h4>
+<p>一个专业仪表盘和一堆图表堆砌之间的区别，在于设计原则的系统运用。</p>
+<p><strong>原则1：层次性（Hierarchy）</strong></p>
+<p>仪表盘应该有清晰的信息层次，从上到下、从左到右，按照"概览 -&gt; 细节 -&gt; 明细"的顺序排列。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">层次</th>
+<th>位置</th>
+<th>内容</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">L1 概览区</td>
+<td>顶部</td>
+<td>3-5个核心KPI数字卡</td>
+<td>总收入、ROAS、转化率、CPA</td>
+</tr>
+<tr>
+<td style="text-align: center;">L2 趋势区</td>
+<td>中部上</td>
+<td>核心趋势图</td>
+<td>日度收入趋势、渠道对比</td>
+</tr>
+<tr>
+<td style="text-align: center;">L3 分析区</td>
+<td>中部下</td>
+<td>多维度分析图</td>
+<td>渠道×地区热力图、漏斗图</td>
+</tr>
+<tr>
+<td style="text-align: center;">L4 明细区</td>
+<td>底部</td>
+<td>可下钻的数据表</td>
+<td>Top 20 Campaign明细</td>
+</tr>
+</tbody>
+</table>
+<p><strong>原则2：对比性（Contrast）</strong></p>
+<p>通过颜色、大小、位置创造视觉对比，引导用户注意力。关键数据用醒目颜色，参考数据用灰色。异常值用红色高亮。</p>
+<p><strong>原则3：焦点引导（Focal Point）</strong></p>
+<p>每个视图区域应该有一个明确的视觉焦点。不要让用户去"寻找"重要信息——用颜色、标注、箭头主动引导。</p>
+<p><strong>原则4：交互性（Interactivity）</strong></p>
+<p>交互不是越多越好。核心交互模式包括：
+- <strong>筛选</strong>：全局筛选器（日期、渠道、地区）
+- <strong>联动</strong>：点击一个图表中的元素，其他图表高亮相关数据
+- <strong>下钻</strong>：从概览逐层深入到明细
+- <strong>悬停</strong>：显示详细信息tooltip</p>
+<p><strong>原则5：叙事性（Narrative）</strong></p>
+<p>好的仪表盘不是数据的堆砌，而是讲了一个"数据故事"。用户从左上角开始阅读，沿着设计好的路径移动，最终到达"所以呢？"的行动建议区域。</p>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：仪表盘设计的五原则可以直接用于方案提案。在给客户做BI方案演示时，先展示设计原则框架（体现方法论），再展示具体实现（体现执行力），最后展示实际效果（体现价值）。这个"方法论-&gt;实现-&gt;效果"的呈现结构本身就是五原则中"叙事性"的应用。</p>
+</blockquote>
+<h4 id="tableau-dashboard">二、Tableau Dashboard搭建实操</h4>
+<p><strong>布局系统</strong>：Tableau使用容器（Container）系统管理布局。水平容器和垂直容器可以嵌套，实现响应式设计。</p>
+<p><strong>关键操作</strong>：
+1. 拖入一个水平容器作为顶部KPI栏，放入3-5个Worksheet作为KPI卡片
+2. 中部用垂直容器放趋势图和分析图
+3. 底部放明细表
+4. 添加全局筛选器（日期、渠道），设置为"应用到所有使用此数据源的Worksheet"
+5. 设备适配：Dashboard -&gt; Device Layouts，分别为Desktop/Tablet/Phone设计布局</p>
+<h4 id="power-bi">三、Power BI报表设计</h4>
+<p><strong>书签（Bookmarks）</strong>：保存当前页面状态（筛选器、视觉对象状态、焦点），用户可以通过按钮在不同书签间切换，实现"导览"效果。</p>
+<p><strong>按钮（Buttons）</strong>：添加可点击的按钮，绑定书签导航、筛选器清除等操作，让报表有类似Web应用的交互体验。</p>
+<p><strong>问答（Q&amp;A）</strong>：Power BI的Q&amp;A功能允许用户用自然语言查询数据（"按渠道显示本月收入"），底层使用自然语言理解将问题转换为DAX查询。</p>
+<p><strong>分解树（Decomposition Tree）</strong>：交互式可视化，用户可以逐步分解一个指标，探索构成因素。例如：总收入 -&gt; 按渠道分解 -&gt; Search -&gt; 按地区分解 -&gt; 华东 -&gt; 按产品分解。</p>
+<h4 id="plotly-dashpython-web">四、Plotly Dash构建Python Web仪表盘</h4>
+<p>Dash是Plotly推出的Python Web应用框架，让你用纯Python构建交互式Web仪表盘，不需要写HTML/CSS/JavaScript。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">dash</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># ===== 生成模拟营销数据 =====</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">date_range</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2026-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">dashboard_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">date_range</span><span class="p">,</span>
+    <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;Search&#39;</span><span class="p">,</span> <span class="s1">&#39;Social&#39;</span><span class="p">,</span> <span class="s1">&#39;Email&#39;</span><span class="p">,</span> <span class="s1">&#39;Display&#39;</span><span class="p">,</span> <span class="s1">&#39;Video&#39;</span><span class="p">],</span> <span class="mi">180</span><span class="p">),</span>
+    <span class="s1">&#39;region&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;华东&#39;</span><span class="p">,</span> <span class="s1">&#39;华北&#39;</span><span class="p">,</span> <span class="s1">&#39;华南&#39;</span><span class="p">,</span> <span class="s1">&#39;西部&#39;</span><span class="p">,</span> <span class="s1">&#39;其他&#39;</span><span class="p">],</span> <span class="mi">180</span><span class="p">),</span>
+    <span class="s1">&#39;spend&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s1">&#39;impressions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+    <span class="s1">&#39;clicks&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+    <span class="s1">&#39;conversions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;ctr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;impressions&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;cpa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">180</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;roas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># ===== 初始化Dash应用 =====</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">dash</span><span class="o">.</span><span class="n">Dash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">external_stylesheets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;https://codepen.io/chriddyp/pen/bWLwgP.css&#39;</span><span class="p">])</span>
+
+<span class="c1"># ===== 布局定义 =====</span>
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontFamily&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial, sans-serif&#39;</span><span class="p">,</span> <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="s1">&#39;20px&#39;</span><span class="p">},</span> <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+    <span class="c1"># 标题区</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span><span class="s1">&#39;Marketing Analytics Dashboard&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#2E86AB&#39;</span><span class="p">}),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s1">&#39;Real-time marketing performance monitoring | June 2026&#39;</span><span class="p">,</span> 
+               <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#666&#39;</span><span class="p">})</span>
+    <span class="p">]),</span>
+
+    <span class="c1"># 全局筛选器</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Date Range&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">DatePickerRange</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span>
+                <span class="n">min_date_allowed</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                <span class="n">max_date_allowed</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                <span class="n">start_date</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                <span class="n">end_date</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;three columns&#39;</span><span class="p">),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">ch</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">ch</span><span class="p">}</span> 
+                         <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()],</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="n">multi</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;three columns&#39;</span><span class="p">),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Region&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">}</span> 
+                         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()],</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="n">multi</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;three columns&#39;</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;marginBottom&#39;</span><span class="p">:</span> <span class="s1">&#39;20px&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="s1">&#39;15px&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;backgroundColor&#39;</span><span class="p">:</span> <span class="s1">&#39;#f8f9fa&#39;</span><span class="p">,</span> <span class="s1">&#39;borderRadius&#39;</span><span class="p">:</span> <span class="s1">&#39;5px&#39;</span><span class="p">}),</span>
+
+    <span class="c1"># KPI卡片行</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;kpi-cards&#39;</span><span class="p">,</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">),</span>
+
+    <span class="n">html</span><span class="o">.</span><span class="n">Hr</span><span class="p">(),</span>
+
+    <span class="c1"># 图表区</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">H3</span><span class="p">(</span><span class="s1">&#39;Spend &amp; Revenue Trend&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;trend-chart&#39;</span><span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;six columns&#39;</span><span class="p">),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">H3</span><span class="p">(</span><span class="s1">&#39;Channel Performance&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;channel-chart&#39;</span><span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;six columns&#39;</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">),</span>
+
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">H3</span><span class="p">(</span><span class="s1">&#39;Region Heatmap&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;region-chart&#39;</span><span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;six columns&#39;</span><span class="p">),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">H3</span><span class="p">(</span><span class="s1">&#39;Conversion Funnel&#39;</span><span class="p">),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;funnel-chart&#39;</span><span class="p">)</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;six columns&#39;</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;marginTop&#39;</span><span class="p">:</span> <span class="s1">&#39;20px&#39;</span><span class="p">}),</span>
+<span class="p">])</span>
+
+<span class="c1"># ===== 回调函数：筛选数据 =====</span>
+<span class="k">def</span> <span class="nf">filter_data</span><span class="p">(</span><span class="n">date_range</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">filtered</span> <span class="o">=</span> <span class="n">dashboard_data</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">date_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">date_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">channels</span><span class="p">))</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">dashboard_data</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">regions</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">filtered</span>
+
+<span class="c1"># ===== 回调1：更新KPI卡片 =====</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;kpi-cards&#39;</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_kpis</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">([</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">)</span>
+
+    <span class="n">kpis</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Total Spend&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;¥</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#2E86AB&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Total Revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;¥</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#A23B72&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Avg ROAS&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#F18F01&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Total Conversions&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#3B1F2B&#39;</span><span class="p">},</span>
+    <span class="p">]</span>
+
+    <span class="n">cards</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">kpi</span> <span class="ow">in</span> <span class="n">kpis</span><span class="p">:</span>
+        <span class="n">cards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">kpi</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontSize&#39;</span><span class="p">:</span> <span class="s1">&#39;12px&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#666&#39;</span><span class="p">}),</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="n">kpi</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontSize&#39;</span><span class="p">:</span> <span class="s1">&#39;24px&#39;</span><span class="p">,</span> <span class="s1">&#39;fontWeight&#39;</span><span class="p">:</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+                                           <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">kpi</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]})</span>
+        <span class="p">],</span> <span class="n">className</span><span class="o">=</span><span class="s1">&#39;three columns&#39;</span><span class="p">,</span>
+           <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;textAlign&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="s1">&#39;15px&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;backgroundColor&#39;</span><span class="p">:</span> <span class="s1">&#39;#f8f9fa&#39;</span><span class="p">,</span> <span class="s1">&#39;borderRadius&#39;</span><span class="p">:</span> <span class="s1">&#39;5px&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;borderLeft&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;4px solid </span><span class="si">{</span><span class="n">kpi</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">}))</span>
+
+    <span class="k">return</span> <span class="n">cards</span>
+
+<span class="c1"># ===== 回调2：趋势图 =====</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;trend-chart&#39;</span><span class="p">,</span> <span class="s1">&#39;figure&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_trend</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">([</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">)</span>
+    <span class="n">daily</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;spend&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">daily</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">daily</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Spend&#39;</span><span class="p">,</span>
+                         <span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">daily</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">daily</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Revenue&#39;</span><span class="p">,</span>
+                             <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A23B72&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">yaxis</span><span class="o">=</span><span class="s1">&#39;y2&#39;</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+        <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span>
+        <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Spend (¥)&#39;</span><span class="p">),</span>
+        <span class="n">yaxis2</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Revenue (¥)&#39;</span><span class="p">,</span> <span class="n">overlaying</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">),</span>
+        <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;x unified&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="c1"># ===== 回调3：渠道效果图 =====</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;channel-chart&#39;</span><span class="p">,</span> <span class="s1">&#39;figure&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_channel</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">([</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">)</span>
+    <span class="n">ch_summary</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;channel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+        <span class="s1">&#39;spend&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;conversions&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span>
+    <span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">ch_summary</span><span class="p">[</span><span class="s1">&#39;roas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ch_summary</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">ch_summary</span><span class="p">[</span><span class="s1">&#39;spend&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ch_summary</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;spend&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;roas&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;conversions&#39;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span>
+                     <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;spend&#39;</span><span class="p">:</span> <span class="s1">&#39;Total Spend (¥)&#39;</span><span class="p">,</span> <span class="s1">&#39;roas&#39;</span><span class="p">:</span> <span class="s1">&#39;ROAS&#39;</span><span class="p">},</span>
+                     <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">350</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textposition</span><span class="o">=</span><span class="s1">&#39;top center&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="c1"># ===== 回调4：地区热力图 =====</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;region-chart&#39;</span><span class="p">,</span> <span class="s1">&#39;figure&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_region</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">([</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">)</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;channel&#39;</span><span class="p">])[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">pivot_table</span> <span class="o">=</span> <span class="n">pivot</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">go</span><span class="o">.</span><span class="n">Heatmap</span><span class="p">(</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">pivot_table</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">pivot_table</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">pivot_table</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">pivot_table</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">texttemplate</span><span class="o">=</span><span class="s1">&#39;%</span><span class="si">{text:,.0f}</span><span class="s1">&#39;</span>
+    <span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+        <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Revenue by Region × Channel (¥)&#39;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="c1"># ===== 回调5：漏斗图 =====</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;funnel-chart&#39;</span><span class="p">,</span> <span class="s1">&#39;figure&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;date-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;channel-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+     <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;region-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_funnel</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">([</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> <span class="n">channels</span><span class="p">,</span> <span class="n">regions</span><span class="p">)</span>
+    <span class="n">total_imp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;impressions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_clicks</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;clicks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_conv</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Funnel</span><span class="p">(</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Impressions&#39;</span><span class="p">,</span> <span class="s1">&#39;Clicks&#39;</span><span class="p">,</span> <span class="s1">&#39;Conversions&#39;</span><span class="p">],</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">total_imp</span><span class="p">,</span> <span class="n">total_clicks</span><span class="p">,</span> <span class="n">total_conv</span><span class="p">],</span>
+        <span class="n">textinfo</span><span class="o">=</span><span class="s1">&#39;value+percent initial+percent previous&#39;</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">,</span> <span class="s1">&#39;#F18F01&#39;</span><span class="p">,</span> <span class="s1">&#39;#A23B72&#39;</span><span class="p">])</span>
+    <span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">350</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="c1"># ===== 启动应用 =====</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Dash应用部署</strong>：Dash应用可以部署在多种环境中。最简单的方式是用<code>gunicorn</code>部署在云服务器上，也可以部署在Render、Railway等PaaS平台上。对于企业内部使用，可以部署在内网服务器，通过Nginx反向代理提供访问。</p>
+<h4 id="ai">五、自然语言转图表与AI增强分析</h4>
+<blockquote>
+<p><strong>2026前沿补丁</strong>：本节聚焦LLM如何重塑商业智能的交互方式，从"拖拽式分析"进化为"对话式分析"。</p>
+</blockquote>
+<p>传统BI工具要求用户掌握查询语言（SQL/DAX）和可视化工具操作，使用门槛高。2025-2026年，LLM驱动的自然语言交互正在成为BI系统的标配能力，让非技术人员也能用自然语言进行数据分析。</p>
+<p><strong>1. 自然语言转查询（NL2SQL）</strong></p>
+<p>NL2SQL（Natural Language to SQL）用LLM将用户的自然语言问题转化为SQL查询。用户问"上季度华东区销售额最高的三个品类"，LLM自动生成对应的SQL语句。</p>
+<p><strong>Text-to-SQL准确率进展</strong>：2024年Spider基准测试上，先进LLM的执行准确率已从2023年的60%提升至2026年的85%+。关键改进包括：(1)Schema-aware prompting--将数据库Schema信息注入prompt；(2)Few-shot learning--提供相似查询的示例；(3)Self-correction--LLM先生成SQL，执行后检查错误并自我修正。</p>
+<p><strong>2. 自然语言转图表（NL2Chart）</strong></p>
+<p>NL2Chart在NL2SQL的基础上进一步自动化：LLM不仅生成查询，还选择图表类型、设计配色、生成洞察。完整的NL2Chart流程：</p>
+<div class="highlight"><pre><span></span><code>用户自然语言 → LLM理解意图 → 生成SQL → 执行查询获取数据 → LLM选择图表类型 → 生成图表 → LLM生成洞察文本
+</code></pre></div>
+
+<p><strong>LLM选择图表类型的逻辑</strong>：LLM根据用户意图和数据特征自动选择图表。当用户问"趋势如何"时选折线图，问"哪个最大"时选柱状图，问"什么构成"时选饼图或树状图，问"两个变量关系"时选散点图。这本质上是在应用前面学过的"图表选择决策树"，只不过由LLM自动执行。</p>
+<p><strong>工具生态</strong>：OpenAI Code Interpreter（ChatGPT内置的数据分析能力）、Lida（微软开源的自动数据探索工具）、Plotly + LLM（用LLM生成Plotly代码）。</p>
+<p><strong>3. AI增强分析（Augmented Analytics）</strong></p>
+<p>AI增强分析是Gartner提出的概念，指用AI自动化数据分析流程中的重复性工作：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>描述</th>
+<th>传统BI对比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动洞察发现</td>
+<td>AI扫描数据，主动发现异常和趋势</td>
+<td>需要人工查看仪表盘发现异常</td>
+</tr>
+<tr>
+<td>智能解释</td>
+<td>点击图表异常点，AI解释原因</td>
+<td>需要分析师手动下钻分析</td>
+</tr>
+<tr>
+<td>预测性BI</td>
+<td>从描述性分析到预测性分析</td>
+<td>传统BI只展示已发生的数据</td>
+</tr>
+<tr>
+<td>自然语言交互</td>
+<td>用自然语言提问，AI回答+可视化</td>
+<td>需要学习工具操作</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4. Python实战：自然语言转图表完整流程</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">NL2ChartPipeline</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;自然语言转图表完整Pipeline&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s1">&#39;sales&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;初始化：将DataFrame存入SQLite，记录Schema&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table_name</span> <span class="o">=</span> <span class="n">table_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;:memory:&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_schema</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;提取DataFrame的Schema信息&quot;&quot;&quot;</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">schema</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+                <span class="s1">&#39;sample_values&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema</span>
+
+    <span class="k">def</span> <span class="nf">nl2sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;自然语言转SQL&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        数据库表名：</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">table_name</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">        表结构（Schema）：</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">        用户问题：&quot;</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="s2">        请生成对应的SQL查询语句。要求：</span>
+<span class="s2">        1. 只返回SQL语句，不要解释</span>
+<span class="s2">        2. 使用标准SQLite语法</span>
+<span class="s2">        3. 如果问题涉及排序/筛选/聚合，确保SQL正确实现</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span>
+        <span class="p">)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># 清理可能的markdown标记</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;```sql&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;```&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">sql</span>
+
+    <span class="k">def</span> <span class="nf">execute_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;执行SQL查询&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SQL执行错误: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">select_chart_and_generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;LLM选择图表类型并生成Plotly代码&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        用户问题：&quot;</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="s2">        查询结果数据（前10行）：</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">        数据列：</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">        数据行数：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">        请选择最合适的图表类型来可视化这个数据，并生成Python代码。</span>
+<span class="s2">        可选图表类型：bar（柱状图）, line（折线图）, scatter（散点图）,</span>
+<span class="s2">        pie（饼图）, heatmap（热力图）, funnel（漏斗图）</span>
+
+<span class="s2">        返回JSON格式：</span>
+<span class="s2">        </span><span class="se">{{</span><span class="s2"></span>
+<span class="s2">            &quot;chart_type&quot;: &quot;选择的图表类型&quot;,</span>
+<span class="s2">            &quot;reason&quot;: &quot;选择理由&quot;,</span>
+<span class="s2">            &quot;insight&quot;: &quot;从数据中发现的关键洞察（1-2句话）&quot;</span>
+<span class="s2">        </span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}],</span>
+            <span class="n">response_format</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json_object&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;完整Pipeline：自然语言 → SQL → 数据 → 图表 → 洞察&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;问题: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="c1"># Step 1: NL2SQL</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nl2sql</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;生成SQL: </span><span class="si">{</span><span class="n">sql</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Step 2: 执行查询</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;查询结果: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">行&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+        <span class="c1"># Step 3: 选择图表并生成洞察</span>
+        <span class="n">chart_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_chart_and_generate</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">图表类型: </span><span class="si">{</span><span class="n">chart_info</span><span class="p">[</span><span class="s1">&#39;chart_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;选择理由: </span><span class="si">{</span><span class="n">chart_info</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;关键洞察: </span><span class="si">{</span><span class="n">chart_info</span><span class="p">[</span><span class="s1">&#39;insight&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Step 4: 生成图表</span>
+        <span class="n">chart_type</span> <span class="o">=</span> <span class="n">chart_info</span><span class="p">[</span><span class="s1">&#39;chart_type&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">chart_type</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">chart_type</span> <span class="o">==</span> <span class="s1">&#39;line&#39;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">chart_type</span> <span class="o">==</span> <span class="s1">&#39;scatter&#39;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">chart_type</span> <span class="o">==</span> <span class="s1">&#39;pie&#39;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">question</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;sql&#39;</span><span class="p">:</span> <span class="n">sql</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="s1">&#39;chart_info&#39;</span><span class="p">:</span> <span class="n">chart_info</span><span class="p">}</span>
+
+
+<span class="c1"># ===== 示例使用 =====</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 生成模拟营销数据</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sales_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2026-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;region&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;华东&#39;</span><span class="p">,</span> <span class="s1">&#39;华北&#39;</span><span class="p">,</span> <span class="s1">&#39;华南&#39;</span><span class="p">,</span> <span class="s1">&#39;西部&#39;</span><span class="p">],</span> <span class="mi">90</span><span class="p">),</span>
+    <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;电子产品&#39;</span><span class="p">,</span> <span class="s1">&#39;服装&#39;</span><span class="p">,</span> <span class="s1">&#39;食品&#39;</span><span class="p">,</span> <span class="s1">&#39;家居&#39;</span><span class="p">,</span> <span class="s1">&#39;美妆&#39;</span><span class="p">],</span> <span class="mi">90</span><span class="p">),</span>
+    <span class="s1">&#39;revenue&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s1">&#39;conversions&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
+<span class="p">})</span>
+
+<span class="c1"># 初始化Pipeline</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">NL2ChartPipeline</span><span class="p">(</span><span class="n">sales_data</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s1">&#39;sales&#39;</span><span class="p">)</span>
+
+<span class="c1"># 自然语言提问</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;华东区各品类的总销售额是多少？按降序排列&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>代码解读</strong>：这段代码实现了从自然语言到图表的完整自动化流程。核心设计：(1)<code>nl2sql</code>方法将数据库Schema注入prompt，让LLM了解表结构；(2)<code>execute_sql</code>在SQLite中执行查询；(3)<code>select_chart_and_generate</code>让LLM根据数据特征选择图表类型并生成洞察。在生产环境中，还需要加入SQL安全检查（防止注入）、查询结果缓存、图表代码动态生成等增强功能。</p>
+<h4 id="bibi">六、跨学科桥梁：医疗BI与金融BI</h4>
+<p><strong>医疗BI：患者流向分析</strong></p>
+<p>医疗行业的BI有其特殊性：数据来源复杂（HIS、EMR、LIS等多系统）、合规要求严格、分析维度独特。患者流向分析（Patient Flow Analysis）是医疗BI的核心应用：追踪患者从首诊到治愈的完整路径，识别流程瓶颈（如某科室平均等待时间过长导致患者流失）。LLM增强的医疗BI可以回答自然语言问题："上季度心内科患者的平均住院天数是多少？哪些因素与超长住院相关？"，并将结果可视化为患者流向桑基图。</p>
+<p><strong>金融BI：风险热力图</strong></p>
+<p>金融行业的BI核心是风险可视化。风险热力图将多维风险数据（地区×产品×时间）以热力图形式展示，帮助风控团队快速识别高风险区域。AI增强的金融BI可以自动发现风险异常（"某地区某产品线的违约率在过去30天异常上升"），并用LLM生成风险简报。关键合规要求：数据脱敏、审计日志、权限分级。</p>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：NL2Chart能力是BI方案中"降低使用门槛"的关键卖点。当客户的高管可以直接用自然语言问"本月哪个渠道的ROI最高"并立即看到图表，而不需要等数据团队做报表时，BI系统的使用率和价值感知会大幅提升。在售前Demo中，现场让客户用自然语言提问并实时生成图表，是最有冲击力的演示方式。</p>
+</blockquote>
+<hr />
+<h3 id="day-3uiux">Day 3：数据叙事与UI/UX设计</h3>
+<h4 id="_7">一、数据叙事三幕结构</h4>
+<p>数据叙事（Data Storytelling）是将数据洞察转化为有说服力的故事的能力。好的数据叙事不是"把数据念一遍"，而是用数据作为证据，构建一个有冲突、有转折、有结局的叙事结构。</p>
+<p><strong>三幕结构源自戏剧理论，在数据叙事中的映射</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">幕</th>
+<th>戏剧结构</th>
+<th>数据叙事</th>
+<th>营销报告示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>第一幕：发现</strong></td>
+<td>建立场景，引入冲突</td>
+<td>展示现状，揭示异常</td>
+<td>"Q2 ROAS从3.5下降到2.1，低于盈亏线"</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>第二幕：解释</strong></td>
+<td>冲突升级，揭示原因</td>
+<td>下钻分析，找到根因</td>
+<td>"根因是Display渠道CPA上升40%，该渠道贡献了35%的花费但只贡献8%的转化"</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>第三幕：行动</strong></td>
+<td>冲突解决，新秩序</td>
+<td>提出建议，量化收益</td>
+<td>"建议将Display预算的60%转移到Search和Email，预计ROAS恢复至3.0+"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键原则：每幕必须有且只有一个核心信息</strong></p>
+<p>不要在一幕中塞入多个发现。如果分析中发现了多个问题，要么选择最重要的一个深入讲，要么将它们组织为一个递进结构（问题A导致问题B导致问题C）。</p>
+<h4 id="_8">二、故事板设计</h4>
+<p>故事板（Storyboard）是数据叙事的可视化规划工具，在正式制作报告前用纸笔或简单工具画出每页的核心信息、图表类型和叙事逻辑。</p>
+<p><strong>故事板设计四步法</strong>：</p>
+<p><strong>Step 1：受众分析</strong></p>
+<table>
+<thead>
+<tr>
+<th>受众类型</th>
+<th>关注点</th>
+<th>叙事风格</th>
+<th>数据深度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>高管（CEO/CMO）</strong></td>
+<td>战略影响、ROI、风险</td>
+<td>结论先行，3分钟内讲完</td>
+<td>概览级，重点数字</td>
+</tr>
+<tr>
+<td><strong>中层管理者</strong></td>
+<td>执行方案、资源需求</td>
+<td>问题-方案-计划</td>
+<td>中等，需要关键指标</td>
+</tr>
+<tr>
+<td><strong>分析团队</strong></td>
+<td>方法论、数据质量</td>
+<td>完整分析链路</td>
+<td>详细，含方法论和代码</td>
+</tr>
+<tr>
+<td><strong>客户（外部）</strong></td>
+<td>价值主张、案例证明</td>
+<td>故事驱动，情感共鸣</td>
+<td>精选数据，强调结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 2：信息层次</strong></p>
+<p>将所有发现按重要性排序，分为"必须知道"（Must-know）、"应该知道"（Should-know）、"可以知道"（Could-know）三层。必须知道的信息放在前面且详细展开，应该知道的信息放在后面简要提及，可以知道的信息放在附录。</p>
+<p><strong>Step 3：叙事弧线</strong></p>
+<p>一个好的数据叙事有情绪起伏——不是平铺直叙的数据罗列。经典的叙事弧线：</p>
+<div class="highlight"><pre><span></span><code>现状（常态） -&gt; 异常发现（冲突） -&gt; 深入调查（升级） -&gt; 根因揭示（高潮） -&gt; 行动方案（解决） -&gt; 预期效果（新常态）
+</code></pre></div>
+
+<p><strong>Step 4：视觉规划</strong></p>
+<p>为每个叙事节点选择最合适的可视化形式。发现阶段用概览图（趋势线、KPI卡），解释阶段用分析图（散点图、热力图），行动阶段用对比图（方案A vs B的预期效果）。</p>
+<h4 id="_9">三、案例分析：营销季度报告的叙事重构</h4>
+<p><strong>原始报告（反面案例）</strong>：</p>
+<blockquote>
+<p>Q2营销数据如下：总花费120万元，总收入380万元，ROAS 3.17。Search花费40万收入160万ROAS 4.0，Social花费35万收入105万ROAS 3.0，Display花费30万收入30万ROAS 1.0，Email花费15万收入85万ROAS 5.67。结论：Display渠道效果不好，建议优化。</p>
+</blockquote>
+<p>这段报告的问题：信息平铺，没有叙事张力；没有说明为什么Display效果不好；没有量化优化方案的预期收益。</p>
+<p><strong>重构后的数据叙事</strong>：</p>
+<blockquote>
+<p><strong>第一幕（发现）</strong>：Q2整体ROAS为3.17，看似健康。但拆分渠道后发现，Display渠道花费占比25%但收入贡献仅8%，ROAS仅为1.0——这意味着Display渠道在Q2实际上亏损了15万元。如果排除Display，其余渠道的综合ROAS可达3.83。</p>
+<p><strong>第二幕（解释）</strong>：深入分析Display渠道，发现两个问题：(1) CTR从Q1的0.8%下降到Q2的0.4%，说明广告创意疲劳严重；(2) CPA从Q1的80元上升到Q2的140元，涨幅75%，而同期行业平均CPA仅上升15%。根因是Q2 Display投放没有及时调整受众定向，大量展示给了低意向用户。</p>
+<p><strong>第三幕（行动）</strong>：建议三步走方案：(1) 立即暂停现有Display创意，上线新创意组（预计CTR恢复至0.7%+）；(2) 收窄受众定向为"过去30天搜索过相关关键词的用户"（预计CPA降至90元）；(3) 将节省的15万预算的50%转移到Email渠道（ROAS 5.67，边际收益最高）。预期效果：Q3整体ROAS恢复至3.8+，季度增收约25万元。</p>
+</blockquote>
+<p><strong>对比分析</strong>：重构后的叙事有明确的三幕结构、有数据支撑的根因分析、有量化的行动方案和预期收益。这正是售前方案中"用数据说服客户"的核心能力。</p>
+<h4 id="ui">四、UI设计原则</h4>
+<p><strong>色彩理论</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>色彩维度</th>
+<th>原则</th>
+<th>在数据产品中的应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>色相</strong></td>
+<td>语义一致：红=负面，绿=正面，蓝=中性</td>
+<td>KPI下降用红色，上升用绿色</td>
+</tr>
+<tr>
+<td><strong>饱和度</strong></td>
+<td>高饱和=重要，低饱和=次要</td>
+<td>核心数据高饱和，背景元素低饱和</td>
+</tr>
+<tr>
+<td><strong>明度</strong></td>
+<td>高明度=前景，低明度=背景</td>
+<td>数据元素用亮色，网格线用浅灰</td>
+</tr>
+<tr>
+<td><strong>对比度</strong></td>
+<td>文字与背景对比度 ≥ 4.5:1 (WCAG AA标准)</td>
+<td>白底深色文字，深底浅色文字</td>
+</tr>
+</tbody>
+</table>
+<p><strong>推荐配色方案（数据可视化专用）</strong>：</p>
+<div class="highlight"><pre><span></span><code>定性色板（分类数据）：#2E86AB #A23B72 #F18F01 #C73E1D #3B1F2B #5DA5DA
+顺序色板（有序数据）：#F7FBFF #C6DBEF #6BAED6 #2171B5 #08306B
+发散色板（正负对比）：#B2182B #EF8A62 #FDDBC7 #F7F7F7 #D1E5F0 #67A9CF #2166AC
+</code></pre></div>
+
+<p><strong>排版层级</strong>：</p>
+<p>数据产品中的文字应该有清晰的层级系统：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">层级</th>
+<th>用途</th>
+<th style="text-align: center;">字号</th>
+<th style="text-align: center;">字重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">H1</td>
+<td>页面标题</td>
+<td style="text-align: center;">24-28px</td>
+<td style="text-align: center;">Bold</td>
+</tr>
+<tr>
+<td style="text-align: center;">H2</td>
+<td>区块标题</td>
+<td style="text-align: center;">18-20px</td>
+<td style="text-align: center;">Semi-bold</td>
+</tr>
+<tr>
+<td style="text-align: center;">H3</td>
+<td>图表标题</td>
+<td style="text-align: center;">14-16px</td>
+<td style="text-align: center;">Medium</td>
+</tr>
+<tr>
+<td style="text-align: center;">Body</td>
+<td>正文/数据标签</td>
+<td style="text-align: center;">12-14px</td>
+<td style="text-align: center;">Regular</td>
+</tr>
+<tr>
+<td style="text-align: center;">Caption</td>
+<td>辅助说明</td>
+<td style="text-align: center;">10-11px</td>
+<td style="text-align: center;">Light</td>
+</tr>
+</tbody>
+</table>
+<p><strong>留白原则</strong>：留白不是"浪费空间"，而是给用户的眼睛喘息的空间。数据产品中，元素之间的间距应该至少为元素内部padding的1.5倍。密密麻麻的仪表盘会降低信息获取效率。</p>
+<p><strong>一致性原则</strong>：同一个数据产品中，相同的含义应该用相同的视觉编码。如果Email渠道在第一个图表中是蓝色，在所有图表中都应该是蓝色。颜色、字号、间距、交互行为都需要保持一致。</p>
+<h4 id="ux">五、UX设计流程</h4>
+<p>UI是"产品看起来怎样"，UX是"产品用起来怎样"。一个完整的数据产品UX设计流程：</p>
+<p><strong>1. 用户研究</strong>：了解你的仪表盘是给谁用的。他们每天看什么数据？他们最关心什么指标？他们在什么设备上查看（桌面/移动）？他们有多少时间看仪表盘（5分钟还是30分钟）？</p>
+<p><strong>2. 信息架构</strong>：根据用户研究的结果，组织仪表盘的信息结构。核心原则：最常用的信息最容易触达。</p>
+<p><strong>3. 原型设计</strong>：用Figma等工具快速制作低保真原型，验证信息架构和交互逻辑。不要一开始就做高保真——低保真能更快迭代。</p>
+<p><strong>4. 可用性测试</strong>：找3-5个目标用户，让他们使用原型完成几个典型任务（"找到上周ROAS最低的渠道"），观察他们的操作过程，记录困惑和错误。</p>
+<p><strong>5. 迭代优化</strong>：根据测试反馈修改设计，再次测试。通常需要2-3轮迭代。</p>
+<h4 id="figma">六、实践：用Figma设计数据产品原型</h4>
+<p>Figma是目前最流行的UI设计工具，支持协作编辑和原型交互。用Figma设计数据产品原型的关键步骤：</p>
+<ol>
+<li><strong>画框架</strong>：定义仪表盘的尺寸（桌面1920×1080或1440×900），画出网格系统（12列网格，间距20px）</li>
+<li><strong>放组件</strong>：用Figma组件库（或社区免费资源）放置KPI卡片、图表占位符、筛选器、导航栏</li>
+<li><strong>配色排版</strong>：应用前面定义的配色方案和排版系统</li>
+<li><strong>做交互</strong>：添加页面跳转、悬停效果、筛选器联动等原型交互</li>
+<li><strong>评审迭代</strong>：与干系人评审，收集反馈，迭代修改</li>
+</ol>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：在给客户做BI方案提案时，一个Figma原型比10页PPT更有说服力。你可以用半天时间制作一个低保真原型，在评审会上让客户直接"操作"仪表盘原型，让他们提前感受到数据产品的价值。这种"先体验后买单"的方式能显著提高方案通过率。</p>
+</blockquote>
+<hr />
+<h2 id="_10">真实数据集案例研究</h2>
+<blockquote>
+<p>本节通过真实/半真实数据集，演示本教材核心方法的完整分析流程，从数据加载到商业洞察。</p>
+</blockquote>
+<h3 id="_11">案例背景</h3>
+<p><strong>数据集</strong>：UCI Machine Learning Repository 的 Online Retail II 数据集，包含一家英国在线零售商2009年12月至2011年12月的所有交易记录，约107万条。每条记录包含发票编号、商品代码、商品描述、数量、发票日期、单价、客户ID和国家字段。</p>
+<p><strong>商业场景</strong>：作为一家B2B为主的在线礼品零售商，管理层希望了解客户行为模式，识别高价值客户群体，并制定差异化的客户运营策略。本案例通过RFM（最近购买时间、购买频率、消费金额）分层和同期群分析（Cohort Analysis）两个核心方法，完成客户画像与价值分层。</p>
+<h3 id="_12">数据加载与探索</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># 加载数据集（从UCI下载xlsx文件）</span>
+<span class="c1"># 数据集地址: https://archive.ics.uci.edu/dataset/502/online+retail+ii</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;online_retail_II.xlsx&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Year 2009-2010&quot;</span><span class="p">)</span>
+
+<span class="c1"># 基础数据探索</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;数据量: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> 条交易记录&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;客户数: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;商品数: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;StockCode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;时间范围: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> ~ </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 数据清洗：移除取消订单（InvoiceNo以C开头）、负数数量、空客户ID</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Invoice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># 计算每笔交易金额</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;TotalPrice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;清洗后数据量: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> 条&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;总交易额: £</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;TotalPrice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="rfm">核心分析：RFM客户分层</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设定分析基准日期（数据集最后日期 + 1天）</span>
+<span class="n">analysis_date</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 计算RFM指标</span>
+<span class="n">rfm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;InvoiceDate&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">analysis_date</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">days</span><span class="p">,</span>   <span class="c1"># Recency</span>
+    <span class="s1">&#39;Invoice&#39;</span><span class="p">:</span> <span class="s1">&#39;nunique&#39;</span><span class="p">,</span>                                        <span class="c1"># Frequency</span>
+    <span class="s1">&#39;TotalPrice&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span>                                          <span class="c1"># Monetary</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">rfm</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CustomerID&#39;</span><span class="p">,</span> <span class="s1">&#39;Recency&#39;</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;Monetary&#39;</span><span class="p">]</span>
+
+<span class="c1"># RFM打分（1-5分，5为最优）</span>
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;R_Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;Recency&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;F_Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;Frequency&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;M_Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;Monetary&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;RFM_Segment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;R_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;F_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;M_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;RFM_Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;R_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;F_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;M_Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># 客户价值分层</span>
+<span class="k">def</span> <span class="nf">assign_segment</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;R_Score&#39;</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;F_Score&#39;</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;M_Score&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Champions&#39;</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Loyal&#39;</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">f</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;New Customers&#39;</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;At Risk&#39;</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">f</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Lost&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Potential&#39;</span>
+
+<span class="n">rfm</span><span class="p">[</span><span class="s1">&#39;Segment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfm</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">assign_segment</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 各分层客户数量与价值分布</span>
+<span class="n">segment_summary</span> <span class="o">=</span> <span class="n">rfm</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Segment&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;CustomerID&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Monetary&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">]</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">segment_summary</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="cohort-analysis">同期群分析（Cohort Analysis）</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义客户首次购买月份为同期群</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceMonth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CohortMonth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">)[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;min&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+
+<span class="c1"># 计算同期群索引（第N个月）</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;CohortIndex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceMonth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CohortMonth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> \
+                    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;InvoiceMonth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CohortMonth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># 构建留存矩阵</span>
+<span class="n">cohort_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;CohortMonth&#39;</span><span class="p">,</span> <span class="s1">&#39;CohortIndex&#39;</span><span class="p">])[</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">cohort_counts</span> <span class="o">=</span> <span class="n">cohort_data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;CohortMonth&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;CohortIndex&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Customer ID&#39;</span><span class="p">)</span>
+
+<span class="c1"># 转换为留存率</span>
+<span class="n">cohort_sizes</span> <span class="o">=</span> <span class="n">cohort_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">retention</span> <span class="o">=</span> <span class="n">cohort_counts</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">cohort_sizes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 留存热力图可视化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">retention</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0%&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlOrRd&#39;</span><span class="p">,</span>
+            <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;留存率&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;客户同期群留存率热力图&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;购买后第N个月&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;首次购买月份&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;cohort_retention_heatmap.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="_13">结果解读</h3>
+<table>
+<thead>
+<tr>
+<th>客户分层</th>
+<th>客户数占比</th>
+<th>营收占比</th>
+<th>平均消费(£)</th>
+<th>运营策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Champions</td>
+<td>~12%</td>
+<td>~45%</td>
+<td>~3,200</td>
+<td>VIP专属服务，优先推荐新品</td>
+</tr>
+<tr>
+<td>Loyal</td>
+<td>~18%</td>
+<td>~25%</td>
+<td>~1,400</td>
+<td>会员积分计划，交叉销售</td>
+</tr>
+<tr>
+<td>New Customers</td>
+<td>~15%</td>
+<td>~8%</td>
+<td>~420</td>
+<td>欢迎序列邮件，首单优惠</td>
+</tr>
+<tr>
+<td>At Risk</td>
+<td>~20%</td>
+<td>~15%</td>
+<td>~780</td>
+<td>唤醒活动，限时折扣</td>
+</tr>
+<tr>
+<td>Lost</td>
+<td>~35%</td>
+<td>~7%</td>
+<td>~180</td>
+<td>低成本自动触达，不建议高投入</td>
+</tr>
+</tbody>
+</table>
+<p>同期群分析通常揭示：首月留存率约20-30%，第3个月降至15%左右，6个月后趋于5-8%的稳定平台。12月holiday季节的同期群通常表现优于其他月份。</p>
+<h3 id="_14">商业启示</h3>
+<ol>
+<li>
+<p><strong>客户价值高度集中</strong>：Champions群体以约12%的客户贡献了45%的营收，验证了"二八法则"在零售场景的适用性。BI仪表盘应优先监控该群体的购买频次和客单价变化。</p>
+</li>
+<li>
+<p><strong>流失预警信号</strong>：Recency Score从4降至2的客户，未来90天流失概率超过70%。建议在BI系统中设置自动化预警，当Champions或Loyal客户的Recency超过历史P75分位时触发客户成功团队跟进。</p>
+</li>
+<li>
+<p><strong>同期群驱动的运营节奏</strong>：新客户首月是留存关键窗口，应在购买后第3天、第7天、第14天设置自动化触达（产品推荐、使用指南、满意度调查），将首月留存率从25%提升至35%可带来约40%的LTV提升。</p>
+</li>
+<li>
+<p><strong>数据可视化驱动决策</strong>：RFM散点图和同期群热力图应作为客户运营仪表盘的核心组件，支持按时间范围、商品类别、国家等维度进行交互式下钻分析。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_15">核心文献</h2>
+<blockquote>
+<p>本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>[arXiv:1704.05127]</strong> - "Vega-Lite: A Grammar of Interactive Graphics" (Satyanarayan et al., 2017)
+   与本教材的关联：Vega-Lite提出了交互式可视化的声明式语法，是现代BI工具（如Tableau、Power BI的可视化层）的理论基础，理解该语法有助于设计更灵活的数据可视化方案和定制化BI仪表盘。</p>
+</li>
+<li>
+<p><strong>[arXiv:2005.14165]</strong> - "Language Models are Few-Shot Learners" (Brown et al., 2020)
+   与本教材的关联：GPT-3的少样本学习能力开创了NL2SQL、NL2Chart等AI增强分析范式，使自然语言驱动的数据查询和可视化生成成为可能，是理解下一代智能BI工具核心技术的基础文献。</p>
+</li>
+<li>
+<p><strong>[arXiv:2303.08774]</strong> - "GPT-4 Technical Report" (OpenAI, 2023)
+   与本教材的关联：GPT-4的多模态能力（文本、图像、代码）为BI领域带来新的智能化方向，包括图表理解、自动洞察生成、多模态数据故事叙述等，是探索下一代BI产品形态的关键参考。</p>
+</li>
+<li>
+<p><strong>[arXiv:1706.03762]</strong> - "Attention Is All You Need" (Vaswani et al., 2017)
+   与本教材的关联：Transformer架构是BI系统中处理时序数据、自然语言查询、多表关联等序列任务的基础，理解注意力机制有助于把握BI系统从规则驱动向AI驱动的架构演进趋势。</p>
+</li>
+<li>
+<p><strong>[arXiv:2210.03629]</strong> - "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al., 2022)
+   与本教材的关联：ReAct框架将推理与行动结合，是对话式BI分析的核心范式——用户提问后，AI系统推理查询意图、执行数据操作、返回分析结果，该文献为构建智能BI Agent提供了理论框架。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_16">知识问答</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th>问题</th>
+<th>参考答案要点</th>
+<th style="text-align: center;">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Q1</td>
+<td>Wilkinson可视化语法的核心思想是什么？它比"选图表类型"的方法有什么优势？</td>
+<td>核心思想是将可视化分解为数据-&gt;视觉映射-&gt;几何对象-&gt;统计变换-&gt;坐标系的分层系统。优势在于可以自由组合各层，创造最适合数据的可视化形式，而非受限于预定义的图表类型。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q2</td>
+<td>什么时候应该用散点图而不是柱状图？什么时候应该用热力图而不是散点图？</td>
+<td>散点图适合展示两个连续变量的关系（如花费vs转化），柱状图适合比较分类变量的聚合值。当数据点过多导致散点图重叠严重时，改用热力图（将平面划分为网格，用颜色表示密度）。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q3</td>
+<td>饼图在什么场景下是合适的选择？什么场景下应该避免使用？</td>
+<td>适合2-3个类别且需要强调占比的场景。类别超过5个、需要精确比较大小、或需要比较多组占比时避免使用——人眼对角度的辨别力远弱于对长度的辨别力。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q4</td>
+<td>仪表盘设计五原则中的"焦点引导"如何实现？请举一个具体例子。</td>
+<td>通过颜色对比、大小差异、标注、箭头等方式引导注意力。例如：KPI卡片中，达标指标用绿色，未达标指标用红色并加粗；趋势图中在异常点添加标注"此处CPA突增40%"。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q5</td>
+<td>Dash框架的回调（Callback）机制是什么？Input和Output的关系如何理解？</td>
+<td>回调是Dash实现交互的核心机制：当Input组件的值变化时，自动执行回调函数，将返回值更新到Output组件。例如：用户改变日期筛选器(Input) -&gt; 触发回调函数重新过滤数据 -&gt; 更新图表(Output)。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q6</td>
+<td>数据叙事三幕结构中，"第二幕：解释"最常犯的错误是什么？</td>
+<td>最常见的错误是"罗列所有发现"而不聚焦根因。第二幕应该只讲一个因果链：异常发现-&gt;下钻分析-&gt;根因揭示。如果发现多个问题，选择最重要的一个深入讲，其余放入附录。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q7</td>
+<td>Tableau的参数和筛选器有什么区别？各自适合什么场景？</td>
+<td>筛选器直接控制数据可见性（如"只看Search渠道"），参数是动态变量，可以驱动计算字段、参考线等（如"选择对比基准月份"）。参数更灵活但需要配合计算字段使用，筛选器更直观。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q8</td>
+<td>在数据产品UI设计中，为什么推荐使用发散色板而不是彩虹色板来表示正负偏差？</td>
+<td>发散色板有明确的中心点（通常为白色或浅色），正值用蓝色、负值用红色，语义清晰。彩虹色板没有语义中心，且彩虹色之间的感知距离不均匀，容易误导。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q9</td>
+<td>Power BI中计算列和度量值的核心区别是什么？</td>
+<td>计算列在每行上计算，存储结果，消耗内存；度量值在聚合上下文中动态计算，不存储，消耗CPU。例如"每笔订单的利润率"用计算列，"总利润率"用度量值。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q10</td>
+<td>在给高管做数据叙事时，如何平衡"数据深度"和"简洁性"？</td>
+<td>高管叙事应遵循"结论先行"原则：第一句话就给出核心结论和行动建议，然后用3-5个关键数据点支撑。详细分析放在附录，仅在高管追问时展示。用故事板提前规划信息层次。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_17">作业设计</h2>
+<h3 id="plotlykpi">必做作业：用Plotly构建交互式营销KPI仪表盘</h3>
+<p><strong>任务</strong>：使用Plotly（Express或Graph Objects）构建一个包含以下元素的交互式营销KPI仪表盘：</p>
+<ol>
+<li>生成或使用真实的30天营销数据（至少包含3个渠道、5个指标）</li>
+<li>制作至少4个图表：双轴趋势图、渠道对比图、漏斗图、热力图</li>
+<li>添加全局筛选器（日期范围、渠道选择）</li>
+<li>所有图表使用统一的品牌配色方案</li>
+<li>为每个图表写一段50字的数据洞察说明</li>
+</ol>
+<p><strong>交付物</strong>：可运行的Python代码 + 仪表盘截图 + 300字设计说明（解释图表选择和布局逻辑）</p>
+<p><strong>评分标准</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>优秀（9-10分）</th>
+<th>良好（7-8分）</th>
+<th>合格（5-6分）</th>
+<th>不合格（&lt;5分）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码质量</td>
+<td>可运行、结构清晰、有注释</td>
+<td>基本可运行</td>
+<td>有小bug</td>
+<td>无法运行</td>
+</tr>
+<tr>
+<td>设计质量</td>
+<td>布局有层次、配色统一、交互流畅</td>
+<td>基本美观</td>
+<td>功能完整但设计粗糙</td>
+<td>图表堆砌无逻辑</td>
+</tr>
+<tr>
+<td>洞察深度</td>
+<td>每个图表的洞察有商业价值</td>
+<td>洞察基本合理</td>
+<td>仅描述图表内容</td>
+<td>缺失洞察说明</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dash">挑战作业：用Dash构建完整的营销分析仪表盘 + 数据叙事</h3>
+<p><strong>任务</strong>：</p>
+<ol>
+<li>用Dash构建一个完整的Web仪表盘应用，包含：
+   - KPI数字卡片区（4个核心指标）
+   - 趋势图（支持双Y轴）
+   - 渠道效果气泡图（四维数据）
+   - 地区×渠道热力图
+   - 转化漏斗图
+   - 全局筛选器（日期、渠道、地区）</li>
+<li>用数据叙事三幕结构写一份500字的仪表盘分析报告</li>
+<li>用Figma设计该仪表盘的移动端适配版（低保真即可）</li>
+</ol>
+<p><strong>评分标准</strong>：重点考察交互逻辑的完整性（回调函数是否正确联动）、数据叙事的张力（是否有发现-解释-行动的完整链条）、以及移动端设计的可用性。</p>
+<hr />
+<h2 id="_18">费曼学习法演练</h2>
+<h3 id="_19">核心理念</h3>
+<p>费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。</p>
+<h3 id="_20">演练任务</h3>
+<p><strong>任务</strong>：假设你在向传统BI团队负责人解释"NL2SQL"如何改变数据分析的工作流，以及它目前的局限性</p>
+<h3 id="_21">演练步骤</h3>
+<ol>
+<li><strong>选择概念</strong>：从本教材中选一个你觉得最有挑战性的概念</li>
+<li><strong>写下解释</strong>：用自己的语言写一段300-500字的解释，目标受众是传统BI团队负责人</li>
+<li><strong>找出空洞</strong>：标记你解释中含糊、跳过或借用术语的地方</li>
+<li><strong>回到教材</strong>：针对性补全知识空洞</li>
+<li><strong>简化重写</strong>：用更简单的语言重新写一遍，力求让受众真正理解</li>
+</ol>
+<h3 id="_22">自评标准</h3>
+<ul>
+<li>[ ] 解释中没有直接引用教材原文</li>
+<li>[ ] 至少使用了1个类比或比喻</li>
+<li>[ ] 受众能理解核心概念并复述</li>
+<li>[ ] 解释中标注的知识空洞已补全</li>
+</ul>
+<hr />
+<h2 id="_23">推荐资源清单</h2>
+<h3 id="_24">核心书籍（必读）</h3>
+<ul>
+<li>📖 <strong>Cole Nussbaumer Knaflic "Storytelling with Data"</strong>: 数据叙事的经典教材，讲解了如何用数据讲故事</li>
+<li>📖 <strong>Leland Wilkinson "The Grammar of Graphics"</strong>: 可视化语法的原始论文，理论深度极高</li>
+<li>📖 <strong>Edward Tufte "The Visual Display of Quantitative Information"</strong>: 数据可视化的奠基之作</li>
+</ul>
+<h3 id="_25">在线资源（必读）</h3>
+<ul>
+<li>🌐 <strong>Plotly Python文档</strong>: https://plotly.com/python/</li>
+<li>🌐 <strong>Dash教程</strong>: https://dash.plotly.com/</li>
+<li>🌐 <strong>seaborn官方文档</strong>: https://seaborn.pydata.org/</li>
+<li>🌐 <strong>Tableau Public学习资源</strong>: https://public.tableau.com/en-us/s/</li>
+<li>🌐 <strong>Power BI学习路径</strong>: https://learn.microsoft.com/power-bi/</li>
+</ul>
+<h3 id="_26">设计工具</h3>
+<ul>
+<li>🌐 <strong>Figma</strong>: https://www.figma.com/ (免费版足够)</li>
+<li>🌐 <strong>Figma社区数据仪表盘组件</strong>: https://www.figma.com/community/ 搜索"dashboard"</li>
+<li>🌐 <strong>Adobe Color</strong>: https://color.adobe.com/ (配色方案生成)</li>
+<li>🌐 <strong>Coolors</strong>: https://coolors.co/ (快速配色方案工具)</li>
+</ul>
+<h3 id="_27">对标课程</h3>
+<ul>
+<li>🌐 <strong>MIT Sloan 15.071 The Analytics Edge</strong>: https://ocw.mit.edu/courses/15-071-the-analytics-edge-spring-2017/</li>
+<li>🌐 <strong>Harvard HBS DDA</strong>: https://online.hbs.edu/courses/business-analytics/</li>
+<li>🌐 <strong>Google Data Analytics Professional Certificate</strong>: https://www.coursera.org/professional-certificates/google-data-analytics</li>
+</ul>
+<h3 id="_28">进阶阅读（可选）</h3>
+<ul>
+<li>📄 <strong>Stephen Few "Information Dashboard Design"</strong>: 仪表盘设计的权威指南</li>
+<li>📄 <strong>Tamara Munzner "Visualization Analysis &amp; Design"</strong>: 可视化分析的学术教材</li>
+<li>🌐 <strong>D3.js（JavaScript可视化库）</strong>: https://d3js.org/ (进阶Web可视化)</li>
+<li>🌐 <strong>Observable notebooks</strong>: https://observablehq.com/ (交互式数据可视化社区)</li>
+</ul>
+<hr />
+<blockquote>
+<p>💡 <strong>学习建议</strong>：本选修课的核心不是"学工具"，而是"学设计思维"。工具会更新换代（Tableau可能被替代，Plotly可能有新竞争者），但可视化语法、仪表盘设计原则和数据叙事结构是持久的。建议在学习过程中始终带着一个真实问题："如果我要给CMO做一个季度营销报告，我应该怎么设计？"——用这个真实场景驱动学习，效果远好于按部就班地学每个工具的功能。</p>
+</blockquote>
+  </div>
+
+  <div class="page-nav">
+    <a href="选修E3_LLM导论.html" class="nav-btn nav-prev">← 选修E3_LLM导论</a>
+    <a href="index.html" class="nav-btn nav-home">🏠 教材总览</a>
+    <a href="选修E5_商业生成式AI应用与流程自动化.html" class="nav-btn nav-next">选修E5_商业生成式AI应用与流程自动化 →</a>
+  </div>
+</div>
+
+<script src="textbook_nav.js"></script>
+</body>
+</html>

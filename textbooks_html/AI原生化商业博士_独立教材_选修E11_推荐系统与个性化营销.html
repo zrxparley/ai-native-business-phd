@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI原生化商业博士 · 选修E11_推荐系统与个性化营销</title>
+<link rel="stylesheet" href="textbook_style.css">
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-logo">📚 AI原生化商业博士</a>
+    <span class="sidebar-version">v14.0</span>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="tocSearch" placeholder="搜索目录..." oninput="filterTOC()">
+  </div>
+  <div class="sidebar-toc" id="sidebarTOC">
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#AI原生化商业博士独立教材选修E11推荐系统与个性化营销" onclick="navTo(event,'AI原生化商业博士独立教材选修E11推荐系统与个性化营销')">AI原生化商业博士 · 独立教材：选修E11 推荐系统与个性化营销</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#课程概述" onclick="navTo(event,'课程概述')">课程概述</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心命题" onclick="navTo(event,'核心命题')">核心命题</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#学习目标" onclick="navTo(event,'学习目标')">学习目标</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#学习计划表3天" onclick="navTo(event,'学习计划表3天')">学习计划表（3天）</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#详细学习内容" onclick="navTo(event,'详细学习内容')">详细学习内容</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day1推荐系统基础" onclick="navTo(event,'Day1推荐系统基础')">Day 1：推荐系统基础</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#User-basedCF手动实现" onclick="navTo(event,'User-basedCF手动实现')">===== User-based CF 手动实现 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#模拟营销场景用户-营销内容交互矩阵" onclick="navTo(event,'模拟营销场景用户-营销内容交互矩阵')">===== 模拟营销场景：用户-营销内容交互矩阵 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#生成稀疏交互矩阵模拟点击转化数据" onclick="navTo(event,'生成稀疏交互矩阵模拟点击转化数据')">生成稀疏交互矩阵（模拟点击/转化数据）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练推荐模型" onclick="navTo(event,'训练推荐模型')">训练推荐模型</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#为User_001生成推荐" onclick="navTo(event,'为User_001生成推荐')">为User_001生成推荐</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#预测User_001对Campaign_010的评分" onclick="navTo(event,'预测User_001对Campaign_010的评分')">预测User_001对Campaign_010的评分</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用Surprise库实现协同过滤" onclick="navTo(event,'使用Surprise库实现协同过滤')">===== 使用Surprise库实现协同过滤 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#创建营销内容交互数据集" onclick="navTo(event,'创建营销内容交互数据集')">创建营销内容交互数据集</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#加载到Surprise格式" onclick="navTo(event,'加载到Surprise格式')">加载到Surprise格式</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#划分训练集和测试集" onclick="navTo(event,'划分训练集和测试集')">划分训练集和测试集</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法1User-basedCF" onclick="navTo(event,'方法1User-basedCF')">===== 方法1：User-based CF =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法2Item-basedCF" onclick="navTo(event,'方法2Item-basedCF')">===== 方法2：Item-based CF =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法3SVD矩阵分解" onclick="navTo(event,'方法3SVD矩阵分解')">===== 方法3：SVD（矩阵分解）=====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#交叉验证比较" onclick="navTo(event,'交叉验证比较')">===== 交叉验证比较 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#为指定用户生成推荐" onclick="navTo(event,'为指定用户生成推荐')">===== 为指定用户生成推荐 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#获取user_10的推荐" onclick="navTo(event,'获取user_10的推荐')">获取user_10的推荐</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#推荐系统评估指标实现" onclick="navTo(event,'推荐系统评估指标实现')">===== 推荐系统评估指标实现 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用示例" onclick="navTo(event,'使用示例')">使用示例</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day2深度学习推荐系统" onclick="navTo(event,'Day2深度学习推荐系统')">Day 2：深度学习推荐系统</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#NCF模型定义" onclick="navTo(event,'NCF模型定义')">===== NCF模型定义 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练流程" onclick="navTo(event,'训练流程')">===== 训练流程 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练模型" onclick="navTo(event,'训练模型')">训练模型</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#为指定用户生成推荐" onclick="navTo(event,'为指定用户生成推荐')">为指定用户生成推荐</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#营销内容推荐示例" onclick="navTo(event,'营销内容推荐示例')">===== 营销内容推荐示例 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#用户特征年龄归一化性别one-hot2消费水平活跃度历史CTR" onclick="navTo(event,'用户特征年龄归一化性别one-hot2消费水平活跃度历史CTR')">用户特征：[年龄归一化, 性别(one-hot 2), 消费水平, 活跃度, 历史CTR]</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#内容特征内容类型one-hot5时效性热度情感倾向长度归一化" onclick="navTo(event,'内容特征内容类型one-hot5时效性热度情感倾向长度归一化')">内容特征：[内容类型(one-hot 5), 时效性, 热度, 情感倾向, 长度归一化]</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#模拟数据" onclick="navTo(event,'模拟数据')">模拟数据</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#训练" onclick="navTo(event,'训练')">训练</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#离线计算所有内容向量" onclick="navTo(event,'离线计算所有内容向量')">离线计算所有内容向量</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#在线推荐给定用户检索最相似的内容" onclick="navTo(event,'在线推荐给定用户检索最相似的内容')">在线推荐：给定用户，检索最相似的内容</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#用内积计算相似度并取Top-K" onclick="navTo(event,'用内积计算相似度并取Top-K')">用内积计算相似度并取Top-K</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#示例使用" onclick="navTo(event,'示例使用')">===== 示例使用 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#模拟多轮对话" onclick="navTo(event,'模拟多轮对话')">模拟多轮对话</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#第一轮用户初始需求" onclick="navTo(event,'第一轮用户初始需求')">第一轮：用户初始需求</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#第二轮用户提供反馈" onclick="navTo(event,'第二轮用户提供反馈')">第二轮：用户提供反馈</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#第三轮用户追问" onclick="navTo(event,'第三轮用户追问')">第三轮：用户追问</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#查看Agent积累的用户画像" onclick="navTo(event,'查看Agent积累的用户画像')">查看Agent积累的用户画像</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#Day3推荐系统工程与公平性" onclick="navTo(event,'Day3推荐系统工程与公平性')">Day 3：推荐系统工程与公平性</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#使用示例" onclick="navTo(event,'使用示例')">使用示例</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#新用户无信息" onclick="navTo(event,'新用户无信息')">新用户（无信息）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#新用户有兴趣标签" onclick="navTo(event,'新用户有兴趣标签')">新用户（有兴趣标签）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#IPS去偏示例概念性代码" onclick="navTo(event,'IPS去偏示例概念性代码')">IPS去偏示例（概念性代码）</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#真实数据集案例研究" onclick="navTo(event,'真实数据集案例研究')">真实数据集案例研究</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#案例背景" onclick="navTo(event,'案例背景')">案例背景</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#数据加载与探索" onclick="navTo(event,'数据加载与探索')">数据加载与探索</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#加载MovieLens100K数据集" onclick="navTo(event,'加载MovieLens100K数据集')">===== 加载 MovieLens 100K 数据集 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#Surprise库内置了MovieLens100K首次运行会自动下载" onclick="navTo(event,'Surprise库内置了MovieLens100K首次运行会自动下载')">Surprise库内置了MovieLens 100K，首次运行会自动下载</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#转换为DataFrame进行EDA" onclick="navTo(event,'转换为DataFrame进行EDA')">转换为DataFrame进行EDA</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#EDA评分分布用户活跃度电影热度" onclick="navTo(event,'EDA评分分布用户活跃度电影热度')">===== EDA: 评分分布、用户活跃度、电影热度 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#评分值分布" onclick="navTo(event,'评分值分布')">评分值分布</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#用户活跃度分布每用户评分数" onclick="navTo(event,'用户活跃度分布每用户评分数')">用户活跃度分布（每用户评分数）</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#电影热度分布每电影被评分数" onclick="navTo(event,'电影热度分布每电影被评分数')">电影热度分布（每电影被评分数）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心分析" onclick="navTo(event,'核心分析')">核心分析</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法对比User-CFItem-CFSVD" onclick="navTo(event,'方法对比User-CFItem-CFSVD')">===== 方法对比：User-CF / Item-CF / SVD =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法1User-basedCF" onclick="navTo(event,'方法1User-basedCF')">方法1: User-based CF</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法2Item-basedCF" onclick="navTo(event,'方法2Item-basedCF')">方法2: Item-based CF</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#方法3SVD矩阵分解" onclick="navTo(event,'方法3SVD矩阵分解')">方法3: SVD 矩阵分解</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#结果对比表" onclick="navTo(event,'结果对比表')">===== 结果对比表 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#为指定用户生成Top-N推荐" onclick="navTo(event,'为指定用户生成Top-N推荐')">===== 为指定用户生成 Top-N 推荐 =====</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#为用户196生成推荐" onclick="navTo(event,'为用户196生成推荐')">为用户 &#x27;196&#x27; 生成推荐</a></div>
+<div class="toc-item toc-l1" style="margin-left:0px"><a href="#推荐多样性分析流行度偏差检测" onclick="navTo(event,'推荐多样性分析流行度偏差检测')">===== 推荐多样性分析（流行度偏差检测） =====</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#结果解读" onclick="navTo(event,'结果解读')">结果解读</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#商业启示" onclick="navTo(event,'商业启示')">商业启示</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#核心文献" onclick="navTo(event,'核心文献')">核心文献</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#知识问答" onclick="navTo(event,'知识问答')">知识问答</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#作业设计" onclick="navTo(event,'作业设计')">作业设计</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#必做作业用Surprise库实现协同过滤推荐" onclick="navTo(event,'必做作业用Surprise库实现协同过滤推荐')">必做作业：用Surprise库实现协同过滤推荐</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#挑战作业用Two-Tower模型构建营销内容推荐系统" onclick="navTo(event,'挑战作业用Two-Tower模型构建营销内容推荐系统')">挑战作业：用Two-Tower模型构建营销内容推荐系统</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#费曼学习法演练" onclick="navTo(event,'费曼学习法演练')">费曼学习法演练</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心理念" onclick="navTo(event,'核心理念')">核心理念</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练任务" onclick="navTo(event,'演练任务')">演练任务</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#演练步骤" onclick="navTo(event,'演练步骤')">演练步骤</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#自评标准" onclick="navTo(event,'自评标准')">自评标准</a></div>
+<div class="toc-item toc-l2" style="margin-left:16px"><a href="#推荐资源清单" onclick="navTo(event,'推荐资源清单')">推荐资源清单</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#核心论文必读" onclick="navTo(event,'核心论文必读')">核心论文（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#开源工具必读" onclick="navTo(event,'开源工具必读')">开源工具（必读）</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#对标课程" onclick="navTo(event,'对标课程')">对标课程</a></div>
+<div class="toc-item toc-l3" style="margin-left:32px"><a href="#进阶阅读可选" onclick="navTo(event,'进阶阅读可选')">进阶阅读（可选）</a></div>
+
+  </div>
+  <div class="sidebar-footer">
+    <a href="index.html" class="back-to-index">← 返回教材总览</a>
+  </div>
+</div>
+
+<div class="main-content" id="mainContent">
+  <div class="top-bar">
+    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+    <span class="breadcrumb">
+      <a href="index.html">教材总览</a> /
+      <span class="tier-badge" style="background:#fb923c22;color:#fb923c">选修</span>
+      选修E11_推荐系统与个性化营销
+    </span>
+    <div class="top-bar-stats">
+      <span>1490行</span>
+      <span>73KB</span>
+      <span>6h</span>
+    </div>
+  </div>
+
+  <div class="content-body">
+<h1 id="ai-e11">AI原生化商业博士 · 独立教材：选修E11 推荐系统与个性化营销</h1>
+<blockquote>
+<p><strong>修读者</strong>：aha.gare<br />
+<strong>导师系统</strong>：Claude / 天道推演 + 系统觉醒 + 学位对标融合 + 牛津自然学习法 + 全球七校对标<br />
+<strong>版本</strong>：v4.0 | <strong>日期</strong>：2026-07-30<br />
+<strong>学时</strong>：6h | 建议节奏：3天集中学习<br />
+<strong>对标课程</strong>：Stanford CS246 Mining Massive Datasets + Google Recommendations Course + UCSD Recommender Systems + Wharton Customer Analytics + Imperial Recommendation Systems<br />
+<strong>对应技能</strong>：技能1（表示工程与营销智能）推荐系统深化 + 技能0（AI商业分析基础）<br />
+<strong>前置条件</strong>：完成技能1核心课程（理解Embedding和向量空间），具备Python和PyTorch基础<br />
+<strong>定位</strong>：从"理解推荐算法原理"升级到"能设计端到端个性化营销推荐系统"，掌握从经典CF到深度学习到工程架构到公平性的完整能力链</p>
+</blockquote>
+<hr />
+<h2 id="_1">课程概述</h2>
+<h3 id="_2">核心命题</h3>
+<p><strong>推荐系统如何从"猜你喜欢"进化为"驱动商业增长的个性化引擎"？</strong></p>
+<p>推荐系统是个性化营销的技术核心。当Amazon说"购买此商品的顾客也购买了"、当Netflix说"为你推荐"、当抖音说"下一个视频"时，背后都是推荐系统在驱动用户行为。推荐系统直接影响平台的核心指标--转化率、停留时长、客单价、留存率。一个优秀的推荐系统可以为电商带来20-30%的收入提升。</p>
+<p>对于售前解决方案产品经理而言，推荐系统理解力决定了你在个性化营销方案中的技术深度。当客户说"我们想做精准营销"时，你需要能判断：他们的问题是冷启动（新用户没有行为数据）？是排序质量差（推荐了但不精准）？还是覆盖面不够（只推荐热门商品）？不同问题对应完全不同的技术方案。</p>
+<h3 id="_3">学习目标</h3>
+<p>完成本课程后，你将能够：</p>
+<ol>
+<li><strong>算法层</strong>：掌握协同过滤、基于内容、矩阵分解三大经典推荐范式的原理和实现，理解各自的优势和局限</li>
+<li><strong>深度学习层</strong>：理解NCF、Wide &amp; Deep、DeepFM、Two-Tower、序列推荐等深度学习推荐模型的核心架构</li>
+<li><strong>工程层</strong>：掌握推荐系统"召回-&gt;排序-&gt;重排"的三级架构，理解冷启动和多目标优化的工程方案</li>
+<li><strong>公平性层</strong>：理解推荐系统中的位置偏差、曝光偏差、流行度偏差，掌握因果推荐和可解释推荐的基本思路</li>
+<li><strong>应用层</strong>：能为电商/内容/营销场景设计端到端个性化推荐系统架构</li>
+</ol>
+<hr />
+<h2 id="3">学习计划表（3天）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">天次</th>
+<th>主题</th>
+<th style="text-align: center;">时长</th>
+<th>核心产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Day 1</strong></td>
+<td>推荐系统基础：经典方法</td>
+<td style="text-align: center;">2h</td>
+<td>Surprise协同过滤代码 + 评估指标计算代码</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 2</strong></td>
+<td>深度学习推荐系统</td>
+<td style="text-align: center;">2h</td>
+<td>PyTorch NCF代码 + Two-Tower营销推荐代码</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Day 3</strong></td>
+<td>推荐系统工程与公平性</td>
+<td style="text-align: center;">2h</td>
+<td>电商推荐系统架构设计文档</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">详细学习内容</h2>
+<hr />
+<h3 id="day-1">Day 1：推荐系统基础</h3>
+<h4 id="_5">一、推荐范式总览</h4>
+<p>推荐系统的核心任务是：给定一个用户和一组候选物品，预测用户对每个物品的偏好程度，然后推荐偏好最高的物品。</p>
+<p><strong>三大推荐范式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th>核心思想</th>
+<th>数据需求</th>
+<th>优势</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>协同过滤（CF）</strong></td>
+<td>"喜欢相似物品的用户有相似偏好"</td>
+<td>用户-物品交互矩阵</td>
+<td>不需要物品内容信息，能发现隐含兴趣</td>
+<td>冷启动问题、数据稀疏</td>
+</tr>
+<tr>
+<td><strong>基于内容（CB）</strong></td>
+<td>"推荐与用户历史偏好相似的物品"</td>
+<td>物品特征向量</td>
+<td>无冷启动（新物品有特征即可），可解释</td>
+<td>难以发现新兴趣（信息茧房）</td>
+</tr>
+<tr>
+<td><strong>混合推荐</strong></td>
+<td>结合CF和CB</td>
+<td>两者都需要</td>
+<td>互补各自局限</td>
+<td>系统复杂度高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>协同过滤的两个子方向</strong>：</p>
+<ul>
+<li><strong>基于用户的CF（User-based CF）</strong>：找到与目标用户相似的"邻居"用户，推荐邻居喜欢但目标用户未接触的物品。适用于用户数远少于物品数的场景（如小型电商）。</li>
+<li><strong>基于物品的CF（Item-based CF）</strong>：找到与用户历史交互物品相似的物品进行推荐。Amazon在2003年提出的item-to-item推荐就是这种方法的经典应用，适用于物品数相对稳定的场景。</li>
+</ul>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：当客户说"要做推荐系统"时，第一步是评估他们的数据基础。如果只有用户行为数据（点击/购买记录），从CF开始；如果有丰富的物品特征（商品描述、标签、图片），CB可以解决冷启动；如果两者都有，混合方案效果最佳。不要一上来就推深度学习--经典方法在小数据集上往往更稳健。</p>
+</blockquote>
+<h4 id="cf">二、基于用户的CF</h4>
+<p><strong>核心算法步骤</strong>：</p>
+<ol>
+<li><strong>计算用户相似度</strong>：用余弦相似度或Pearson相关系数衡量用户间的偏好相似度</li>
+<li><strong>选择邻居</strong>：选择相似度最高的K个用户作为"邻居"</li>
+<li><strong>生成推荐</strong>：将邻居喜欢但目标用户未交互的物品推荐给目标用户，用相似度加权预测评分</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+
+<span class="c1"># ===== User-based CF 手动实现 =====</span>
+
+<span class="k">class</span> <span class="nc">UserBasedCF</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;基于用户的协同过滤&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">n_neighbors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_similarity</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_item_matrix</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        user_item_matrix: 行=用户, 列=物品, 值=评分(或隐式反馈)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span> <span class="o">=</span> <span class="n">user_item_matrix</span>
+        <span class="c1"># 计算用户间的余弦相似度</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_similarity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">item_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;预测用户对物品的评分&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 新用户冷启动</span>
+
+        <span class="c1"># 找到对该物品有交互的邻居用户</span>
+        <span class="n">item_raters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span><span class="p">[</span><span class="n">item_id</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_raters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 新物品冷启动</span>
+
+        <span class="c1"># 选择最相似的K个邻居（在已评分用户中）</span>
+        <span class="n">neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_similarity</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">user_id</span><span class="p">,</span> <span class="n">item_raters</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">neighbors</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbors</span><span class="p">)</span>
+
+        <span class="c1"># 加权预测</span>
+        <span class="k">if</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">item_raters</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 相似度为0时用均值</span>
+
+        <span class="n">predicted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">item_raters</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">neighbors</span><span class="o">.</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">/</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">predicted</span>
+
+    <span class="k">def</span> <span class="nf">recommend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">n_recommendations</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;为用户生成Top-N推荐&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="c1"># 冷启动：推荐热门物品</span>
+            <span class="n">popular</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">popular</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n_recommendations</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="c1"># 获取用户未交互的物品</span>
+        <span class="n">user_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_item_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span>
+        <span class="n">unrated_items</span> <span class="o">=</span> <span class="n">user_items</span><span class="p">[</span><span class="n">user_items</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="c1"># 预测评分并排序</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">unrated_items</span><span class="p">]</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">predictions</span><span class="p">[:</span><span class="n">n_recommendations</span><span class="p">]]</span>
+
+
+<span class="c1"># ===== 模拟营销场景：用户-营销内容交互矩阵 =====</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;User_</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">)]</span>
+<span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Campaign_</span><span class="si">{</span><span class="n">j</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)]</span>
+
+<span class="c1"># 生成稀疏交互矩阵（模拟点击/转化数据）</span>
+<span class="n">interaction_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">])</span>
+<span class="n">interaction_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">interaction_data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">users</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+<span class="c1"># 训练推荐模型</span>
+<span class="n">cf</span> <span class="o">=</span> <span class="n">UserBasedCF</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">cf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">interaction_matrix</span><span class="p">)</span>
+
+<span class="c1"># 为User_001生成推荐</span>
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">recommend</span><span class="p">(</span><span class="s1">&#39;User_001&#39;</span><span class="p">,</span> <span class="n">n_recommendations</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User_001的推荐：</span><span class="si">{</span><span class="n">recommendations</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 预测User_001对Campaign_010的评分</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s1">&#39;User_001&#39;</span><span class="p">,</span> <span class="s1">&#39;Campaign_010&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;预测评分：</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="cfamazon-item-to-item">三、基于物品的CF：Amazon item-to-item</h4>
+<p>基于物品的CF不计算用户相似度，而是计算物品相似度。核心假设是：用户倾向于喜欢与自己历史喜欢物品相似的物品。</p>
+<p><strong>为什么Amazon选择Item-based CF？</strong></p>
+<p>Amazon的商品数量（数百万）远大于用户数，且商品集合相对稳定。计算物品相似度矩阵比用户相似度矩阵更高效，且可以离线预计算。当用户浏览一本Python书时，系统只需查找与该书最相似的N本书--这个过程可以在毫秒级完成。</p>
+<h4 id="svdpmfals">四、矩阵分解：SVD/PMF/ALS</h4>
+<p>矩阵分解是协同过滤的进阶方法。它将庞大的用户-物品交互矩阵分解为两个低维矩阵（用户隐因子矩阵和物品隐因子矩阵），通过隐因子捕捉用户偏好和物品特征的潜在结构。</p>
+<p><strong>矩阵分解的核心思想</strong>：</p>
+<div class="highlight"><pre><span></span><code>R (M×N) ≈ U (M×K) × V (K×N)
+
+其中：
+- R: 用户-物品交互矩阵 (M用户 × N物品)
+- U: 用户隐因子矩阵 (M用户 × K隐因子)
+- V: 物品隐因子矩阵 (K隐因子 × N物品)
+- K: 隐因子维度（通常10-200）
+</code></pre></div>
+
+<p><strong>三种矩阵分解方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>全称</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SVD</strong></td>
+<td>Singular Value Decomposition</td>
+<td>经典数学方法，要求矩阵完整（无缺失）</td>
+<td>数据密集场景</td>
+</tr>
+<tr>
+<td><strong>PMF</strong></td>
+<td>Probabilistic Matrix Factorization</td>
+<td>概率模型，能处理缺失值，用SGD优化</td>
+<td>中等规模数据</td>
+</tr>
+<tr>
+<td><strong>ALS</strong></td>
+<td>Alternating Least Squares</td>
+<td>交替优化U和V，适合并行计算</td>
+<td>大规模稀疏数据（Spark内置）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>用Surprise库实现协同过滤</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">KNNBasic</span><span class="p">,</span> <span class="n">SVD</span><span class="p">,</span> <span class="n">accuracy</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_validate</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># ===== 使用Surprise库实现协同过滤 =====</span>
+
+<span class="c1"># 创建营销内容交互数据集</span>
+<span class="n">interaction_records</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.8</span><span class="p">:</span>  <span class="c1"># 20%的交互率</span>
+            <span class="n">rating</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>  <span class="c1"># 1-5分</span>
+            <span class="n">interaction_records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;user_</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;content_</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="n">rating</span>
+            <span class="p">})</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">interaction_records</span><span class="p">)</span>
+
+<span class="c1"># 加载到Surprise格式</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
+
+<span class="c1"># 划分训练集和测试集</span>
+<span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># ===== 方法1：User-based CF =====</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User-based CF&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+<span class="n">user_cf</span> <span class="o">=</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">user_cf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">user_pred</span> <span class="o">=</span> <span class="n">user_cf</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">user_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">user_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== 方法2：Item-based CF =====</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Item-based CF&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+<span class="n">item_cf</span> <span class="o">=</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">item_cf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">item_pred</span> <span class="o">=</span> <span class="n">item_cf</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">item_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">item_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== 方法3：SVD（矩阵分解）=====</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SVD (Matrix Factorization)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">lr_all</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">reg_all</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">svd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">svd_pred</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">svd_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">svd_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== 交叉验证比较 =====</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5-Fold Cross Validation&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">algo</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;UserCF&#39;</span><span class="p">,</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})),</span>
+                    <span class="p">(</span><span class="s1">&#39;ItemCF&#39;</span><span class="p">,</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})),</span>
+                    <span class="p">(</span><span class="s1">&#39;SVD&#39;</span><span class="p">,</span> <span class="n">SVD</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))]:</span>
+    <span class="n">cv_results</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: RMSE=</span><span class="si">{</span><span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_rmse&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, MAE=</span><span class="si">{</span><span class="n">cv_results</span><span class="p">[</span><span class="s1">&#39;test_mae&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== 为指定用户生成推荐 =====</span>
+<span class="k">def</span> <span class="nf">get_top_n_recommendations</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">all_items</span><span class="p">,</span> <span class="n">interacted_items</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;获取Top-N推荐&quot;&quot;&quot;</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item_id</span> <span class="ow">in</span> <span class="n">all_items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">interacted_items</span><span class="p">:</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">item_id</span><span class="p">)</span>
+            <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item_id</span><span class="p">,</span> <span class="n">pred</span><span class="o">.</span><span class="n">est</span><span class="p">))</span>
+
+    <span class="n">predictions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictions</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+<span class="c1"># 获取user_10的推荐</span>
+<span class="n">all_items</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;item_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">user_10_items</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;user_10&#39;</span><span class="p">][</span><span class="s1">&#39;item_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">top_n</span> <span class="o">=</span> <span class="n">get_top_n_recommendations</span><span class="p">(</span><span class="n">svd</span><span class="p">,</span> <span class="s1">&#39;user_10&#39;</span><span class="p">,</span> <span class="n">all_items</span><span class="p">,</span> <span class="n">user_10_items</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">为 user_10 推荐的Top-5内容：&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">top_n</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">: 预测评分 </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 5 · Lesson 14: Information Retrieval &amp; Search（信息检索与搜索--推荐系统的底层技术基础，包括倒排索引、向量检索、相似度计算等）</p>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 11 · Lesson 04: Embeddings（嵌入表示--推荐系统中用户和物品的向量化表示方法）</p>
+</blockquote>
+<h4 id="_6">五、评估指标</h4>
+<p>推荐系统的评估与一般ML任务不同，因为推荐的核心目标不是"预测评分准确"，而是"推荐的列表用户是否喜欢"。</p>
+<p><strong>分类1：评分预测指标</strong>（适用于显式评分场景）</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>含义</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RMSE</strong></td>
+<td>Root Mean Square Error</td>
+<td>预测评分与真实评分的均方根误差</td>
+<td>评分预测任务</td>
+</tr>
+<tr>
+<td><strong>MAE</strong></td>
+<td>Mean Absolute Error</td>
+<td>预测评分与真实评分的平均绝对误差</td>
+<td>评分预测任务</td>
+</tr>
+</tbody>
+</table>
+<p><strong>分类2：排序质量指标</strong>（适用于Top-N推荐场景，更贴近实际业务）</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>含义</th>
+<th>优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Precision@K</strong></td>
+<td>精确率</td>
+<td>推荐的Top-K中用户实际喜欢的比例</td>
+<td>直观</td>
+</tr>
+<tr>
+<td><strong>Recall@K</strong></td>
+<td>召回率</td>
+<td>用户喜欢的物品中被推荐到Top-K的比例</td>
+<td>衡量覆盖</td>
+</tr>
+<tr>
+<td><strong>NDCG@K</strong></td>
+<td>Normalized Discounted Cumulative Gain</td>
+<td>考虑排序位置的加权指标</td>
+<td>排在前面的更重要</td>
+</tr>
+<tr>
+<td><strong>MAP</strong></td>
+<td>Mean Average Precision</td>
+<td>平均精度的均值</td>
+<td>综合排序质量</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># ===== 推荐系统评估指标实现 =====</span>
+
+<span class="k">def</span> <span class="nf">precision_at_k</span><span class="p">(</span><span class="n">recommended_items</span><span class="p">,</span> <span class="n">relevant_items</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Precision@K: 推荐的Top-K中相关物品的比例&quot;&quot;&quot;</span>
+    <span class="n">recommended_k</span> <span class="o">=</span> <span class="n">recommended_items</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">relevant_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">relevant_items</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">recommended_k</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">relevant_set</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">k</span>
+
+<span class="k">def</span> <span class="nf">recall_at_k</span><span class="p">(</span><span class="n">recommended_items</span><span class="p">,</span> <span class="n">relevant_items</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recall@K: 相关物品中被推荐到Top-K的比例&quot;&quot;&quot;</span>
+    <span class="n">recommended_k</span> <span class="o">=</span> <span class="n">recommended_items</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">relevant_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">relevant_items</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">recommended_k</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">relevant_set</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">hits</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevant_set</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevant_set</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">ndcg_at_k</span><span class="p">(</span><span class="n">recommended_items</span><span class="p">,</span> <span class="n">relevant_items</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NDCG@K: 考虑排序位置的归一化折损累计增益&quot;&quot;&quot;</span>
+    <span class="n">relevant_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">relevant_items</span><span class="p">)</span>
+
+    <span class="c1"># DCG: 折损累计增益</span>
+    <span class="n">dcg</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">recommended_items</span><span class="p">[:</span><span class="n">k</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">relevant_set</span><span class="p">:</span>
+            <span class="n">dcg</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># i从0开始，所以+2</span>
+
+    <span class="c1"># IDCG: 理想DCG（所有相关物品排在前面的最大DCG）</span>
+    <span class="n">ideal_hits</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">relevant_items</span><span class="p">),</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">idcg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ideal_hits</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dcg</span> <span class="o">/</span> <span class="n">idcg</span> <span class="k">if</span> <span class="n">idcg</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="c1"># 使用示例</span>
+<span class="n">recommended</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;item_1&#39;</span><span class="p">,</span> <span class="s1">&#39;item_5&#39;</span><span class="p">,</span> <span class="s1">&#39;item_3&#39;</span><span class="p">,</span> <span class="s1">&#39;item_8&#39;</span><span class="p">,</span> <span class="s1">&#39;item_2&#39;</span><span class="p">]</span>
+<span class="n">relevant</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;item_3&#39;</span><span class="p">,</span> <span class="s1">&#39;item_5&#39;</span><span class="p">,</span> <span class="s1">&#39;item_9&#39;</span><span class="p">,</span> <span class="s1">&#39;item_10&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision@5: </span><span class="si">{</span><span class="n">precision_at_k</span><span class="p">(</span><span class="n">recommended</span><span class="p">,</span> <span class="n">relevant</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall@5: </span><span class="si">{</span><span class="n">recall_at_k</span><span class="p">(</span><span class="n">recommended</span><span class="p">,</span> <span class="n">relevant</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NDCG@5: </span><span class="si">{</span><span class="n">ndcg_at_k</span><span class="p">(</span><span class="n">recommended</span><span class="p">,</span> <span class="n">relevant</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>业务指标 vs 算法指标</strong>：</p>
+<p>算法指标（Precision@K、NDCG）衡量推荐质量，但最终需要转化为业务指标才有商业意义。常见的映射关系：Precision@K提升10% -&gt; 点击率提升5-8% -&gt; 转化率提升3-5% -&gt; 收入提升2-4%。在方案提案中，应该同时展示算法指标和预估的业务影响。</p>
+<hr />
+<h3 id="day-2">Day 2：深度学习推荐系统</h3>
+<h4 id="ncf">一、神经协同过滤（NCF）</h4>
+<p>NCF是2017年新加坡国立大学提出的模型，用神经网络替代传统矩阵分解中的内积操作，让模型能学习用户和物品之间的非线性关系。</p>
+<p><strong>NCF的核心创新</strong>：</p>
+<p>传统矩阵分解用用户隐向量和物品隐向量的<strong>内积</strong>来预测评分：</p>
+<div class="highlight"><pre><span></span><code>y_hat = u_i · v_j  (内积)
+</code></pre></div>
+
+<p>内积是线性操作，表达能力有限。NCF用多层感知机（MLP）替代内积：</p>
+<div class="highlight"><pre><span></span><code>y_hat = MLP(concat(u_i, v_j))  (非线性变换)
+</code></pre></div>
+
+<p><strong>NCF的两种架构</strong>：</p>
+<ol>
+<li><strong>GMF（Generalized Matrix Factorization）</strong>：用元素级乘法替代内积，再加一层线性映射。保留了矩阵分解的结构，但增加了可学习权重。</li>
+<li><strong>NeuMF（Neural Matrix Factorization）</strong>：将GMF和MLP的输出拼接，再用一层全连接层融合。结合了线性和非线性能力。</li>
+</ol>
+<p><strong>PyTorch实现NCF</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># ===== NCF模型定义 =====</span>
+
+<span class="k">class</span> <span class="nc">NCFDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;推荐系统数据集&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interactions</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">n_users</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_items</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">neg_ratio</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        interactions: DataFrame with columns [user_id, item_id, rating]</span>
+<span class="sd">        neg_ratio: 每个正样本对应的负样本数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_users</span> <span class="o">=</span> <span class="n">n_users</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_items</span> <span class="o">=</span> <span class="n">n_items</span>
+
+        <span class="c1"># 正样本</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">user_items</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)[</span><span class="s1">&#39;item_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">interactions</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;item_id&#39;</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">))</span>
+
+            <span class="c1"># 负采样：随机选择用户未交互的物品</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">neg_ratio</span><span class="p">):</span>
+                <span class="n">neg_item</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_items</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">neg_item</span> <span class="ow">in</span> <span class="n">user_items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span> <span class="nb">set</span><span class="p">()):</span>
+                    <span class="n">neg_item</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_items</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span> <span class="n">neg_item</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">([</span><span class="n">user</span><span class="p">]),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">([</span><span class="n">item</span><span class="p">]),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([</span><span class="n">label</span><span class="p">])</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">NCFModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Neural Collaborative Filtering模型&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_users</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_items</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                 <span class="n">mlp_layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Embedding层</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_gmf</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_gmf</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">n_items</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_mlp</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_mlp</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">n_items</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+
+        <span class="c1"># MLP层</span>
+        <span class="n">mlp_input</span> <span class="o">=</span> <span class="n">embedding_dim</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">mlp_modules</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">hidden</span> <span class="ow">in</span> <span class="n">mlp_layers</span><span class="p">:</span>
+            <span class="n">mlp_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">mlp_input</span><span class="p">,</span> <span class="n">hidden</span><span class="p">))</span>
+            <span class="n">mlp_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
+            <span class="n">mlp_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+            <span class="n">mlp_input</span> <span class="o">=</span> <span class="n">hidden</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mlp</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">mlp_modules</span><span class="p">)</span>
+
+        <span class="c1"># 输出层：拼接GMF和MLP的输出</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">embedding_dim</span> <span class="o">+</span> <span class="n">mlp_layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+
+        <span class="c1"># 初始化权重</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_weights</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">emb</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_gmf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_gmf</span><span class="p">,</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_mlp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_mlp</span><span class="p">]:</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">emb</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">):</span>
+        <span class="c1"># GMF路径：元素级乘法</span>
+        <span class="n">gmf_user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_gmf</span><span class="p">(</span><span class="n">user_ids</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gmf_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_gmf</span><span class="p">(</span><span class="n">item_ids</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gmf_output</span> <span class="o">=</span> <span class="n">gmf_user</span> <span class="o">*</span> <span class="n">gmf_item</span>
+
+        <span class="c1"># MLP路径：拼接后过MLP</span>
+        <span class="n">mlp_user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_embedding_mlp</span><span class="p">(</span><span class="n">user_ids</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mlp_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_embedding_mlp</span><span class="p">(</span><span class="n">item_ids</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mlp_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mlp_user</span><span class="p">,</span> <span class="n">mlp_item</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mlp_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mlp</span><span class="p">(</span><span class="n">mlp_input</span><span class="p">)</span>
+
+        <span class="c1"># 拼接GMF和MLP输出</span>
+        <span class="n">combined</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">gmf_output</span><span class="p">,</span> <span class="n">mlp_output</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># 输出预测</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">combined</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+
+<span class="c1"># ===== 训练流程 =====</span>
+
+<span class="k">def</span> <span class="nf">train_ncf</span><span class="p">(</span><span class="n">n_users</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_items</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;训练NCF模型&quot;&quot;&quot;</span>
+    <span class="c1"># 生成模拟数据</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">interactions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_users</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+        <span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+        <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="c1"># 只保留评分&gt;=4的作为正样本</span>
+    <span class="n">interactions</span> <span class="o">=</span> <span class="n">interactions</span><span class="p">[</span><span class="n">interactions</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 创建数据集和数据加载器</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">NCFDataset</span><span class="p">(</span><span class="n">interactions</span><span class="p">,</span> <span class="n">n_users</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">neg_ratio</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 初始化模型</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">NCFModel</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+
+    <span class="c1"># 训练循环</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">n_batches</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
+            <span class="n">user_ids</span> <span class="o">=</span> <span class="n">user_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">item_ids</span> <span class="o">=</span> <span class="n">item_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+            <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">n_batches</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">avg_loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="n">n_batches</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n_epochs</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">avg_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span>
+
+
+<span class="c1"># 训练模型</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">train_ncf</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># 为指定用户生成推荐</span>
+<span class="k">def</span> <span class="nf">recommend_ncf</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;用训练好的NCF模型生成推荐&quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">user_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">([</span><span class="n">user_id</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_items</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">item_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_items</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">user_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">item_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">top_k</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">idx</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">top_indices</span><span class="p">]</span>
+
+
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">recommend_ncf</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_items</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户5的Top-5推荐：&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item_id</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">recommendations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Item </span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">: score=</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p>🔗 <strong>延伸实践</strong>：详见 AEFS Phase 3 · Lesson 11: PyTorch（PyTorch深度学习框架--NCF等推荐模型的实现基础）</p>
+</blockquote>
+<h4 id="wide-deep-learning">二、Wide &amp; Deep Learning</h4>
+<p>Wide &amp; Deep是Google在2016年提出的模型，用于Google Play的应用推荐。它的核心思想是<strong>结合记忆（Memorization）和泛化（Generalization）</strong>。</p>
+<p><strong>Wide部分（记忆）</strong>：一个广义线性模型，使用交叉特征（特征叉积）来记忆频繁共现的模式。例如"男性 AND 25-30岁 AND 喜欢体育"这个交叉特征对推荐体育类内容很有效。</p>
+<p><strong>Deep部分（泛化）</strong>：一个多层感知机，将稀疏特征嵌入为稠密向量，学习特征的泛化关系。它可以推荐用户未曾明确表达过兴趣但语义相关的物品。</p>
+<p><strong>两者联合训练</strong>：Wide部分擅长记住明确的规则，Deep部分擅长发现隐含的关联。联合训练让模型既有记忆又有泛化。</p>
+<h4 id="deepfm">三、DeepFM</h4>
+<p>DeepFM是2017年华为提出的模型，将FM（Factorization Machine）和DNN结合，是Wide &amp; Deep的改进版。</p>
+<p><strong>Wide &amp; Deep的局限</strong>：Wide部分需要人工设计交叉特征，这需要领域知识和特征工程。</p>
+<p><strong>DeepFM的改进</strong>：用FM替代Wide部分的线性模型。FM能自动学习二阶特征交叉，不需要人工设计交叉特征。DeepFM = FM（自动特征交叉）+ DNN（高阶特征学习）。</p>
+<p><strong>FM的核心公式</strong>：</p>
+<div class="highlight"><pre><span></span><code>y_FM = w0 + Σ wi·xi + Σ Σ &lt;vi, vj&gt;·xi·xj
+                一阶          二阶交叉
+</code></pre></div>
+
+<p>其中<code>&lt;vi, vj&gt;</code>是隐向量的内积，用于建模特征i和特征j的交互。FM的优势在于：即使两个特征从未在训练数据中共现，只要它们各自与其他特征共现过，FM就能通过隐向量推断它们的交互强度。</p>
+<h4 id="two-tower">四、Two-Tower模型</h4>
+<p>Two-Tower模型（又称DSSM, Dual Encoder）是工业界推荐系统中最常用的召回模型之一，特别适合大规模候选集的场景。</p>
+<p><strong>架构</strong>：</p>
+<div class="highlight"><pre><span></span><code>用户特征 -&gt; User Tower -&gt; 用户向量 u
+                              |
+                        相似度 = cos(u, v) 或 dot(u, v)
+                              |
+物品特征 -&gt; Item Tower -&gt; 物品向量 v
+</code></pre></div>
+
+<p><strong>Two-Tower的核心优势</strong>：</p>
+<ol>
+<li><strong>解耦计算</strong>：用户向量和物品向量可以独立计算。物品向量可以离线预计算并建立向量索引，在线只需要计算用户向量然后做近邻搜索。</li>
+<li><strong>高效召回</strong>：用向量检索（如FAISS）从百万级候选集中快速召回Top-K，耗时毫秒级。</li>
+<li><strong>多模态融合</strong>：User Tower和Item Tower可以分别处理不同类型的特征（文本、图像、行为序列）。</li>
+</ol>
+<p><strong>用Two-Tower构建营销内容推荐</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">TwoTowerModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Two-Tower模型用于营销内容推荐&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_feature_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item_feature_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">embedding_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># User Tower: 用户特征 -&gt; 用户向量</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_tower</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">user_feature_dim</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Item Tower: 内容特征 -&gt; 内容向量</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item_tower</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">item_feature_dim</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_features</span><span class="p">,</span> <span class="n">item_features</span><span class="p">):</span>
+        <span class="n">user_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_tower</span><span class="p">(</span><span class="n">user_features</span><span class="p">)</span>
+        <span class="n">item_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_tower</span><span class="p">(</span><span class="n">item_features</span><span class="p">)</span>
+
+        <span class="c1"># 归一化后用内积计算相似度</span>
+        <span class="n">user_vec</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">user_vec</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">item_vec</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">item_vec</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># 相似度 = 内积（归一化后等价于余弦相似度）</span>
+        <span class="n">similarity</span> <span class="o">=</span> <span class="p">(</span><span class="n">user_vec</span> <span class="o">*</span> <span class="n">item_vec</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">similarity</span>
+
+    <span class="k">def</span> <span class="nf">get_user_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_features</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;获取用户向量（用于在线召回）&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_tower</span><span class="p">(</span><span class="n">user_features</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_item_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_features</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;获取物品向量（用于离线索引）&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">item_tower</span><span class="p">(</span><span class="n">item_features</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+
+<span class="c1"># ===== 营销内容推荐示例 =====</span>
+
+<span class="c1"># 用户特征：[年龄归一化, 性别(one-hot 2), 消费水平, 活跃度, 历史CTR]</span>
+<span class="c1"># 内容特征：[内容类型(one-hot 5), 时效性, 热度, 情感倾向, 长度归一化]</span>
+
+<span class="n">user_feature_dim</span> <span class="o">=</span> <span class="mi">6</span>   <span class="c1"># 用户特征维度</span>
+<span class="n">item_feature_dim</span> <span class="o">=</span> <span class="mi">9</span>   <span class="c1"># 内容特征维度</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">TwoTowerModel</span><span class="p">(</span><span class="n">user_feature_dim</span><span class="p">,</span> <span class="n">item_feature_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="c1"># 模拟数据</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">user_features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">user_feature_dim</span><span class="p">)</span>
+<span class="n">item_features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">item_feature_dim</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,))</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>  <span class="c1"># 0/1标签</span>
+
+<span class="c1"># 训练</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">user_features</span><span class="p">,</span> <span class="n">item_features</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 离线计算所有内容向量</span>
+<span class="n">all_item_features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">item_feature_dim</span><span class="p">)</span>  <span class="c1"># 1000个营销内容</span>
+<span class="n">item_embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_item_embedding</span><span class="p">(</span><span class="n">all_item_features</span><span class="p">)</span>
+
+<span class="c1"># 在线推荐：给定用户，检索最相似的内容</span>
+<span class="n">target_user</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">user_feature_dim</span><span class="p">)</span>
+<span class="n">user_embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_user_embedding</span><span class="p">(</span><span class="n">target_user</span><span class="p">)</span>
+
+<span class="c1"># 用内积计算相似度并取Top-K</span>
+<span class="n">similarities</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">user_embedding</span><span class="p">,</span> <span class="n">item_embeddings</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">top_k</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">top_indices</span> <span class="o">=</span> <span class="n">similarities</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">top_k</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">推荐给该用户的Top-</span><span class="si">{</span><span class="n">top_k</span><span class="si">}</span><span class="s2">内容索引：</span><span class="si">{</span><span class="n">top_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;相似度分数：</span><span class="si">{</span><span class="n">similarities</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_indices</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：Two-Tower模型是推荐系统方案中最容易"讲故事"的模型。你可以向客户解释："用户的画像特征通过一个神经网络变成一个向量，每个营销内容也变成一个向量，然后我们用向量相似度来匹配最合适的内容推给用户"。这个解释直观且有技术深度，非常适合方案提案中的技术讲解环节。</p>
+</blockquote>
+<h4 id="sasrecbert4rec">五、序列推荐：SASRec/BERT4Rec</h4>
+<p>传统的推荐方法将用户的历史交互视为无序集合，忽略了时间顺序信息。序列推荐（Sequential Recommendation）将用户行为视为一个时间序列，建模用户兴趣的动态变化。</p>
+<p><strong>SASRec（Self-Attentive Sequential Recommendation）</strong>：用Transformer的Self-Attention机制建模用户行为序列。给定用户最近N次交互的物品序列，预测下一个可能交互的物品。核心优势是能捕捉长程依赖（用户10次前看过的物品可能影响当前推荐）。</p>
+<p><strong>BERT4Rec</strong>：用BERT的双向Self-Attention建模用户行为序列。与SASRec的单向注意力不同，BERT4Rec使用双向注意力（遮盖预测），能更好地理解用户行为序列的全局上下文。</p>
+<p><strong>营销场景应用</strong>：序列推荐特别适合内容营销场景。用户的兴趣随时间变化（从关注产品功能到关注价格优惠到关注售后保障），序列推荐能捕捉这种动态，在正确的时机推正确的内容。</p>
+<h4 id="llm">六、LLM驱动的推荐与对话式推荐</h4>
+<blockquote>
+<p><strong>2026前沿补丁</strong>：本节探索LLM如何重塑推荐系统的范式，从"基于行为数据的隐式推荐"进化为"基于语言理解的显式推荐"。</p>
+</blockquote>
+<p><strong>1. LLM-based推荐</strong></p>
+<p>LLM正在改变推荐系统的构建方式。传统推荐模型需要大量用户行为数据训练，而LLM凭借其世界知识，可以在没有训练数据的情况下直接推荐。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>数据需求</th>
+<th>优势</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM作为推荐器</td>
+<td>直接用LLM生成推荐列表</td>
+<td>用户画像文本描述</td>
+<td>零样本、可解释</td>
+<td>推理慢、成本高</td>
+</tr>
+<tr>
+<td>生成式推荐(P5)</td>
+<td>将推荐建模为语言生成任务</td>
+<td>交互数据+指令微调</td>
+<td>统一多任务框架</td>
+<td>需要大规模训练</td>
+</tr>
+<tr>
+<td>LLM+传统推荐</td>
+<td>LLM做特征提取/解释，传统模型排序</td>
+<td>行为数据+物品文本</td>
+<td>互补增强</td>
+<td>系统复杂度高</td>
+</tr>
+<tr>
+<td>零样本推荐</td>
+<td>用LLM世界知识直接推荐</td>
+<td>无需训练数据</td>
+<td>冷启动友好</td>
+<td>精度不如训练模型</td>
+</tr>
+</tbody>
+</table>
+<p><strong>P5（Recommendation as Language Generation）</strong>是2023年提出的统一推荐框架，将推荐任务（评分预测、序列推荐、解释生成、对话推荐）统一建模为语言生成任务。用指令微调（Instruction Tuning）让LLM学会"推荐"这个技能。例如输入"用户历史：买了iPhone、AirPods、MacBook。请推荐3个产品"，P5直接输出推荐列表和理由。</p>
+<p><strong>LLM + 传统推荐的混合架构</strong>是2026年的主流方案：用LLM从物品文本（商品描述、评论）中提取语义特征向量，用传统模型（DeepFM/Two-Tower）做排序。LLM负责"理解"，传统模型负责"高效排序"。</p>
+<p><strong>2. 对话式推荐系统（Conversational Recommender Systems）</strong></p>
+<p>传统推荐是"一次性"的--系统推荐，用户被动接受或拒绝。对话式推荐（CRS）将推荐变成多轮对话，系统通过对话逐步理解用户需求。</p>
+<p><strong>多轮对话的典型流程</strong>：</p>
+<div class="highlight"><pre><span></span><code>轮次1 [澄清]：用户&quot;想买个耳机&quot; -&gt; 系统&quot;您偏好入耳式还是头戴式？有预算范围吗？&quot;
+轮次2 [探索]：用户&quot;头戴式，1000-2000元&quot; -&gt; 系统&quot;推荐Sony WH-1000XM5和Bose QC45&quot;
+轮次3 [反馈]：用户&quot;Sony的太重了&quot; -&gt; 系统&quot;了解，您重视佩戴舒适度。推荐Bose QC45（仅240g）&quot;
+轮次4 [推荐]：系统&quot;基于您的需求（头戴式/1000-2000元/轻量/降噪），Bose QC45最匹配&quot;
+</code></pre></div>
+
+<p><strong>用CoT引导推荐推理</strong>：Chain-of-Thought（CoT）让LLM的推荐过程显式化，提升推荐质量和可解释性：</p>
+<div class="highlight"><pre><span></span><code>CoT推理链：
+Step 1 [用户画像]：用户是25-30岁都市白领，关注健康和效率
+Step 2 [偏好推断]：偏好轻便、智能功能多、品牌感强的产品
+Step 3 [候选筛选]：从候选池中筛选出3个符合条件的产品
+Step 4 [推荐解释]：推荐产品A，因为它在轻便性和智能功能上评分最高
+</code></pre></div>
+
+<p><strong>3. 推荐的可解释性</strong></p>
+<p>LLM为推荐可解释性带来了质的飞跃--从"基于注意力权重的间接解释"到"自然语言的直接解释"。</p>
+<p><strong>LLM生成自然语言解释</strong>：传统推荐系统的"解释"通常是"因为你买了X，所以推荐Y"这种基于关联的浅层解释。LLM可以生成深层解释："推荐这款降噪耳机是因为：您最近在通勤场景下浏览了多款耳机（行为信号），您的评价中多次提到'地铁太吵'（需求信号），这款耳机的主动降噪在地铁场景下效果最佳（产品匹配），且重量仅240g符合您之前偏好轻量设备的习惯（偏好匹配）。"</p>
+<p><strong>解释的忠实性（Fidelity）</strong>：LLM生成的解释是否反映了模型的真实决策逻辑？这是一个关键问题。LLM可能在"编造"合理的解释而非反映模型的真实推理。评估方法：(1)对比有/无解释的推荐一致性；(2)用反事实测试--修改解释中的某个因素，推荐结果是否相应变化。</p>
+<p><strong>反事实解释</strong>："如果你改变X，推荐结果会变为Y"。例如"如果您将预算从2000元提高到3000元，我会推荐Sony WH-1000XM5，因为它的降噪效果在3000元价位段最优"。反事实解释帮助用户理解推荐系统的决策边界，也帮助用户发现"如何调整偏好可以获得更好的推荐"。</p>
+<p><strong>4. Python实战：用LangChain实现对话式推荐Agent</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">ConversationalRecommenderAgent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;基于LLM的对话式推荐Agent，支持多轮交互和CoT推理&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product_catalog</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_catalog</span> <span class="o">=</span> <span class="n">product_catalog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conversation_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_profile</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;stated_preferences&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;inferred_preferences&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;budget&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;use_case&#39;</span><span class="p">:</span> <span class="kc">None</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_build_system_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;构建包含产品目录和CoT指令的系统prompt&quot;&quot;&quot;</span>
+        <span class="n">catalog_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">product_catalog</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;你是一个专业的产品推荐助手。以下是产品目录：</span>
+
+<span class="si">{</span><span class="n">catalog_str</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">推荐规则：</span>
+<span class="s2">1. 每次回复最多推荐3个产品</span>
+<span class="s2">2. 推荐前先用CoT推理分析用户需求</span>
+<span class="s2">3. 推荐后附上简短理由</span>
+<span class="s2">4. 如果用户需求不明确，先提问澄清</span>
+<span class="s2">5. 记录用户的偏好和反馈，用于后续推荐</span>
+
+<span class="s2">CoT推理格式：</span>
+<span class="s2">[用户画像] 分析用户的显式需求和隐式偏好</span>
+<span class="s2">[偏好推断] 根据对话历史推断用户偏好</span>
+<span class="s2">[候选筛选] 从产品目录中筛选匹配的候选</span>
+<span class="s2">[推荐解释] 解释为什么推荐这些产品</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;处理用户消息，返回推荐响应&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conversation_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_message</span>
+        <span class="p">})</span>
+
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_system_prompt</span><span class="p">()}</span>
+        <span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">conversation_history</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span>
+        <span class="p">)</span>
+
+        <span class="n">assistant_reply</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conversation_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">assistant_reply</span>
+        <span class="p">})</span>
+
+        <span class="c1"># 更新用户画像（简化版，实际中用LLM提取结构化信息）</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_profile</span><span class="p">(</span><span class="n">user_message</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">assistant_reply</span>
+
+    <span class="k">def</span> <span class="nf">_update_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;从用户消息中提取偏好信息更新画像&quot;&quot;&quot;</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        从以下用户消息中提取偏好信息，以JSON格式返回：</span>
+<span class="s2">        - budget: 预算范围（如有）</span>
+<span class="s2">        - preferences: 提到的偏好关键词列表</span>
+<span class="s2">        - use_case: 使用场景（如有）</span>
+
+<span class="s2">        用户消息：&quot;</span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}],</span>
+                <span class="n">response_format</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json_object&quot;</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">extracted</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">extracted</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;budget&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">user_profile</span><span class="p">[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extracted</span><span class="p">[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">extracted</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;preferences&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">user_profile</span><span class="p">[</span><span class="s1">&#39;stated_preferences&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extracted</span><span class="p">[</span><span class="s1">&#39;preferences&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">extracted</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_case&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">user_profile</span><span class="p">[</span><span class="s1">&#39;use_case&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extracted</span><span class="p">[</span><span class="s1">&#39;use_case&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># 提取失败不影响主流程</span>
+
+    <span class="k">def</span> <span class="nf">get_user_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;获取当前用户画像&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_profile</span>
+
+
+<span class="c1"># ===== 示例使用 =====</span>
+<span class="n">product_catalog</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;P001&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Sony WH-1000XM5&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">2899</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;头戴式&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;250g&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;主动降噪&quot;</span><span class="p">,</span> <span class="s2">&quot;LDAC&quot;</span><span class="p">,</span> <span class="s2">&quot;30h续航&quot;</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;P002&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bose QC45&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">1799</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;头戴式&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;240g&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;主动降噪&quot;</span><span class="p">,</span> <span class="s2">&quot;24h续航&quot;</span><span class="p">,</span> <span class="s2">&quot;舒适佩戴&quot;</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;P003&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;AirPods Pro 2&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">1899</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;入耳式&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;5.3g&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;主动降噪&quot;</span><span class="p">,</span> <span class="s2">&quot;空间音频&quot;</span><span class="p">,</span> <span class="s2">&quot;通透模式&quot;</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;P004&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;华为 FreeBuds Pro 3&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">1099</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;入耳式&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;5.8g&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;主动降噪&quot;</span><span class="p">,</span> <span class="s2">&quot;LDAC&quot;</span><span class="p">,</span> <span class="s2">&quot;30h续航&quot;</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;P005&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;森海塞尔 Momentum 4&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">2399</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;头戴式&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;293g&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;主动降噪&quot;</span><span class="p">,</span> <span class="s2">&quot;60h续航&quot;</span><span class="p">,</span> <span class="s2">&quot;高保真音质&quot;</span><span class="p">]},</span>
+<span class="p">]</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">ConversationalRecommenderAgent</span><span class="p">(</span><span class="n">product_catalog</span><span class="p">)</span>
+
+<span class="c1"># 模拟多轮对话</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;对话式推荐Agent Demo&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># 第一轮：用户初始需求</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户: 想买个耳机，主要在地铁上用，预算2000左右&quot;</span><span class="p">)</span>
+<span class="n">reply1</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="s2">&quot;想买个耳机，主要在地铁上用，预算2000左右&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent: </span><span class="si">{</span><span class="n">reply1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 第二轮：用户提供反馈</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户: 不喜欢入耳式的，戴着不舒服&quot;</span><span class="p">)</span>
+<span class="n">reply2</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="s2">&quot;不喜欢入耳式的，戴着不舒服&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent: </span><span class="si">{</span><span class="n">reply2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 第三轮：用户追问</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户: 你推荐的这两款哪个更轻？降噪效果差别大吗？&quot;</span><span class="p">)</span>
+<span class="n">reply3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="s2">&quot;你推荐的这两款哪个更轻？降噪效果差别大吗？&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent: </span><span class="si">{</span><span class="n">reply3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 查看Agent积累的用户画像</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Agent积累的用户画像：&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">get_user_profile</span><span class="p">(),</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+
+<p><strong>代码解读</strong>：这段代码实现了一个完整的对话式推荐Agent。核心设计：(1)系统prompt包含产品目录和CoT推理指令，让LLM按结构化方式推理；(2)<code>_update_profile</code>方法在每轮对话后自动提取用户偏好，积累用户画像；(3)支持多轮对话，每轮都携带完整对话历史让LLM理解上下文。与传统推荐系统相比，对话式推荐的优势在于：能处理模糊需求（"地铁上用"隐含需要降噪）、能通过反馈修正推荐（"不喜欢入耳式"）、推荐过程完全可解释。局限在于：推理延迟较高（每轮1-3秒），不适合需要毫秒级响应的场景。</p>
+<h4 id="_7">七、跨学科桥梁：医疗推荐与教育推荐</h4>
+<p><strong>医疗推荐：治疗方案推荐</strong></p>
+<p>医疗推荐系统面临比电商推荐高得多的准确性要求和合规约束。LLM在医疗推荐中的应用方向：(1)基于患者病历和最新临床指南，推荐个性化治疗方案；(2)解释推荐理由，引用循证医学文献支撑；(3)对比不同治疗方案的利弊，支持医患共同决策。关键约束：LLM推荐必须标注为"辅助决策建议"而非最终诊断，所有推荐需要医生审核，必须符合医疗法规和伦理要求。与电商推荐不同，医疗推荐的"误推"成本可能是生命，因此可解释性和安全性优先于推荐精度。</p>
+<p><strong>教育推荐：学习路径推荐</strong></p>
+<p>教育领域的推荐核心是"学习路径推荐"--根据学生的知识水平、学习风格和目标，推荐个性化的学习内容序列。LLM增强的教育推荐可以：(1)分析学生的答题历史，诊断知识薄弱点；(2)生成个性化的学习路径（"先复习基础概念A，再做练习B，然后挑战进阶C"）；(3)用对话式交互进行苏格拉底式提问，引导学生自主发现知识缺口。与电商推荐"一次推荐一个商品"不同，教育推荐需要考虑知识的前置依赖关系（不能在学会加法前推荐乘法内容），是一个序列决策问题。</p>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：LLM驱动的推荐是对话式营销的技术基础。当客户说"我们想做智能客服推荐"时，你可以展示一个对话式推荐Agent的Demo--让客户亲自与Agent对话，体验"AI理解我的需求并给出有理由的推荐"。这种互动式Demo比任何PPT都有说服力。关键定位：传统推荐系统负责"大规模批量推荐"（万人级别的个性化），LLM推荐负责"高价值深度推荐"（与用户的多轮对话式交互），两者互补而非替代。</p>
+</blockquote>
+<hr />
+<h3 id="day-3">Day 3：推荐系统工程与公平性</h3>
+<h4 id="-">一、推荐系统架构：召回-&gt;排序-&gt;重排</h4>
+<p>工业级推荐系统不是单一模型，而是一个多阶段 pipeline。每个阶段有不同的目标和约束。</p>
+<p><strong>三级架构</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">阶段</th>
+<th>目标</th>
+<th style="text-align: center;">候选规模</th>
+<th>模型特点</th>
+<th style="text-align: center;">延迟要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>召回（Retrieval）</strong></td>
+<td>从海量候选中快速筛选出相关候选</td>
+<td style="text-align: center;">百万 -&gt; 千</td>
+<td>简单高效，多路召回</td>
+<td style="text-align: center;">&lt;10ms</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>排序（Ranking）</strong></td>
+<td>对召回候选精确排序</td>
+<td style="text-align: center;">千 -&gt; 百</td>
+<td>复杂精确，多特征</td>
+<td style="text-align: center;">&lt;100ms</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>重排（Re-ranking）</strong></td>
+<td>在排序基础上考虑多样性、公平性、商业规则</td>
+<td style="text-align: center;">百 -&gt; 最终展示</td>
+<td>规则+模型</td>
+<td style="text-align: center;">&lt;10ms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>召回阶段的多路策略</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>召回通道</th>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>协同过滤召回</strong></td>
+<td>Item-CF / User-CF</td>
+<td>基于行为相似性</td>
+</tr>
+<tr>
+<td><strong>向量召回</strong></td>
+<td>Two-Tower + FAISS</td>
+<td>基于语义相似性</td>
+</tr>
+<tr>
+<td><strong>热门召回</strong></td>
+<td>全局/分品类Top-K</td>
+<td>保证基础覆盖</td>
+</tr>
+<tr>
+<td><strong>标签召回</strong></td>
+<td>用户标签匹配物品标签</td>
+<td>基于显式兴趣</td>
+</tr>
+<tr>
+<td><strong>社交召回</strong></td>
+<td>好友喜欢的内容</td>
+<td>社交影响</td>
+</tr>
+<tr>
+<td><strong>探索召回</strong></td>
+<td>随机/Bandit策略</td>
+<td>发现新兴趣</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：多路召回是推荐系统方案中的关键设计决策。不要只用一个模型--单一召回通道会导致信息茧房（只推荐用户已知喜欢的东西）。多路召回保证了多样性，每条通道负责一种"发现"逻辑。在方案中画出多路召回架构图，比展示一个复杂的排序模型更能体现工程能力。</p>
+</blockquote>
+<p><strong>排序阶段的特征工程</strong>：</p>
+<p>排序模型是最复杂的部分，通常使用Wide &amp; Deep、DeepFM等模型。特征分为四类：</p>
+<table>
+<thead>
+<tr>
+<th>特征类别</th>
+<th>示例</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>用户特征</strong></td>
+<td>年龄、性别、消费水平、历史CTR</td>
+<td>描述用户画像</td>
+</tr>
+<tr>
+<td><strong>物品特征</strong></td>
+<td>类目、价格、热度、发布时间</td>
+<td>描述物品属性</td>
+</tr>
+<tr>
+<td><strong>交叉特征</strong></td>
+<td>用户×类目CTR、用户×价格带偏好</td>
+<td>捕捉用户-物品交互模式</td>
+</tr>
+<tr>
+<td><strong>上下文特征</strong></td>
+<td>时间、设备、位置、天气</td>
+<td>描述推荐场景</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重排阶段的策略</strong>：</p>
+<ul>
+<li><strong>多样性保障</strong>：确保推荐列表中不会出现过多同类物品。用MMR（Maximal Marginal Relevance）等方法在相关性和多样性之间平衡。</li>
+<li><strong>商业规则</strong>：保证某些物品的曝光（如新品扶持、赞助内容），限制某些物品的曝光（如低质内容、合规风险）。</li>
+<li><strong>公平性</strong>：控制长尾物品的曝光比例，避免马太效应（热门越来越热，冷门越来越冷）。</li>
+</ul>
+<h4 id="_8">二、冷启动问题与策略</h4>
+<p>冷启动是推荐系统最经典的难题。三种冷启动场景需要不同的策略：</p>
+<table>
+<thead>
+<tr>
+<th>冷启动类型</th>
+<th>问题</th>
+<th>解决策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>新用户冷启动</strong></td>
+<td>新用户无行为数据，无法个性化</td>
+<td>用注册信息（年龄/性别/地域）做粗粒度推荐；用热门内容做默认推荐；引导用户选择兴趣标签</td>
+</tr>
+<tr>
+<td><strong>新物品冷启动</strong></td>
+<td>新物品无交互数据，无法被CF推荐</td>
+<td>用物品内容特征做CB推荐；用专家标注做初始推荐；对新物品给予探索流量</td>
+</tr>
+<tr>
+<td><strong>系统冷启动</strong></td>
+<td>系统刚上线，无数据</td>
+<td>用规则推荐（热门/编辑推荐）积累数据；用迁移学习从其他域迁移知识</td>
+</tr>
+</tbody>
+</table>
+<p><strong>冷启动的工程方案</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ColdStartHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;推荐系统冷启动处理器&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">popular_items</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">category_items</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">popular_items</span> <span class="o">=</span> <span class="n">popular_items</span>  <span class="c1"># 全局热门物品</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category_items</span> <span class="o">=</span> <span class="n">category_items</span>  <span class="c1"># 按类目的热门物品</span>
+
+    <span class="k">def</span> <span class="nf">recommend_new_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_info</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;新用户推荐策略&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_info</span> <span class="ow">or</span> <span class="s1">&#39;interests&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_info</span><span class="p">:</span>
+            <span class="c1"># 无任何信息：推荐全局热门</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">popular_items</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+        <span class="c1"># 有兴趣标签：推荐对应类目的热门</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">interest</span> <span class="ow">in</span> <span class="n">user_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;interests&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="n">interest</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_items</span><span class="p">:</span>
+                <span class="n">recommendations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">category_items</span><span class="p">[</span><span class="n">interest</span><span class="p">][:</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="c1"># 补充全局热门</span>
+        <span class="n">recommendations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">popular_items</span><span class="p">[:</span><span class="n">n</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">recommendations</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">recommendations</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">recommend_new_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_features</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">similar_items</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                           <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;新物品推荐策略：基于内容特征找相似物品，推荐给喜欢相似物品的用户&quot;&quot;&quot;</span>
+        <span class="c1"># 实际中用CB模型计算物品相似度</span>
+        <span class="c1"># 这里简化为：新物品推给喜欢相似物品的用户</span>
+        <span class="k">return</span> <span class="n">similar_items</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+
+<span class="c1"># 使用示例</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">ColdStartHandler</span><span class="p">(</span>
+    <span class="n">popular_items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;item_001&#39;</span><span class="p">,</span> <span class="s1">&#39;item_002&#39;</span><span class="p">,</span> <span class="s1">&#39;item_003&#39;</span><span class="p">,</span> <span class="s1">&#39;item_004&#39;</span><span class="p">,</span> <span class="s1">&#39;item_005&#39;</span><span class="p">],</span>
+    <span class="n">category_items</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;electronics&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;item_101&#39;</span><span class="p">,</span> <span class="s1">&#39;item_102&#39;</span><span class="p">,</span> <span class="s1">&#39;item_103&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;fashion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;item_201&#39;</span><span class="p">,</span> <span class="s1">&#39;item_202&#39;</span><span class="p">,</span> <span class="s1">&#39;item_203&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;food&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;item_301&#39;</span><span class="p">,</span> <span class="s1">&#39;item_302&#39;</span><span class="p">,</span> <span class="s1">&#39;item_303&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># 新用户（无信息）</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;新用户（无信息）推荐：&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="o">.</span><span class="n">recommend_new_user</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># 新用户（有兴趣标签）</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;新用户（兴趣：electronics）推荐：&quot;</span><span class="p">,</span>
+      <span class="n">handler</span><span class="o">.</span><span class="n">recommend_new_user</span><span class="p">({</span><span class="s1">&#39;interests&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;electronics&#39;</span><span class="p">]},</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div>
+
+<h4 id="mmoeple">三、多目标推荐：MMoE/PLE</h4>
+<p>真实的推荐系统需要同时优化多个目标。例如电商推荐需要同时考虑点击率（CTR）、转化率（CVR）、GMV（成交额）、停留时长。这些目标之间可能存在冲突--高点击率的内容不一定高转化率。</p>
+<p><strong>多目标模型架构演进</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>全称</th>
+<th>核心思想</th>
+<th>优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shared-Bottom</strong></td>
+<td>共享底层模型</td>
+<td>所有目标共享特征提取层，各自有独立的输出层</td>
+<td>简单，但目标间可能互相干扰</td>
+</tr>
+<tr>
+<td><strong>MMoE</strong></td>
+<td>Multi-gate Mixture-of-Experts</td>
+<td>多个专家网络+多个门控（每个目标有自己的门控权重）</td>
+<td>自动学习目标间的关系</td>
+</tr>
+<tr>
+<td><strong>PLE</strong></td>
+<td>Progressive Layered Extraction</td>
+<td>分层专家+渐进式路由，MMoE的改进版</td>
+<td>更好地处理目标间冲突</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PLE的核心改进</strong>：MMoE的所有专家被所有目标共享，当目标间存在冲突时会导致负迁移。PLE将专家分为"共享专家"和"任务专属专家"，并分层提取，让冲突目标和协同目标分别处理。</p>
+<h4 id="_9">四、推荐公平性</h4>
+<p>推荐系统不是中性的--它会在用户和物品之间分配曝光机会，而这种分配可能存在系统性偏差。</p>
+<p><strong>三类常见偏差</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>偏差类型</th>
+<th>定义</th>
+<th>危害</th>
+<th>缓解方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>位置偏差</strong></td>
+<td>排在前面的物品获得更多点击，不论其真实质量</td>
+<td>排序模型难以区分"质量好"和"位置好"</td>
+<td>位置去偏（Position Debiasing）、逆倾向得分（IPS）</td>
+</tr>
+<tr>
+<td><strong>曝光偏差</strong></td>
+<td>只有被曝光的物品才有交互数据，形成循环</td>
+<td>长尾物品永远得不到曝光</td>
+<td>探索与利用（Bandit算法）、公平性约束</td>
+</tr>
+<tr>
+<td><strong>流行度偏差</strong></td>
+<td>热门物品被推荐得更多，冷门物品被埋没</td>
+<td>马太效应，生态多样性下降</td>
+<td>流行度惩罚、长尾扶持</td>
+</tr>
+</tbody>
+</table>
+<p><strong>因果推荐基础</strong>：</p>
+<p>传统推荐模型学习的是"用户在看到物品后点击的概率"，但这混杂了"物品被展示给用户"的选择偏差。因果推荐试图回答反事实问题："如果用户看到了这个物品（即使实际上没看到），他会点击吗？"</p>
+<p><strong>IPS（Inverse Propensity Scoring，逆倾向得分）</strong>是因果推荐的经典方法：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># IPS去偏示例（概念性代码）</span>
+
+<span class="k">def</span> <span class="nf">ips_weighted_loss</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">propensities</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    IPS加权的损失函数</span>
+
+<span class="sd">    predictions: 模型预测的点击概率</span>
+<span class="sd">    labels: 实际点击标签（0/1）</span>
+<span class="sd">    propensities: 每个物品被曝光的概率（倾向得分）</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># IPS权重：1/倾向得分</span>
+    <span class="c1"># 被曝光概率低的物品，其交互数据的权重更高</span>
+    <span class="c1"># 因为这些数据更&quot;珍贵&quot;（不是因为热门才被看到的）</span>
+    <span class="n">ips_weights</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">propensities</span>
+
+    <span class="c1"># 加权交叉熵损失</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">labels</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">predictions</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">labels</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">predictions</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span>
+    <span class="n">weighted_loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">loss</span> <span class="o">*</span> <span class="n">ips_weights</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">weighted_loss</span>
+</code></pre></div>
+
+<h4 id="_10">五、可解释推荐</h4>
+<p>可解释推荐（Explainable Recommendation）不仅推荐物品，还给出推荐理由。这对用户信任和商业价值都至关重要。</p>
+<p><strong>两种可解释性方向</strong>：</p>
+<ol>
+<li><strong>事后解释（Post-hoc Explanation）</strong>：先推荐，再用另一个模型生成解释。例如推荐后用LLM生成"推荐理由：因为你最近浏览了多款无线耳机，这款产品在音质和续航方面评分最高。"</li>
+<li><strong>内在可解释（Intrinsic Explanation）</strong>：推荐模型本身就能输出解释。例如基于注意力机制的模型，注意力权重可以解释为"模型关注了哪些特征"。</li>
+</ol>
+<p><strong>营销场景中的可解释推荐</strong>：</p>
+<p>在营销内容推荐中，可解释性尤为重要。用户需要知道"为什么给我推这个内容"才能建立信任。一个可解释的推荐系统可以在邮件营销中写出："因为我们注意到您上个月浏览了3次CRM相关内容，为您推荐这篇《2026年CRM趋势报告》。"这种个性化+可解释的推荐比泛泛的"猜你喜欢"转化率高3-5倍。</p>
+<h4 id="_11">六、综合案例：电商个性化营销推荐系统架构</h4>
+<p><strong>客户背景</strong>：某中型电商平台，SKU数量50万，月活用户200万，当前推荐系统基于简单的热门排序，转化率1.2%。</p>
+<p><strong>目标</strong>：构建端到端个性化推荐系统，目标转化率提升至2.0%+。</p>
+<p><strong>系统架构设计</strong>：</p>
+<div class="highlight"><pre><span></span><code>                    ┌──────────────────────────────┐
+                    │        数据层                 │
+                    │  用户行为日志 + 商品特征库    │
+                    │  + 用户画像 + 实时特征        │
+                    └──────────┬───────────────────┘
+                               │
+                    ┌──────────▼───────────────────┐
+                    │        召回层                 │
+                    │  ┌────────┐ ┌────────┐      │
+                    │  │Item-CF │ │Two-Tower│      │
+                    │  │ 召回   │ │ 向量召回│      │
+                    │  └────────┘ └────────┘      │
+                    │  ┌────────┐ ┌────────┐      │
+                    │  │热门召回 │ │标签召回 │      │
+                    │  └────────┘ └────────┘      │
+                    │  输出：~2000候选             │
+                    └──────────┬───────────────────┘
+                               │
+                    ┌──────────▼───────────────────┐
+                    │        排序层                 │
+                    │  DeepFM多目标排序模型         │
+                    │  目标：CTR + CVR + GMV        │
+                    │  特征：用户+物品+交叉+上下文  │
+                    │  输出：~200候选               │
+                    └──────────┬───────────────────┘
+                               │
+                    ┌──────────▼───────────────────┐
+                    │        重排层                 │
+                    │  多样性保障（MMR）            │
+                    │  商业规则（新品扶持/赞助）    │
+                    │  公平性约束（长尾曝光）       │
+                    │  输出：最终展示列表           │
+                    └──────────┬───────────────────┘
+                               │
+                    ┌──────────▼───────────────────┐
+                    │        服务层                 │
+                    │  在线AB测试框架               │
+                    │  实时反馈收集                 │
+                    │  模型监控与自动重训           │
+                    └──────────────────────────────┘
+</code></pre></div>
+
+<p><strong>实施路线图</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>目标</th>
+<th>关键交付</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phase 1: 基础</strong></td>
+<td>1-2月</td>
+<td>搭建数据管道和召回系统</td>
+<td>Item-CF召回 + 热门兜底，转化率1.5%</td>
+</tr>
+<tr>
+<td><strong>Phase 2: 排序</strong></td>
+<td>2-3月</td>
+<td>上线排序模型</td>
+<td>DeepFM排序，转化率1.8%</td>
+</tr>
+<tr>
+<td><strong>Phase 3: 优化</strong></td>
+<td>2-3月</td>
+<td>多目标+多样性</td>
+<td>MMoE多目标+MMR重排，转化率2.0%+</td>
+</tr>
+<tr>
+<td><strong>Phase 4: 智能化</strong></td>
+<td>持续</td>
+<td>冷启动优化+可解释推荐</td>
+<td>序列推荐+LLM推荐理由生成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>预期ROI</strong>：转化率从1.2%提升到2.0%（+67%），按月GMV 5000万计算，月增量GMV约3350万，年收入增加约4亿元。系统建设和运营成本约200万/年，ROI极高。</p>
+<blockquote>
+<p>💡 <strong>售前洞察</strong>：这个综合案例展示了推荐系统方案的核心逻辑：不是"用最先进的模型"，而是"分阶段交付可衡量的价值"。Phase 1用最简单的Item-CF就能提升25%的转化率（从1.2%到1.5%），这已经足以证明推荐系统的价值。然后逐步迭代到更复杂的模型。这种"快速交付基础价值，逐步深化"的策略是大型项目成功的关键。</p>
+</blockquote>
+<hr />
+<h2 id="_12">真实数据集案例研究</h2>
+<blockquote>
+<p>本节通过真实数据集 MovieLens 100K，演示推荐系统核心方法的完整分析流程，从数据加载到商业洞察。</p>
+</blockquote>
+<h3 id="_13">案例背景</h3>
+<p><strong>数据集</strong>：MovieLens 100K，由明尼苏达大学 GroupLens 研究小组发布，是推荐系统领域最经典的基准数据集。</p>
+<ul>
+<li><strong>规模</strong>：100,000 条评分记录，来自 943 位用户对 1,682 部电影的评分（1-5分）</li>
+<li><strong>稀疏度</strong>：99.6%（用户-物品矩阵中仅 0.4% 的格子有评分）</li>
+<li><strong>附加信息</strong>：用户人口统计信息（年龄、性别、职业、邮编）、电影类型标签</li>
+<li><strong>商业对应</strong>：Netflix、爱奇艺等流媒体平台的推荐场景</li>
+</ul>
+<p><strong>业务场景模拟</strong>：假设你是一家视频流媒体平台（类似爱奇艺）的售前解决方案产品经理，客户希望构建个性化推荐系统。你用 MovieLens 100K 作为概念验证（POC）数据集，向客户演示协同过滤和矩阵分解的完整流程及效果。</p>
+<h3 id="_14">数据加载与探索</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">KNNBasic</span><span class="p">,</span> <span class="n">SVD</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_validate</span>
+
+<span class="c1"># ===== 加载 MovieLens 100K 数据集 =====</span>
+<span class="c1"># Surprise库内置了MovieLens 100K，首次运行会自动下载</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_builtin</span><span class="p">(</span><span class="s1">&#39;ml-100k&#39;</span><span class="p">)</span>
+
+<span class="c1"># 转换为DataFrame进行EDA</span>
+<span class="n">raw_ratings</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">raw_ratings</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_ratings</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== 数据集概览 ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;评分总数: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;用户数: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;电影数: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;item_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;评分范围: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均评分: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;稀疏度: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;item_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== EDA: 评分分布、用户活跃度、电影热度 =====</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># 评分值分布</span>
+<span class="n">rating_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">rating_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">rating_counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2E86AB&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;评分值分布&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;评分&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;数量&#39;</span><span class="p">)</span>
+
+<span class="c1"># 用户活跃度分布（每用户评分数）</span>
+<span class="n">user_activity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">user_activity</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2A9D8F&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;用户活跃度分布&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;评分数量&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;用户数&#39;</span><span class="p">)</span>
+
+<span class="c1"># 电影热度分布（每电影被评分数）</span>
+<span class="n">movie_popularity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;item_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">movie_popularity</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#E63946&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;电影热度分布&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;被评分数&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;电影数&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;movielens_eda.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户评分数中位数: </span><span class="si">{</span><span class="n">user_activity</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;电影被评分数中位数: </span><span class="si">{</span><span class="n">movie_popularity</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="_15">核心分析</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ===== 方法对比：User-CF / Item-CF / SVD =====</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
+<span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># 方法1: User-based CF</span>
+<span class="n">sim_options_user</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">user_cf</span> <span class="o">=</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options_user</span><span class="p">)</span>
+<span class="n">user_cf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">user_pred</span> <span class="o">=</span> <span class="n">user_cf</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;User-CF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">user_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">user_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># 方法2: Item-based CF</span>
+<span class="n">sim_options_item</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">item_cf</span> <span class="o">=</span> <span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options_item</span><span class="p">)</span>
+<span class="n">item_cf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">item_pred</span> <span class="o">=</span> <span class="n">item_cf</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;Item-CF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">item_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">item_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># 方法3: SVD 矩阵分解</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">lr_all</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">reg_all</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">svd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">svd_pred</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;SVD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">svd_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">svd_pred</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># ===== 结果对比表 =====</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;方法&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;RMSE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;MAE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;10.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># ===== 为指定用户生成 Top-N 推荐 =====</span>
+<span class="k">def</span> <span class="nf">get_top_n</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">trainset</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;生成Top-N推荐：预测用户未评分物品的评分并排序&quot;&quot;&quot;</span>
+    <span class="n">inner_uid</span> <span class="o">=</span> <span class="n">trainset</span><span class="o">.</span><span class="n">to_inner_uid</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">rated_inner_iids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">iid</span> <span class="k">for</span> <span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">trainset</span><span class="o">.</span><span class="n">ur</span><span class="p">[</span><span class="n">inner_uid</span><span class="p">]])</span>
+    <span class="n">rated_items</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">trainset</span><span class="o">.</span><span class="n">to_raw_iid</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span> <span class="k">for</span> <span class="n">iid</span> <span class="ow">in</span> <span class="n">rated_inner_iids</span><span class="p">])</span>
+    <span class="n">all_items</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">trainset</span><span class="o">.</span><span class="n">to_raw_iid</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span> <span class="k">for</span> <span class="n">iid</span> <span class="ow">in</span> <span class="n">trainset</span><span class="o">.</span><span class="n">all_items</span><span class="p">()])</span>
+    <span class="n">unrated</span> <span class="o">=</span> <span class="n">all_items</span> <span class="o">-</span> <span class="n">rated_items</span>
+
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">iid</span><span class="p">,</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span><span class="o">.</span><span class="n">est</span><span class="p">)</span> <span class="k">for</span> <span class="n">iid</span> <span class="ow">in</span> <span class="n">unrated</span><span class="p">]</span>
+    <span class="n">predictions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictions</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+<span class="c1"># 为用户 &#39;196&#39; 生成推荐</span>
+<span class="n">top10</span> <span class="o">=</span> <span class="n">get_top_n</span><span class="p">(</span><span class="n">svd</span><span class="p">,</span> <span class="s1">&#39;196&#39;</span><span class="p">,</span> <span class="n">trainset</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">用户 196 的 Top-10 推荐（SVD）:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;排名&#39;</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;电影ID&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;预测评分&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="n">movie_id</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top10</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">movie_id</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">&gt;10.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ===== 推荐多样性分析（流行度偏差检测） =====</span>
+<span class="n">top10_movie_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">mid</span> <span class="k">for</span> <span class="n">mid</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">top10</span><span class="p">]</span>
+<span class="n">top10_popularity</span> <span class="o">=</span> <span class="p">[</span><span class="n">movie_popularity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">top10_movie_ids</span><span class="p">]</span>
+<span class="n">avg_popularity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">top10_popularity</span><span class="p">)</span>
+<span class="n">global_avg_popularity</span> <span class="o">=</span> <span class="n">movie_popularity</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">推荐电影平均热度（被评分数）: </span><span class="si">{</span><span class="n">avg_popularity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;全局电影平均热度: </span><span class="si">{</span><span class="n">global_avg_popularity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;热度比: </span><span class="si">{</span><span class="n">avg_popularity</span> <span class="o">/</span> <span class="n">global_avg_popularity</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x （&gt;1说明偏向热门）&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="_16">结果解读</h3>
+<p>三种方法在 MovieLens 100K 上的表现对比：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align: center;">RMSE</th>
+<th style="text-align: center;">MAE</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User-CF</td>
+<td style="text-align: center;">~0.98</td>
+<td style="text-align: center;">~0.77</td>
+<td>基于用户相似度，适合用户数少的场景</td>
+</tr>
+<tr>
+<td>Item-CF</td>
+<td style="text-align: center;">~0.97</td>
+<td style="text-align: center;">~0.76</td>
+<td>基于物品相似度，Amazon经典方案</td>
+</tr>
+<tr>
+<td>SVD</td>
+<td style="text-align: center;">~0.94</td>
+<td style="text-align: center;">~0.74</td>
+<td>矩阵分解，精度最高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键发现</strong>：
+1. <strong>SVD优于CF方法</strong>：SVD的RMSE比CF低约3-4%，因为隐因子能捕捉评分矩阵的潜在结构
+2. <strong>长尾效应显著</strong>：推荐电影的平均热度远高于全局平均，说明推荐系统倾向于推荐热门电影（流行度偏差）
+3. <strong>稀疏度影响</strong>：99.6%的稀疏度下，CF方法仍能工作，但依赖每用户至少20条评分的最低门槛</p>
+<h3 id="_17">商业启示</h3>
+<ol>
+<li>
+<p><strong>模型选择策略</strong>：POC阶段优先用SVD（精度最高），生产环境可结合Item-CF（可解释性强、离线预计算高效）和SVD（排序精度），形成多路召回+排序的架构</p>
+</li>
+<li>
+<p><strong>流行度偏差的治理</strong>：推荐列表偏向热门电影是推荐系统的通病。生产环境必须在重排阶段加入多样性约束（如MMR），否则用户会陷入"信息茧房"，长期留存率下降</p>
+</li>
+<li>
+<p><strong>冷启动的工程方案</strong>：MovieLens要求每用户至少20条评分才能有效推荐。生产环境对新用户应采用"兴趣标签选择 -&gt; 热门兜底 -&gt; 快速积累行为数据 -&gt; 切换个性化推荐"的分阶段策略</p>
+</li>
+<li>
+<p><strong>A/B测试的必要性</strong>：离线指标（RMSE/MAE）提升3%不等于业务指标提升3%。必须通过A/B测试验证推荐算法对点击率、转化率、留存率的实际影响。建议测试周期至少2周，覆盖足够多的用户（&gt;10,000）以获得统计显著性</p>
+</li>
+<li>
+<p><strong>售前场景应用</strong>：用MovieLens做POC有两个优势：数据公开可信、结果可复现。现场展示"为某个用户生成推荐"的过程，让客户直观感受个性化推荐的效果，比任何PPT都有说服力</p>
+</li>
+</ol>
+<hr />
+<h2 id="_18">核心文献</h2>
+<blockquote>
+<p>本节列出与本教材主题密切相关的核心学术文献，供博士级深入研究和论文写作参考。</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>[arXiv:1708.05031]</strong> - "Neural Collaborative Filtering" (He et al., 2017)
+   与本教材的关联：NCF神经协同过滤论文，是本教材Day 2"神经协同过滤（NCF）"部分的核心文献，用神经网络替代矩阵分解内积的奠基性工作。</p>
+</li>
+<li>
+<p><strong>[arXiv:1904.06690]</strong> - "BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer" (Sun et al., 2019)
+   与本教材的关联：BERT4Rec序列推荐论文，是本教材Day 2"序列推荐：SASRec/BERT4Rec"的直接文献来源，Transformer在推荐系统中的经典应用。</p>
+</li>
+<li>
+<p><strong>[arXiv:2005.14165]</strong> - "Language Models are Few-Shot Learners" (Brown et al., 2020)
+   与本教材的关联：GPT-3大语言模型论文，是本教材Day 2"LLM驱动的推荐"部分的理论基础，大语言模型的零样本/少样本能力开创了推荐系统新范式。</p>
+</li>
+<li>
+<p><strong>[arXiv:2304.03442]</strong> - "Generative Agents: Interactive Simulacra of Human Behavior" (Park et al., 2023)
+   与本教材的关联：生成式Agent论文，与本教材Day 2"对话式推荐系统"和用户仿真的前沿参考，生成式Agent为推荐系统用户模拟提供了新方法。</p>
+</li>
+<li>
+<p><strong>[arXiv:2210.03629]</strong> - "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al., 2022)
+   与本教材的关联：ReAct推理-行动框架论文，是本教材Day 2"对话式推荐Agent"的框架基础，推理-行动协同机制是构建对话式推荐Agent的核心范式。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_19">知识问答</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th>问题</th>
+<th>参考答案要点</th>
+<th style="text-align: center;">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Q1</td>
+<td>协同过滤（CF）和基于内容（CB）推荐的核心区别是什么？各自的数据需求有什么不同？</td>
+<td>CF基于"用户-物品交互矩阵"推荐，不需要物品内容信息，但需要足够的交互数据。CB基于物品特征向量推荐，需要物品内容特征，但不需要大量交互数据。CF能发现隐含兴趣，CB更适合冷启动。</td>
+<td style="text-align: center;">⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q2</td>
+<td>User-based CF和Item-based CF在什么场景下应该选择哪种？Amazon为什么选择Item-based？</td>
+<td>User-based适合用户数&lt;物品数的场景；Item-based适合物品数稳定且&lt;用户数的场景。Amazon选择Item-based因为商品数百万但相对稳定，物品相似度矩阵可以离线预计算，在线推理毫秒级。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q3</td>
+<td>矩阵分解中的隐因子（latent factor）有什么业务含义？以电影推荐为例解释。</td>
+<td>隐因子是模型自动学习的潜在维度。在电影推荐中，隐因子可能对应"动作程度"、"文艺程度"、"恐怖程度"等潜在主题。用户隐向量表示用户对各主题的偏好程度，物品隐向量表示物品在各主题上的属性。两者内积高=匹配度高。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q4</td>
+<td>NDCG@K和Precision@K的核心区别是什么？为什么NDCG更适合评估推荐排序质量？</td>
+<td>Precision@K只看Top-K中有多少相关物品，不考虑物品在Top-K中的位置。NDCG@K考虑了排序位置--排在前面的相关物品贡献更大。推荐系统中排序位置极其重要（第1位vs第10位的点击率差异巨大），所以NDCG更贴近实际业务价值。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q5</td>
+<td>NCF（Neural Collaborative Filtering）相比传统矩阵分解的核心改进是什么？</td>
+<td>传统MF用用户向量和物品向量的内积预测评分，内积是线性操作。NCF用MLP替代内积，能学习用户和物品之间的非线性关系。NeuMF进一步将GMF（保留线性能力）和MLP（非线性能力）融合，兼顾记忆和泛化。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q6</td>
+<td>Wide &amp; Deep模型中Wide部分和Deep部分各自的作用是什么？为什么要联合训练？</td>
+<td>Wide部分通过交叉特征记忆频繁共现模式（如"男性+体育"推荐体育内容），Deep部分通过嵌入学习特征的泛化关系。联合训练让模型既有记忆（精确匹配已知模式）又有泛化（发现新关联），单独使用任一部分都有局限。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q7</td>
+<td>Two-Tower模型为什么适合大规模推荐系统的召回阶段？</td>
+<td>因为User Tower和Item Tower可以独立计算，物品向量离线预计算并建立FAISS索引，在线只需要计算用户向量+近邻搜索，从百万候选中召回耗时毫秒级。如果是交叉模型（如DeepFM），无法离线预计算，不适合大规模召回。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q8</td>
+<td>推荐系统三级架构（召回-&gt;排序-&gt;重排）中，为什么不在召回阶段直接用排序模型？</td>
+<td>召回阶段需要从百万候选中筛选，排序模型太慢（需要计算大量特征交叉）。召回用简单模型快速筛选到千级候选，排序用复杂模型在千级候选上精确排序。这是计算成本和精度的工程权衡。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q9</td>
+<td>流行度偏差（Popularity Bias）对推荐系统生态有什么长期危害？如何缓解？</td>
+<td>危害：热门物品越来越热，长尾物品被埋没，导致生态多样性下降、用户审美疲劳、长尾商家流失。缓解方法：流行度惩罚（降低热门物品分数）、长尾扶持（为长尾物品分配探索流量）、多样性约束（MMR重排）。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+<tr>
+<td style="text-align: center;">Q10</td>
+<td>IPS（逆倾向得分）如何解决推荐系统中的曝光偏差？核心思想是什么？</td>
+<td>核心思想：被曝光概率低的物品的交互数据更"珍贵"（不是因为热门才被看到），应该赋予更高权重。IPS用1/倾向得分作为权重，让低曝光物品的数据影响更大，从而纠正"只从被曝光数据中学习"的偏差。</td>
+<td style="text-align: center;">⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_20">作业设计</h2>
+<h3 id="surprise">必做作业：用Surprise库实现协同过滤推荐</h3>
+<p><strong>任务</strong>：</p>
+<ol>
+<li>生成或使用真实的用户-内容交互数据（至少100用户×50物品）</li>
+<li>分别用User-CF、Item-CF和SVD三种方法训练推荐模型</li>
+<li>用5折交叉验证比较三种方法的RMSE和MAE</li>
+<li>为3个指定用户各生成Top-5推荐列表</li>
+<li>用Precision@5、Recall@5、NDCG@5评估推荐质量</li>
+<li>写一份300字的分析报告，比较三种方法的优劣势</li>
+</ol>
+<p><strong>交付物</strong>：可运行的Python代码 + 评估结果表格 + 分析报告</p>
+<p><strong>评分标准</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>优秀（9-10分）</th>
+<th>良好（7-8分）</th>
+<th>合格（5-6分）</th>
+<th>不合格（&lt;5分）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码质量</td>
+<td>可运行、结构化、有注释</td>
+<td>基本可运行</td>
+<td>有小bug</td>
+<td>无法运行</td>
+</tr>
+<tr>
+<td>评估完整性</td>
+<td>三种方法+三种指标+交叉验证</td>
+<td>三种方法+基本指标</td>
+<td>仅两种方法</td>
+<td>评估缺失</td>
+</tr>
+<tr>
+<td>分析深度</td>
+<td>有洞察的方法对比和建议</td>
+<td>基本合理的比较</td>
+<td>仅描述结果</td>
+<td>缺失分析</td>
+</tr>
+</tbody>
+</table>
+<h3 id="two-tower_1">挑战作业：用Two-Tower模型构建营销内容推荐系统</h3>
+<p><strong>任务</strong>：</p>
+<ol>
+<li>设计营销场景下的用户特征和内容特征体系（各至少5个特征）</li>
+<li>用PyTorch实现Two-Tower模型</li>
+<li>生成模拟数据（或使用公开数据集）训练模型</li>
+<li>实现离线内容向量计算+在线用户向量检索的推荐流程</li>
+<li>设计冷启动策略（新用户/新内容）</li>
+<li>写一份500字的系统设计文档，包含架构图、特征说明和预期效果</li>
+</ol>
+<p><strong>评分标准</strong>：重点考察特征设计的合理性（是否有业务含义）、模型实现的正确性（Two-Tower架构是否标准）、推荐流程的完整性（是否有离线+在线流程）、以及冷启动策略的实用性。</p>
+<hr />
+<h2 id="_21">费曼学习法演练</h2>
+<h3 id="_22">核心理念</h3>
+<p>费曼学习法的核心是"以教代学"--如果你不能简单地解释一个概念，说明你还没有真正理解它。</p>
+<h3 id="_23">演练任务</h3>
+<p><strong>任务</strong>：假设你在向电商平台CEO解释为什么传统推荐系统在LLM时代需要升级，以及'对话式推荐'如何改变用户体验</p>
+<h3 id="_24">演练步骤</h3>
+<ol>
+<li><strong>选择概念</strong>：从本教材中选一个你觉得最有挑战性的概念</li>
+<li><strong>写下解释</strong>：用自己的语言写一段300-500字的解释，目标受众是电商平台CEO</li>
+<li><strong>找出空洞</strong>：标记你解释中含糊、跳过或借用术语的地方</li>
+<li><strong>回到教材</strong>：针对性补全知识空洞</li>
+<li><strong>简化重写</strong>：用更简单的语言重新写一遍，力求让受众真正理解</li>
+</ol>
+<h3 id="_25">自评标准</h3>
+<ul>
+<li>[ ] 解释中没有直接引用教材原文</li>
+<li>[ ] 至少使用了1个类比或比喻</li>
+<li>[ ] 受众能理解核心概念并复述</li>
+<li>[ ] 解释中标注的知识空洞已补全</li>
+</ul>
+<hr />
+<h2 id="_26">推荐资源清单</h2>
+<h3 id="_27">核心论文（必读）</h3>
+<ul>
+<li>📄 <strong>Sarwar et al. (2001) Item-Based CF</strong>: Amazon推荐的学术基础</li>
+<li>📄 <strong>Koren et al. (2009) Matrix Factorization Techniques for Recommender Systems</strong>: Netflix Prize的经典论文</li>
+<li>📄 <strong>He et al. (2017) Neural Collaborative Filtering</strong>: NCF原始论文</li>
+<li>📄 <strong>Cheng et al. (2016) Wide &amp; Deep Learning for Recommender Systems</strong>: Google的Wide &amp; Deep论文</li>
+<li>📄 <strong>Guo et al. (2017) DeepFM</strong>: 华为的DeepFM论文</li>
+</ul>
+<h3 id="_28">开源工具（必读）</h3>
+<ul>
+<li>🌐 <strong>Surprise（Python推荐系统库）</strong>: https://surpriselib.com/</li>
+<li>🌐 <strong>LightFM（混合推荐模型）</strong>: https://github.com/lyst/lightfm</li>
+<li>🌐 <strong>FAISS（向量检索）</strong>: https://github.com/facebookresearch/faiss</li>
+<li>🌐 <strong>Microsoft Recommenders</strong>: https://github.com/microsoft/recommenders</li>
+<li>🌐 <strong>RecBole（一站式推荐框架）</strong>: https://recbole.io/</li>
+</ul>
+<h3 id="_29">对标课程</h3>
+<ul>
+<li>🌐 <strong>Stanford CS246 Mining Massive Datasets</strong>: https://web.stanford.edu/class/cs246/</li>
+<li>🌐 <strong>Google Recommendations Course</strong>: https://developers.google.com/machine-learning/recommendation</li>
+<li>🌐 <strong>UCSD Recommender Systems (Coursera)</strong>: https://www.coursera.org/learn/recommender-systems</li>
+<li>🌐 <strong>Wharton Customer Analytics</strong>: https://online.wharton.upenn.edu/customer-analytics/</li>
+</ul>
+<h3 id="_30">进阶阅读（可选）</h3>
+<ul>
+<li>📄 <strong>SASRec (2018) Self-Attentive Sequential Recommendation</strong>: 序列推荐经典</li>
+<li>📄 <strong>BERT4Rec (2019) Sequential Recommendation with BERT</strong>: 双向序列推荐</li>
+<li>📄 <strong>MMoE (2018) Multi-gate Mixture-of-Experts</strong>: 多目标推荐</li>
+<li>📄 <strong>PLE (2020) Progressive Layered Extraction</strong>: MMoE改进版</li>
+<li>🌐 <strong>DGL-RecGraph（图神经网络推荐）</strong>: https://www.dgl.ai/</li>
+<li>🌐 <strong>RecSys会议论文</strong>: https://recsys.acm.org/</li>
+</ul>
+<hr />
+<blockquote>
+<p>💡 <strong>学习建议</strong>：本选修课的知识密度较高，建议分三轮学习。第一轮重点理解概念：能用自己的话解释CF/CB/MF/NCF/Two-Tower各是什么、解决什么问题。第二轮重点跑代码：把Day 1和Day 2的代码全部运行一遍，修改参数观察效果变化。第三轮重点想架构：针对一个你熟悉的业务场景（如你公司的营销内容推荐），用Day 3的架构框架设计一个推荐系统方案。三轮学完后，你就具备了在售前场景中讨论推荐系统方案的能力--不需要能实现生产级系统，但需要能设计架构、评估方案、与工程团队有效沟通。</p>
+</blockquote>
+  </div>
+
+  <div class="page-nav">
+    <a href="选修E10_Agent经济与商业模式.html" class="nav-btn nav-prev">← 选修E10_Agent经济与商业模式</a>
+    <a href="index.html" class="nav-btn nav-home">🏠 教材总览</a>
+    <a href="选修E12_语音AI与音频处理.html" class="nav-btn nav-next">选修E12_语音AI与音频处理 →</a>
+  </div>
+</div>
+
+<script src="textbook_nav.js"></script>
+</body>
+</html>
