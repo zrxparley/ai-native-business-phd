@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-v14.0-orange)
 ![Days](https://img.shields.io/badge/days-66-blue)
 ![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
-![Papers](https://img.shields.io/badge/arXiv%20papers-252_(124%2B61%2B67)-9cf)
+![Papers](https://img.shields.io/badge/arXiv%20papers-258_(124%2B61%2B73)-9cf)
 
 ---
 
