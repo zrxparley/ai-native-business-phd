@@ -81,6 +81,15 @@ class GoldenContentQualityTests(unittest.TestCase):
                 self.assertNotIn('"hispanic"', source)
                 self.assertNotIn('"married"', source)
 
+        for filename in ("starter.ipynb", "solution.ipynb"):
+            source = notebook_source(unit_dir / filename)
+            with self.subTest(filename=filename, contract="two_refuters"):
+                assert_terms(
+                    self,
+                    source,
+                    ("placebo_treatment_refuter", "random_common_cause"),
+                )
+
     def test_agent_evaluation_distinguishes_data_provenance_and_calibrates_judges(self) -> None:
         notes = read_text(GOLDEN_UNITS["CQ-S5-1"] / "notes.md")
         data_readme = read_text(GOLDEN_UNITS["CQ-S5-1"] / "data/README.md")
