@@ -24,6 +24,15 @@ def assert_terms(testcase: unittest.TestCase, text: str, terms: tuple[str, ...])
     testcase.assertEqual([], missing, f"missing required quality terms: {missing}")
 
 
+def notebook_source(path: Path) -> str:
+    notebook = json.loads(read_text(path))
+    sources = []
+    for cell in notebook.get("cells", []):
+        source = cell.get("source", "")
+        sources.append("".join(source) if isinstance(source, list) else source)
+    return "\n".join(sources)
+
+
 class GoldenContentQualityTests(unittest.TestCase):
     """Quality contracts for the first four high-impact curriculum revisions."""
 
@@ -49,6 +58,28 @@ class GoldenContentQualityTests(unittest.TestCase):
                 "证据复核日期：2026-08-03",
             ),
         )
+
+    def test_skill3_uses_supported_observational_counterpart_and_schema(self) -> None:
+        unit_dir = GOLDEN_UNITS["CQ-S3-1"]
+        for filename in ("starter.ipynb", "solution.ipynb"):
+            source = notebook_source(unit_dir / filename)
+            with self.subTest(filename=filename):
+                assert_terms(
+                    self,
+                    source,
+                    (
+                        "from causaldata import nsw_mixtape, cps_mixtape",
+                        "nsw_mixtape.load_pandas()",
+                        "cps_mixtape.load_pandas()",
+                        '"educ"',
+                        '"hisp"',
+                        '"marr"',
+                    ),
+                )
+                self.assertNotIn("from causaldata import nsw", source)
+                self.assertNotIn('"education"', source)
+                self.assertNotIn('"hispanic"', source)
+                self.assertNotIn('"married"', source)
 
     def test_agent_evaluation_distinguishes_data_provenance_and_calibrates_judges(self) -> None:
         notes = read_text(GOLDEN_UNITS["CQ-S5-1"] / "notes.md")
@@ -84,6 +115,19 @@ class GoldenContentQualityTests(unittest.TestCase):
         )
         self.assertNotIn("本 Day 不使用模拟数据", data_readme)
 
+        solution = notebook_source(GOLDEN_UNITS["CQ-S5-1"] / "solution.ipynb")
+        assert_terms(
+            self,
+            solution,
+            (
+                "expected_trace",
+                "human_labels",
+                "format_trace_for_judge",
+                "ACTUAL_TRAJECTORY:",
+            ),
+        )
+        self.assertNotIn("step.get('correct'", solution)
+
     def test_r4_covers_protocol_bias_certainty_and_automation_disclosure(self) -> None:
         notes = read_text(GOLDEN_UNITS["CQ-R4-1"] / "notes.md")
         assert_terms(
@@ -102,6 +146,14 @@ class GoldenContentQualityTests(unittest.TestCase):
                 "https://www.prisma-statement.org/prisma-2020",
             ),
         )
+
+        fallback = json.loads(read_text(GOLDEN_UNITS["CQ-R4-1"] / "data/arxiv_fallback.json"))
+        self.assertEqual(
+            (210, 135, 40, 23),
+            tuple(fallback[key] for key in ("n_identified", "n_after_dedup", "n_screened", "n_included")),
+        )
+        protocol = read_text(GOLDEN_UNITS["CQ-R4-1"] / "protocol.md")
+        self.assertIn("210→135→40→23", protocol)
 
     def test_capstone_requires_a_publishable_causal_evidence_pack(self) -> None:
         notes = read_text(GOLDEN_UNITS["CQ-C4-1"] / "notes.md")
