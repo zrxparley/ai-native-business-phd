@@ -1,6 +1,6 @@
 # Constructive Alignment - 因果推断基础 (Day 1)
 
-> v6.0 学习科学层 · Biggs 建构对齐 ILO ↔ TLA ↔ AT 矩阵 + mastery 阈值 + 3 自检
+> v6.0 学习科学层 · Biggs 建构对齐 ILO ↔ TLA ↔ AT 矩阵 + mastery 阈值 + 3 自检。CQ-S3-1：因果识别质量以 estimand、识别假设、overlap 诊断、refuter/敏感性和可判分 rubric 为门槛。
 > 配套 v5.0 notes.md / starter.ipynb / solution.ipynb / practice.md / schedule.json / tutorial.ipynb
 
 ---
@@ -11,8 +11,8 @@
 |---|---|---|---|
 | **ILO1**: 能用 Pearl 因果阶梯（关联/干预/反事实）解释"为什么相关≠因果"，并指出营销场景中各层级对应的操作 | notes.md "关键回顾 1" + practice.md diagnostic 第 2 题 + tutorial.ipynb Socratic 第 1 轮 + schedule.json 卡片 C1 复习 | diagnostic 第 2 题口头辩护 + tutorial Socratic 应答 + schedule.json C1 卡片 rating>=good | 概念题 100% 正确 + 能在 tutorial 中独立给营销案例做层级映射 |
 | **ILO2**: 能为一个营销问题画 DAG，识别混杂与后门路径，说明如何用后门准则阻断 | practice.md D1 (Worked->Faded->独立解 三阶段) + starter.ipynb TODO1-2 + notes.md "关键回顾 2" + schedule.json C2 | D1 阶段 3 独立解（全新场景画 DAG+列后门路径+切断节点）+ starter.ipynb TODO1-2 提交 + P2 Milestone 交付 | D1 三阶段连续 2 次 reps 达 80% + P2 Milestone DAG 无遗漏后门路径 |
-| **ILO3**: 能在真实数据 (causaldata.nsw) 上区分朴素均值差（有偏）与后门调整估计（因果），解释差异来源 | practice.md D2 + starter.ipynb TODO3-4 + notes.md "关键回顾 3" + schedule.json C3 + D2 Worked 完整跑 NSW | D2 阶段 3 独立解（换数据集跑 DoWhy 四步）+ starter.ipynb TODO3-4 + 300 字差异分析（P3 Final） | D2 reps 3 次达 80% + 朴素 ATE 与后门 ATE 数值差异 < 5% 误差解释清楚 + ≥2 refuter 通过 |
-| **ILO4**: 能用 DoWhy 完成"建模->识别->估计->反驳"四步因果分析流程 | practice.md D2 + starter.ipynb TODO4-5 + schedule.json C3 + tutorial.ipynb Socratic 第 2-3 轮（针对 DoWhy 流程追问） | starter.ipynb TODO4-5 提交 + D2 阶段 3 + tutorial 应答"为什么必须跑 refute_estimate" | 四步全跑通 + 能解释 placebo_treatment_refuter 返回 new_effect≈0 的含义 |
+| **ILO3**: 能用 `nsw_mixtape` 随机实验建立基准，并在 NSW 处理组 + `cps_mixtape` 观测对照上比较朴素均值差与后门调整，解释选择偏差 | practice.md D2 + starter.ipynb TODO3-4 + notes.md "关键回顾 3" + schedule.json C3 + 实验/观测样本拆分 + overlap/positivity 诊断 | starter.ipynb TODO3-4 + 实验基准/观测朴素/调整估计三列对比 + 300 字差异分析 + 协变量 SMD 与倾向得分 overlap 表 | D2 reps 3 次达 80% + 正确区分随机实验与观测对照 + 共同支撑限制解释清楚 + ≥2 refuter/敏感性检查通过 |
+| **ILO4**: 能用 DoWhy 完成"建模->识别->估计->反驳"四步因果分析流程 | practice.md D2 + starter.ipynb TODO4-5 + schedule.json C3 + tutorial.ipynb Socratic 第 2-3 轮（针对 DoWhy 流程追问） | starter.ipynb TODO4-5 提交 + D2 阶段 3 + tutorial 应答"为什么必须跑 refute_estimate" + 负对照设计 | 四步全跑通 + 能解释 placebo_treatment_refuter 返回 new_effect≈0、random_common_cause_refuter 不应实质改变估计、data_subset/bootstrap 稳定性各自含义 |
 | **ILO5**: 能用混合方法视角 + LLM-as-a-judge 设计因果评估方案，并定位其在因果阶梯 L1 | practice.md D3 + notes.md "2026 前沿" + starter.ipynb TODO6 (可选) + schedule.json C4 + tutorial.ipynb Socratic 第 4 轮 | D3 阶段 3 独立解（LLM-as-judge 审查 + 魔鬼代言人判断）+ student_model.json blind_spots 记录 + P4 Poster 展示盲点 | D3 reps 3 次达 80% + 能区分 LLM-as-judge (L1) 与 ATE 估计 (L2/L3) + blind_spots 至少 1 条 LLM 指出的未考虑混杂 |
 
 ---

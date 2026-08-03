@@ -7,6 +7,8 @@ algorithm: Ericsson deliberate practice + MIT CS229 diagnostic + CS230 progressi
 
 # practice.md - R4 系统综述 PRISMA 刻意练习
 
+> 质量契约：CQ-R4-1（protocol、双人独立筛选、偏倚/证据确定性、自动化披露）。
+
 ## skill_target
 
 能用 `arxiv` + `pandas` + `scikit-learn` + `matplotlib` 独立实现 PRISMA 2020 四阶段方法论流程（Identification → Screening → Quality Assessment → Synthesis），产出符合 27 条 checklist 的 PRISMA flow diagram + Cohen's kappa 评分者一致性报告 + Kitchenham 五维质量评分 + ASReview 主动学习效率曲线，且能在 90 分钟内对一份全新 arXiv 检索结果（>=80 篇）跑通全流程并解释每一阶段的排除比例与偏倚来源。
@@ -15,7 +17,7 @@ algorithm: Ericsson deliberate practice + MIT CS229 diagnostic + CS230 progressi
 
 > 不查阅资料，15 分钟内作答。每题先写"我有把握 / 我猜的 / 不会"，再写答案。检测点决定从哪个 drill 起步。
 
-**D1**：给定两位筛选者对 100 篇文献的标签（A: 60 篇纳入, B: 70 篇纳入, 两人都纳入 50 篇），手工计算 Cohen's kappa。若 kappa = 0.55，按 Landis-Koch 表对应哪个等级？PRISMA 2020 Item 7 要求报告筛选者一致性的目的是什么？
+**D1**：给定两位筛选者对 100 篇文献的标签（A: 60 篇纳入, B: 70 篇纳入, 两人都纳入 50 篇），手工计算 Cohen's kappa。若 kappa = 0.55，按 Landis-Koch 表对应哪个等级？PRISMA 2020 Item 8 要求说明选择过程、独立筛选者与自动化工具；kappa 在这里为该过程提供什么补充审计信号？
 
 **D2**：Kitchenham & Charters (2007) 五维质量评估中，"方法适当性"与"分析恰当性"如何区分？一篇用 case study 方法回答"LLM 对营销转化率因果效应"研究问题的论文，在"方法适当性"维应打 0 还是 1？为什么？
 
@@ -73,9 +75,9 @@ algorithm: Ericsson deliberate practice + MIT CS229 diagnostic + CS230 progressi
 
 ## progressive_project (CS230 式渐进交付)
 
-- **proposal (Day 3)**：提交 1 页 PRISMA 综述提案——研究问题 + 6 条 arXiv 查询式 + 预期种子集大小 + 预期 kappa 范围。导师否决"研究问题过宽/查询式无同义词"两类问题。
-- **milestone (Day 7)**：完成 Phase 1+2——提交去重后的 DataFrame + 双盲筛选结果 + Cohen's kappa 值 + Landis-Koch 等级。kappa < 0.41 触发"筛选者培训"补充 drill。
-- **final (Day 14)**：完成全四阶段——PRISMA flow diagram + Kitchenham 质量表 + ASReview 效率曲线 + 300 字方法论反思（哪个阶段排除比例最高？为什么？）。
+- **proposal (Day 3)**：提交 1 页 PRISMA 综述提案 + `protocol.md` 摘要——研究问题 + 6 条 arXiv 查询式 + 纳排标准 + 双人独立筛选计划 + 预期种子集大小 + 预期 kappa 范围。导师否决"研究问题过宽/查询式无同义词/未声明 protocol amendment 规则"三类问题。
+- **milestone (Day 7)**：完成 Phase 1+2——提交去重后的 DataFrame + 双人独立筛选结果或教学模拟披露 + Cohen's kappa 值 + Landis-Koch 等级 + 冲突裁决记录。kappa < 0.41 触发"筛选者培训"补充 drill。
+- **final (Day 14)**：完成全四阶段——PRISMA flow diagram + Kitchenham/RoB proxy 质量表 + 报告偏倚与证据确定性表 + ASReview 效率曲线 + 300 字方法论反思（哪个阶段排除比例最高？为什么？自动化工具带来什么偏倚？）。
 - **poster (Day 17)**：1 页 A3 poster 展示 PRISMA 流程图 + 核心数字 + 方法论学习点，用于模块 R 跨单元 gallery walk。
 
 ## interleaving (交叉排布, 不块状)

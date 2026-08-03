@@ -6,12 +6,12 @@
 
 ## skill_target (可观察核心技能)
 
-给定一个营销/政策场景的真实观测数据集（含处理 T、结果 Y、协变量 X），能独立完成"画 DAG → 识别后门路径 → 用 DoWhy 做后门调整估计 → 用反驳检验与 LLM-as-a-judge 审查论证"全流程，并解释朴素均值差与调整估计的差异来源。
+给定一个营销/政策场景的真实观测数据集（含处理 T、结果 Y、协变量 X），能独立完成"画 DAG → 定义 estimand → 明示识别假设 → 识别后门路径 → 诊断 positivity/overlap → 用 DoWhy 做后门调整估计 → 用负对照、refuter 与 LLM-as-a-judge 审查论证"全流程，并解释朴素均值差与调整估计的差异来源。质量契约：CQ-S3-1。
 
 ## subskills
 
 - **S1 画 DAG & 识别后门路径**：在 NSW/营销场景中正确标注处理/结果/混杂，列出所有后门路径并指出在哪个节点切断
-- **S2 DoWhy 四步落地**：`modeling → identification → estimation → refutation`，正确声明 `common_causes`，调用 `backdoor` 识别，估计 ATE，跑 `placebo_treatment_refuter`
+- **S2 DoWhy 四步落地**：`modeling → identification → estimation → refutation`，正确声明 `common_causes`，调用 `backdoor` 识别，估计 ATE，并至少跑 `placebo_treatment_refuter` / `random_common_cause_refuter` / `data_subset_refuter` 三类 refuter 或敏感性分析中的两类
 - **S3 论证审查 (LLM-as-judge + 反驳)**：用 LLM-as-a-judge 检查 DAG 完备性 / 识别策略 / 反驳充分性 / 结论是否过度外推，并解释它处于因果阶梯 L1（不能升 L2/L3）
 
 ---
@@ -39,7 +39,7 @@
   - 若误把中介变量当混杂（如把"点击"当混杂去控制）→ 提示"中介变量在 T→Y 的因果路径上，控制它会切断真实因果链，这叫 over-control bias；混杂必须同时是 T 和 Y 的共同原因"
   - 若切断节点选错（如切断 Y 的子节点）→ 提示"后门准则要求在混杂节点切断，不是在 Y 的下游切断；回到 NSW 案例，重新看 `用户活跃度` 的位置"
 - **worked_faded 三阶段**:
-  - **阶段 1 (Worked 完整示范)**：完整演示 NSW 场景 DAG——`age/education/black/hispanic/married/nodegree/re74/re75` 共同指向 `treat` 与 `re78`，写出后门路径 `treat ← age → re78` 等 8 条，演示在协变量集合 `{age, education, re74, re75, ...}` 上切断
+  - **阶段 1 (Worked 完整示范)**：完整演示 NSW+CPS 观测比较场景 DAG——`age/educ/black/hisp/marr/nodegree/re74/re75` 共同指向 `treat` 与 `re78`，写出后门路径 `treat ← age → re78` 等 8 条，演示在协变量集合 `{age, educ, re74, re75, ...}` 上切断
   - **阶段 2 (Faded 部分填空)**：给出营销场景 DAG 框架，但留 3 处空白——"___ 是处理变量"、"___ 是混杂"、"应在 ___ 节点切断"，学生填空
   - **阶段 3 (独立解)**：给一个全新场景（邮件营销：`历史打开率 → 收到推送 → 点击 → 转化`，`历史打开率 → 会员等级 → 转化`），独立画 DAG + 写出全部后门路径 + 指出切断节点
 
@@ -50,11 +50,11 @@
 - **feedback_rule**:
   - 若 `common_causes` 声明遗漏关键混杂 → 提示"回看 D1 的 DAG，所有指向 T 且指向 Y 的节点都必须进 `common_causes`；NSW 案例中至少 8 个协变量"
   - 若识别阶段选错方法（如对有未观测混杂的图选 `backdoor`）→ 提示"后门准则要求所有后门路径上的混杂都可观测；检查你的 DAG 是否有双向虚线或未观测节点"
-  - 若跳过 `refutation` → 提示"估计出来的 ATE 没有 refuter 验证就等于没交作业；DoWhy 要求至少跑 `placebo_treatment_refuter` + `random_common_cause_refuter` 两项"
+  - 若跳过 `refutation` → 提示"估计出来的 ATE 没有 refuter 验证就等于没交作业；CQ-S3-1 要求至少跑 placebo_treatment_refuter / random_common_cause_refuter / data_subset_refuter 三类中的两类，并解释负对照或未观测混杂敏感性"
 - **worked_faded 三阶段**:
-  - **阶段 1 (Worked)**：完整跑一遍 NSW——`CausalModel(data, treatment="treat", outcome="re78", common_causes=[...8个])` → `identify_effect(estimator_type="backdoor")` → `estimate_effect()` → `refute_estimate(refuter="placebo_treatment_refuter")`，每行注释意图
+  - **阶段 1 (Worked)**：完整跑一遍 NSW——先写 estimand `ATE=E[Y(1)-Y(0)]` 与识别假设（consistency / exchangeability / positivity / SUTVA），再执行 `CausalModel(data, treatment="treat", outcome="re78", common_causes=[...8个])` → `identify_effect(estimator_type="backdoor")` → `estimate_effect()` → `refute_estimate(refuter="placebo_treatment_refuter")` → `refute_estimate(refuter="random_common_cause_refuter")`，每行注释意图
   - **阶段 2 (Faded)**：给出框架代码但留 4 个 TODO——`common_causes=[___]`、`identified_estimand = model.___()`、`estimate = identified_estimand.___()`、`ref = estimate.___()`，学生填方法名
-  - **阶段 3 (独立解)**：换数据集（`causaldata.lalonde` 或 `causaldata.marginal_tax`），独立从零写四步，并解释 `placebo_treatment_refuter` 返回的 `new_effect` 接近 0 意味着什么
+  - **阶段 3 (独立解)**：换数据集（`causaldata.lalonde` 或 `causaldata.marginal_tax`），独立从零写四步，并解释 `placebo_treatment_refuter` 返回的 `new_effect` 接近 0、`random_common_cause_refuter` 不改变主估计、`data_subset_refuter` 方向稳定分别意味着什么
 
 ### drill_id: D3
 - **目标子技能**：S3 论证审查 (LLM-as-a-judge + 反驳)
@@ -65,7 +65,7 @@
   - 若 LLM-as-judge 的 prompt 缺失结构化检查项 → 提示"参考 NeurIPS 2023 LLM-as-a-judge 范式，prompt 必须包含 4 个检查维度：(a) DAG 是否遗漏混杂 (b) 识别策略是否满足后门准则 (c) 反驳是否充分 (d) 结论是否过度外推"
   - 若不记录 LLM 指出的盲点 → 提示"LLM-as-judge 的价值是暴露你没想到的潜在混杂；必须把它的指摘写进 `student_model.json` 的 `blind_spots` 字段，跨单元复用"
 - **worked_faded 三阶段**:
-  - **阶段 1 (Worked)**：完整示范——把 D2 的 DoWhy 结果（DAG + identified_estimand + estimate + refute）整理成结构化文本，喂给 LLM（静态模拟响应），记录其指出的 1 个未考虑混杂（如"NSW 中 `nodegree` 与 `education` 高度相关，可能存在共线性"），写进 `student_model.json`
+  - **阶段 1 (Worked)**：完整示范——把 D2 的 DoWhy 结果（DAG + identified_estimand + estimate + refute）整理成结构化文本，喂给 LLM（静态模拟响应），记录其指出的 1 个未考虑混杂（如"NSW/CPS 中 `nodegree` 与 `educ` 高度相关，可能存在共线性"），写进 `student_model.json`
   - **阶段 2 (Faded)**：给 LLM prompt 模板留 2 处空白——"检查 DAG 是否遗漏 ___" 和 "结论是否 ___"，学生补全；再给 LLM 响应留 1 处空白让学生预测 LLM 会指出什么
   - **阶段 3 (独立解)**：把 D2 独立解的结果喂给 LLM-as-judge（可用静态模拟分支占位），独立判断其反馈是否合理（魔鬼代言人视角：LLM 是否在胡说？），把盲点写进 `student_model.json`
 
@@ -76,8 +76,8 @@
 本 Day 的项目是 `starter.ipynb` 的延伸，分四阶段交付：
 
 - **P1 Proposal (Day 1 上午交)**：选一个营销/政策场景（不限 NSW），写 200 字提案——研究问题、处理 T、结果 Y、候选混杂 X、数据来源。不评分但必须交，否则后续不收。
-- **P2 Milestone (Day 1 下午交)**：交付完整 DAG（手绘或代码）+ 朴素 ATE 估计 + 一段话解释为何有偏。反馈给"是否漏后门路径"的建议。
-- **P3 Final (Day 1 + 2 天)**：交付完整 `starter.ipynb`——DoWhy 四步全跑通 + ≥2 个 refuter + LLM-as-judge 审查记录 + `student_model.json` 更新。
+- **P2 Milestone (Day 1 下午交)**：交付完整 DAG（手绘或代码）+ NSW 实验基准 + NSW处理组/CPS对照的观测朴素估计 + 一段话解释样本选择。反馈给“是否混淆实验与观测对照、是否漏后门路径”的建议。
+- **P3 Final (Day 1 + 2 天)**：交付完整 `starter.ipynb`——DoWhy 四步全跑通 + estimand 与识别假设段落 + overlap/positivity 诊断 + ≥2 个 refuter 或敏感性分析 + 负对照设计 + LLM-as-judge 审查记录 + `student_model.json` 更新。
 - **P4 Poster (Day 2 课前)**：1 页 PDF poster——DAG 图 + 三种估计对比表（朴素/后门调整/PSM）+ 1 个 LLM-as-judge 指出的盲点。用于同伴互评（CS229 Ed Discussion 模式）。
 
 late policy: 借鉴 CS230，每单元 2 late days 免费，之后每天 -20%；超过 4 天不收。
@@ -124,6 +124,20 @@ weak_loop 是安全网不是惩罚——目的不是让学生羞耻，而是把"
 - 间隔重复卡片 → 见 `schedule.json`（FSRS-6, 1/3/8/21/60/180 天）
 - ILO ↔ TLA ↔ AT 对齐 → 见 `alignment.md`
 - 卡在 D2/D3 超过 2 次 → 预约 `tutorial.ipynb` 的 Socratic 仿真（限频 1 次/天）
+
+---
+
+## CQ-S3-1 可判分 rubric
+
+| 维度 | 权重 | 通过标准 | 常见扣分 |
+|---|---:|---|---|
+| estimand 与识别假设 | 20% | 明确定义 ATE、T、Y、X；逐条说明一致性（consistency）、可交换性（exchangeability）、正值性（positivity）/ overlap、SUTVA | 只给 DoWhy 代码；没说明“无未观测混杂”只是不可检验假设 |
+| DAG 与后门路径 | 20% | 正确列出至少 5 条 NSW 后门路径；说明控制哪些变量、为什么不控制中介或碰撞变量 | 把点击/购买路径上的中介当混杂控制；漏掉 `re74/re75` |
+| 数据与估计诊断 | 20% | 报告样本量、协变量 SMD、倾向得分 overlap、朴素 ATE、后门 ATE、PSM 或替代估计 | 只报告均值差；没有共同支撑检查；把单一估计量当真值 |
+| refuter / 敏感性 / 负对照 | 25% | 至少完成 placebo、random common cause、data subset/bootstrap 三类中的两类；提出 1 个负对照；写出未观测混杂敏感性判断 | 只跑 placebo；把 refuter 通过解释为“因果已证明”；没有负对照 |
+| 表达与迁移 | 15% | 300 字因果结论包含限制条件、营销映射、不可外推边界；能说明 LLM-as-a-judge 只审论证质量 | 过度外推到所有营销场景；让 LLM 直接估 ATE |
+
+通过阈值：总分 ≥80 且 refuter / 敏感性 / 负对照维度不得低于 15/25；否则即使 notebook 跑通也不算 CQ-S3-1 达标。
 
 ---
 

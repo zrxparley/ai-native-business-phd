@@ -1,6 +1,6 @@
 # Day 3 真实数据与库说明
 
-> v5.0 核心升级：用**真实评估库**（deepeval）+ **真实 Agent 轨迹数据**替代手写评估脚本。手写 if-else 只能做规则匹配，deepeval 能做 LLM-as-a-judge 语义评估。
+> v5.0 核心升级：用**真实评估库**（deepeval）+ **教学合成（synthetic）/人工策展（curated）的 Agent 轨迹样例**替代手写评估脚本。手写 if-else 只能做规则匹配，deepeval 能做 LLM-as-a-judge 语义评估。
 
 ---
 
@@ -19,7 +19,7 @@
 ```bash
 pip install deepeval
 # deepeval 默认使用 OpenAI 作为 judge 模型，需设置：
-# export OPENAI_API_KEY=sk-...
+# export OPENAI_API_KEY=<your-openai-api-key>
 # 也可指定其他模型（如本地 Ollama），见 deepeval 文档
 ```
 
@@ -41,9 +41,30 @@ pip install deepeval
 
 ---
 
-## 评估对象：营销 Agent 真实轨迹测试用例
+## 数据真实性分级与泄漏控制
 
-本 Day 不使用模拟数据，而是用**真实营销 Agent 的输出轨迹**作为评估对象。测试用例定义在 `starter.ipynb` TODO1 中，包含3条真实场景的 Agent 轨迹：
+**证据复核日期：2026-08-03**
+
+本 Day 把“评估库是否真实”和“测试轨迹是否来自生产”分开标注：
+
+| 等级 | 定义 | 本单元状态 | 可用于 |
+|---|---|---|---|
+| 教学合成（synthetic） | 为覆盖好/坏/混合错误模式而人工构造的 brief、输出、知识库片段和轨迹 | 3 条上机样例属于此等级 | 教学、API 熟悉、离线 smoke test |
+| 人工策展（curated） | 来自公开 demo、课堂项目或历史日志，经人工脱敏、去重、标注 expected_trace 后进入黄金集 | 本单元要求学生 Final 至少提交 10 条 curated case | judge 校准、回归测试 |
+| 生产记录（recorded） | 从真实 Agent 线上 trace 采集，保留时间戳、模型版本、工具输入输出、token、成本、延迟，经隐私审查 | 本仓库不内置 recorded 数据 | 生产监控、上线门禁、A/B 后分析 |
+
+泄漏控制：
+
+- 训练集泄漏：生产记录（recorded）进入评估集前，必须检查 brief、参考文案、知识库片段是否曾用于 prompt 示例、微调数据或公开教程；已泄漏样例只能用于教学，不能进入黄金集。
+- 答案泄漏：`solution.ipynb` 的 expected output、expected trace 和人工标签不得复制到 starter 答案区；学生提交的 curated case 需另附来源与脱敏说明。
+- 隐私泄漏：recorded trace 不得含真实客户名、手机号、订单号、精准投放人群包、广告账户 ID；必要时只保留哈希化 trace id。
+- 评审泄漏：LLM-as-a-judge 的 criteria 不得包含“用例1应通过、用例2应失败”等标签信息；人工黄金集标签单独保存。
+
+---
+
+## 评估对象：营销 Agent 轨迹测试用例
+
+测试用例定义在 `starter.ipynb` TODO1 中，包含 3 条教学合成（synthetic）且由人工策展（curated）的营销场景轨迹，用于覆盖好/坏/混合三种错误模式：
 
 | 用例 | 场景 | 轨迹质量 | 评估重点 |
 |------|------|---------|---------|
@@ -53,12 +74,13 @@ pip install deepeval
 
 每条测试用例包含：
 - `input`：营销 Brief（产品+目标人群+渠道）
-- `actual_output`：Agent 实际生成的内容
+- `actual_output`：合成 Agent 输出内容；若替换为生产记录（recorded），必须标注 trace id、采集时间、模型版本和脱敏状态
 - `expected_output`：人工专家写的参考文案
 - `retrieval_context`：知识库检索到的产品资料（用于幻觉检测）
 - `trajectory`：Agent 的工具调用轨迹（用于轨迹评估）
+- `expected_trace`：人工黄金集标注的期望工具顺序、必填参数和冗余调用规则（用于防止直接信任 `correct=True`）
 
-> 💡 **数据来源说明**：这些测试用例模拟真实营销 Agent 的输出（基于技能5 Day 2 的营销 Agent 架构）。在实际项目中，你应该收集**自己 Agent 的真实输出**作为测试数据--deepeval 的 `EvaluationDataset` 支持从 JSON/CSV 批量导入。
+> 💡 **数据来源说明**：这些测试用例是 synthetic/curated 教学样例，模拟技能5 Day 2 营销 Agent 的典型输出。真实项目中应收集自己的 Agent 生产记录（recorded）或课堂项目人工策展（curated）样例，再用 deepeval 的 `EvaluationDataset` 从 JSON/CSV 批量导入。
 
 ---
 

@@ -4,17 +4,24 @@
 
 ---
 
-## 主数据集：Lalonde / NSW（已验证，可运行）
+## 主数据集：Lalonde / NSW（公开教学数据；运行性需在锁定环境中复核）
 
 **这是什么**：NSW（National Supported Work）职业培训示范实验的真实数据，由 Dehejia & Wahba (1999) 整理，是因果推断领域**最经典的真实教学数据集**，MIT/Stanford/DoWhy/EconML 教程广泛使用。
 
-**为什么用它**：真实存在严重混杂——观测对照组与实验处理组在年龄、教育、种族、前期收入等协变量上分布严重不均，正是"混杂偏差"的最佳教学案例。
+**为什么用它**：`nsw_mixtape` 提供随机实验基准，`cps_mixtape` 提供观测对照。把 NSW 处理组与 CPS 对照组合并后，会出现年龄、教育、种族、前期收入等选择差异；这才是本单元要诊断的观测偏差。不要把 NSW 随机实验本身说成“严重混杂”。
 
 **加载方式**（需先 `pip install causaldata`）：
 
 ```python
-from causaldata import nsw
-df = nsw.load_pandas().data
+import pandas as pd
+from causaldata import nsw_mixtape, cps_mixtape
+
+nsw_df = nsw_mixtape.load_pandas().data
+cps_df = cps_mixtape.load_pandas().data
+df = pd.concat([
+    nsw_df.loc[nsw_df["treat"] == 1],
+    cps_df.loc[cps_df["treat"] == 0],
+], ignore_index=True)
 ```
 
 **字段**：
@@ -24,18 +31,32 @@ df = nsw.load_pandas().data
 | `treat` | 是否参加培训（1=是，0=否） | 是否收到优惠券/看到广告 |
 | `re78` | 1978年真实收入（结果变量） | 转化率/GMV/客单价 |
 | `age` | 年龄 | 用户年龄 |
-| `education` | 受教育年限 | 用户特征 |
-| `black` / `hispanic` | 种族指示 | 用户分群特征 |
-| `married` | 是否已婚 | 用户特征 |
+| `educ` | 受教育年限 | 用户特征 |
+| `black` / `hisp` | 种族指示 | 用户分群特征 |
+| `marr` | 是否已婚 | 用户特征 |
 | `nodegree` | 是否无学位 | 用户特征 |
 | `re74` / `re75` | 1974/1975年收入（前期） | 历史消费（关键混杂） |
 
 **来源与验证**：
-- `causaldata` PyPI 包：https://pypi.org/project/causaldata/ （v0.1.5, 2024-11, Nick Huntington-Klein 维护，MIT License，已验证存在）
-- 开源教材《The Effect》(Huntington-Klein)：https://theeffectbook.net/ （免费 Bookdown 版，已验证，2025-10-17 构建，本书代码用 `causaldata` 包，含 NSW 数据）
-- 开源教材《Causal Inference: The Mixtape》(Cunningham)：https://mixtape.scunning.com/ （免费在线版，因果推断经典开源教材，同样使用 NSW 数据）
+- `causaldata` PyPI 包：https://pypi.org/project/causaldata/ （需在课程锁定环境中记录实际安装版本与 license）
+- 开源教材《The Effect》(Huntington-Klein)：https://theeffectbook.net/ （免费 Bookdown 版；用于核对 `causaldata` 包和 NSW 示例）
+- 开源教材《Causal Inference: The Mixtape》(Cunningham)：https://mixtape.scunning.com/ （免费在线版；用于核对 Lalonde/NSW 教学背景）
 - DoWhy 官方文档（四步因果分析流程，用真实数据演示）：https://py-why.github.io/dowhy/
 - 原始论文：Dehejia, R. & Wahba, S. (1999). "Causal Effects in Nonexperimental Studies." *Journal of the American Statistical Association*.
+
+证据复核日期：2026-08-03。复核范围：确认本单元使用的是公开教学数据源路径；不等同于证明当前仓库 notebook 已在干净环境中 clean run。
+
+---
+
+## CQ-S3-1 数据质量检查
+
+提交 `starter.ipynb` 前必须记录：
+
+1. **数据版本**：`causaldata` 实际版本、Python 版本、加载出的 `df.shape` 与字段列表。
+2. **positivity/overlap**：处理组与对照组样本量；倾向得分共同支撑区；共同支撑区外样本占比。
+3. **协变量平衡**：对 `age/educ/black/hisp/marr/nodegree/re74/re75` 报告均值、标准化均值差（SMD）和缺失率。
+4. **负对照候选**：说明哪个结果或处理理论上不应受 `treat` 影响；若当前数据缺少合适负对照，必须写明“不具备直接负对照字段”，并转为概念设计。
+5. **估计边界**：NSW 到营销场景只是因果结构类比，不自动证明任何真实优惠券/广告业务的外部有效性。
 
 ---
 

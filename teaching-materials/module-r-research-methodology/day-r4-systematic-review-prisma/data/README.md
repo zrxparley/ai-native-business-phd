@@ -66,7 +66,7 @@ pip install pandas
 **这是什么**：scikit-learn 是 Python 机器学习库。本单元用它实现两个 PRISMA 方法论核心功能：① 评分者间一致性（Cohen's kappa）② ASReview 主动学习筛选机制模拟。
 
 **为什么用它**：
-- **cohen_kappa_score**：计算两位筛选者的 Cohen's kappa（PRISMA 2020 Item 7 要求报告筛选者一致性）
+- **cohen_kappa_score**：计算两位筛选者的 Cohen's kappa；PRISMA 2020 Item 8 要求说明选择过程、独立筛选者与自动化工具，kappa 可作为补充一致性审计信号
 - **TfidfVectorizer**：将论文标题+摘要转为 TF-IDF 特征向量（ASReview 主动学习的特征提取）
 - **LogisticRegression**：训练分类器对论文相关性打分（ASReview 主动学习的核心模型）
 - **主动学习循环**：种子集标注 -> 训练 -> 排序 -> 迭代查询 -> 停止规则
@@ -104,7 +104,7 @@ pip install scikit-learn
 | 检索式5（推荐） | `recommender system marketing` | 30 | 推荐系统营销 |
 | 检索式6（消费者） | `AI consumer behavior` | 30 | AI消费者行为 |
 
-**真实查询结果**（2026-07-24 实时查询）：
+**历史在线查询记录**（2026-07-24；非冻结复现口径）：
 
 | PRISMA 阶段 | 论文数 | 说明 |
 |------------|:------:|------|
@@ -115,11 +115,19 @@ pip install scikit-learn
 
 **Cohen's kappa（评分者间一致性）**：0.7424（较好/substantial等级，>=0.61为可接受）
 
+**冻结离线复现口径**：`arxiv_fallback.json` 顶层元数据记录 `210→135→40→23`。上表 `44/26` 是一次历史在线查询的教学记录；没有对应 run manifest 时，不得将其写成可复现结果。
+
 **ASReview 主动学习效率**（本单元模拟）：
 - 人工全筛：需阅读135篇
 - ASReview模拟（种子10篇 + 5轮迭代各15篇 = 85篇标注）：读前71篇覆盖90%相关论文
 - 效率提升：47.4%筛选工作量减少，1.9x加速
 - 生产级 ASReview 可达 10x 加速（更优特征+查询策略）
+
+**质量口径披露（CQ-R4-1）**：
+- 当前双人筛选数字来自教学模拟：第一位筛选者由关键词/年份规则生成，第二位筛选者由固定随机种子翻转约 10% 标签生成；正式研究必须替换为两名真人独立筛选记录。
+- 当前 Risk of Bias 是 Kitchenham 五维关键词 proxy，不是完整人工 RoB 工具或 GRADE/CERQual 证据确定性评估。
+- 冻结 fallback 口径为 210→135→40→23；历史在线记录为 210→135→44→26。正式报告必须选定其一，并用 run manifest 锁定 API/fallback、代码版本、随机种子和输出 hash。
+- 自动化工具披露：arxiv API 负责检索，pandas 负责去重/计数，scikit-learn 负责 kappa 与 ASReview proxy，matplotlib 负责流程图；任何 LLM 摘要或 RAGAS 评分都需要人工复核比例和失败回退规则。
 
 **质量评分分布**（Kitchenham & Charters 五维，0-5分）：
 
@@ -160,8 +168,8 @@ with open("data/arxiv_fallback.json") as f:
 papers = fallback["papers"]       # 210篇论文
 print(fallback["n_identified"])   # 210
 print(fallback["n_after_dedup"])  # 135
-print(fallback["n_screened"])     # 44
-print(fallback["n_included"])     # 26
+print(fallback["n_screened"])     # 40
+print(fallback["n_included"])     # 23
 ```
 
 > ⚠️ **首选真实 API**：fallback 仅为离线环境备用。真实 API 查询结果会随 arXiv 新增论文而变化，更贴近真实研究场景。

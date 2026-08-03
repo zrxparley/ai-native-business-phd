@@ -76,7 +76,7 @@ class GoldenContentQualityTests(unittest.TestCase):
                         '"marr"',
                     ),
                 )
-                self.assertNotIn("from causaldata import nsw", source)
+                self.assertNotRegex(source, r"from causaldata import nsw(?:\s|$)")
                 self.assertNotIn('"education"', source)
                 self.assertNotIn('"hispanic"', source)
                 self.assertNotIn('"married"', source)

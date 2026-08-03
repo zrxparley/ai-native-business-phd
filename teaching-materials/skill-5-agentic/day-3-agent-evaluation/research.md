@@ -8,7 +8,7 @@
 
 **核心研究问题**: 在 deepeval GEval (LLM-as-a-judge, criteria 模式) 自动评分与 FaithfulnessMetric 幻觉检测组合评估营销 Agent 轨迹时, LLM-as-judge 的已知偏差 (位置偏差 / 冗长偏差 / 自我偏好, 见 arXiv 2306.05685 §5) 是否会导致任务完成率 (目标 ≥85%) 与幻觉率 (目标 ≤5%) 这两个核心指标出现系统性失真? 具体而言, 当 Agent 输出长文案 (小红书种草体) 时, GEval 是否因冗长偏差而高估内容质量, 从而掩盖 FaithfulnessMetric 应捕获的虚构产品功效幻觉?
 
-本研究问题可实证: 用 `solution.ipynb` 中的 3 个 LLMTestCase (好/坏/混合轨迹) 跑 100 次重复评估, 比较 GEval 评分与人工标注的偏离方向与幅度。
+本研究问题可实证: 用 `solution.ipynb` 中的 3 个教学合成（synthetic）LLMTestCase (好/坏/混合轨迹) 做 smoke test，再扩展到 >=10 条人工策展（curated）人工黄金集样例跑 100 次重复评估, 比较 GEval 评分与人工标注的偏离方向与幅度。**CQ-S5-1** 要求所有研究结论显式报告数据等级，禁止用 3 条 synthetic 样例外推生产质量。
 
 ---
 
@@ -50,7 +50,8 @@
 - 数据: 3 个 LLMTestCase (好/坏/混合轨迹), 来自 `solution.ipynb` TODO1; 每个含 input / actual_output / retrieval_context / expected_trajectory。
 - 模型: deepeval GEval (criteria 模式, 评估品牌调性 + CTA + 平台适配) + FaithfulnessMetric (检测虚构产品功效) + 自定义 BaseMetric (TODO3, 工具选择 + 参数准确度)。
 - 识别策略: 100 次重复评估, 比较 GEval 评分分布与 FaithfulnessMetric 幻觉检测率在长文案 vs 短文案上的偏离; 控制变量 = 模型版本 / 温度 / prompt 模板; 随机种子 `random_state=42`。
-- 偏差缓解: 随机化 criteria 顺序 + 多 judge (GPT-4 / Claude / Llama) 投票 + 5% 人工校准 (来自 arXiv 2504.18703)。
+- 偏差缓解: 随机化 criteria 顺序 + 多 judge (GPT-4 / Claude / Llama) 投票 + 5% 人工校准 (来自 arXiv 2504.18703)。新增 position bias / length bias 两个对照：同一答案交换 A/B 位置、同一事实改写成长短两版，报告评分漂移。
+- 可靠性报告: 对人工黄金集计算 judge agreement 和 Cohen's κ；对任务完成率、工具准确率、幻觉率报告 Wilson 置信区间；同时报告平均成本、P50/P95 延迟、安全失败率。
 
 **Results (结果)**
 - 预期核心发现: GEval 在长文案 (小红书种草体 200+ 字) 上的评分系统性高于短文案 (朋友圈广告 50 字), 偏离幅度约 +0.8 分 (10 分制), 与冗长偏差预测一致; FaithfulnessMetric 在长文案上的幻觉检测率反而**下降** (因 LLM judge 注意力分散), 掩盖虚构成分 -- 形成系统性失真。
@@ -75,6 +76,7 @@ NeurIPS / ACM 风格可复现清单 (≥6 项):
 - [x] **Preregistration (预注册)**: 本研究假设 (GEval 冗长偏差在长文案上放大, FaithfulnessMetric 检测率下降) 在 OSF 预注册 (hypothesis 声明), 数据收集前锁定分析计划; 本单元 notes.md "2026 前沿补充" 节的因果阶梯定位 (L1 关联, 不替代 L2 干预) 作为预注册理论框架。
 - [x] **FAIR (数据可发现/可访问/可互操作/可重用)**: LLMTestCase 以 JSON 结构化 (Findable); 通过 `data/README.md` 链接 GitHub 仓库 (Accessible); 采用 deepeval 标准 LLMTestCase schema (Interoperable); MIT License 允许重用与改编 (Reusable)。
 - [x] **CI 集成 (额外项)**: `deepeval test run` + `assert_test` 可纳入 GitHub Actions, 偏差监控自动化; 这超出 NeurIPS 最低要求, 体现本文"研究产物升级为工程产物"的贡献声明。
+- [x] **CQ-S5-1 可靠性披露 (额外项)**: 报告 synthetic/curated/recorded 数据等级、训练集泄漏检查、人工黄金集标签、重复评估方差、位置偏差、长度偏差、成本、延迟与安全失败率；若 judge 与人工黄金集一致性不足，不得将 GEval 分数作为 CI 阻断信号。
 
 ---
 

@@ -54,6 +54,8 @@
 
 **结论**：5 AT 中 4 个不参与 TLA 难过，1 个（ILO1）有中等风险已用 tutorial essay 补救。**对齐有效**。
 
+**CQ-C4-1 对齐补充**：新增 `protocol.md` 与 notes.md "最小可发表因果报告规范" 后，AT 不再只测 notebook 能否运行；Final/Poster 必须测 estimand、DAG、重叠性/正值性、协变量平衡、置信区间、power/MDE、多重检验、缺失数据、敏感性分析、业务决策阈值和环境锁文件。
+
 ---
 
 ## mastery 总览

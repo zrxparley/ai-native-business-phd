@@ -1,5 +1,7 @@
 # research.md -- Capstone Phase 4 因果实验设计与验证 · 研究产出层 (v7.0)
 
+> 质量契约：CQ-C4-1。
+
 > 本文件是 v7.0 升级新增的**研究产出层**：把 Phase 4 在真实 NSW RCT 数据 (445 行) 上做的 DoWhy 四步 + DML + 因果森林 + CUPED + 安慰剂检验工作，重构为一篇可发表/可复现的研究工件。所有数字、arXiv 链接、数据集均来自 `notes.md` 与 `reading.md`，不联网查证。
 
 ---
@@ -50,9 +52,11 @@
 - **贡献**：(1) 在 NSW 上同时跑通 DoWhy 四步 + DML + 因果森林 + CUPED + 安慰剂检验；(2) 给出 ATE=1940 CI[608, 3271]、因果森林 CATE=1811、CUPED ATE=1747、安慰剂 p=0.98 的可复现数字；(3) 用 deepeval 自定义 BaseMetric 闭环评估 Agent 因果证据使用质量。
 
 ### Methods (方法)
-- **数据**：`causaldata.nsw_mixtape` 真实 RCT (Dehejia & Wahba 1999)，n=445；处理 `treat`，结果 `re78`，前实验协变量 `re75` (CUPED 用)，协变量 age/educ/black/hisp/marr/nodegree/re74。
-- **识别策略**：DoWhy `CausalModel` 声明 DAG → `identify_effect` 后门准则 → `estimate_effect` 后门调整/PSM/DML → `refute_estimate` 安慰剂/随机混杂/子集检验。
-- **估计方法**：(1) 朴素均值差 (有偏基线)；(2) DoWhy 线性后门调整；(3) `econml.dml.LinearDML` (model_y/model_t=RandomForest, discrete_treatment=True)；(4) `econml.dml.CausalForestDML`；(5) CUPED 调整 Y_adj=Y−θ(X_pre−X̄_pre)。
+- **协议与 estimand**：正式研究先冻结 `protocol.md`；primary estimand 为 ATE = E[Y(1)-Y(0)]，secondary estimand 为按 age/nodegree/marr 等预声明子群体的 CATE。处理、结果窗口、目标人群、SUTVA 和业务决策阈值必须预声明。
+- **数据**：`causaldata.nsw_mixtape` 真实 RCT (Dehejia & Wahba 1999)，n=445；处理 `treat`，结果 `re78`，前实验协变量 `re75` (CUPED 用)，协变量 age/educ/black/hisp/marr/nodegree/re74。报告需补缺失数据、处理/对照样本数、重叠性/正值性和协变量平衡。
+- **识别策略**：DoWhy `CausalModel` 声明 DAG → `identify_effect` 后门准则 → `estimate_effect` 后门调整/PSM/DML → `refute_estimate`。发表级报告必须给 DAG 边、调整集、不可观测混杂威胁和至少 placebo/random_common_cause/data_subset 三类 sensitivity/refutation。
+- **估计方法**：(1) 朴素均值差 (有偏基线)；(2) DoWhy 线性后门调整；(3) `econml.dml.LinearDML`；(4) `econml.dml.CausalForestDML`；(5) CUPED 调整 Y_adj=Y−θ(X_pre−X̄_pre)。二值处理的 DML `model_t` 应使用分类器，若 notebook 使用回归器则必须标注为教学实现差异。
+- **统计计划**：报告 95% 置信区间、power/MDE、多重检验控制、bootstrap 次数、cross-fitting 折数、missingness 处理和业务显著阈值；p 值不能单独作为上线依据。
 - **Agent 评估**：自定义 `BaseMetric` (deepeval fallback)，规则化检验 Agent 输出是否引用 ATE/CI/CATE/反驳检验结果。
 
 ### Results (结果)
@@ -76,10 +80,10 @@ NeurIPS / ACM 风格可复现清单 (≥6 项勾选)：
 - [x] **Data (数据)**：真实 RCT 数据集 `causaldata.nsw_mixtape` (Dehejia & Wahba 1999)，n=445 行；来源 https://github.com/NickCH-K/causaldata ，PyPI https://pypi.org/project/causaldata/ ；许可见 `data/README.md` (NSW 公共领域 + causaldata MIT)。
 - [x] **Seeds (随机种子)**：`random_state=42` 全程固定 (LinearDML/CausalForestDML/RandomForest model_y/model_t/PSM 匹配)；cross-fitting cv=5 固定。
 - [x] **Environment (环境)**：Python 3.11 + econml 0.15 + dowhy 0.8 + causaldata 0.1 + scikit-learn 1.4 + deepeval 1.4；`data/README.md` 列出完整依赖与版本。
-- [x] **Preregistration (预注册)**：本单元假设在 `notes.md` 学习目标中预声明——"营销干预 (treat) 对转化 (re78) 的真实因果效应是多少？哪些群体 CATE 更大？"；可迁移为 OSF 预注册 DOI (hypothesis + estimator + 分析计划预声明)。
+- [x] **Preregistration (预注册)**：`protocol.md` 提供可审计预分析模板；notes.md 学习目标只能算教学预声明，正式研究必须在查看结果前冻结 estimand、DAG、primary/secondary endpoints、power/MDE、多重检验、缺失数据和 sensitivity 计划。
 - [x] **FAIR (数据可发现/可访问/可互操作/可重用)**：数据 Findable (causaldata GitHub+PyPI 可搜索)、Accessible (pip install 一行获取)、Interoperable (DataFrame 标准格式，列名 treat/re74/re75/re78/age/educ 跨研究通用)、Reusable (MIT 许可 + Dehejia-Wahba 1999 文档完整)。
 - [x] **Reproduction script (复现脚本)**：`solution.ipynb` 从 `from causaldata import nsw_mixtape` 到 `refute_estimate` 全链路可一键 Run All；`verify_unit.py` 7/7 + `verify_v6_unit.py` 5/5 + `verify_v7_unit.py` 3/3 = 15/15 自动验收。
-- [x] **Statistical reporting (统计报告)**：所有 ATE/CATE 报告点估计 + 95% CI + p 值 (安慰剂 p=0.98)；DML CI [608, 3271] 不含零；CUPED 报告方差缩减比例。
+- [x] **Statistical reporting (统计报告)**：所有 ATE/CATE 报告点估计 + 95% CI + p 值 (安慰剂 p=0.98)；DML CI [608, 3271] 不含零；CUPED 报告方差缩减比例。发表级版本还必须补 MDE/power、多重检验、缺失数据、重叠性/正值性、协变量平衡和敏感性分析矩阵。
 
 ---
 

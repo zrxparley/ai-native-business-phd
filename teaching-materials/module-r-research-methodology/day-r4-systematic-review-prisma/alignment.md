@@ -45,6 +45,8 @@ framework: Biggs constructive alignment + mastery threshold
 
 **判定**：6/6 ILO 均有 TLA 训练，Feed Up 通过。若新增 ILO7"能独立设计 PRISMA 综述研究问题"，需补 TLA（当前缺）。
 
+**CQ-R4-1 对齐补充**：新增 `protocol.md` 后，ILO7 不再缺位；TLA 由 notes.md "预注册、偏倚与证据确定性"、practice.md proposal/final 和 research.md reproducibility_checklist 共同训练，AT 为协议摘要、双人独立筛选记录、RoB proxy 限制说明、报告偏倚与证据确定性表。
+
 ### 自检2 (Feed Back): AT 是否测量 ILO？
 
 逐条核对：每个 AT 是否真正测量对应 ILO，而非测量其他？

@@ -7,6 +7,8 @@ algorithm: Ericsson deliberate practice + MIT pset0 + CS230 progressive project 
 
 # practice.md - Capstone Phase 4 因果实验设计 · 刻意练习
 
+> 质量契约：CQ-C4-1（可发表 causal evidence pack）。
+
 > 本文件遵循 Ericsson 刻意练习原则（拆子技能 + 即时反馈 + 重复到自动化），融合 MIT pset0 先测、CS230 渐进交付、Harvard Worked-Faded 示范-填空-独立解三阶段。所有 drill 反馈规则均**领域特定**，引用 NSW RCT / DoWhy / econml / CUPED / deepeval 真实库与数据。
 
 ---
@@ -115,9 +117,9 @@ algorithm: Ericsson deliberate practice + MIT pset0 + CS230 progressive project 
 
 | 阶段 | 交付物 | 字数/代码量 | 占分 |
 |------|--------|------------|------|
-| **Proposal**（Day 1） | 选定 NSW 子群体或营销映射场景，写因果问题陈述 + DAG 草图 | 300 字 + 1 张 DAG | 10% |
+| **Proposal**（Day 1） | 选定 NSW 子群体或营销映射场景，写因果问题陈述 + DAG 草图 + protocol 摘要（estimand/业务决策阈值/缺失数据计划） | 300 字 + 1 张 DAG | 10% |
 | **Milestone**（Day 3） | TODO1-4 跑通（数据加载 + 朴素估计 + DoWhy 四步 + CUPED） | starter.ipynb 4 格 | 30% |
-| **Final**（Day 5） | TODO5-7 跑通（DML + 因果森林 + Agent BaseMetric） | starter.ipynb 全 7 格 | 40% |
+| **Final**（Day 5） | TODO5-7 跑通（DML + 因果森林 + Agent BaseMetric）并附 95% CI、power/MDE、多重检验、重叠性/正值性、协变量平衡和敏感性分析表 | starter.ipynb 全 7 格 | 40% |
 | **Poster**（Day 7） | 1 页 poster：ATE/CATE/稳健性/Agent 评估四象限 + 300 字结论 | 1 页 PDF | 20% |
 
 ---

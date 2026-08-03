@@ -6,7 +6,9 @@
 
 ## skill_target
 
-**核心可观察技能**：给定一个营销内容生成 Agent（小红书种草文案/朋友圈广告），能用 deepeval 框架独立搭建一个可纳入 CI 的评测套件，包含 (1) >=3 条 LLMTestCase 含真实轨迹；(2) 用 GEval 做 LLM-as-a-judge 端到端质量打分；(3) 用自定义 BaseMetric 做轨迹级工具调用准确率评估；(4) 用 FaithfulnessMetric 检测幻觉；(5) 用 evaluate() 跑出任务完成率/工具准确率/幻觉率三大指标。可评估标准：套件能跑通且三大指标数字合理（不是 0 或 100）+ 给出根因诊断。
+**核心可观察技能**：给定一个营销内容生成 Agent（小红书种草文案/朋友圈广告），能用 deepeval 框架独立搭建一个可纳入 CI 的评测套件，包含 (1) >=3 条 LLMTestCase 含结构化轨迹样例（教学可用 synthetic/curated，生产门禁必须用 recorded/curated 黄金集）；(2) 用 GEval 做 LLM-as-a-judge 端到端质量打分；(3) 用自定义 BaseMetric 做轨迹级工具调用准确率评估；(4) 用 FaithfulnessMetric 检测幻觉；(5) 用 evaluate() 跑出任务完成率/工具准确率/幻觉率三大指标。可评估标准：套件能跑通且三大指标数字合理（不是 0 或 100）+ 给出根因诊断。
+
+**CQ-S5-1 质量补充**：所有练习必须显式标注样例等级（教学合成 synthetic / 人工策展 curated / 生产记录 recorded），并在提交物中区分“教学 smoke test 分数”和“可用于 CI 的人工黄金集分数”。如果学生只复用 3 条 synthetic 样例，不得声称达到生产级任务完成率、幻觉率或安全失败率。
 
 ---
 
@@ -42,6 +44,7 @@
   - **阶段2 部分填空 (Faded)**：给出 criteria 骨架但留 3 个 `<FILL>`（CTA 维度/平台维度/scoring 量纲），学生填。
   - **阶段3 独立解 (Independent)**：换一个渠道（B站/抖音），从零写 criteria 并解释为什么这个 criteria 不会触发 LLM-as-judge 的"偏好长答案"偏差。
 - **feedback_rule**: 跑 `deepeval test run`，若 score 全 =1.0 或全 =0.0 → 判定 criteria 过松/过紧，回退阶段1；若 reason 包含"good"/"nice" 等空洞词 → 触发 LLM-as-judge 自我偏好自检（对照 reading.md 偏差清单）；若同 Brief 跑 3 次 score 方差 >0.15 → 判定温度过高，要求学生标注不确定性。
+- **CQ-S5-1 校准加练**：同一 criteria 至少跑 3 次重复评估；对 2 条等语义但不同长度的文案检查长度偏差，对 2 条 A/B 顺序互换的候选检查位置偏差；把人工黄金集标签与 judge 标签放入 2x2 表并报告 agreement rate。
 
 ### drill_id: D2-Trajectory
 - **difficulty**: 4
@@ -53,6 +56,7 @@
   - **阶段2 Faded**：给出类骨架但 `measure` 方法体留 5 个 `<FILL>`（遍历/对照/扣分/累加/返回 reason），学生填。
   - **阶段3 Independent**：扩展支持"参数准确性"子分（不只看工具名对不对，还看参数 dict 是否含必填字段），并解释为什么 AgentBench 8 个场景里 OS/DB 场景对参数评估更严。
 - **feedback_rule**: 用 starter.ipynb 用例2（朋友圈口红，工具选错+虚构成分）跑测，若 score >0.7 → 判定 BaseMetric 漏检（应触发 weak_loop 回退阶段1）；若 reason 没指出"该调 search 却直接生成" → 判定推理链缺失，要求学生重写 measure 的 reason 模板；若参数子分恒 =1 → 判定 expected_tools schema 过松。
+- **CQ-S5-1 轨迹加练**：不得直接信任 `trajectory[*].correct`。必须定义 `expected_trace`，包含期望工具顺序、必填参数、允许/禁止冗余调用；`reason` 要指出具体 step、缺失参数和安全影响。
 
 ### drill_id: D3-Faithfulness
 - **difficulty**: 3
@@ -64,6 +68,7 @@
   - **阶段2 Faded**：给 3 条文案但 retrieval_context 留 `<FILL>`，学生判断每条该填什么知识库片段才能让 FaithfulnessMetric 通过。
   - **阶段3 Independent**：设计一个对抗性用例（知识库不存在的问题，比如"这款精华能治痘痘吗"），观察 Agent 是否"不知道说不知道"，并解释这对应因果阶梯 L1 还是 L2。
 - **feedback_rule**: 若用例1（好轨迹）FaithfulnessMetric 报警 → 判定 retrieval_context 拼接错误，回退阶段1；若用例2（虚构"含5%烟酰胺"）通过 → 判定 threshold 过低，要求调到 0.8 重测；若所有用例 score 一致 → 判定学生没区分"检索失败"和"生成编造"两类幻觉，触发 weak_loop。
+- **CQ-S5-1 安全加练**：把每条幻觉进一步标成 unsupported claim、虚假促销、医疗/功效越界、隐私泄漏、品牌安全；最终报告安全失败率，安全失败不得被内容质量高分抵消。
 
 ### drill_id: D4-EvalBatch
 - **difficulty**: 5
@@ -75,6 +80,7 @@
   - **阶段2 Faded**：给 evaluate 调用骨架但 metrics list 留 `<FILL>`，学生组装顺序。
   - **阶段3 Independent**：写一段 300 字根因：你的营销 Agent 在哪个评估维度最差？根因是工具选择/参数/推理/幻觉？给出 1 条改进建议并预测改进后哪个指标会变（自评因果链）。
 - **feedback_rule**: 若任务完成率=100% → 判定测试集过易（无对抗性用例），要求加 1 条模糊指令用例；若工具准确率 <60% → 判定 Agent 工具路由层有问题（不是评估层问题），引导学生回 Day 2 复习工具选择 prompt；若三大指标数字无法对齐 AgentBench 报告 → 判定学生没读懂 AgentBench 8 场景与自己营销场景的差异。
+- **CQ-S5-1 工程加练**：批量结果必须同时报告样本数、Wilson 置信区间、平均成本、P50/P95 延迟、LLM judge 调用次数；CI 报告需区分 deterministic metric、LLM judge metric 和人工黄金集抽检结果。
 
 ---
 
@@ -82,7 +88,7 @@
 
 - **Proposal (Day 3 当晚)**：选 1 个真实营销 Agent（自己 Day 2 搭的 or 公开 demo），写 1 页 proposal：(a) 评估什么（端到端/轨迹/幻觉）；(b) 用哪些 deepeval 组件；(c) 测试集规模（>=10 条 LLMTestCase）；(d) 预期三大指标数字。
 - **Milestone (Day 4 课前)**：提交 `starter.ipynb` 完成的 6 个 TODO + 3 条 LLMTestCase + GEval/ToolCall/Faithfulness 三 metric 跑通的最小可运行版本。
-- **Final (Day 5 课前)**：提交 evaluate() 批量结果（>=10 条用例）+ 300 字根因分析 + 1 条改进建议 + 改进前后对比数字。
+- **Final (Day 5 课前)**：提交 evaluate() 批量结果（>=10 条 curated 用例）+ 人工黄金集校准表 + 位置偏差/长度偏差检查 + 成本/延迟/安全失败率 + 300 字根因分析 + 1 条改进建议 + 改进前后对比数字。
 - **Poster (Day 5 课上 2 分钟)**：1 张 slide，标题="我的营销 Agent 在 ___ 维度最差，根因是 ___，改进后 ___ 指标从 X 提升到 Y"。
 
 ---

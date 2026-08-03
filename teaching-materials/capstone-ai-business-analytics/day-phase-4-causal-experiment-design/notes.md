@@ -20,7 +20,7 @@
 
 ## 理论部分：精炼索引（详见独立教材）
 
-> Phase 4 的完整理论讲义见 [`../../AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md` § Phase 4](../../AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md)（4.1-4.6节，已包含混合方法评估设计/A/B测试设计/因果推断分析/定性评估设计/交付物清单）。本讲义不重复，仅做上机所需的关键回顾。
+> Phase 4 的完整理论讲义见 [`../../../AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md` § Phase 4](../../../AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md)（4.1-4.6节，已包含混合方法评估设计/A/B测试设计/因果推断分析/定性评估设计/交付物清单）。本讲义不重复，仅做上机所需的关键回顾。
 
 ### 关键回顾 1：解释性序列设计（混合方法）
 
@@ -99,6 +99,26 @@ NSW数据是职业培训，但因果结构与营销问题同构：
 7. **TODO7**：Agent因果证据评估--自定义BaseMetric评估Agent输出中因果证据使用质量
 
 ---
+
+## 最小可发表因果报告规范
+
+本单元的 CQ-C4-1 质量门要求学生提交可发表的 causal evidence pack，而不是只跑出 ATE/CATE 数字。报告必须先冻结 `protocol.md`，再运行 notebook；如果分析后修改 DAG、协变量、模型或阈值，必须记录 amendment。
+
+| 规范项 | 最低要求 |
+|---|---|
+| estimand | 明确目标 estimand：NSW 教学例中为 ATE = E[Y(1)-Y(0)]；营销迁移中需说明目标人群、处理版本、结果窗口和 SUTVA 假设 |
+| DAG 与识别 | 给出 DAG 节点、边、后门调整集和不可观测混杂声明；说明为什么 `age/educ/black/hisp/marr/nodegree/re74/re75` 足以作为教学调整集 |
+| 重叠性/正值性 | 报告处理组与对照组在倾向得分上的重叠区间；若某子群体无共同支持，不允许报告该子群体 CATE |
+| 协变量平衡 | 报告处理前和调整后的 SMD 表；任一关键协变量 \|SMD\| > 0.1 时，需解释是否改用匹配、IPW 或 DML |
+| 置信区间 | ATE/CATE/CUPED 必须给点估计和 95% 置信区间；只报告 p 值不合格 |
+| power / MDE | 报告样本量、方差、目标 alpha、目标 power、minimum detectable effect；小样本 NSW 只能作为教学证据，不能声称商业上线已具备充分统计功效 |
+| 多重检验 | 预先声明 primary outcome、secondary outcomes、CATE 子群体数量和 FDR/Holm/Bonferroni 控制策略 |
+| 缺失数据 | 披露缺失率、删除/插补策略、是否因缺失导致处理组与对照组不平衡 |
+| 敏感性分析 | 至少包含 placebo、random common cause、data subset、bootstrap 或 Rosenbaum bounds；当前 notebook 的 placebo 只是最低演示，不等于完整稳健性包 |
+| 业务决策阈值 | 预设 go/no-go 规则，例如 CI 下限必须超过实施成本、CATE uplift 必须覆盖干预成本、负向子群体必须有保护策略 |
+| 环境锁文件 | 报告 Python、dowhy、econml、causaldata、scikit-learn、numpy、pandas 版本；正式交付需附 `requirements-lock.txt` 或等价环境锁文件 |
+
+可发表报告还必须说明：DML 的 `model_t` 在二值处理下应采用分类器或明确说明为何使用回归器；所有随机种子、cross-fitting 折数、bootstrap 次数、notebook 输出 hash 和 protocol 版本都要进入审计链。
 
 ## 2026前沿：DML/CUPED/因果森林/Uplift增量建模
 

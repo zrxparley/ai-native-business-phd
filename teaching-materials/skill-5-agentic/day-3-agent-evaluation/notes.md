@@ -20,7 +20,7 @@
 
 ## 理论部分：精炼索引（详见独立教材）
 
-> Day 3 的完整理论讲义见 [`../../AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md` § Day 3](../../AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md)（3.3.1–3.3.6 节，已包含评估挑战/方法论/AgentBench/指标设计/Langfuse可观测性）。本讲义不重复，仅做上机所需的关键回顾。
+> Day 3 的完整理论讲义见 [`../../../AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md` § Day 3](../../../AI原生化商业博士_独立教材_技能5_Agentic系统工程与落地.md)（3.3.1–3.3.6 节，已包含评估挑战/方法论/AgentBench/指标设计/Langfuse可观测性）。本讲义不重复，仅做上机所需的关键回顾。
 
 ### 关键回顾 1：Agent 评估的四大挑战
 
@@ -82,7 +82,7 @@
 ## 上机部分：用 deepeval 搭建营销 Agent 评测套件
 
 > 📓 **配套笔记本**：[`starter.ipynb`](./starter.ipynb)（TODO 填空版，你来做）｜ [`solution.ipynb`](./solution.ipynb)（参考答案，gated，做完再看）
-> 📊 **真实数据/库**：[`data/README.md`](./data/README.md)（deepeval 库 + 营销 Agent 真实轨迹测试用例）
+> 📊 **真实数据/库**：[`data/README.md`](./data/README.md)（deepeval 库 + 营销 Agent synthetic/curated 结构化轨迹样例；真实项目可替换为 recorded 生产轨迹）
 
 ### 为什么用真实库（deepeval）而非手写评估脚本
 
@@ -97,7 +97,7 @@ v4.0 的代码用"手写 if-else 检查输出格式"--手写评估只能做规�
 
 ### 营销映射（关键桥接）
 
-本 Day 评估一个"营销内容生成 Agent"（生成小红书种草文案/朋友圈广告），评估对象是 Agent 的**真实输出轨迹**：
+本 Day 评估一个"营销内容生成 Agent"（生成小红书种草文案/朋友圈广告），评估对象是 Agent 的**结构化输出轨迹样例**；内置样例为 synthetic/curated，真实项目应替换为 recorded 生产轨迹：
 
 | 评估维度 | 营销场景 | deepeval 实现 |
 |---------|---------|--------------|
@@ -108,12 +108,29 @@ v4.0 的代码用"手写 if-else 检查输出格式"--手写评估只能做规�
 
 ### 上机任务（6 个 TODO，见 starter.ipynb）
 
-1. **TODO1**：准备营销 Agent 真实轨迹测试数据（3个 LLMTestCase：好/坏/混合轨迹）
+1. **TODO1**：准备营销 Agent 结构化轨迹测试数据（3个 synthetic/curated LLMTestCase：好/坏/混合轨迹）
 2. **TODO2**：端到端评估--用 GEval 评估营销内容质量（品牌调性+CTA+平台适配）
 3. **TODO3**：轨迹评估--自定义 BaseMetric 评估工具调用正确性
 4. **TODO4**：幻觉检测--用 FaithfulnessMetric 检测输出是否忠于知识库
 5. **TODO5**：LLM-as-a-judge 自动评审--用 GEval criteria 实现轨迹质量自动评分
 6. **TODO6**：综合评估--用 evaluate() 运行完整测试套件，计算任务完成率/工具准确率/幻觉率
+
+---
+
+## 评估可靠性协议
+
+**CQ-S5-1 质量契约**：本单元的质量补强目标不是“更多 eval 名词”，而是让每个评分都能追溯到数据来源、人工黄金集、judge 校准和工程运行记录。
+
+1. **数据 provenance**：`data/README.md` 将样例分为教学合成（synthetic）、人工策展（curated）、生产记录（recorded）。本单元内置 3 条样例只用于教学 smoke test；正式评估必须使用 curated/recorded 样例并记录泄漏控制。
+2. **人工黄金集**：每个评估集至少抽 10 条由人工标注 `expected_output`、`expected_trace`、幻觉标签、安全标签；黄金集与 `solution.ipynb` 分离，避免答案泄漏。
+3. **LLM judge 偏差控制**：GEval 只能作为辅助信号。必须报告位置偏差（position bias）和长度偏差（length bias）：随机调换候选顺序、加入等语义不同长度对照、比较评分漂移；理论锚点见 arXiv:2306.05685。
+4. **重复评估与校准**：对同一批样例做 3 次以上重复评估，报告均值、标准差、失败样例；用人工黄金集计算 judge 与人工标签一致性（Cohen's κ 或 agreement rate）。若 κ < 0.6，不得把 judge 分数用于 CI 阻断。
+5. **置信区间**：任务完成率、工具调用准确率、幻觉率不能只报点估计；样本数 < 30 时必须报告 Wilson 置信区间，避免 3 条样例被误读成生产质量。
+6. **成本与延迟**：每条 recorded/curated case 应记录 `prompt_tokens`、`completion_tokens`、`estimated_cost_usd`、`latency_ms`，批量报告平均成本、P50/P95 延迟，并与六大指标表的目标比较。
+7. **安全失败率**：营销 Agent 额外报告 unsupported claim、虚假促销、医疗/功效越界、隐私泄漏、品牌安全五类安全失败率；安全失败一票否决，不被高内容质量分抵消。
+8. **CI 门禁**：CI 中至少运行 deterministic 轨迹指标和 notebook AST；有 API key 时再运行 LLM judge 子集。CI 报告必须区分“结构通过”“离线确定性通过”“LLM judge 通过”。
+
+2026 前沿提示：arXiv:2606.13685 代表新一代 judge 可靠性/元评估讨论进入课程更新池；任何引入该类新 judge 的迭代，都必须先过人工黄金集和重复评估协议。
 
 ---
 

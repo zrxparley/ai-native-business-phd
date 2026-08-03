@@ -87,6 +87,16 @@ pip install causaldata dowhy econml scikit-learn statsmodels
 # pip install deepeval
 ```
 
+## 环境锁与审计要求（CQ-C4-1）
+
+正式交付不能只给安装命令，必须补等价的环境锁文件：
+
+- Python 版本、操作系统、CPU/GPU 信息；
+- `causaldata`、`dowhy`、`econml`、`scikit-learn`、`statsmodels`、`numpy`、`pandas`、`deepeval` 的精确版本；
+- 随机种子、cross-fitting 折数、bootstrap 次数；
+- notebook / protocol / 输出表的 hash；
+- 若本地依赖版本与 research.md 声明不一致，报告必须优先相信锁文件与 run manifest。
+
 ---
 
 *全部链接已于2026-07-24验证存在。NSW数据通过 `causaldata` 包加载，无需手动下载。*
