@@ -5,10 +5,11 @@
 > 中文：AI原生化商业博士 · 天赋技能树课程体系（系统觉醒 × 天道推演 × WorkBuddy × Claude 生成）
 
 [![GitHub](https://img.shields.io/badge/GitHub-zrxparley/ai--native--business--phd-blue?logo=github)](https://github.com/zrxparley/ai-native-business-phd)
-[![License](https://img.shields.io/badge/license-MIT-green)](#license)
-![Version](https://img.shields.io/badge/version-v14.0-orange)
-![Days](https://img.shields.io/badge/days-66-blue)
+[![License](https://img.shields.io/badge/license-pending-lightgrey)](#license)
+![Version](https://img.shields.io/badge/version-v14.1-orange)
+![Days](https://img.shields.io/badge/days-58-blue)
 ![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
+![Golden Quality](https://img.shields.io/badge/golden%20quality-7/7-brightgreen)
 ![Papers](https://img.shields.io/badge/arXiv%20papers-258_(124%2B61%2B73)-9cf)
 
 ---
@@ -22,7 +23,7 @@
 - [Capstone](#capstone)
 - [Versions](#versions)
 - [File Structure](#file-structure)
-- [Teaching Materials (v5 -> v10)](#teaching-materials-v5--v10)
+- [Teaching Materials & Quality](#teaching-materials--quality)
 - [Quick Start](#quick-start)
 - [Tian Dao Tui Yan](#tian-dao-tui-yan)
 - [Degree Mapping](#degree-mapping)
@@ -129,7 +130,7 @@ Doctoral thesis direction: *"An AI-Native Enterprise Marketing Agent System: A C
 
 ## Versions
 
-Thirteen iterations + dual-benchmark fusion + content quality upgrade + PhD structural audit. v8.0 deliberately skipped. Latest = **v14.0**.
+Ongoing curriculum iterations covering dual-benchmark fusion, content quality, structural audit, and executable learning artifacts. v8.0 was deliberately skipped. Latest = **v14.1**.
 
 | Date | Version | Name | Highlight |
 |---|:---:|---|---|
@@ -143,14 +144,15 @@ Thirteen iterations + dual-benchmark fusion + content quality upgrade + PhD stru
 | 2026-07-26 | v6.0 | Learning science | + Ericsson deliberate practice + FSRS-6 + Biggs alignment + Oxford Socratic LLM sim, `verify_v6_unit.py` 12/12 |
 | 2026-07-26 | v7.0 | Research & industry | + research.md + industry.md (IMRaD / NeurIPS reproducibility + HBS / Imperial industry links), 15/15 |
 | 2026-07-27 | v9.0 | Frontier injection | + frontier.md × 58 units, 124 real 2025-2026 arXiv papers, `_frontier_corpus/` 13-module corpus, `verify_v9_unit.py` 17/17 *(v8 skipped)* |
-| 2026-07-27 | v10.0 | Deep-dive monographs | + 4 flagship deep-dives (scalable oversight / causal-LLM / LLM reasoning economy / agent eval), 61 papers, `verify_v10_deepdive.py` |
+| 2026-07-27 | v10.0 | Deep-dive monographs | + 4 flagship deep-dives (scalable oversight / causal-LLM / LLM reasoning economy / agent eval), 61 papers; the historical `verify_v10_deepdive.py` reference is not present in the current checkout |
 | 2026-07-28 | v11.0 | From-scratch engineering | + `from_scratch.md` × 58 units (handwritten numpy backprop / attention / agent-loop / INT8 quantization / DPO / Shapley), standalone textbook《AI工程从零构建》(12 ch · 5 flagship), `_from_scratch_map/` 13-module map, `verify_v11_unit.py` 19/19 *(fuses github.com/rohitg00/ai-engineering-from-scratch)* |
 | 2026-07-30 | v12.0 | Dual-benchmark fusion ⭐ | + 7 new standalone textbooks (E4-E8, E11, E12) aligning to Fairfield AIBA + MSc Applied AI + AEFS 503-lesson integration + 8 existing textbook extensions with AEFS cross-references, 20 standalone textbooks total (~1.55 MB) |
 | 2026-07-30 | v12.1 | Strategic canvas | + E13 战略思维画布工具集 (BLM/DSTE/五看三定/Lean Canvas/Strategy Canvas/VPC/Porter/OKR/Hoshin/North Star) + 技能4/技能2/Capstone extensions |
 | 2026-08-03 | v13.0 | Content quality upgrade ⭐ | All 22 textbooks upgraded: 2026 frontier patches (CoT/reasoning models, function calling/MCP, flow matching/Sora, VLA, RaaS) + interdisciplinary bridges (AI+Law, AI+Medicine, AI+Policy) + research pipeline (reproducibility standards, publication pipeline, registered reports) |
 | 2026-08-03 | v14.0 | PhD structural audit ⭐ | Dean-level audit & loop engineering: P0 +67 arXiv citations across 13 textbooks · P1 费曼学习法演练 unified across all 23 textbooks + 3 textbooks get full 知识问答/作业/费曼 · P2 theory depth modules (信息论/凸优化/概率图模型/变分推断, +1,285 lines) · P3 new elective E14 边缘AI与端侧智能 (2,366 lines) · P4 real dataset case studies in 9 textbooks · 23 textbooks total (~2.3 MB) |
+| 2026-08-03 | v14.1 | Golden-path quality gates ⭐ | Four high-impact outcomes (`CQ-S3-1`, `CQ-S5-1`, `CQ-R4-1`, `CQ-C4-1`) now trace across notes/practice/alignment/research; adds causal identification diagnostics, Agent-eval provenance and judge calibration, PRISMA protocol/bias controls, publishable causal-report requirements, and executable semantic regression tests |
 
-> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges. v14.0 adds PhD structural elements (arXiv citations, Feynman method, theory depth, real datasets) + new E14 Edge AI textbook.
+> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges. v14.0 adds PhD structural elements and E14 Edge AI. v14.1 begins the quality-first pass: claims, data provenance, assessment alignment, and reference answers are tested together on representative golden paths before broader rollout.
 
 ---
 
@@ -199,9 +201,9 @@ ai-native-business-phd/
 
 ---
 
-## Teaching Materials (v5 -> v11)
+## Teaching Materials & Quality
 
-Six layered upgrades, all converged. **66 Days × 19/19.**
+The repository contains **58 Day units**. The five committed unit verifiers currently pass across all 58 units; these checks primarily cover structure, alignment markers, references, and static Notebook validity.
 
 | Layer | Version | Files / Day | Verifier | Status |
 |---|:---:|---|---|:---:|
@@ -209,7 +211,7 @@ Six layered upgrades, all converged. **66 Days × 19/19.**
 | Learning science | v6.0 | +4 (practice / schedule / alignment / tutorial) | `verify_v6_unit.py` | 12/12 ✅ |
 | Research & industry | v7.0 | +2 (research / industry) | `verify_v7_unit.py` | 15/15 ✅ |
 | Frontier injection | v9.0 | +1 (frontier.md) | `verify_v9_unit.py` | 17/17 ✅ |
-| Deep-dive monographs | v10.0 | 4 standalone (`frontier-deep-dives/`) | `verify_v10_deepdive.py` | 4/4 ✅ |
+| Deep-dive monographs | v10.0 | 4 standalone (`frontier-deep-dives/`) | No committed v10 verifier in the current checkout | Manual artifacts present ⚠️ |
 | From-scratch engineering | v11.0 | +1 (from_scratch.md) + standalone textbook | `verify_v11_unit.py` | 19/19 ✅ |
 
 ```
@@ -219,7 +221,7 @@ teaching-materials/
 ├── _verifiers/                (v5-v11 unit verifiers + panorama · committed)
 ├── frontier-deep-dives/       (v10.0 flagship monographs · 4 files / 61 papers)
 ├── _shared/                   (cross-unit shared resources)
-└── <module>/day-*/            (13 modules × 58 Days · 11 files per Day)
+└── <module>/day-*/            (13 modules × 58 Days · 12 files + data/ per Day)
     ├── notes.md               (v5 lecture + v6/v7/v9/v11 appended sections)
     ├── data/ · starter.ipynb · solution.ipynb · reading.md
     ├── practice.md · schedule.json · alignment.md · tutorial.ipynb
@@ -228,7 +230,29 @@ teaching-materials/
     └── from_scratch.md        (v11 handwritten numpy from-scratch · 6 sections + verification_property)
 ```
 
-**Anti-hallucination pipeline**: corpus built upfront (arXiv search + abstract-page spot-check) → wave agents consume OFFLINE → static verifier checks arXiv ID ⊆ corpus → main-session human audit + WebFetch spot-check. 4/5 deep-dive papers independently verified at `arxiv.org/abs/`. v11.0 from-scratch layer: rohitg00 GitHub blob URLs curated in `_from_scratch_map/` upfront, wave agents consume OFFLINE, `verify_v11_unit.py` checks URL format + code `ast.parse` syntax + imports whitelist (numpy/math/re/collections/...; torch/transformers/jax/langchain forbidden), main-session cross-checks every module's links ⊆ map (zero hallucination confirmed across all 13 modules).
+**Evidence-checking pipeline**: corpus built upfront (arXiv search + abstract-page spot-check) → authors consume the frozen corpus offline → static verifier checks arXiv ID ⊆ corpus → human source audit and selected live spot-checks. The v11.0 from-scratch layer similarly checks GitHub URL format, Python `ast.parse`, and an imports whitelist. These controls detect missing or malformed references; they do **not** by themselves prove that every narrative claim is supported by its cited source.
+
+### v14.1 golden quality paths
+
+| Outcome | Representative unit | Quality gate |
+|---|---|---|
+| `CQ-S3-1` | Skill 3 · Day 1 causal basics | Distinguishes the NSW randomized benchmark from CPS observational controls; requires estimand, assumptions, overlap, negative controls, and multiple refuters |
+| `CQ-S5-1` | Skill 5 · Day 3 Agent evaluation | Labels synthetic/curated/recorded traces; requires a human gold set, judge-bias checks, uncertainty, cost, latency, and safety failure rates |
+| `CQ-R4-1` | Module R · PRISMA review | Freezes a review protocol and amendments; separates human screening from teaching simulation; covers within-study/reporting bias, evidence certainty, and automation disclosure |
+| `CQ-C4-1` | Capstone · Phase 4 | Requires a causal evidence pack with estimand, DAG, overlap/balance, confidence intervals, power/MDE, multiple testing, missingness, sensitivity analysis, and a business decision threshold |
+
+The regression contract is implemented in [`tests/test_golden_content_quality.py`](tests/test_golden_content_quality.py):
+
+```bash
+python3 -m unittest -v tests.test_golden_content_quality
+```
+
+Current verification snapshot:
+
+- Golden quality contracts: **7/7 passed**.
+- Existing unit verifiers: **58 units × 5 scripts = 290/290 runs passed**.
+- Golden-path Notebook static check: **12/12 JSON + Python AST passed**.
+- Clean execution is not yet guaranteed: the full dependency environment (`causaldata`, `dowhy`, `econml`, `deepeval`, and others) is not locked, and repository-wide Notebook clean-run remains a follow-up quality gate.
 
 ---
 
@@ -328,7 +352,7 @@ Aligned to an **AI + Business Analytics master's** curriculum (since v3.0). All 
 
 ## License
 
-MIT - maintained by the system-awakening community.
+The README previously claimed MIT, but the repository does not currently contain a `LICENSE` file. Reuse terms are therefore **pending an explicit maintainer decision**; add the chosen license and any third-party attribution notices before treating the materials as MIT-licensed.
 
 ---
 
@@ -339,4 +363,4 @@ MIT - maintained by the system-awakening community.
 ---
 
 *Generated by 系统觉醒 (system-awakening) × 天道推演 (Tian Dao Tui Yan) × WorkBuddy × Claude*
-*Last updated: 2026-08-03*
+*Last updated: 2026-08-03 · v14.1 golden-path quality gates*
