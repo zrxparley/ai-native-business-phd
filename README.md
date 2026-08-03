@@ -65,14 +65,14 @@ A five-tier talent tree (core 44-58h). Each tier unlocks the next.
 ```
 ✦ Skill 0  ->  ✦ Skill 1  ->  ✦ Skill 2  ->  ✦ Skill 3  ->  ✦ Skill 4  ->  ✦ Skill 5
  Foundations    Representation   AI-Native     Causal        Business       Agentic
- (20h)          (6h)             Arch (8h)     Inference     Model (10h)    Systems
+ (35h)          (12h)            Arch (8h)     Inference     Model (10h)    Systems
                                                 (10h)                        (14h)
 ```
 
 | # | Skill | Level · Hours | Unlocks | Core Question |
 |:--:|---|:---:|---|---|
-| 0 | **AI Business Analytics Foundations** (预科) | Intro · 20h | Awakening | Statistics & programming bedrock - don't get stuck later |
-| 1 | **Representation Engineering & Marketing Intelligence** | Intro · 6h | Skill 0 | How does AI "understand" customers, products, content? |
+| 0 | **AI Business Analytics Foundations** (预科) | Intro · 35h | Awakening | Statistics & programming bedrock - don't get stuck later |
+| 1 | **Representation Engineering & Marketing Intelligence** | Intro · 12h | Skill 0 | How does AI "understand" customers, products, content? |
 | 2 | **AI-Native Enterprise Architecture** | Mid · 8h | Skill 1 | How is the organization's "OS" rewritten by AI? |
 | 3 | **Causal Inference & Scale Experiments** | Adv · 10h | Skill 2 | From gut-feel to causal science in marketing decisions? |
 | 4 | **AI-Driven Business Model Innovation** | Expert · 10h | Skill 3 | How does AI create, deliver, capture new value? |
@@ -99,6 +99,7 @@ Pick 3 (18h). **Recommended combo C** (best fit for the maintainer's background)
 | E11 | 推荐系统与个性化营销 (Recommender Systems) ⭐ | Skill 1 + 3 |
 | E12 | 语音AI与音频处理 (Speech AI & Audio Processing) ⭐ | Skill 1 + 5 |
 | E13 | 战略思维画布工具集 (Strategic Thinking Canvas Tools) ⭐ | Skill 4 + 2 |
+| E14 | 边缘AI与端侧智能 (Edge AI & On-Device Intelligence) ⭐ | Skill 1 + 5 |
 
 > ⭐ = v4.2 新增教材，对标 Fairfield AIBA + MSc Applied AI 双维度
 
