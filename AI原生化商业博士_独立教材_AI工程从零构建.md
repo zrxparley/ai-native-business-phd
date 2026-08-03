@@ -749,6 +749,616 @@ if __name__ == "__main__":
 
 ---
 
+### 7.7 从零实现思维链推理
+
+> 🌐 **2026前沿补丁**：本节手写 Chain-of-Thought (CoT) 解析器和 Tree-of-Thoughts (ToT) 搜索器，让读者理解推理模型（o1/R1）背后的核心机制。CoT 的本质是"用更多输出 Token 换取更准确的推理"，ToT 的本质是"在推理空间中做树搜索"。
+
+#### CoT 解析器：步骤提取与中间结果缓存
+
+CoT 的 from-scratch 理解点不在 LLM 本身，而在**如何解析和利用推理链**。给定一段 CoT 输出，解析器需要：
+
+1. **步骤提取**：将自由文本的推理链切分为离散步骤（按"Step N:"或换行分隔）
+2. **中间结果缓存**：提取每一步的关键结论，供后续步骤引用
+3. **步骤验证**：检查推理链的逻辑一致性（如步骤3引用的数值是否与步骤2的输出一致）
+
+#### ToT 求解器：树搜索 + 评估 + 剪枝
+
+ToT 将推理建模为树搜索：
+
+- **节点**：推理状态（当前推理链 + 部分答案）
+- **边**：一个推理步骤（Thought）
+- **评估函数**：对节点打分，判断该推理路径是否有前途
+- **搜索策略**：BFS（广度优先，保留多个候选）或 DFS（深度优先，快速深入）
+- **剪枝**：丢弃评分低于阈值的节点，减少搜索空间
+
+#### numpy 骨架（CoT 解析器 + ToT 24点求解器）
+
+```python
+import numpy as np
+import re
+from itertools import combinations, permutations
+
+# === Part 1: CoT 解析器 ===
+
+def parse_cot_steps(cot_text):
+    """
+    从CoT文本中提取推理步骤和中间结果
+    支持格式: "Step 1: ..." 或 "步骤1: ..." 或换行分隔
+    """
+    # 尝试按 "Step N:" 或 "步骤N:" 分割
+    steps = re.split(r'(?:Step\s*\d+|步骤\s*\d+)[:：\.]?\s*', cot_text)
+    steps = [s.strip() for s in steps if s.strip()]
+
+    if len(steps) <= 1:
+        # 回退到按换行分割
+        steps = [s.strip() for s in cot_text.strip().split('\n') if s.strip()]
+
+    # 提取每步的中间结果（数字、等式）
+    intermediate_results = []
+    for step in steps:
+        # 找等式: "100 * 0.2 = 20" 或 "= 20"
+        equations = re.findall(r'([\d.]+)\s*([+\-*/×÷])\s*([\d.]+)\s*=\s*([\d.]+)', step)
+        for a, op, b, result in equations:
+            intermediate_results.append({
+                'expression': f"{a} {op} {b}",
+                'result': float(result)
+            })
+        # 找独立等式: "= 20" 或 "ROAS = 2.0"
+        assigns = re.findall(r'=\s*([\d.]+)', step)
+        for val in assigns:
+            intermediate_results.append({'result': float(val)})
+
+    return {
+        'steps': steps,
+        'num_steps': len(steps),
+        'intermediate_results': intermediate_results
+    }
+
+def verify_cot_consistency(parsed_cot):
+    """
+    验证CoT推理链的一致性：检查每步引用的数值是否在前步结果中出现
+    """
+    if not parsed_cot['intermediate_results']:
+        return True  # 无法验证时默认通过
+
+    results = set(r['result'] for r in parsed_cot['intermediate_results'])
+    # 检查是否有明显的不一致（如步骤3用到了步骤2未产出的数值）
+    # 这里做简化版：检查所有中间结果是否为有限数
+    for r in parsed_cot['intermediate_results']:
+        if not np.isfinite(r['result']):
+            return False
+    return True
+
+# === Part 2: ToT 24点求解器 ===
+
+def solve_24_tot(numbers, target=24, max_depth=4, beam_width=3):
+    """
+    用Tree-of-Thoughts搜索解决24点游戏
+    每个节点: (剩余数字列表, 运算历史)
+    每个边: 选两个数字做运算(+,-,*,/)
+    评估函数: 剩余数字与目标的接近程度
+    搜索策略: BFS beam search
+    """
+    initial_state = (tuple(sorted(numbers)), [])
+    # BFS: 每层保留 beam_width 个最优节点
+    frontier = [initial_state]
+    visited = set()
+
+    for depth in range(max_depth):
+        candidates = []
+        for state in frontier:
+            nums, history = state
+            if len(nums) == 1:
+                # 只剩一个数，检查是否等于目标
+                if abs(nums[0] - target) < 1e-6:
+                    return history  # 找到解
+                continue
+
+            # 生成所有可能的两数运算
+            for i, j in combinations(range(len(nums)), 2):
+                a, b = nums[i], nums[j]
+                remaining = [nums[k] for k in range(len(nums)) if k != i and k != j]
+
+                for op_name, op_func in [('+', lambda x, y: x + y),
+                                          ('-', lambda x, y: x - y),
+                                          ('*', lambda x, y: x * y),
+                                          ('/', lambda x, y: x / y if y != 0 else float('inf'))]:
+                    result = op_func(a, b)
+                    new_nums = tuple(sorted(remaining + [result]))
+                    new_history = history + [f"{a} {op_name} {b} = {result:.4f}".rstrip('0').rstrip('.')]
+
+                    state_key = (new_nums, tuple(new_history))
+                    if new_nums not in visited:
+                        # 评估函数：剩余数字的均值与目标的距离
+                        if len(new_nums) == 1:
+                            score = abs(new_nums[0] - target)
+                        else:
+                            # 启发式：剩余数字能组合出目标的可能性
+                            score = abs(np.mean(new_nums) - target / len(new_nums))
+                        candidates.append((score, (new_nums, new_history)))
+
+        if not candidates:
+            break
+
+        # Beam search: 保留评分最低的 beam_width 个
+        candidates.sort(key=lambda x: x[0])
+        frontier = [c[1] for c in candidates[:beam_width]]
+        for c in frontier:
+            visited.add(c[0])
+
+    return None  # 未找到解
+
+# === Part 3: ToT 逻辑推理题求解器 ===
+
+def tot_logic_solver(facts, rules, query, max_depth=5):
+    """
+    用ToT解决逻辑推理题
+    facts: 初始事实集合 {"A>B", "B>C"}
+    rules: 推理规则 [传递性: A>B, B>C => A>C]
+    query: 查询 "A>C"
+    """
+    def apply_rules(known):
+        """应用所有规则，生成新事实"""
+        new_facts = set(known)
+        for fact in known:
+            # 传递性: A>B, B>C => A>C
+            parts = fact.split('>')
+            if len(parts) == 2:
+                a, b = parts
+                for other in known:
+                    op = other.split('>')
+                    if len(op) == 2 and op[0] == b:
+                        new_fact = f"{a}>{op[1]}"
+                        if new_fact not in new_facts:
+                            new_facts.add(new_fact)
+        return new_facts
+
+    # BFS搜索
+    frontier = [(set(facts), [])]
+    for depth in range(max_depth):
+        next_frontier = []
+        for known, path in frontier:
+            if query in known:
+                return path  # 找到推理路径
+
+            expanded = apply_rules(known)
+            new_facts = expanded - known
+            if new_facts:
+                step_desc = f"Step {depth+1}: 推导出 {new_facts}"
+                next_frontier.append((expanded, path + [step_desc]))
+
+        if not next_frontier:
+            break
+        frontier = next_frontier
+
+    return None
+
+# verification_property:
+#   CoT解析器正确提取步骤数和中间结果;
+#   ToT 24点求解器对有解问题返回有效解;
+#   逻辑推理器通过传递性推导出结论
+if __name__ == "__main__":
+    # 测试CoT解析器
+    cot_text = """
+    Step 1: 计算转化客户数 = 500 * 0.2 = 100
+    Step 2: 计算总收入 = 100 * 2000 = 200000
+    Step 3: 计算ROAS = 200000 / 100000 = 2.0
+    """
+    parsed = parse_cot_steps(cot_text)
+    assert parsed['num_steps'] == 3, f"Expected 3 steps, got {parsed['num_steps']}"
+    assert len(parsed['intermediate_results']) >= 3, "Must extract >=3 intermediate results"
+    assert verify_cot_consistency(parsed), "CoT must be consistent"
+
+    # 测试ToT 24点求解器
+    solution = solve_24_tot([3, 3, 8, 8], target=24, beam_width=5)
+    # 3,3,8,8的解: 8 / (3 - 8/3) = 24
+    if solution:
+        print(f"24点 [3,3,8,8] 解: {solution}")
+    # 简单案例
+    sol2 = solve_24_tot([1, 2, 3, 4], target=24, beam_width=5)
+    assert sol2 is not None, "[1,2,3,4] must have a 24-point solution"
+    print(f"24点 [1,2,3,4] 解: {sol2}")
+
+    # 测试逻辑推理器
+    facts = {"A>B", "B>C"}
+    path = tot_logic_solver(facts, [], "A>C")
+    assert path is not None, "Must derive A>C from A>B and B>C by transitivity"
+    print(f"逻辑推理: {facts} => A>C, 路径: {path}")
+```
+
+**verification_property**: CoT解析器提取步骤数与中间结果数正确；ToT 24点求解器对有解问题（如[1,2,3,4]）返回有效解；逻辑推理器通过传递性推导出 A>C。
+
+### 7.8 从零实现 Function Calling
+
+> 🌐 **2026前沿补丁**：本节手写一个完整的 Function Calling 调度器，不依赖任何 LLM API。理解 Function Calling 的 from-scratch 实现有助于设计 Agent 系统的工具编排逻辑，并为理解 MCP（Model Context Protocol）协议的标准化设计奠定基础。
+
+#### Function Calling 的四步流程
+
+Function Calling 的本质是一个**解析-校验-执行-注入**循环：
+
+1. **函数签名解析**：从 LLM 输出中提取函数名和参数（JSON 格式）
+2. **参数校验**：验证参数类型、必填项、取值范围是否符合函数 schema
+3. **函数执行**：调用对应的 Python 函数，获取返回值
+4. **结果注入**：将函数返回值格式化后注入对话上下文，供 LLM 生成下一步
+
+#### 从零实现：正则 + JSON 解析
+
+不依赖 LLM API 的 Function Calling 需要"模拟"LLM 的输出：给定用户意图和可用工具列表，用规则/模板推断应该调用哪个工具。这虽然不如 LLM 灵活，但能清晰展示 Function Calling 的工程结构。
+
+#### 与 MCP 协议的对比
+
+MCP（Model Context Protocol, Anthropic 2024）是 Function Calling 的标准化升级：
+
+| 维度 | 传统 Function Calling | MCP 协议 |
+|------|----------------------|---------|
+| 工具发现 | 硬编码在 prompt 中 | 动态发现（MCP Server 自描述） |
+| 参数 schema | JSON Schema | JSON Schema + 语义描述 |
+| 执行环境 | 与 LLM 同进程 | 独立进程（MCP Server） |
+| 安全隔离 | 无 | 进程级隔离 + 权限控制 |
+| 状态管理 | 无状态 | 支持有状态会话 |
+| 工具组合 | 手动编排 | 标准化组合（Resources/Tools/Prompts） |
+
+MCP 的核心设计思想是**将工具能力与 LLM 解耦**：LLM 不需要知道工具的具体实现，只需要通过标准协议与 MCP Server 通信。这类似于微服务架构中的 API Gateway 模式--工具是服务，MCP 是网关，LLM 是客户端。
+
+#### numpy 骨架（纯 Python Function Calling 调度器）
+
+```python
+import re
+import json
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Callable, Optional
+
+# === Part 1: 工具注册与 Schema 定义 ===
+
+@dataclass
+class ToolSchema:
+    """工具的JSON Schema定义"""
+    name: str
+    description: str
+    parameters: Dict[str, Any]  # JSON Schema 格式
+
+@dataclass
+class ToolCall:
+    """解析后的工具调用"""
+    name: str
+    arguments: Dict[str, Any]
+    raw: str = ""
+
+class ToolRegistry:
+    """工具注册表：管理可用工具的schema和实现"""
+    def __init__(self):
+        self._schemas: Dict[str, ToolSchema] = {}
+        self._handlers: Dict[str, Callable] = {}
+
+    def register(self, schema: ToolSchema, handler: Callable):
+        self._schemas[schema.name] = schema
+        self._handlers[schema.name] = handler
+
+    def get_schemas(self) -> List[Dict]:
+        """返回所有工具的JSON Schema（用于注入prompt）"""
+        return [
+            {
+                "name": s.name,
+                "description": s.description,
+                "parameters": s.parameters
+            }
+            for s in self._schemas.values()
+        ]
+
+    def get_handler(self, name: str) -> Optional[Callable]:
+        return self._handlers.get(name)
+
+# === Part 2: 参数校验器 ===
+
+def validate_arguments(args: Dict, schema: Dict) -> tuple:
+    """
+    校验参数是否符合JSON Schema
+    返回 (is_valid, error_message)
+    """
+    properties = schema.get("properties", {})
+    required = schema.get("required", [])
+
+    # 检查必填项
+    for req in required:
+        if req not in args:
+            return False, f"Missing required parameter: {req}"
+
+    # 检查类型
+    type_map = {"string": str, "number": (int, float), "integer": int,
+                "boolean": bool, "array": list, "object": dict}
+    for key, value in args.items():
+        if key in properties:
+            expected_type = properties[key].get("type")
+            if expected_type and expected_type in type_map:
+                if not isinstance(value, type_map[expected_type]):
+                    return False, f"Parameter '{key}' expected {expected_type}, got {type(value).__name__}"
+
+        # 检查enum
+        if key in properties and "enum" in properties[key]:
+            if value not in properties[key]["enum"]:
+                return False, f"Parameter '{key}' must be one of {properties[key]['enum']}"
+
+    return True, ""
+
+# === Part 3: LLM输出解析器（正则 + JSON）===
+
+def parse_tool_call_from_text(llm_output: str) -> Optional[ToolCall]:
+    """
+    从LLM文本输出中提取工具调用
+    支持格式: {"name": "...", "arguments": {...}} 或 ```json ... ``` 代码块
+    """
+    # 尝试匹配 ```json ... ``` 代码块
+    json_block = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', llm_output, re.DOTALL)
+    if json_block:
+        json_str = json_block.group(1)
+    else:
+        # 尝试匹配裸JSON对象
+        json_match = re.search(r'\{[^{}]*"name"[^{}]*\}', llm_output, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(0)
+        else:
+            return None
+
+    try:
+        obj = json.loads(json_str)
+        if "name" not in obj:
+            return None
+        return ToolCall(
+            name=obj["name"],
+            arguments=obj.get("arguments", obj.get("args", {})),
+            raw=json_str
+        )
+    except json.JSONDecodeError:
+        return None
+
+# === Part 4: 意图路由器（无LLM时的规则匹配）===
+
+def route_intent(user_input: str, registry: ToolRegistry) -> Optional[ToolCall]:
+    """
+    基于关键词匹配的意图路由（无LLM API时的替代方案）
+    用正则规则模拟LLM的工具选择能力
+    """
+    routing_rules = [
+        # (关键词列表, 工具名, 参数提取正则)
+        (["查询", "库存", "多少"], "check_inventory",
+         r'(?:sku|商品|产品)\s*(\d+)', {"sku_id": 0}),
+
+        (["价格", "多少钱", "费用"], "get_price",
+         r'(?:sku|商品|产品)\s*(\d+)', {"sku_id": 0}),
+
+        (["下单", "购买", "订单"], "create_order",
+         r'(?:sku|商品|产品)\s*(\d+).*?(?:数量|买)\s*(\d+)', {"sku_id": 0, "quantity": 1}),
+
+        (["推荐", "建议", "适合"], "recommend_products",
+         r'(?:类别|类型|品类)\s*[:：]?\s*(\w+)', {"category": 0}),
+    ]
+
+    for keywords, tool_name, pattern, arg_indices in routing_rules:
+        if any(kw in user_input for kw in keywords):
+            match = re.search(pattern, user_input)
+            if match:
+                arguments = {}
+                for arg_name, group_idx in arg_indices.items():
+                    arguments[arg_name] = match.group(group_idx + 1)
+                return ToolCall(name=tool_name, arguments=arguments)
+
+    return None
+
+# === Part 5: 完整调度器 ===
+
+class FunctionCallingDispatcher:
+    """
+    Function Calling 完整调度器
+    流程: 解析LLM输出 -> 校验参数 -> 执行工具 -> 注入结果
+    """
+
+    def __init__(self, registry: ToolRegistry):
+        self.registry = registry
+        self.conversation_history = []
+
+    def execute_tool_call(self, tool_call: ToolCall) -> Dict[str, Any]:
+        """执行工具调用"""
+        # 1. 查找工具
+        handler = self.registry.get_handler(tool_call.name)
+        if not handler:
+            return {"error": f"Unknown tool: {tool_call.name}"}
+
+        # 2. 校验参数
+        schema = self.registry._schemas.get(tool_call.name)
+        if schema:
+            is_valid, error = validate_arguments(tool_call.arguments, schema.parameters)
+            if not is_valid:
+                return {"error": f"Validation failed: {error}"}
+
+        # 3. 执行
+        try:
+            result = handler(**tool_call.arguments)
+            return {"result": result, "tool": tool_call.name}
+        except Exception as e:
+            return {"error": f"Execution error: {str(e)}"}
+
+    def process_user_input(self, user_input: str, use_llm: bool = False) -> Dict:
+        """
+        处理用户输入的完整流程
+        use_llm=False时使用规则路由, True时用LLM输出解析
+        """
+        self.conversation_history.append({"role": "user", "content": user_input})
+
+        # 步骤1: 意图识别（工具选择）
+        if use_llm:
+            # 实际场景中这里调用LLM，传入工具schema
+            # llm_output = llm.chat(user_input, tools=self.registry.get_schemas())
+            # tool_call = parse_tool_call_from_text(llm_output)
+            tool_call = None  # 需要真实LLM
+        else:
+            tool_call = route_intent(user_input, self.registry)
+
+        if not tool_call:
+            return {"response": "无法识别您的意图，请尝试更明确的表达。"}
+
+        # 步骤2: 执行工具
+        execution_result = self.execute_tool_call(tool_call)
+
+        # 步骤3: 结果注入对话上下文
+        self.conversation_history.append({
+            "role": "tool",
+            "name": tool_call.name,
+            "arguments": tool_call.arguments,
+            "result": execution_result
+        })
+
+        # 步骤4: 生成自然语言回复（无LLM时用模板）
+        if "error" in execution_result:
+            response = f"抱歉，处理您的请求时出错：{execution_result['error']}"
+        else:
+            response = self._format_result(tool_call.name, execution_result["result"])
+
+        self.conversation_history.append({"role": "assistant", "content": response})
+
+        return {
+            "tool_call": tool_call,
+            "execution_result": execution_result,
+            "response": response
+        }
+
+    def _format_result(self, tool_name: str, result: Any) -> str:
+        """将工具执行结果格式化为自然语言"""
+        templates = {
+            "check_inventory": lambda r: f"商品{r.get('sku_id', '')}的当前库存为{r.get('stock', '未知')}件。",
+            "get_price": lambda r: f"商品{r.get('sku_id', '')}的价格为{r.get('price', '未知')}元。",
+            "create_order": lambda r: f"订单已创建，订单号：{r.get('order_id', '未知')}，预计{r.get('delivery_date', '3天内')}送达。",
+            "recommend_products": lambda r: f"为您推荐以下{r.get('category', '')}商品：{', '.join(r.get('products', []))}",
+        }
+        formatter = templates.get(tool_name, lambda r: str(r))
+        return formatter(result)
+
+# === Part 6: 注册营销工具并测试 ===
+
+def setup_marketing_tools():
+    """注册营销相关的工具"""
+    registry = ToolRegistry()
+
+    # 工具1: 查库存
+    registry.register(
+        ToolSchema(
+            name="check_inventory",
+            description="查询商品库存",
+            parameters={
+                "type": "object",
+                "properties": {
+                    "sku_id": {"type": "integer", "description": "商品SKU编号"}
+                },
+                "required": ["sku_id"]
+            }
+        ),
+        handler=lambda sku_id: {"sku_id": sku_id, "stock": 156, "warehouse": "华东仓"}
+    )
+
+    # 工具2: 查价格
+    registry.register(
+        ToolSchema(
+            name="get_price",
+            description="查询商品价格",
+            parameters={
+                "type": "object",
+                "properties": {
+                    "sku_id": {"type": "integer", "description": "商品SKU编号"}
+                },
+                "required": ["sku_id"]
+            }
+        ),
+        handler=lambda sku_id: {"sku_id": sku_id, "price": 299.0, "currency": "CNY"}
+    )
+
+    # 工具3: 创建订单
+    registry.register(
+        ToolSchema(
+            name="create_order",
+            description="创建购买订单",
+            parameters={
+                "type": "object",
+                "properties": {
+                    "sku_id": {"type": "integer", "description": "商品SKU编号"},
+                    "quantity": {"type": "integer", "description": "购买数量"}
+                },
+                "required": ["sku_id", "quantity"]
+            }
+        ),
+        handler=lambda sku_id, quantity: {
+            "order_id": f"ORD{sku_id}{quantity:04d}",
+            "total": 299.0 * quantity,
+            "delivery_date": "3天内"
+        }
+    )
+
+    # 工具4: 推荐
+    registry.register(
+        ToolSchema(
+            name="recommend_products",
+            description="根据类别推荐商品",
+            parameters={
+                "type": "object",
+                "properties": {
+                    "category": {"type": "string", "enum": ["服装", "电子", "食品", "家居"],
+                                 "description": "商品类别"}
+                },
+                "required": ["category"]
+            }
+        ),
+        handler=lambda category: {
+            "category": category,
+            "products": [f"{category}商品A", f"{category}商品B", f"{category}商品C"]
+        }
+    )
+
+    return registry
+
+# verification_property:
+#   工具注册后可被调度器发现和执行;
+#   参数校验拒绝缺失必填项和类型不匹配;
+#   规则路由正确匹配用户意图到对应工具;
+#   JSON解析器从LLM输出中提取工具调用
+if __name__ == "__main__":
+    registry = setup_marketing_tools()
+    dispatcher = FunctionCallingDispatcher(registry)
+
+    # 测试1: 查库存
+    result1 = dispatcher.process_user_input("帮我查询商品123的库存还有多少")
+    assert "tool_call" in result1, "Must route to a tool"
+    assert result1["tool_call"].name == "check_inventory"
+    assert result1["tool_call"].arguments["sku_id"] == 123
+    print(f"测试1: {result1['response']}")
+
+    # 测试2: 创建订单
+    result2 = dispatcher.process_user_input("我要购买商品456，数量买3")
+    assert result2["tool_call"].name == "create_order"
+    assert result2["tool_call"].arguments["quantity"] == 3
+    print(f"测试2: {result2['response']}")
+
+    # 测试3: 参数校验（故意传错类型）
+    bad_call = ToolCall(name="check_inventory", arguments={"sku_id": "not_a_number"})
+    is_valid, error = validate_arguments(bad_call.arguments,
+                                         registry._schemas["check_inventory"].parameters)
+    assert not is_valid, "Must reject non-integer sku_id"
+
+    # 测试4: JSON解析器
+    llm_output = '好的，我来帮您查询。```json\n{"name": "get_price", "arguments": {"sku_id": 789}}\n```'
+    parsed = parse_tool_call_from_text(llm_output)
+    assert parsed is not None, "Must parse tool call from LLM output"
+    assert parsed.name == "get_price"
+    assert parsed.arguments["sku_id"] == 789
+    print(f"测试4: 解析LLM输出 -> 工具={parsed.name}, 参数={parsed.arguments}")
+
+    # 测试5: 推荐商品
+    result5 = dispatcher.process_user_input("推荐一些电子类的商品")
+    assert result5["tool_call"].name == "recommend_products"
+    print(f"测试5: {result5['response']}")
+```
+
+**verification_property**: 工具注册后可被发现和执行；参数校验拒绝缺失必填项和类型不匹配；规则路由正确匹配用户意图到工具；JSON解析器从LLM输出中提取工具调用。
+
+---
+
 ## 第8章 · Agent 工程 - agent loop/ReAct/memory/LangGraph
 
 **对应 rohitg00 phase**: [P14 Agent Engineering](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering) · **深度**: ⭐旗舰

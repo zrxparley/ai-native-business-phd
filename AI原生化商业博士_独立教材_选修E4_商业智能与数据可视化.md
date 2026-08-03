@@ -687,6 +687,208 @@ if __name__ == '__main__':
 
 **Dash应用部署**：Dash应用可以部署在多种环境中。最简单的方式是用`gunicorn`部署在云服务器上，也可以部署在Render、Railway等PaaS平台上。对于企业内部使用，可以部署在内网服务器，通过Nginx反向代理提供访问。
 
+#### 五、自然语言转图表与AI增强分析
+
+> **2026前沿补丁**：本节聚焦LLM如何重塑商业智能的交互方式，从"拖拽式分析"进化为"对话式分析"。
+
+传统BI工具要求用户掌握查询语言（SQL/DAX）和可视化工具操作，使用门槛高。2025-2026年，LLM驱动的自然语言交互正在成为BI系统的标配能力，让非技术人员也能用自然语言进行数据分析。
+
+**1. 自然语言转查询（NL2SQL）**
+
+NL2SQL（Natural Language to SQL）用LLM将用户的自然语言问题转化为SQL查询。用户问"上季度华东区销售额最高的三个品类"，LLM自动生成对应的SQL语句。
+
+**Text-to-SQL准确率进展**：2024年Spider基准测试上，先进LLM的执行准确率已从2023年的60%提升至2026年的85%+。关键改进包括：(1)Schema-aware prompting--将数据库Schema信息注入prompt；(2)Few-shot learning--提供相似查询的示例；(3)Self-correction--LLM先生成SQL，执行后检查错误并自我修正。
+
+**2. 自然语言转图表（NL2Chart）**
+
+NL2Chart在NL2SQL的基础上进一步自动化：LLM不仅生成查询，还选择图表类型、设计配色、生成洞察。完整的NL2Chart流程：
+
+```
+用户自然语言 → LLM理解意图 → 生成SQL → 执行查询获取数据 → LLM选择图表类型 → 生成图表 → LLM生成洞察文本
+```
+
+**LLM选择图表类型的逻辑**：LLM根据用户意图和数据特征自动选择图表。当用户问"趋势如何"时选折线图，问"哪个最大"时选柱状图，问"什么构成"时选饼图或树状图，问"两个变量关系"时选散点图。这本质上是在应用前面学过的"图表选择决策树"，只不过由LLM自动执行。
+
+**工具生态**：OpenAI Code Interpreter（ChatGPT内置的数据分析能力）、Lida（微软开源的自动数据探索工具）、Plotly + LLM（用LLM生成Plotly代码）。
+
+**3. AI增强分析（Augmented Analytics）**
+
+AI增强分析是Gartner提出的概念，指用AI自动化数据分析流程中的重复性工作：
+
+| 能力 | 描述 | 传统BI对比 |
+|------|------|-----------|
+| 自动洞察发现 | AI扫描数据，主动发现异常和趋势 | 需要人工查看仪表盘发现异常 |
+| 智能解释 | 点击图表异常点，AI解释原因 | 需要分析师手动下钻分析 |
+| 预测性BI | 从描述性分析到预测性分析 | 传统BI只展示已发生的数据 |
+| 自然语言交互 | 用自然语言提问，AI回答+可视化 | 需要学习工具操作 |
+
+**4. Python实战：自然语言转图表完整流程**
+
+```python
+from openai import OpenAI
+import pandas as pd
+import sqlite3
+import json
+import plotly.express as px
+
+client = OpenAI()
+
+class NL2ChartPipeline:
+    """自然语言转图表完整Pipeline"""
+
+    def __init__(self, df, table_name='sales'):
+        """初始化：将DataFrame存入SQLite，记录Schema"""
+        self.table_name = table_name
+        self.conn = sqlite3.connect(':memory:')
+        df.to_sql(table_name, self.conn, index=False, if_exists='replace')
+        self.schema = self._get_schema(df)
+
+    def _get_schema(self, df):
+        """提取DataFrame的Schema信息"""
+        schema = {}
+        for col in df.columns:
+            schema[col] = {
+                'dtype': str(df[col].dtype),
+                'sample_values': df[col].dropna().head(3).tolist()
+            }
+        return schema
+
+    def nl2sql(self, question):
+        """自然语言转SQL"""
+        prompt = f"""
+        数据库表名：{self.table_name}
+        表结构（Schema）：
+        {json.dumps(self.schema, ensure_ascii=False, indent=2)}
+
+        用户问题："{question}"
+
+        请生成对应的SQL查询语句。要求：
+        1. 只返回SQL语句，不要解释
+        2. 使用标准SQLite语法
+        3. 如果问题涉及排序/筛选/聚合，确保SQL正确实现
+        """
+
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        sql = response.choices[0].message.content.strip()
+        # 清理可能的markdown标记
+        sql = sql.replace('```sql', '').replace('```', '').strip()
+        return sql
+
+    def execute_sql(self, sql):
+        """执行SQL查询"""
+        try:
+            result = pd.read_sql(sql, self.conn)
+            return result
+        except Exception as e:
+            return f"SQL执行错误: {e}"
+
+    def select_chart_and_generate(self, question, data):
+        """LLM选择图表类型并生成Plotly代码"""
+        prompt = f"""
+        用户问题："{question}"
+        查询结果数据（前10行）：
+        {data.head(10).to_string()}
+
+        数据列：{list(data.columns)}
+        数据行数：{len(data)}
+
+        请选择最合适的图表类型来可视化这个数据，并生成Python代码。
+        可选图表类型：bar（柱状图）, line（折线图）, scatter（散点图）,
+        pie（饼图）, heatmap（热力图）, funnel（漏斗图）
+
+        返回JSON格式：
+        {{
+            "chart_type": "选择的图表类型",
+            "reason": "选择理由",
+            "insight": "从数据中发现的关键洞察（1-2句话）"
+        }}
+        """
+
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"}
+        )
+        return json.loads(response.choices[0].message.content)
+
+    def run(self, question):
+        """完整Pipeline：自然语言 → SQL → 数据 → 图表 → 洞察"""
+        print(f"问题: {question}")
+        print("-" * 50)
+
+        # Step 1: NL2SQL
+        sql = self.nl2sql(question)
+        print(f"生成SQL: {sql}")
+
+        # Step 2: 执行查询
+        data = self.execute_sql(sql)
+        if isinstance(data, str):
+            return data
+        print(f"查询结果: {len(data)}行")
+        print(data.head())
+
+        # Step 3: 选择图表并生成洞察
+        chart_info = self.select_chart_and_generate(question, data)
+        print(f"\n图表类型: {chart_info['chart_type']}")
+        print(f"选择理由: {chart_info['reason']}")
+        print(f"关键洞察: {chart_info['insight']}")
+
+        # Step 4: 生成图表
+        chart_type = chart_info['chart_type']
+        if chart_type == 'bar':
+            fig = px.bar(data, x=data.columns[0], y=data.columns[1] if len(data.columns) > 1 else data.columns[0])
+        elif chart_type == 'line':
+            fig = px.line(data, x=data.columns[0], y=data.columns[1] if len(data.columns) > 1 else data.columns[0])
+        elif chart_type == 'scatter':
+            fig = px.scatter(data, x=data.columns[0], y=data.columns[1])
+        elif chart_type == 'pie':
+            fig = px.pie(data, names=data.columns[0], values=data.columns[1])
+        else:
+            fig = px.bar(data, x=data.columns[0], y=data.columns[1] if len(data.columns) > 1 else data.columns[0])
+
+        fig.update_layout(title=question, template='plotly_white')
+        fig.show()
+
+        return {'sql': sql, 'data': data, 'chart_info': chart_info}
+
+
+# ===== 示例使用 =====
+import numpy as np
+
+# 生成模拟营销数据
+np.random.seed(42)
+sales_data = pd.DataFrame({
+    'date': pd.date_range('2026-01-01', periods=90, freq='D'),
+    'region': np.random.choice(['华东', '华北', '华南', '西部'], 90),
+    'category': np.random.choice(['电子产品', '服装', '食品', '家居', '美妆'], 90),
+    'revenue': np.random.uniform(10000, 100000, 90).round(2),
+    'conversions': np.random.randint(50, 500, 90),
+})
+
+# 初始化Pipeline
+pipeline = NL2ChartPipeline(sales_data, table_name='sales')
+
+# 自然语言提问
+result = pipeline.run("华东区各品类的总销售额是多少？按降序排列")
+```
+
+**代码解读**：这段代码实现了从自然语言到图表的完整自动化流程。核心设计：(1)`nl2sql`方法将数据库Schema注入prompt，让LLM了解表结构；(2)`execute_sql`在SQLite中执行查询；(3)`select_chart_and_generate`让LLM根据数据特征选择图表类型并生成洞察。在生产环境中，还需要加入SQL安全检查（防止注入）、查询结果缓存、图表代码动态生成等增强功能。
+
+#### 六、跨学科桥梁：医疗BI与金融BI
+
+**医疗BI：患者流向分析**
+
+医疗行业的BI有其特殊性：数据来源复杂（HIS、EMR、LIS等多系统）、合规要求严格、分析维度独特。患者流向分析（Patient Flow Analysis）是医疗BI的核心应用：追踪患者从首诊到治愈的完整路径，识别流程瓶颈（如某科室平均等待时间过长导致患者流失）。LLM增强的医疗BI可以回答自然语言问题："上季度心内科患者的平均住院天数是多少？哪些因素与超长住院相关？"，并将结果可视化为患者流向桑基图。
+
+**金融BI：风险热力图**
+
+金融行业的BI核心是风险可视化。风险热力图将多维风险数据（地区×产品×时间）以热力图形式展示，帮助风控团队快速识别高风险区域。AI增强的金融BI可以自动发现风险异常（"某地区某产品线的违约率在过去30天异常上升"），并用LLM生成风险简报。关键合规要求：数据脱敏、审计日志、权限分级。
+
+> 💡 **售前洞察**：NL2Chart能力是BI方案中"降低使用门槛"的关键卖点。当客户的高管可以直接用自然语言问"本月哪个渠道的ROI最高"并立即看到图表，而不需要等数据团队做报表时，BI系统的使用率和价值感知会大幅提升。在售前Demo中，现场让客户用自然语言提问并实时生成图表，是最有冲击力的演示方式。
+
 ---
 
 ### Day 3：数据叙事与UI/UX设计

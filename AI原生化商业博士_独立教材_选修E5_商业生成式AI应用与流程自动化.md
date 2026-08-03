@@ -305,6 +305,186 @@ prompt = CONTENT_GEN_TEMPLATE.format(
 6. **Module 5-7**：各平台API发布（或存入草稿）
 7. **Module 8**：记录发布日志到Google Sheets
 
+#### 七、Function Calling驱动的智能自动化（2026前沿补丁）
+
+> 🌐 **跨学科桥梁**：本节连接AI工程与业务流程管理（BPM）。Function Calling将LLM从"文本生成器"升级为"流程编排器"，使自动化从"按规则执行"进化为"按意图执行"。
+
+##### 从Prompt Chaining到Function Calling：精确性的飞跃
+
+Day 1前面几节展示了用prompt chaining串联AI步骤的自动化方式（如Zapier+OpenAI的邮件回复流程）。这种方式有一个根本局限：LLM的输出是自然语言，下游模块需要用正则或二次LLM调用来解析，容易出错且不可扩展。
+
+Function Calling从根本上解决了这个问题：LLM不再以自然语言输出"我想创建一个工单"，而是直接返回结构化的工具调用请求（函数名+参数），下游模块可以直接执行。这让自动化流程的精确性从"大概对"提升到"机器可执行"。
+
+##### 结构化输出：确保LLM输出可解析
+
+**JSON Mode**：OpenAI的`response_format={"type": "json_object"}`强制LLM输出合法JSON，但不约束schema。
+
+**Structured Outputs**（2024+）：在function calling的parameters中定义JSON Schema，LLM的输出严格符合schema。这是生产环境推荐做法：
+
+```python
+from pydantic import BaseModel, Field
+from openai import OpenAI
+
+client = OpenAI()
+
+# 用Pydantic定义输出结构
+class TicketInfo(BaseModel):
+    title: str = Field(description="工单标题，简洁概括问题")
+    priority: str = Field(description="优先级", pattern="^(低|中|高|紧急)$")
+    category: str = Field(description="问题分类", pattern="^(技术|商务|售后|其他)$")
+    description: str = Field(description="问题详细描述")
+    assignee: str = Field(description="建议处理人，如不确定填'unassigned'")
+
+# 使用Structured Outputs
+response = client.beta.chat.completions.parse(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "你是客服工单分类助手。根据用户描述创建结构化工单。"},
+        {"role": "user", "content": "我们的营销系统从昨天开始无法导出报表，很急，影响月度汇报。"}
+    ],
+    response_format=TicketInfo,
+)
+
+ticket = response.choices[0].message.parsed
+print(f"标题: {ticket.title}")
+print(f"优先级: {ticket.priority}")
+print(f"分类: {ticket.category}")
+# 输出：
+# 标题: 营销系统报表导出功能异常
+# 优先级: 高
+# 分类: 技术
+```
+
+**instructor库**：第三方库`instructor`封装了上述逻辑，支持OpenAI/Anthropic/多家模型，提供更简洁的API和自动重试机制。
+
+##### 自动化流程中的工具编排
+
+Function Calling不仅仅是"调一个函数"，更强大的能力是编排多个函数的执行顺序：
+
+- **串行编排**：步骤A的输出是步骤B的输入。LLM调用工具A -> 获取结果 -> 调用工具B。适合有依赖关系的流程。
+- **并行编排**：多个工具无依赖关系，LLM通过parallel function calling一次性返回多个调用，并行执行。适合数据聚合场景。
+- **条件分支**：LLM根据中间结果决定走哪条分支。例如工单分类后，"技术"类走开发团队API，"商务"类走销售团队API。这取代了传统的if-else硬编码。
+
+##### 实操：用OpenAI Function Calling构建智能工单系统
+
+**场景**：用户用自然语言描述问题 -> LLM提取结构化信息并调用对应API -> 创建工单/分配/通知 -> 结果验证
+
+**步骤1：接收用户描述 -> LLM提取结构化信息**
+
+```python
+"""
+智能工单系统：Function Calling + 结构化输出
+依赖：pip install instructor openai pydantic
+"""
+import instructor
+from openai import OpenAI
+from pydantic import BaseModel, Field
+from typing import Literal
+
+# 用instructor包装OpenAI客户端（自动重试+schema校验）
+client = instructor.from_openai(OpenAI())
+
+# ===== 定义输出结构 =====
+class ParsedTicket(BaseModel):
+    title: str = Field(description="工单标题")
+    priority: Literal["低", "中", "高", "紧急"]
+    category: Literal["技术", "商务", "售后", "其他"]
+    description: str = Field(description="问题详细描述")
+
+# 步骤1：解析用户描述
+def parse_user_request(user_message: str) -> ParsedTicket:
+    """用LLM从自然语言提取结构化工单信息"""
+    return client.chat.completions.create(
+        model="gpt-4o",
+        response_model=ParsedTicket,
+        messages=[
+            {"role": "system", "content": "你是客服工单分类助手。根据用户描述创建结构化工单。"},
+            {"role": "user", "content": user_message}
+        ],
+    )
+```
+
+**步骤2：调用对应API（创建工单/分配/通知）**
+
+```python
+# ===== 模拟工单管理API =====
+def create_ticket(title, priority, category, description):
+    """调用工单系统API创建工单"""
+    print(f"  [API调用] 创建工单: {title} (优先级: {priority})")
+    return {"ticket_id": "TKT-2026-0042", "status": "created"}
+
+def assign_ticket(ticket_id, category):
+    """根据分类自动分配处理人"""
+    assignee_map = {"技术": "dev-team", "商务": "sales-team", "售后": "support-team", "其他": "general"}
+    assignee = assignee_map.get(category, "general")
+    print(f"  [API调用] 工单 {ticket_id} 分配给: {assignee}")
+    return {"ticket_id": ticket_id, "assignee": assignee}
+
+def notify_assignee(ticket_id, assignee, priority):
+    """通知处理人（邮件/Slack/钉钉）"""
+    print(f"  [通知] {assignee}: 新工单 {ticket_id} (优先级: {priority})")
+    return {"notification_sent": True}
+
+# 步骤2：执行工具编排
+def process_ticket(parsed: ParsedTicket) -> dict:
+    """串行执行：创建 -> 分配 -> 通知"""
+    # 创建工单
+    create_result = create_ticket(
+        parsed.title, parsed.priority, parsed.category, parsed.description
+    )
+    # 分配工单
+    assign_result = assign_ticket(create_result["ticket_id"], parsed.category)
+    # 通知处理人
+    notify_result = notify_assignee(
+        create_result["ticket_id"], assign_result["assignee"], parsed.priority
+    )
+    return {
+        "ticket": create_result,
+        "assignment": assign_result,
+        "notification": notify_result
+    }
+```
+
+**步骤3：结果验证 + 异常处理**
+
+```python
+# 步骤3：完整流程 + 异常处理
+def handle_user_request(user_message: str) -> str:
+    """完整工单处理流程"""
+    try:
+        # 步骤1：LLM解析
+        parsed = parse_user_request(user_message)
+        print(f"解析结果: {parsed.title} | {parsed.priority} | {parsed.category}")
+
+        # 步骤2：工具编排执行
+        result = process_ticket(parsed)
+
+        # 步骤3：结果验证
+        if result["ticket"]["status"] != "created":
+            return "工单创建失败，已转人工处理"
+
+        return f"工单已创建: {result['ticket']['ticket_id']}，已分配给{result['assignment']['assignee']}"
+
+    except Exception as e:
+        # 异常处理：LLM解析失败或API调用失败
+        print(f"[异常] {type(e).__name__}: {e}")
+        return f"处理失败，已转人工。错误信息: {e}"
+
+# ===== 运行示例 =====
+if __name__ == "__main__":
+    user_msg = "我们上周投放的朋友圈广告突然停了，后台显示余额充足但无法恢复，影响很大，请尽快处理！"
+    result = handle_user_request(user_msg)
+    print(f"\n最终结果: {result}")
+    # 输出：
+    # 解析结果: 朋友圈广告投放异常暂停 | 紧急 | 技术
+    #   [API调用] 创建工单: 朋友圈广告投放异常暂停 (优先级: 紧急)
+    #   [API调用] 工单 TKT-2026-0042 分配给: dev-team
+    #   [通知] dev-team: 新工单 TKT-2026-0042 (优先级: 紧急)
+    # 最终结果: 工单已创建: TKT-2026-0042，已分配给dev-team
+```
+
+> 💡 **售前价值**：当客户说"我们想建一个智能客服系统"时，你可以展示这个Function Calling工单流程，解释"传统方案需要训练NLP分类模型+编写大量if-else规则，我们的方案用一个LLM+Function Calling就实现了分类+分配+通知全流程，且新增问题类型只需修改工具定义，无需重新训练模型"。这体现了AI原生化的"简洁即强大"理念。
+
 ---
 
 ### Day 2：业务流程自动化设计

@@ -666,6 +666,298 @@ def human_review_node(state: MarketingState) -> dict:
 
 > 🔗 **延伸实践**：Agent系统工程是一个完整的工程实践领域。AEFS Phase 14（Agent工程系列，Lesson 01-42）提供了从Agent架构设计、工具调用、记忆系统、评估方法到生产部署的系统性实践课程，涵盖LangGraph、AutoGen、CrewAI等主流框架的对比和实践。参考仓库：[ai-engineering-from-scratch - Phase 14 Agent Engineering](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering)
 
+### 3.2.5 Function Calling标准化与MCP协议（2026前沿补丁）
+
+> 🌐 **跨学科桥梁**：本节连接AI工程与分布式系统设计。MCP协议借鉴了Language Server Protocol（LSP）的设计哲学--正如LSP标准化了编辑器与语言服务器的通信，MCP标准化了LLM与外部工具的通信。
+
+#### Function Calling的演进路径
+
+Agent调用外部工具的能力经历了四个阶段：
+
+**阶段1：非结构化Prompt（2022-2023）**
+
+早期做法是在prompt中描述可用工具，让LLM以自然语言输出"我想调用XX工具"，再用正则表达式解析。问题显而易见：解析不可靠、格式不统一、无法处理参数嵌套。
+
+**阶段2：JSON Schema约束（2023初）**
+
+通过在prompt中嵌入JSON Schema，要求LLM输出符合schema的JSON。这比纯文本可靠，但LLM仍可能输出不符合schema的内容，需要大量try-except处理。
+
+**阶段3：OpenAI Function Calling（2023.6+）**
+
+OpenAI在API层面原生支持function calling，LLM不再以文本输出工具调用，而是返回结构化的`tool_calls`对象。这是第一个被广泛采用的"准标准"：
+
+```python
+# OpenAI function calling核心参数
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "帮我查一下北京明天的天气"}],
+    tools=[{
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "查询指定城市的天气预报",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "city": {"type": "string", "description": "城市名称"},
+                    "date": {"type": "string", "description": "日期，格式YYYY-MM-DD"}
+                },
+                "required": ["city"]
+            }
+        }
+    }],
+    tool_choice="auto"  # auto: LLM自行决定是否调用; none: 不调用; 指定函数名: 强制调用
+)
+
+# response.choices[0].message.tool_calls 包含结构化的工具调用
+# 支持parallel function calling: 一次返回多个tool_calls
+```
+
+**Parallel Function Calling**（2024+）：模型可以一次性返回多个工具调用，Agent并行执行后统一收集结果，显著减少交互轮次。
+
+**阶段4：MCP标准化（2024.11+）**
+
+OpenAI function calling解决了"单模型单应用"的工具调用问题，但每个LLM应用的工具集成仍然是烟囱式的--为OpenAI写的工具代码无法直接用于Claude，为Claude写的工具无法用于本地模型。MCP（Model Context Protocol）旨在打破这种锁定。
+
+#### MCP（Model Context Protocol）深度剖析
+
+MCP是Anthropic于2024年11月发布的开放标准，被称为"AI领域的USB-C接口"--一个协议统一所有LLM与工具的连接方式。
+
+**三角色架构**：
+
+| 角色 | 职责 | 示例 |
+|------|------|------|
+| **Host** | 用户端应用，管理Agent生命周期和权限 | Claude Desktop / Cursor / VS Code |
+| **Client** | 协议层，Host内部为每个Server维护的连接实例 | MCP Client SDK（TS/Python） |
+| **Server** | 工具提供方，暴露具体能力给LLM使用 | filesystem-server / github-server |
+
+Host可以同时连接多个Server，每个Server独立运行，通过Client与Host通信。这种架构实现了工具的即插即用：开发一个MCP Server一次，即可被所有支持MCP的Host使用。
+
+**三类能力**：
+
+- **Tools（工具调用）**：最常用的能力类型。Server暴露可执行函数，LLM决定调用哪个函数、传入什么参数。与function calling语义一致，但发现机制是标准化的--Host通过`tools/list`请求自动获取可用工具列表，无需硬编码。
+- **Resources（数据读取）**：Server暴露只读数据源（如文件内容、数据库记录、API响应），LLM通过URI读取。与Tools的区别：Resources是"读数据"，Tools是"执行动作"。例如filesystem-server暴露文件为Resources，github-server暴露仓库信息为Resources。
+- **Prompts（模板）**：Server提供预定义的prompt模板，用户可以直接选择使用。适合封装领域专家的提示词工程成果。
+
+**传输层**：
+
+| 传输方式 | 适用场景 | 特点 |
+|---------|---------|------|
+| **stdio** | 本地工具（Host与Server同机） | 通过标准输入输出通信，延迟最低 |
+| **SSE** | 远程工具（旧版，已被Streamable HTTP取代） | Server-Sent Events，单向流 |
+| **Streamable HTTP** | 远程工具（2025标准） | 支持流式响应，兼容CDN和负载均衡 |
+
+**与传统API的核心对比**：传统API集成需要为每个API编写适配代码（认证、请求格式、响应解析），且每个LLM应用都要重复集成。MCP的标准化发现机制让工具集成变成一次性的工作--写一个MCP Server，所有支持MCP的Host都能自动发现并使用它。
+
+#### Agent工具选择策略
+
+当Agent连接大量工具时，工具选择本身成为一个工程挑战：
+
+1. **工具描述质量**：description字段是LLM选择工具的唯一依据。好的描述应包含：功能说明、适用场景、参数含义、使用限制。避免模糊描述如"处理数据"，应写"从PostgreSQL数据库查询营销数据，支持按日期范围和渠道筛选"。
+
+2. **语义匹配**：LLM通过语义相似度匹配用户意图与工具描述。工具命名和描述应覆盖用户可能的表达方式。例如用户说"查天气"和"明天会下雨吗"都应匹配到weather工具。
+
+3. **工具数量限制**：当工具过多（>20个），LLM的工具选择准确率显著下降。解决方案：分层路由--先由一个Router Agent选择工具类别，再在该类别内选择具体工具。或使用向量检索预筛工具。
+
+#### 错误处理与重试
+
+函数执行失败是Agent生产环境的常态。关键策略：
+
+- **执行失败的恢复**：捕获异常后，将错误信息反馈给LLM，让LLM决定重试、换参数、换工具或告知用户。不要简单重试相同调用。
+- **幻觉参数检测**：LLM可能生成不存在的参数值（如编造一个不存在的API端点）。在执行前用JSON Schema验证参数，对枚举类型字段做白名单校验。
+- **超时控制**：每个工具调用设置超时上限（如30秒），超时后终止并反馈给LLM。
+
+#### Python代码：用LangChain实现支持MCP的Agent
+
+以下代码展示如何用LangChain + MCP Client构建一个能动态发现和调用工具的Agent：
+
+```python
+"""
+MCP Agent示例：动态发现工具并调用
+依赖安装：pip install langchain langchain-anthropic mcp asyncio
+"""
+import asyncio
+from langchain_anthropic import ChatAnthropic
+from langchain_core.tools import StructuredTool
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+from pydantic import BaseModel, Field
+import json
+
+# ============================================================
+# 1. 定义MCP Client Wrapper：连接Server并动态发现工具
+# ============================================================
+
+class MCPToolWrapper:
+    """将MCP Server的工具包装为LangChain Tool"""
+
+    def __init__(self, server_command: list[str], server_name: str):
+        self.server_command = server_command
+        self.server_name = server_name
+        self.session = None
+        self.tools = []
+
+    async def connect(self):
+        """连接MCP Server并发现可用工具"""
+        server_params = StdioServerParameters(
+            command=self.server_command[0],
+            args=self.server_command[1:],
+            env=None
+        )
+
+        # 建立stdio连接
+        self.read, self.write, self._task = await stdio_client(server_params).__aenter__()
+        self.session = ClientSession(self.read, self.write)
+        await self.session.initialize()
+
+        # 发现工具：调用MCP标准方法tools/list
+        tools_response = await self.session.list_tools()
+        self.tools = self._convert_to_langchain_tools(tools_response.tools)
+
+        print(f"[{self.server_name}] 发现 {len(self.tools)} 个工具: "
+              f"{[t.name for t in self.tools]}")
+        return self.tools
+
+    def _convert_to_langchain_tools(self, mcp_tools):
+        """将MCP工具定义转换为LangChain StructuredTool"""
+        lc_tools = []
+        for mcp_tool in mcp_tools:
+            # 动态构建Pydantic模型作为参数schema
+            properties = mcp_tool.inputSchema.get("properties", {})
+            required = mcp_tool.inputSchema.get("required", [])
+
+            # 创建参数模型的字段定义
+            fields = {}
+            for prop_name, prop_schema in properties.items():
+                prop_type = prop_schema.get("type", "string")
+                py_type = {"string": str, "number": float,
+                           "integer": int, "boolean": bool}.get(prop_type, str)
+                desc = prop_schema.get("description", "")
+                if prop_name in required:
+                    fields[prop_name] = (py_type, Field(description=desc))
+                else:
+                    fields[prop_name] = (py_type, Field(default=None, description=desc))
+
+            # 动态创建Pydantic模型
+            ModelCls = type(f"{mcp_tool.name}_Args", (BaseModel,), fields)
+
+            # 创建LangChain Tool
+            tool = StructuredTool.from_function(
+                coroutine=lambda **kwargs: self._call_mcp_tool(mcp_tool.name, kwargs),
+                name=mcp_tool.name,
+                description=mcp_tool.description or mcp_tool.name,
+                args_schema=ModelCls,
+            )
+            lc_tools.append(tool)
+        return lc_tools
+
+    async def _call_mcp_tool(self, tool_name, arguments):
+        """通过MCP协议调用工具"""
+        result = await self.session.call_tool(tool_name, arguments=arguments)
+        # MCP返回结果为content列表，提取文本
+        if result.content:
+            return "\n".join(
+                c.text for c in result.content if hasattr(c, "text")
+            )
+        return str(result)
+
+# ============================================================
+# 2. 构建支持多MCP Server的Agent
+# ============================================================
+
+async def run_mcp_agent(user_query: str):
+    """运行MCP Agent：动态发现工具 + LLM决策 + 工具调用"""
+
+    # 连接多个MCP Server（示例使用filesystem server）
+    # 实际使用时替换为你的MCP Server命令
+    servers = [
+        # MCPToolWrapper(["npx", "@modelcontextprotocol/server-filesystem", "/tmp"]),
+        # MCPToolWrapper(["npx", "@modelcontextprotocol/server-github"]),
+        # 为演示，使用一个模拟Server
+        MCPToolWrapper(["python", "-m", "mcp_server_mock"], "mock-server"),
+    ]
+
+    all_tools = []
+    for server in servers:
+        try:
+            tools = await server.connect()
+            all_tools.extend(tools)
+        except Exception as e:
+            print(f"[WARNING] Server连接失败: {e}")
+
+    if not all_tools:
+        return "没有可用的MCP工具"
+
+    # 创建LLM并绑定工具
+    llm = ChatAnthropic(model="claude-sonnet-4-20250514", temperature=0)
+    llm_with_tools = llm.bind_tools(all_tools)
+
+    # Agent循环：LLM决策 -> 工具调用 -> 结果反馈 -> 再决策
+    messages = [{"role": "user", "content": user_query}]
+    max_iterations = 10
+
+    for i in range(max_iterations):
+        # LLM决策
+        response = await llm_with_tools.ainvoke(messages)
+        messages.append(response)
+
+        # 检查是否需要调用工具
+        if not response.tool_calls:
+            return response.content  # LLM给出最终答案
+
+        # 执行工具调用（支持并行）
+        for tool_call in response.tool_calls:
+            tool_name = tool_call["name"]
+            tool_args = tool_call["args"]
+
+            # 查找对应工具并执行
+            matching_tool = next(
+                (t for t in all_tools if t.name == tool_name), None
+            )
+            if matching_tool:
+                try:
+                    result = await matching_tool.ainvoke(tool_args)
+                    print(f"  [工具调用] {tool_name}({tool_args}) -> {result[:100]}...")
+                except Exception as e:
+                    result = f"工具执行失败: {e}"
+                    print(f"  [工具错误] {tool_name}: {e}")
+
+                # 将工具结果反馈给LLM
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call["id"],
+                    "content": str(result)
+                })
+            else:
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call["id"],
+                    "content": f"错误：工具 {tool_name} 不存在"
+                })
+
+    return "达到最大迭代次数，Agent未能完成任务"
+
+# ============================================================
+# 3. 主程序入口
+# ============================================================
+
+if __name__ == "__main__":
+    # 示例：让Agent通过MCP工具完成营销分析任务
+    query = "分析/tmp目录下的营销数据文件，总结3月 campaign的效果"
+    result = asyncio.run(run_mcp_agent(query))
+    print(f"\nAgent最终回答:\n{result}")
+```
+
+#### 安全性：工具权限与沙箱
+
+Agent拥有工具调用能力后，安全风险随之而来：
+
+- **工具权限控制**：MCP Host应实现权限白名单--哪些工具允许自动执行，哪些需要用户确认。原则：只读操作（Resources）可自动执行，写操作（创建文件、发送邮件、调用付费API）必须人工审批。
+- **敏感操作审批**：Claude Desktop的MCP实现已支持"human-in-the-loop"--对敏感工具调用弹出确认对话框，用户可以查看参数后决定是否执行。
+- **沙箱执行**：工具代码应在隔离环境中运行。Docker容器是最低要求；对不可信的MCP Server，应使用gVisor/Firecracker等强隔离方案。MCP Server的stdio传输意味着Server进程与Host在同一机器上运行，沙箱隔离不可省略。
+
+> 💡 **售前价值**：当客户问"你们的Agent怎么对接我们现有的API系统"时，MCP是2026年最前沿的答案。你可以解释："我们基于MCP标准开发工具适配器，一次开发即可适配所有主流LLM平台，无需为每个模型重新集成。这比传统的点对点API集成方式节省60%以上的开发工作量。"这个论点比"我们能对接你的API"更有技术深度。
+
 ---
 
 ## Day 3：Agent评估与Benchmarking

@@ -791,6 +791,166 @@ else:
     print(f"求解失败: {result.message}")
 ```
 
+#### 七、LLM辅助统计推断与AI优化
+
+> **2026前沿补丁**：本节探索LLM如何增强传统统计推断和优化方法，从"自动化计算"升级为"智能辅助决策"。
+
+**1. LLM辅助贝叶斯推断**
+
+贝叶斯推断的核心是先验分布（Prior）的选择，这通常依赖领域专家的经验。LLM在三个方面增强贝叶斯推断：
+
+**用LLM设定先验**：将领域知识转化为先验分布是贝叶斯建模中最主观也最困难的步骤。LLM可以阅读领域文献、分析历史数据，自动建议合理的先验分布。例如，在预测某新品类产品的转化率时，LLM可以基于行业常识建议"电商新品类的转化率通常在1%-5%之间，符合Beta(2, 50)分布"。
+
+**LLM辅助MCMC**：马尔可夫链蒙特卡洛（MCMC）的效率高度依赖提议分布（Proposal Distribution）的选择。LLM可以根据目标分布的特征，智能建议提议分布的参数，加速收敛。虽然LLM不能直接替代MCMC算法，但可以在初始化阶段提供更好的起点。
+
+**用LLM解释统计结果**：将p值、置信区间、后验分布等统计概念转化为业务语言。例如，LLM将"p=0.03，95% CI: [0.02, 0.15]"翻译为"有97%的置信度认为这个广告渠道带来了2%-15%的增量转化，最可能在8%左右"。
+
+**2. AI驱动的优化**
+
+**LLM作为优化器**：对于离散优化问题（如排班、路径规划），LLM可以通过推理直接生成候选解。虽然LLM不擅长精确数值优化，但在组合优化中可以快速生成合理方案，再用传统算法精调。
+
+**Bayesian Optimization + LLM**：贝叶斯优化（BO）用于黑盒函数优化，需要定义搜索空间。LLM可以根据问题描述建议搜索空间的范围和关键参数。例如，在超参数优化中，LLM建议"学习率应在0.0001-0.01之间，batch size应为2的幂次"。
+
+**演化算法 + LLM**：在遗传算法中，LLM可以替代随机变异操作，进行"智能变异"--根据当前解的特征，LLM生成有方向性的变异，加速收敛。这在代码优化和创意生成场景中特别有效。
+
+**3. 营销预算分配的AI增强**
+
+传统预算分配依赖线性规划或梯度下降，需要预先固定约束条件。AI增强的预算分配可以动态调整：
+
+| 方法 | 优势 | 局限 |
+|------|------|------|
+| 传统线性规划 | 精确、可解释 | 约束固定，无法适应市场变化 |
+| LLM增强 | 理解市场环境，动态调整约束 | 结果非确定性，需要验证 |
+| 强化学习 | 实时优化，从反馈中学习 | 需要大量交互数据，冷启动难 |
+
+LLM增强的预算分配流程：LLM分析市场环境（竞品动态、季节性、经济指标）-> 建议调整约束条件（如"双11前应增加社交渠道预算上限"）-> 线性规划求解 -> LLM验证结果合理性 -> 如不合理则调整约束重新求解。
+
+**4. Python实战：LLM辅助贝叶斯先验设定**
+
+```python
+from openai import OpenAI
+import numpy as np
+import pymc as pm
+import json
+
+client = OpenAI()
+
+def llm_suggest_prior(product_category, historical_data_summary):
+    """用LLM根据领域知识建议贝叶斯先验分布"""
+
+    prompt = f"""
+    你是一位营销分析专家。请根据以下信息，为一个贝叶斯模型建议先验分布。
+
+    产品类别：{product_category}
+    历史数据摘要：{json.dumps(historical_data_summary, ensure_ascii=False)}
+
+    我们要预测的参数是：该产品的转化率（conversion rate）
+
+    请建议：
+    1. prior_distribution: 先验分布类型（如Beta、Normal等）
+    2. parameters: 分布参数（如Beta的alpha和beta值）
+    3. reasoning: 选择这个先验的理由
+    4. expected_range: 预期转化率的合理范围
+
+    以JSON格式输出。
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"}
+    )
+
+    return json.loads(response.choices[0].message.content)
+
+
+def compare_bayesian_inference(observed_data, llm_prior, default_prior=(1, 1)):
+    """对比有/无LLM先验的贝叶斯推断效果"""
+
+    # 方法1：使用LLM建议的先验
+    alpha_llm, beta_llm = llm_prior
+    with pm.Model() as model_llm:
+        p = pm.Beta('conversion_rate', alpha=alpha_llm, beta=beta_llm)
+        obs = pm.Binomial('obs', n=len(observed_data), p=p,
+                          observed=np.sum(observed_data))
+        trace_llm = pm.sample(2000, tune=1000, chains=2, progressbar=False)
+
+    # 方法2：使用无信息先验 Beta(1,1) = Uniform(0,1)
+    alpha_default, beta_default = default_prior
+    with pm.Model() as model_default:
+        p = pm.Beta('conversion_rate', alpha=alpha_default, beta=beta_default)
+        obs = pm.Binomial('obs', n=len(observed_data), p=p,
+                          observed=np.sum(observed_data))
+        trace_default = pm.sample(2000, tune=1000, chains=2, progressbar=False)
+
+    # 对比结果
+    llm_mean = trace_llm.posterior['conversion_rate'].mean().values
+    llm_hdi = pm.hdi(trace_llm, hdi_prob=0.95)['conversion_rate'].values
+    default_mean = trace_default.posterior['conversion_rate'].mean().values
+    default_hdi = pm.hdi(trace_default, hdi_prob=0.95)['conversion_rate'].values
+
+    print("=== 贝叶斯推断对比 ===")
+    print(f"观测数据: {len(observed_data)}次曝光, {np.sum(observed_data)}次转化")
+    print(f"观测转化率: {np.mean(observed_data):.4f}")
+    print(f"\nLLM先验 Beta({alpha_llm}, {beta_llm}):")
+    print(f"  后验均值: {llm_mean:.4f}")
+    print(f"  95% HDI: [{llm_hdi[0]:.4f}, {llm_hdi[1]:.4f}]")
+    print(f"  区间宽度: {llm_hdi[1] - llm_hdi[0]:.4f}")
+    print(f"\n无信息先验 Beta({alpha_default}, {beta_default}):")
+    print(f"  后验均值: {default_mean:.4f}")
+    print(f"  95% HDI: [{default_hdi[0]:.4f}, {default_hdi[1]:.4f}]")
+    print(f"  区间宽度: {default_hdi[1] - default_hdi[0]:.4f}")
+    print(f"\nHDI宽度缩减: {(1 - (llm_hdi[1]-llm_hdi[0])/(default_hdi[1]-default_hdi[0])):.1%}")
+    print("（LLM先验通过引入领域知识，缩小了不确定性区间）")
+
+    return trace_llm, trace_default
+
+
+# ===== 示例使用 =====
+# 模拟历史数据摘要
+historical_summary = {
+    "category": "电商美妆类",
+    "avg_conversion_rate_history": 0.035,
+    "std_conversion_rate": 0.012,
+    "sample_size": "约5000次曝光",
+    "seasonality": "Q4转化率较高"
+}
+
+# Step 1: 用LLM建议先验
+prior_suggestion = llm_suggest_prior("美妆产品", historical_summary)
+print("LLM建议的先验分布:")
+print(json.dumps(prior_suggestion, ensure_ascii=False, indent=2))
+
+# Step 2: 生成模拟观测数据
+np.random.seed(42)
+n_exposures = 200
+true_rate = 0.04  # 真实转化率4%
+observed = np.random.binomial(1, true_rate, n_exposures)
+
+# Step 3: 对比有/无LLM先验的推断效果
+# 从LLM建议中提取先验参数
+llm_alpha = prior_suggestion.get('parameters', {}).get('alpha', 3)
+llm_beta = prior_suggestion.get('parameters', {}).get('beta', 80)
+
+trace_llm, trace_default = compare_bayesian_inference(
+    observed, (llm_alpha, llm_beta)
+)
+```
+
+**代码解读**：这段代码展示了LLM如何增强贝叶斯推断。核心逻辑：(1)`llm_suggest_prior`让LLM基于领域知识建议先验分布参数；(2)`compare_bayesian_inference`对比LLM先验和无信息先验的推断结果。关键发现：当观测数据量有限时（如200次曝光），有信息的LLM先验能显著缩小后验的置信区间（HDI），提供更精确的估计。当数据量充足时，先验的影响减弱（数据"覆盖"了先验）。这正是贝叶斯方法的核心思想：小数据时先验重要，大数据时数据主导。
+
+#### 八、跨学科桥梁：医疗统计与政策优化
+
+**医疗统计：临床试验的自适应设计**
+
+临床试验是贝叶斯方法的重要应用领域。传统临床试验使用固定设计（预先确定样本量和停止规则），而自适应设计（Adaptive Design）允许根据中期分析结果调整试验参数。LLM增强的自适应设计可以：(1)分析历史临床试验数据，建议合理的先验分布；(2)在中期分析时，LLM解释统计结果并建议是否调整样本量或停止试验；(3)自动生成临床试验报告的统计部分。FDA和NMPA都已发布自适应设计的指导原则。
+
+**政策优化：政策参数的贝叶斯优化**
+
+公共政策制定中，政策参数（如税率、补贴额度、准入门槛）的优化是一个黑盒优化问题--政策效果需要时间显现且受多重混杂因素影响。贝叶斯优化适合这类昂贵的黑盒优化：(1)用高斯过程建模政策参数与社会效果的关系；(2)用采集函数（Acquisition Function）建议下一个"最有信息量"的政策参数组合；(3)LLM分析政策环境和历史数据，为贝叶斯优化提供搜索空间建议和约束条件。典型应用：城市交通限行政策的参数优化、教育资源分配优化。
+
+> 💡 **售前洞察**：LLM辅助统计推断是面向学术型客户（高校、研究机构、政府智库）的差异化能力。当客户看到你不仅会跑统计模型，还能用LLM将领域知识转化为先验分布、自动解释统计结果，方案的可信度显著提升。关键卖点：从"纯数据驱动"到"数据+知识双轮驱动"，在小数据场景下利用领域知识弥补数据不足。
+
 ---
 
 ### Day 3：R语言基础与统计应用

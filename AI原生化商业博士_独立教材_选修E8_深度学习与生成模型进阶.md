@@ -945,6 +945,248 @@ if __name__ == "__main__":
 2. ControlNet的线稿模式比深度图模式更适合产品图构图控制
 3. 生成后的人工审核环节不可省略--确保品牌一致性和无AI痕迹
 
+#### 2.12 扩散模型前沿与视频生成
+
+> 🌐 **2026前沿补丁**：本节覆盖扩散模型在2023-2026年间的最前沿进展，从Flow Matching理论到Sora视频生成、3D生成和音乐生成。这些技术正在将AI生成能力从静态图像扩展到视频、3D和音频，为营销创意开辟全新维度。
+
+**1. Flow Matching：扩散模型的统一框架**
+
+Lipman et al. (2023) 提出Flow Matching，一种比DDPM更通用的生成框架。DDPM的本质是学习从噪声分布到数据分布的扩散过程，而Flow Matching将其推广为学习**任意两个分布之间的连续变换（流）**。
+
+Flow Matching的核心思想：
+
+给定源分布 $p_0$（如高斯噪声）和目标分布 $p_1$（如数据分布），学习一个随时间变化的速度场 $v_t(x)$，使得从 $p_0$ 出发沿着这个速度场流动能够到达 $p_1$：
+
+$$\frac{dx_t}{dt} = v_t(x_t), \quad t \in [0, 1]$$
+
+Flow Matching的训练目标是让模型预测的速度场匹配"目标速度场"：
+
+$$\mathcal{L}_{FM} = \mathbb{E}_{t, x_0, x_1} \left[ \| v_\theta(x_t, t) - (x_1 - x_0) \|^2 \right]$$
+
+其中 $x_t = (1-t)x_0 + t \cdot x_1$ 是线性插值路径。DDPM可以看作Flow Matching的一种特例（使用特定的高斯扩散路径）。
+
+**2. Rectified Flow：直线传输路径**
+
+Liu et al. (2023) 提出Rectified Flow，是Flow Matching的一种高效实现。其核心洞察是：**如果传输路径是直线，采样过程可以一步完成（或用更少的步数）**。
+
+传统DDPM的传输路径是弯曲的（从高斯噪声逐步去噪），需要数十到数百步采样。Rectified Flow通过"拉直"传输路径，使源分布到目标分布的变换尽可能接近直线，从而大幅减少采样步数（从50步降到1-4步），同时保持生成质量。
+
+Stable Diffusion 3 采用了Rectified Flow作为训练框架，在质量和速度上都有显著提升。这也是2025年后主流图像生成模型（包括FLUX、SD3.5等）的标准训练方法。
+
+**3. 视频生成模型：Sora架构分析**
+
+Sora（OpenAI, 2024）是视频生成领域的突破性模型，能够生成长达60秒的高质量视频。其核心架构是**DiT（Diffusion Transformer）**：
+
+```
+Sora架构：
+  文本提示 -> T5文本编码器 -> 文本条件嵌入
+                                ↓
+  视频帧 -> VAE编码器 -> 时空Patch Token序列 -> DiT去噪(T步) -> 去噪Token -> VAE解码器 -> 生成视频
+```
+
+**DiT（Diffusion Transformer）** 的核心创新是将U-Net替换为Transformer作为去噪网络：
+
+- **时空注意力（Spatiotemporal Attention）**：视频帧被切分为Patch Token后，DiT同时对空间维度（帧内）和时间维度（帧间）做Attention，捕获时空关联
+- **时间一致性挑战**：视频生成的最大难点是保持帧间一致性--同一物体在不同帧中的外观、运动需要连贯。DiT通过全局自注意力让所有帧的Token互相通信，自然地保持了时间一致性
+- **文本条件注入**：通过交叉注意力将文本提示注入每个DiT Block，控制生成内容
+
+**视频扩散的时间一致性挑战与解决方案**：
+
+| 挑战 | 解决方案 |
+|------|---------|
+| 物体闪烁/形变 | 全局时空注意力 + 大量视频训练数据 |
+| 运动不符合物理规律 | 物理仿真数据预训练 + 运动先验建模 |
+| 长视频生成退化 | 自回归式分块生成（先生成前几秒，再以此为条件续生成） |
+| 计算量爆炸 | 潜在空间扩散 + 混合精度训练 |
+
+**4. 可控视频生成**
+
+ControlNet的视频版本（如AnimateDiff + ControlNet）允许用骨架图、深度图或运动轨迹控制视频生成：
+
+- **运动控制**：提供关键帧的运动轨迹，模型在轨迹约束下生成连贯视频
+- **镜头语言控制**：通过文本描述镜头运动（"推镜头""摇镜头""航拍视角"），模型生成对应镜头运动
+- **风格一致性**：用参考帧或风格LoRA保持整个视频的视觉风格统一
+
+**5. 3D生成**
+
+3D内容生成是生成AI的前沿方向，主要技术路线包括：
+
+| 方法 | 核心思想 | 代表模型 | 输出 |
+|------|---------|---------|------|
+| **SDS优化** | 用2D扩散模型引导3D表示优化 | DreamFusion (2022) | NeRF/3D网格 |
+| **前馈重建** | 单张/多张图片直接前馈输出3D表示 | LRM (Large Reconstruction Model, 2023) | 3D网格/Triplane |
+| **3D高斯溅射** | 用可学习的高斯点云表示3D场景 | 3D Gaussian Splatting (2023) | 实时渲染3D场景 |
+
+**DreamFusion的SDS（Score Distillation Sampling）**：不直接训练3D模型，而是用2D扩散模型（如Imagen）作为"教师"，通过SDS损失引导3D表示（NeRF）从随机初始化优化到符合文本描述的3D物体。直觉：从不同角度渲染3D场景，用2D扩散模型评估渲染质量，梯度回传到3D参数。
+
+**LRM（Large Reconstruction Model）**：不再需要优化，直接用一个Transformer从单张图片前馈输出3D表示（Triplane表示）。推理速度从分钟级降到秒级，使实时3D重建成为可能。
+
+**6. 音乐生成：扩散模型在音频领域**
+
+扩散模型在音频/音乐生成中的应用：
+
+| 模型 | 架构 | 特点 | 营销应用 |
+|------|------|------|---------|
+| **MusicGen** (Meta) | 自回归Transformer + 声码器 | 文本描述生成音乐，支持旋律条件 | 广告BGM生成 |
+| **AudioLDM2** | 潜在扩散模型 | 在音频潜在空间做扩散，生成音效和环境音 | 品牌声音设计 |
+| **Stable Audio** | 潜在扩散 + DiT | 长音频生成（最长3分钟），音质高 | 播客片头音乐 |
+
+**7. 营销应用：AI视频广告与3D展示**
+
+| 应用场景 | 技术方案 | 价值 |
+|---------|---------|------|
+| **AI视频广告** | Sora/可灵/Runway生成产品视频 | 从脚本到视频，周期从周降到小时 |
+| **产品3D展示** | LRM/3DGS从产品图生成3D模型 | 电商360度展示，提升转化率 |
+| **品牌风格视频批量制作** | AnimateDiff + 品牌LoRA | 一致风格的多场景视频素材 |
+| **广告BGM生成** | MusicGen/AudioLDM2 | 原创版权安全的品牌音乐 |
+| **短视频营销** | 视频扩散 + 文本控制 | 社媒短视频日更内容自动生成 |
+
+> 💡 **售前洞察**：AI视频生成在2026年已从"Demo级"进入"可用级"。对于日更短视频的品牌客户，AI视频生成可将单条视频制作成本从3000元降至200元（GPU推理+人工微调）。关键选型考量：Sora/可灵质量最高但成本高（每条约10-50元），开源方案（AnimateDiff）成本低但质量需人工把关。
+
+**8. Python实战：用diffusers生成动画**
+
+```python
+"""
+使用AnimateDiff生成营销短视频动画
+依赖: pip install diffusers torch accelerate
+"""
+
+import torch
+from diffusers import MotionAdapter, AnimateDiffPipeline, DDIMScheduler
+from diffusers.utils import export_to_gif
+
+# === 1. 加载AnimateDiff ===
+# AnimateDiff是在Stable Diffusion上添加运动模块的视频生成模型
+motion_adapter = MotionAdapter.from_pretrained(
+    "guoyww/animatediff-motion-adapter-v1-5-2"
+)
+
+# 基础SD模型（选择适合产品图的模型）
+pipe = AnimateDiffPipeline.from_pretrained(
+    "emilianJR/epiCRealism",  # 写实风格基础模型
+    motion_adapter=motion_adapter,
+    torch_dtype=torch.float16,
+).to("cuda" if torch.cuda.is_available() else "cpu")
+
+# 使用DDIM调度器
+pipe.scheduler = DDIMScheduler.from_config(
+    pipe.scheduler.config,
+    beta_schedule="linear",
+    clip_sample=False,
+    timestep_spacing="linspace",
+    steps_offset=1,
+)
+
+# === 2. 生成营销动画 ===
+def generate_marketing_animation(
+    prompt,
+    negative_prompt="blurry, low quality, distorted, watermark, text",
+    num_frames=16,
+    width=512,
+    height=512,
+    steps=25,
+    guidance=7.5,
+    output_path="marketing_animation.gif"
+):
+    """
+    生成营销动画GIF
+
+    Args:
+        prompt: 场景描述（如"product rotating on white background, studio lighting"）
+        num_frames: 帧数（16帧约2秒@8fps）
+    """
+    output = pipe(
+        prompt=prompt,
+        negative_prompt=negative_prompt,
+        num_frames=num_frames,
+        width=width,
+        height=height,
+        num_inference_steps=steps,
+        guidance_scale=guidance,
+    )
+
+    frames = output.frames[0]
+    export_to_gif(frames, output_path)
+    print(f"动画已保存: {output_path} ({num_frames}帧)")
+    return output_path
+
+# === 3. 营销场景动画模板 ===
+ANIMATION_TEMPLATES = {
+    "product_rotate": (
+        "professional product photography of {product}, "
+        "slowly rotating 360 degrees, "
+        "clean white background, studio lighting, "
+        "high detail, commercial quality",
+        "blurry, low quality, distorted, text, watermark"
+    ),
+    "lifestyle_zoom": (
+        "{product} on a {scene} table, "
+        "camera slowly zooming in, "
+        "warm natural lighting, "
+        "shallow depth of field, cinematic",
+        "blurry, low quality, distorted, text"
+    ),
+    "unboxing_style": (
+        "hands opening a gift box revealing {product}, "
+        "exciting unboxing moment, "
+        "bright lighting, social media style",
+        "blurry, low quality, distorted, watermark"
+    ),
+}
+
+def generate_from_template(template_name, product, scene="modern"):
+    """使用预设模板生成营销动画"""
+    prompt, negative = ANIMATION_TEMPLATES[template_name]
+    prompt = prompt.format(product=product, scene=scene)
+
+    print(f"模板: {template_name}")
+    print(f"Prompt: {prompt}")
+
+    output_path = f"animation_{template_name}.gif"
+    generate_marketing_animation(prompt, negative, output_path=output_path)
+    return output_path
+
+# === 4. 简单动画（无GPU时的替代方案：用imageio制作帧动画）===
+def create_simple_animation_from_images(image_paths, output_path="slideshow.gif", fps=2):
+    """
+    从多张静态图片制作简单动画（无需GPU）
+    适用于已有产品图、只需制作轮播动画的场景
+
+    依赖: pip install imageio Pillow
+    """
+    import imageio.v2 as imageio
+    from PIL import Image
+
+    frames = []
+    for path in image_paths:
+        img = Image.open(path).convert('RGB')
+        img = img.resize((512, 512))
+        frames.append(np.array(img))
+
+    imageio.mimsave(output_path, frames, fps=fps, duration=1.0/fps)
+    print(f"简单动画已保存: {output_path}")
+    return output_path
+
+# 使用示例
+if __name__ == "__main__":
+    # 示例1: 用AnimateDiff生成产品旋转动画
+    # generate_from_template("product_rotate", "luxury perfume bottle")
+
+    # 示例2: 生成生活方式场景动画
+    # generate_from_template("lifestyle_zoom", "premium coffee cup", "cozy kitchen")
+
+    # 示例3: 从已有图片制作轮播动画（无需GPU）
+    import numpy as np
+    # create_simple_animation_from_images(
+    #     ["product_1.jpg", "product_2.jpg", "product_3.jpg"],
+    #     output_path="product_slideshow.gif",
+    #     fps=2
+    # )
+    pass
+```
+
+> 💡 **跨学科桥梁**：扩散模型的理论基础（随机微分方程、Score Matching）与统计物理学中的郎之万动力学（Langevin Dynamics）同源。理解这一点有助于跨学科研究者将扩散模型与统计模拟、贝叶斯推断等领域的工具建立联系。在AI+医疗领域，扩散模型已被用于医学图像合成（数据增强）和分子设计（药物发现）；在AI+科学领域，扩散模型用于天气预测和材料科学的生成式建模。
+
 ---
 
 ### Day 3：图神经网络（GNN）与前沿
