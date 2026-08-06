@@ -6,8 +6,8 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-zrxparley/ai--native--business--phd-blue?logo=github)](https://github.com/zrxparley/ai-native-business-phd)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
-![Version](https://img.shields.io/badge/version-v14.0-orange)
-![Days](https://img.shields.io/badge/days-66-blue)
+![Version](https://img.shields.io/badge/version-v18.0-orange)
+![Days](https://img.shields.io/badge/days-74-blue)
 ![Convergence](https://img.shields.io/badge/convergence-19/19-brightgreen)
 ![Papers](https://img.shields.io/badge/arXiv%20papers-258_(124%2B61%2B73)-9cf)
 
@@ -100,6 +100,7 @@ Pick 3 (18h). **Recommended combo C** (best fit for the maintainer's background)
 | E12 | 语音AI与音频处理 (Speech AI & Audio Processing) ⭐ | Skill 1 + 5 |
 | E13 | 战略思维画布工具集 (Strategic Thinking Canvas Tools) ⭐ | Skill 4 + 2 |
 | E14 | 边缘AI与端侧智能 (Edge AI & On-Device Intelligence) ⭐ | Skill 1 + 5 |
+| E15 | 查理·芒格100个思维模型与AI时代应用 (Munger's 100 Mental Models) ⭐ | Skill 4 + 3 + R |
 
 > ⭐ = v4.2 新增教材，对标 Fairfield AIBA + MSc Applied AI 双维度
 
@@ -129,7 +130,7 @@ Doctoral thesis direction: *"An AI-Native Enterprise Marketing Agent System: A C
 
 ## Versions
 
-Thirteen iterations + dual-benchmark fusion + content quality upgrade + PhD structural audit. v8.0 deliberately skipped. Latest = **v14.0**.
+Fifteen iterations + dual-benchmark fusion + content quality upgrade + PhD structural audit + canvas tools upgrade + Munger mental models + 100-tool canvas expansion + quality enhancement. v8.0 deliberately skipped. Latest = **v18.0**.
 
 | Date | Version | Name | Highlight |
 |---|:---:|---|---|
@@ -149,8 +150,12 @@ Thirteen iterations + dual-benchmark fusion + content quality upgrade + PhD stru
 | 2026-07-30 | v12.1 | Strategic canvas | + E13 战略思维画布工具集 (BLM/DSTE/五看三定/Lean Canvas/Strategy Canvas/VPC/Porter/OKR/Hoshin/North Star) + 技能4/技能2/Capstone extensions |
 | 2026-08-03 | v13.0 | Content quality upgrade ⭐ | All 22 textbooks upgraded: 2026 frontier patches (CoT/reasoning models, function calling/MCP, flow matching/Sora, VLA, RaaS) + interdisciplinary bridges (AI+Law, AI+Medicine, AI+Policy) + research pipeline (reproducibility standards, publication pipeline, registered reports) |
 | 2026-08-03 | v14.0 | PhD structural audit ⭐ | Dean-level audit & loop engineering: P0 +67 arXiv citations across 13 textbooks · P1 费曼学习法演练 unified across all 23 textbooks + 3 textbooks get full 知识问答/作业/费曼 · P2 theory depth modules (信息论/凸优化/概率图模型/变分推断, +1,285 lines) · P3 new elective E14 边缘AI与端侧智能 (2,366 lines) · P4 real dataset case studies in 9 textbooks · 23 textbooks total (~2.3 MB) |
+| 2026-08-05 | v15.0 | Canvas tools upgrade ⭐ | E13 战略思维画布工具集 full upgrade: 3-day→4-day (6h→8h), 1876→4416 lines (124KB→281KB) · New Day 3: AI治理画布(AI Ethics/Data Ethics/NIST AI RMF/EU AI Act/Model Cards) + AI Agent组织画布 + Wardley Mapping + JTBD+AI · New Day 4 sections: BLM/DSTE AI演进 + OKR 2.0 + 蓝海战略AI重构 · Strategyzer演进体系(Portfolio of Bets/Culture Map/Testing Suite/Team Alignment Canvas) · 29 tools in 速查矩阵(原14) · 16 cross-references added to 技能2/4/5 |
+| 2026-08-06 | v16.0 | Munger mental models ⭐ | New elective E15 查理·芒格100个思维模型与AI时代应用 (6h/3 days, 3538 lines/412KB) · 100 models across 8 disciplines: Math/Statistics(14) + Physics/Engineering(12) + Biology(8) + Psychology(25, incl. Munger's complete "Psychology of Human Misjudgment") + Economics(12) + Business/Strategy(10) + Decision Science(10) + Philosophy(9, incl. Munger's Latticework as capstone) · Deep AI fusion for every model · 24 standalone textbooks total (~3.0 MB) |
+| 2026-08-06 | v17.0 | 100-tool canvas expansion ⭐ | E13 战略思维画布工具集 expanded: 4-day/8h -> 7-day/14h, 4416->5852 lines (281KB->438KB) · New Day 5: 16 BMC derivative canvases + 11 strategy analysis tools (PESTLE/BCG/GE-McKinsey/Ansoff/7S/Strategy Map/Scenario Planning/Three Horizons/etc.) · New Day 6: 11 product growth tools (Kano/MoSCoW/RICE/ICE/HEART/Hook/Growth Loops/TAM-SAM-SOM/etc.) + 10 customer experience tools (Customer Journey/Service Blueprint/Persona/UX Honeycomb/Double Diamond/etc.) · New Day 7: 11 org/ops tools (RACI/DACI/Scrum/VSM/SIPOC/PDCA/DMAIC/5S/etc.) + 12 innovation tools (Six Hats/TRIZ/Cynefin/Ecosystem Map/Assumption Map/Agile Manifesto/BMC Ontology/Innovation Ambition/etc.) · 速查矩阵 expanded from 29 to 100 tools · 71 new models each with AI era application + presales insight |
+| 2026-08-06 | v18.0 | E13 quality enhancement ⭐ | E13 v6.0->v6.1: 5852->6106 lines (438KB->472KB) · Fixed formatting: Section 十七 tool numbering (1-12 -> 82-100), added --- separators in Section 十六, standardized all colons to fullwidth · Added 11 structural tables to Section 十六 tools (RACI/DACI/Eisenhower/Scrum/Business Capability Map/Operating Model Canvas/VSM/SIPOC/PDCA/DMAIC/5S) · Added 15 cross-references linking Day 5-7 tools to 技能0/2/3/4/5 + 选修E1/E2/E11/E14 · Added 6 section-level selection guide tables (选型指南) with tool comparison matrices · De-templated 8 AI时代应用 paragraphs (Business Model Wheel/4-Box/VTDF/3C/RCOV/St.Gallen/RACI/SIPOC) with tool-specific analytical concepts |
 
-> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges. v14.0 adds PhD structural elements (arXiv citations, Feynman method, theory depth, real datasets) + new E14 Edge AI textbook.
+> 📌 Start from the v4.0 standalone textbook; earlier versions are for comparison. v12.0 adds 7 new dual-benchmark textbooks and AEFS cross-references. v13.0 upgrades all 22 textbooks with 2026 frontier patches and interdisciplinary bridges. v14.0 adds PhD structural elements (arXiv citations, Feynman method, theory depth, real datasets) + new E14 Edge AI textbook. v15.0 upgrades E13 canvas tools to 4-day/8h with AI governance canvas, Agent organization canvas, Wardley Mapping, JTBD+AI, BLM/DSTE AI evolution, OKR 2.0, and Blue Ocean AI reconstruction. v16.0 adds E15 Munger's 100 Mental Models with deep AI fusion across all 100 models. v17.0 expands E13 from 29 to 100 canvas/strategy tools (4-day->7-day, +71 models including BMC derivatives, PESTLE, BCG, Ansoff, 7S, Kano, RICE, Customer Journey, Service Blueprint, RACI, Scrum, TRIZ, Cynefin, etc.). v18.0 enhances E13 with 11 structural tables for org/ops tools, 15 cross-references to other textbooks, 6 selection guide tables, and 8 de-templated AI application paragraphs.
 
 ---
 
@@ -170,7 +175,7 @@ ai-native-business-phd/
 ├── AI原生化商业博士_v4.2_融合方案_AEFS.md                   (v4.2 AEFS fusion plan)
 ├── AI原生化商业博士_v5.0_升级方案.md                        (v5.0 upgrade plan)
 │
-│  ── Standalone textbooks (research-grade, 22 + 1 capstone) ──
+│  ── Standalone textbooks (research-grade, 23 + 1 capstone + 1 Munger) ──
 │
 ├── AI原生化商业博士_独立教材_技能0_AI商业分析基础.md          (29h · prep · +Day 4.5 ML/Day 7 AI编程/NoSQL)
 ├── AI原生化商业博士_独立教材_模块R_博士研究方法论.md          (10h · research methods)
@@ -191,8 +196,9 @@ ai-native-business-phd/
 ├── AI原生化商业博士_独立教材_选修E10_Agent经济与商业模式.md  (6h · elective)
 ├── AI原生化商业博士_独立教材_选修E11_推荐系统与个性化营销.md  (6h · elective ⭐ Applied AI: RecSys)
 ├── AI原生化商业博士_独立教材_选修E12_语音AI与音频处理.md     (6h · elective ⭐ Applied AI: Speech)
-├── AI原生化商业博士_独立教材_选修E13_战略思维画布工具集.md  (6h · elective ⭐ BLM/DSTE/Canvas)
+├── AI原生化商业博士_独立教材_选修E13_战略思维画布工具集.md  (14h · elective ⭐ 100 tools: BLM/DSTE/Canvas家族/AI治理/Agent画布/Wardley/JTBD/PESTLE/BCG/7S/Kano/RICE/Customer Journey/TRIZ/Cynefin)
 ├── AI原生化商业博士_独立教材_选修E14_边缘AI与端侧智能.md   (12h · elective ⭐ Edge AI/FL/Privacy)
+├── AI原生化商业博士_独立教材_选修E15_查理芒格100个思维模型.md (6h · elective ⭐ Munger 100 Models/AI Fusion/Latticework)
 ├── AI原生化商业博士_独立教材_AI工程从零构建.md              (v11.0 · from-scratch engineering · 12 ch / 5 flagship)
 └── AI原生化商业博士_独立教材_Capstone_AI和商业分析项目.md    (capstone · +AEFS P19项目库)
 ```
@@ -339,4 +345,4 @@ MIT - maintained by the system-awakening community.
 ---
 
 *Generated by 系统觉醒 (system-awakening) × 天道推演 (Tian Dao Tui Yan) × WorkBuddy × Claude*
-*Last updated: 2026-08-03*
+*Last updated: 2026-08-05*

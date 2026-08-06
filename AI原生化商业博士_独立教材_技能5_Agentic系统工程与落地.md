@@ -161,6 +161,8 @@ Reflection特别适合内容生成类任务（文案、报告、代码），因�
 - 人工干预后继续：Agent遇到不确定情况 -> 暂停请求人工输入 -> 人工提供指导 -> 继续执行
 - 人工 veto 权：Agent完成全部流程 -> 人工最终确认 -> 发布
 
+> 🔗 **延伸学习**：AI Agent组织画布（Agent角色定义、人机协作三种模式：增强/委托/监督、Agent任务分解评分）详见选修E13《战略思维画布工具集》Day 3第二节"AI Agent组织画布"。该画布为本节的多Agent协作架构提供了角色定义工具和任务分解评分方法，可与本节的协调模式表配合使用。
+
 ### 3.1.4 Anthropic "Building Effective Agents"五种模式详解
 
 Anthropic在2024年底发布的"Building Effective Agents"一文，基于大量生产实践经验，总结了五种Agent构建模式。这是目前业界最权威的Agent工程参考。
@@ -1256,6 +1258,8 @@ langfuse.score(
 4. **关注长尾**：特别关注评分最低的5%的case，这些是系统最需要改进的地方。
 5. **评估成本控制**：LLM-as-Judge本身也消耗token，建议只对10-20%的trace自动评估，其余用规则评估。
 
+> 🔗 **延伸学习**：Agent OKR（Agent目标函数设计、Agent KR绩效指标、不做清单作为Negative Constraint）详见选修E13《战略思维画布工具集》Day 4第十节"OKR 2.0与AI驱动目标管理"。Agent OKR将本节的五维度评估指标提升为目标管理体系，"不做清单"为幻觉率、安全违规率等指标提供了负向约束的设计框架。
+
 ---
 
 ## Day 4：安全防护与对抗
@@ -1559,6 +1563,8 @@ Anthropic在AI安全领域处于行业前沿。Claude模型采用了Constitution
 
 > 🔗 **延伸实践**：AI安全是一个系统工程问题。AEFS Phase 18（安全系列）提供了从Prompt Injection攻击与防御、越狱（Jailbreak）防御、模型安全评估到红队测试自动化的系统性实践课程。参考仓库：[ai-engineering-from-scratch - Phase 18 Security](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-security)
 
+> 🔗 **延伸学习**：Agent治理画布（三层约束设计：规则层/审查层/审计层、Kill Switch协议、与BLM可审计四件套的整合）详见选修E13《战略思维画布工具集》Day 3第二节。该画布将本节的安全设计原则操作化为可落地的治理工具，Kill Switch协议为本节的"优雅降级"提供了标准化的中止机制。
+
 ### 3.4.5 模块R6嵌入：研究伦理与AI治理
 
 > 本节对应模块R6：研究伦理与AI治理
@@ -1633,6 +1639,8 @@ def check_bias(agent_output: str, protected_attributes: list) -> dict:
 | **Map** | AI系统的风险面是什么？ | Agent可能生成什么不当内容？ |
 | **Measure** | 风险如何量化？ | 幻觉率、偏见率、安全违规率是多少？ |
 | **Manage** | 如何应对风险？ | 有什么缓解措施？降级策略是什么？ |
+
+> 🔗 **延伸学习**：AI治理工具集（AI Ethics Canvas、NIST AI RMF实操化、Model Cards）详见选修E13《战略思维画布工具集》Day 3第二节。E13将本节的NIST AI RMF四步循环操作化为可填写的画布工具，并提供Model Cards模板用于Agent系统的透明性披露。
 
 ---
 
@@ -3006,6 +3014,8 @@ Step 6: 传播
   - 系统原型代码（GitHub开源）
   - 学术发表路线图
 ```
+
+> 🔗 **延伸学习**：BLM与Agent融合（BLM作为Agent对齐框架、业务生命周期驱动的Agent目标设计）详见选修E13《战略思维画布工具集》Day 3第二节。BLM为Capstone的Agent系统提供了从业务战略到Agent行为的对齐路径，可与本节的DSR六步法结合，在"目标定义"阶段嵌入BLM对齐框架。
 
 ### 3.7.3 论文草稿写作工作坊
 
